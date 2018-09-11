@@ -91,6 +91,26 @@ class market_income_plus_pensions(Variable):
         return market_income_plus_pensions
 
 
+class net_market_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Net market income"
+
+    def formula(household, period):
+        market_income_plus_pensions = household('market_income_plus_pensions', period)
+        direct_taxes = household('direct_taxes', period)
+        contributions_health = household('contributions_health', period)
+
+        net_market_income = (
+            market_income_plus_pensions
+            - direct_taxes
+            + contributions_health
+            )
+        return net_market_income
+
+
+
 class other_income(Variable):
     value_type = float
     entity = Household
