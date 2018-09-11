@@ -11,26 +11,95 @@ from openfisca_ceq.entities import *
 
 
 # This variable is a pure input: it doesn't have a formula
-class salary(Variable):
+
+
+class alimony(Variable):
     value_type = float
-    entity = Person
-    definition_period = MONTH
-    set_input = set_input_divide_by_period  # Optional attribute. Allows user to declare a salary for a year. OpenFisca will spread the yearly amount over the months contained in the year.
-    label = "Salary"
-    reference = "https://law.gov.example/salary"  # Always use the most official source
+    entity = Household
+    definition_period = YEAR
+    label = "Alimony"
 
 
-class disposable_income(Variable):
+class all_income_excluding_transfers(Variable):
     value_type = float
-    entity = Person
-    definition_period = MONTH
-    label = "Actual amount available to the person at the end of the month"
-    reference = "https://stats.gov.example/disposable_income"  # Some variables represent quantities used in economic models, and not defined by law. Always give the source of your definitions.
+    entity = Household
+    definition_period = YEAR
+    label = "Earned and Unearned Incomes of All Possible Sources and Excluding Government Transfers"
 
-    def formula(person, period, parameters):
-        return (
-            + person('salary', period)
-            + person('basic_income', period)
-            - person('income_tax', period)
-            - person('social_security_contribution', period)
+
+class autoconsumption(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Autoconsumption"
+
+
+class gifts_sales_durables(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Gifts, proceeds from sale of durables"
+
+
+class imputed_rent(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Imputed rent for owner occupied housing"
+
+
+class market_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Market income"
+
+    def formula(household, period):
+        all_income_excluding_transfers = household('all_income_excluding_transfers', period)
+        gifts_sales_durables = household('gifts_sales_durables', period)
+        alimony = household('alimony', period)
+        autoconsumption = household('autoconsumption', period)
+        imputed_rent = household('imputed_rent', period)
+        other_income = household('other_income', period)
+
+        market_income = (
+            all_income_excluding_transfers
+            + gifts_sales_durables
+            + alimony
+            + autoconsumption
+            + imputed_rent
+            + other_income
             )
+        return market_income
+
+
+class market_income_plus_pensions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Market income plus net pensions"
+
+    def formula(houshold, period):
+        market_income = houshold('market_income', period)
+        pensions = houshold('pensions', period)
+        contributions_pensions = houshold('contributions_pensions', period)
+        market_income_plus_pensions = (
+            market_income
+            + pensions
+            - contributions_pensions
+            )
+        return market_income_plus_pensions
+
+
+class other_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Other sources of income"
+
+
+class pensions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Old-age contributory pensions"
