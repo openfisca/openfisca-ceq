@@ -10,6 +10,24 @@ from openfisca_core.model_api import *
 from openfisca_ceq.entities import *
 
 
+class contributions_health(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Total contributions to social security for health"
+
+    def formula(household, period):
+        employee_contributions_health = household('employee_contributions_health', period)
+        employer_contributions_health = household('employer_contributions_health', period)
+        self_employed_contributions_health = household('self_employed_contributions_health', period)
+        contributions_health = (
+            employee_contributions_health
+            + employer_contributions_health
+            + self_employed_contributions_health
+            )
+        return contributions_health
+
+
 class contributions_pensions(Variable):
     value_type = float
     entity = Household
@@ -19,10 +37,20 @@ class contributions_pensions(Variable):
     def formula(household, period):
         employee_contributions_pensions = household('employee_contributions_pensions', period)
         employer_contributions_pensions = household('employer_contributions_pensions', period)
+        self_employed_contributions_pensions = household('self_employed_contributions_pensions', period)
         contributions_pensions = (
-            employee_contributions_pensions + employer_contributions_pensions
+            employee_contributions_pensions
+            + employer_contributions_pensions
+            + self_employed_contributions_pensions
             )
         return contributions_pensions
+
+
+class employee_contributions_health(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Employee contributions to social security for health"
 
 
 class employee_contributions_pensions(Variable):
@@ -32,6 +60,13 @@ class employee_contributions_pensions(Variable):
     label = "Employee contributions to social security for old-age pensions"
 
 
+class employer_contributions_health(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Employer contributions to social security for health"
+
+
 class employer_contributions_pensions(Variable):
     value_type = float
     entity = Household
@@ -39,7 +74,14 @@ class employer_contributions_pensions(Variable):
     label = "Employer contributions to social security for old-age pensions"
 
 
-class self_employed_contribution_old_age_pension(Variable):
+class self_employed_contributions_health(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Self-employed contributions to social security for health"
+
+
+class self_employed_contributions_pensions(Variable):
     value_type = float
     entity = Household
     definition_period = YEAR
