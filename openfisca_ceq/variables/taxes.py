@@ -17,6 +17,13 @@ class corporate_income_tax(Variable):
     label = "Corporate Income Tax"
 
 
+class customs_duties(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Customs Duties"
+
+
 class direct_taxes(Variable):
     value_type = float
     entity = Household
@@ -38,6 +45,48 @@ class direct_taxes(Variable):
             + other_taxes
             )
         return direct_taxes
+
+
+class excise_taxes(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = " Excise Taxes"
+
+
+class indirect_taxes(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Indirect taxes"
+
+    def formula(household, period):
+        value_added_tax = household('value_added_tax', period)
+        sales_tax = household('sales_tax', period)
+        excise_taxes = household('excise_taxes', period)
+        customs_duties = household('customs_duties', period)
+
+        indirect_taxes = (
+            value_added_tax
+            + sales_tax
+            + excise_taxes
+            + customs_duties
+            )
+        return indirect_taxes
+
+
+class sales_tax(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = " Sales Tax"
+
+
+class value_added_tax(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = " Value added tax (VAT)"
 
 
 class other_taxes(Variable):

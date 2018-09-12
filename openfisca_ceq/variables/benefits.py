@@ -10,52 +10,57 @@ from openfisca_core.model_api import *
 from openfisca_ceq.entities import *
 
 
-class basic_income(Variable):
-    value_type = float
-    entity = Person
-    definition_period = MONTH
-    label = "Basic income provided to adults"
-    reference = "https://law.gov.example/basic_income"  # Always use the most official source
-
-    # Since Dec 1st 2016, the basic income is provided to any adult, without considering their income.
-    def formula_2016_12(person, period, parameters):
-        age_condition = person('age', period) >= parameters(period).general.age_of_majority
-        return age_condition * parameters(period).benefits.basic_income  # This '*' is a vectorial 'if'. See https://openfisca.org/doc/coding-the-legislation/30_case_disjunction.html#simple-multiplication
-
-    # From Dec 1st 2015 to Nov 30 2016, the basic income is provided to adults who have no income.
-    # Before Dec 1st 2015, the basic income does not exist in the law, and calculating it returns its default value, which is 0.
-    def formula_2015_12(person, period, parameters):
-        age_condition = person('age', period) >= parameters(period).general.age_of_majority
-        salary_condition = person('salary', period) == 0
-        return age_condition * salary_condition * parameters(period).benefits.basic_income  # The '*' is also used as a vectorial 'and'. See https://openfisca.org/doc/coding-the-legislation/25_vectorial_computing.html#forbidden-operations-and-alternatives
-
-
-class housing_allowance(Variable):
+class cash_transfers(Variable):
     value_type = float
     entity = Household
-    definition_period = MONTH
-    label = "Housing allowance"
-    reference = "https://law.gov.example/housing_allowance"  # Always use the most official source
-    end = '2016-11-30'  # This allowance was removed on the 1st of Dec 2016. Calculating it before this date will always return the variable default value, 0.
-
-    # This allowance was introduced on the 1st of Jan 1980. Calculating it before this date will always return the variable default value, 0.
-    def formula_1980(household, period, parameters):
-        return household('rent', period) * parameters(period).benefits.housing_allowance
+    definition_period = YEAR
+    label = "Conditional and Unconditional Cash Transfers"
 
 
-# By default, you can use utf-8 characters in a variable. OpenFisca web API manages utf-8 encoding.
-class pension(Variable):
+class direct_transfers(Variable):
     value_type = float
-    entity = Person
-    definition_period = MONTH
-    label = "Pension for the elderly. Pension attribuée aux personnes âgées. تقاعد."
-    reference = [u"https://fr.wikipedia.org/wiki/Retraite_(économie)", u"https://ar.wikipedia.org/wiki/تقاعد"]
+    entity = Household
+    definition_period = YEAR
+    label = "Direct transfers (social protection)"
 
-    def formula(person, period, parameters):
-        '''
-        A person's pension depends on their birth date.
-        In French: retraite selon l'âge.
-        In Arabic: تقاعد.
-        '''
-        age_condition = person('age', period) >= parameters(period).general.age_of_retirement
-        return age_condition
+    def formula(household, pension):
+        social_assistance = household('social_assistance', period)
+        social_insurance = household('social_insurance', period)
+        direct_transfers = social_assistance + social_insurance
+        return direct_transfers
+
+
+class near_cash_transfers(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Near Cash Transfers (Food, School Uniforms, etc.)"
+
+
+class noncontributory_pensions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Noncontributory Pensions"
+
+
+class social_assistance(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Social Assistance"
+
+    def formula(houshold, period):
+        cash_transfers = houshold('cash_transfers', period)
+        noncontributory_pensions = houshold('noncontributory_pensions', period)
+        near_cash_transfers = houshold('near_cash_transfers', period)
+
+        social_assistance = cash_transfers + noncontributory_pensions + near_cash_transfers
+        return social_assistance
+
+
+class social_insurance(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Social Insurance"

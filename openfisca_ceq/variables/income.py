@@ -34,6 +34,33 @@ class autoconsumption(Variable):
     label = "Autoconsumption"
 
 
+class consumable_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Consumable income"
+
+    def formula(household, period):
+        disposable_income = household('disposable_income', period)
+        indirect_subsidies = household('indirect_subsidies', period)
+        indirect_taxes = household('indirect_taxes', period)
+        consumable_income = disposable_income + indirect_subsidies - indirect_taxes
+        return consumable_income
+
+
+class disposable_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Disposable income"
+
+    def formula(household, period):
+        net_market_income = household('net_market_income', period)
+        direct_transfers = household('direct_transfers', period)
+        disposable_income = net_market_income + direct_transfers
+        return disposable_income
+
+
 class gifts_sales_durables(Variable):
     value_type = float
     entity = Household
@@ -41,11 +68,31 @@ class gifts_sales_durables(Variable):
     label = "Gifts, proceeds from sale of durables"
 
 
+class gross_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Gross income"
+
+    def formula(household, period):
+        market_income_plus_pensions = household('market_income_plus_pensions', period)
+        direct_transfers = household('direct_transfert', period)
+        gross_income = market_income_plus_pensions + direct_transfers
+        return gross_income
+
+
 class imputed_rent(Variable):
     value_type = float
     entity = Household
     definition_period = YEAR
     label = "Imputed rent for owner occupied housing"
+
+
+class nontaxable_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Nontaxable income"
 
 
 class market_income(Variable):
@@ -110,7 +157,6 @@ class net_market_income(Variable):
         return net_market_income
 
 
-
 class other_income(Variable):
     value_type = float
     entity = Household
@@ -123,3 +169,16 @@ class pensions(Variable):
     entity = Household
     definition_period = YEAR
     label = "Old-age contributory pensions"
+
+
+class taxable_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Taxable income"
+
+    def formula(household, period):
+        gross_income = household('gross income', period)
+        nontaxable_income = household('nontaxable income', period)
+        taxable_income = gross_income - nontaxable_income
+        return taxable_income
