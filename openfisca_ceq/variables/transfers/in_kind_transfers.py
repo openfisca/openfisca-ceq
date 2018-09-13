@@ -17,16 +17,19 @@ class in_kind_transfers(Variable):
     label = "Government in-kind transfers"
 
     def formula(household, period):
-
-
+        education_net_transfers = household('education_net_transfers', period)
+        health_net_transfers = household('health_net_transfers', period)
+        housing_transfers = household('housing_transfers', period)
         in_kind_transfers = (
             education_net_transfers
             + health_net_transfers
             + housing_transfers
             )
+        return in_kind_transfers
 
 
-class education_net_transfers(Variable):value_type = float
+class education_net_transfers(Variable):
+    value_type = float
     entity = Household
     definition_period = YEAR
     label = "Education in-kind transfers net of school fees"
@@ -71,13 +74,11 @@ class health_net_transfers(Variable):
         return health_net_copay_fees
 
 
-class housing_transfers(Variable):value_type = float
+class housing_transfers(Variable):
+    value_type = float
     entity = Household
     definition_period = YEAR
     label = "Housing in-kind transfers"
-
-    def formula(household, period):
-
 
 
 class pre_school(Variable):
@@ -122,25 +123,18 @@ class school_fees(Variable):
     label = "School Fees"
 
 
-class health_net_transfers(Variable):
-    value_type = float
-    entity = Household
-    definition_period = YEAR
-    label = "Health"
-
-
 class health_contributory(Variable):
     value_type = float
     entity = Household
     definition_period = YEAR
-    label = "Contributory"
+    label = "Contributory health"
 
 
 class health_noncontributory(Variable):
     value_type = float
     entity = Household
     definition_period = YEAR
-    label = "Noncontributory"
+    label = "Noncontributory health"
 
 
 class health_in_patient(Variable):

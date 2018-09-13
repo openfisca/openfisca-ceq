@@ -61,8 +61,17 @@ class disposable_income(Variable):
         return disposable_income
 
 
-TODO final_income = consumable_income + in_kind_transfers
+class final_income(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Final income"
 
+    def formula(household, period):
+        consumable_income = household('consumable_income', period)
+        in_kind_transfers = household('in_kind_transfers', period)
+        final_income = consumable_income + in_kind_transfers
+        return final_income
 
 
 class gifts_sales_durables(Variable):
@@ -80,7 +89,7 @@ class gross_income(Variable):
 
     def formula(household, period):
         market_income_plus_pensions = household('market_income_plus_pensions', period)
-        direct_transfers = household('direct_transfert', period)
+        direct_transfers = household('direct_transfers', period)
         gross_income = market_income_plus_pensions + direct_transfers
         return gross_income
 
@@ -155,8 +164,10 @@ class net_market_income(Variable):
 
         net_market_income = (
             market_income_plus_pensions
-            - direct_taxes
-            + contributions_health
+            - (
+                direct_taxes
+                + contributions_health
+                )
             )
         return net_market_income
 
@@ -182,7 +193,7 @@ class taxable_income(Variable):
     label = "Taxable income"
 
     def formula(household, period):
-        gross_income = household('gross income', period)
-        nontaxable_income = household('nontaxable income', period)
+        gross_income = household('gross_income', period)
+        nontaxable_income = household('nontaxable_income', period)
         taxable_income = gross_income - nontaxable_income
         return taxable_income

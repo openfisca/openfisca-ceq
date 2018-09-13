@@ -23,7 +23,7 @@ class direct_transfers(Variable):
     definition_period = YEAR
     label = "Direct transfers (social protection)"
 
-    def formula(household, pension):
+    def formula(household, period):
         social_assistance = household('social_assistance', period)
         social_insurance = household('social_insurance', period)
         direct_transfers = social_assistance + social_insurance

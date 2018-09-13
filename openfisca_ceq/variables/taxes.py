@@ -30,7 +30,7 @@ class direct_taxes(Variable):
     definition_period = YEAR
     label = "Direct Taxes"
 
-    def formual(household, period):
+    def formula(household, period):
         personal_income_tax = household('personal_income_tax', period)
         corporate_income_tax = household('corporate_income_tax', period)
         payroll_tax = household('payroll_tax', period)

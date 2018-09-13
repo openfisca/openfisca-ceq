@@ -16,7 +16,6 @@ class indirect_subsidies(Variable):
     definition_period = YEAR
     label = "Indirect subsidies"
 
-
     def formula(household, period):
         electricity_subsidies = household('electricity_subsidies', period)
         fuel_subsidies = household('fuel_subsidies', period)
