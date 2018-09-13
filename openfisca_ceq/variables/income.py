@@ -61,6 +61,10 @@ class disposable_income(Variable):
         return disposable_income
 
 
+TODO final_income = consumable_income + in_kind_transfers
+
+
+
 class gifts_sales_durables(Variable):
     value_type = float
     entity = Household
