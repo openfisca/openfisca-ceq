@@ -36,7 +36,7 @@
     final_income: 10000 - 400 + 250 + 25 - 50 + 20
 
 
-- name: "Market income for someone making 10000 of salary with 10% goes to contributory pensions"
+- name: "Market income for someone making 10000 of salary with 10% going to contributory pensions"
   period: 2017
   input_variables:
     all_income_excluding_transfers: 10000
