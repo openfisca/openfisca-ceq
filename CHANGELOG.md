@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 - [#](https://github.com/openfisca-ceq)
+## 0.1.1 - [#](https://github.com/openfisca-ceq)
 
 * Adapt test syntax to openfisca-core 25.2.2
 * Improve Makefile
