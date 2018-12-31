@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='OpenFisca-CEQ',
-    version='0.1.0',
+    version='0.1.1',
     author='OpenFisca Team',
     author_email='contact@openfisca.fr',
     description=u'OpenFisca tax and benefit system for CEQ',
@@ -22,9 +22,8 @@ setup(
         'dev': [
             'flake8 >= 3.4.0, < 3.5.0',
             'flake8-print',
-            'nose',
             ]
         },
     packages=find_packages(),
     test_suite='nose.collector',
-    )
+)
