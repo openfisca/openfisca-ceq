@@ -16,14 +16,20 @@ setup(
     url='https://github.com/openfisca/country-template',
     include_package_data = True,  # Will read MANIFEST.in
     install_requires=[
-        'OpenFisca-Core[web-api] >= 24.0, < 25.0',
+        'OpenFisca-Core[web-api] >= 25.2.2, < 26.0',
         ],
-    extras_require = {
+     extras_require = {
         'dev': [
-            'flake8 >= 3.4.0, < 3.5.0',
-            'flake8-print',
-            ]
+            "autopep8 == 1.4.0",
+            "flake8 >= 3.5.0, < 3.6.0",
+            "flake8-print",
+            "pycodestyle >= 2.3.0, < 2.4.0",  # To avoid incompatibility with flake
+            "pytest < 4.0",
+            "scipy >= 0.17",  # Only used to test de_net_a_brut reform
+            "requests >= 2.8",
+            "openfisca-survey-manager >= 0.16.2",
+            "yamllint >= 1.11.1, < 1.12",
+            ],
         },
     packages=find_packages(),
-    test_suite='nose.collector',
-)
+    )
