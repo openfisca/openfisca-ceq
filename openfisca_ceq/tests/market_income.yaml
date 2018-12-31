@@ -3,20 +3,20 @@
 
 - name: Market income for someone making 10000 of salary
   period: 2017
-  input_variables:
+  input:
     all_income_excluding_transfers: 10000
-  output_variables:
+  output:
     market_income: 10000
     market_income_plus_pensions: 10000
 
 
 - name: "Market income for someone making 10000 of salary with 10% goes to contributory pensions"
   period: 2017
-  input_variables:
+  input:
     all_income_excluding_transfers: 10000
     employee_contributions_pensions: 300
     employer_contributions_pensions: 700
-  output_variables:
+  output:
     market_income: 10000
     contributions_pensions: 1000
     market_income_plus_pensions: 9000
