@@ -15,10 +15,10 @@ setup(
     license='http://www.fsf.org/licensing/licenses/agpl-3.0.html',
     url='https://github.com/openfisca/country-template',
     include_package_data = True,  # Will read MANIFEST.in
-    install_requires=[
+    install_requires = [
         'OpenFisca-Core[web-api] >= 25.2.2, < 26.0',
         ],
-     extras_require = {
+    extras_require = {
         'dev': [
             "autopep8 == 1.4.0",
             "flake8 >= 3.5.0, < 3.6.0",
