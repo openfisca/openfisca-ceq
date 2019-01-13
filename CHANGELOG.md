@@ -1,10 +1,10 @@
 # Changelog
 
-## 0.1.2 - [#](https://github.com/openfisca-ceq)
+## 0.1.2 - [#3](https://github.com/openfisca-ceq/pull/3)
 
-* Clean unnecessary comments
-* Reoganize test folders
-
+* Minor change.
+  - Clean unnecessary comments
+  - Reoganize test folders
 
 ## 0.1.1 - [#](https://github.com/openfisca-ceq)
 
