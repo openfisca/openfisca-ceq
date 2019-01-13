@@ -139,10 +139,10 @@ class market_income_plus_pensions(Variable):
     definition_period = YEAR
     label = "Market income plus net pensions"
 
-    def formula(houshold, period):
-        market_income = houshold('market_income', period)
-        pensions = houshold('pensions', period)
-        contributions_pensions = houshold('contributions_pensions', period)
+    def formula(household, period):
+        market_income = household('market_income', period)
+        pensions = household('pensions', period)
+        contributions_pensions = household('contributions_pensions', period)
         market_income_plus_pensions = (
             market_income
             + pensions

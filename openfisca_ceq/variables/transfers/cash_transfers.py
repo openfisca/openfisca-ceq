@@ -50,10 +50,10 @@ class social_assistance(Variable):
     definition_period = YEAR
     label = "Social Assistance"
 
-    def formula(houshold, period):
-        cash_transfers = houshold('cash_transfers', period)
-        noncontributory_pensions = houshold('noncontributory_pensions', period)
-        near_cash_transfers = houshold('near_cash_transfers', period)
+    def formula(household, period):
+        cash_transfers = household('cash_transfers', period)
+        noncontributory_pensions = household('noncontributory_pensions', period)
+        near_cash_transfers = household('near_cash_transfers', period)
 
         social_assistance = cash_transfers + noncontributory_pensions + near_cash_transfers
         return social_assistance
