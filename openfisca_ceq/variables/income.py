@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# This file defines variables for the modelled legislation.
-# A variable is a property of an Entity such as a Person, a Household…
-# See https://openfisca.org/doc/variables.html
 
-# Import from openfisca-core the common Python objects used to code the legislation in OpenFisca
 from openfisca_core.model_api import *
-# Import the Entities specifically defined for this tax and benefit system
 from openfisca_ceq.entities import *
 
 
@@ -139,10 +134,10 @@ class market_income_plus_pensions(Variable):
     definition_period = YEAR
     label = "Market income plus net pensions"
 
-    def formula(houshold, period):
-        market_income = houshold('market_income', period)
-        pensions = houshold('pensions', period)
-        contributions_pensions = houshold('contributions_pensions', period)
+    def formula(household, period):
+        market_income = household('market_income', period)
+        pensions = household('pensions', period)
+        contributions_pensions = household('contributions_pensions', period)
         market_income_plus_pensions = (
             market_income
             + pensions

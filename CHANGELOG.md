@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 - [#3](https://github.com/openfisca-ceq/pull/3)
+
+* Minor change.
+  - Clean unnecessary comments
+  - Reoganize test folders
+
 ## 0.1.1 - [#](https://github.com/openfisca-ceq)
 
 * Adapt test syntax to openfisca-core 25.2.2
