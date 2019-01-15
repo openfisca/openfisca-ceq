@@ -8,7 +8,6 @@ import pkg_resources
 from openfisca_ceq import entities
 
 
-
 ceq_variables_directory = os.path.join(
     pkg_resources.get_distribution('openfisca-ceq').location,
     'openfisca_ceq',
@@ -17,7 +16,29 @@ ceq_variables_directory = os.path.join(
 assert os.path.exists(ceq_variables_directory)
 
 
+from openfisca_ceq import CountryTaxBenefitSystem as CEQTaxBenefitSystem
+
+ceq_variables = CEQTaxBenefitSystem().variables
+print(ceq_variables.keys())
+
+print(ceq_variables['disposable_income'].formulas)
+print(ceq_variables['property_tax'].formulas)
+
+BOUM
+
+ceq_variables2 = [
+    name
+    for name, variable in CEQTaxBenefitSystem().variables.items()
+    if len(variable.formulas) == 0
+    ]
+
+
+
 def add_ceq(country_tax_benefit_system):
+    country_entities = country_tax_benefit_system.entities
+    entities_by_name = dict((entity.key, entity) for entity in country_entities)
+    entities.Person = entities_by_name['person']
+    entities.Household = entities_by_name['household']
     country_tax_benefit_system.add_variables_from_directory(ceq_variables_directory)
     return country_tax_benefit_system
 
@@ -27,6 +48,15 @@ if __name__ == '__main__':
     country_tax_benefit_system = CountryTaxBenefitSystem()
     new_tbs = add_ceq(country_tax_benefit_system)
 
-    print(sorted((new_tbs.variables.keys())))
+    from openfisca_cote_d_ivoire.survey_scenarios import CoteDIvoireSurveyScenario
+    from openfisca_cote_d_ivoire.tests.test_survey_scenario_from_stata_data import create_data_from_stata
+    data = create_data_from_stata()
+    survey_scenario = CoteDIvoireSurveyScenario(
+        tax_benefit_system = new_tbs,
+        data = data,
+        year = 2017,
+        )
 
-    print(new_tbs.variables['age'].entity)
+    print(survey_scenario.calculate_variable('impots_directs', period = 2017)[0:10])
+    print(survey_scenario.calculate_variable('impot_general_revenu', period = 2017)[0:10])
+

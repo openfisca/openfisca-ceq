@@ -6,7 +6,7 @@
   - Clean unnecessary comments
   - Reoganize test folders
 
-## 0.1.1 - [#](https://github.com/openfisca-ceq)
+## 0.1.1 - [#2](https://github.com/openfisca-ceq/pull/2)
 
 * Adapt test syntax to openfisca-core 25.2.2
 * Improve Makefile
