@@ -70,7 +70,6 @@ workflows:
       - build_python3
       - deploy_python3:
           requires:
-            - build_python2
             - build_python3
           filters:
             branches:
