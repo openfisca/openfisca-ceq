@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 - [#X](https://github.com/openfisca-ceq/pull/X)
+
+* Minor change.
+  - Clean obsolete boiler-plate
+  - Create `add_ceq_framework`
+
 ## 0.1.2 - [#3](https://github.com/openfisca-ceq/pull/3)
 
 * Minor change.
