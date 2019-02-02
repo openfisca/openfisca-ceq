@@ -8,7 +8,10 @@ import sys
 from openfisca_ceq.tools import add_ceq_framework
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
 from openfisca_cote_d_ivoire.survey_scenarios import CoteDIvoireSurveyScenario
-from openfisca_cote_d_ivoire.tests.test_survey_scenario_from_stata_data import create_data_from_stata
+from openfisca_cote_d_ivoire.tests.test_survey_scenario_from_stata_data import (
+    data_is_available,
+    create_data_from_stata,
+    )
 
 
 log = logging.getLogger(__name__)
@@ -17,6 +20,8 @@ log = logging.getLogger(__name__)
 def test_add_ceq_framework_to_cote_d_ivoire():
     tax_benefit_system = CoteDIvoireTaxBenefitSystem()
     ceq_enhanced_tax_benefit_system = add_ceq_framework(tax_benefit_system)
+    if not data_is_available:
+        return
     data = create_data_from_stata()
     survey_scenario = CoteDIvoireSurveyScenario(
         tax_benefit_system = ceq_enhanced_tax_benefit_system,
