@@ -22,7 +22,7 @@ setup(
         'dev': [
             "autopep8 ==1.4.3",
             "openfisca-cote-d-ivoire >= 0.8",
-            "flake8 >= 3.5.0, < 3.6.0",
+            "flake8 >= 3.5.0, < 3.8.0",
             "flake8-print",
             "pycodestyle >= 2.3.0, < 2.4.0",  # To avoid incompatibility with flake
             "pytest < 4.0",
