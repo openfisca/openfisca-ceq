@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2 - [#X](https://github.com/openfisca-ceq/pull/X)
+
+* Minor change.
+  - Fix module discovery
+
+
 ## 0.2.1 - [#X](https://github.com/openfisca-ceq/pull/X)
 
 * Minor change.
