@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='OpenFisca-CEQ',
-    version='0.2.0',
+    version='0.2.1',
     author='OpenFisca Team',
     author_email='contact@openfisca.fr',
     description=u'OpenFisca tax and benefit system for CEQ',
@@ -21,7 +21,7 @@ setup(
     extras_require = {
         'dev': [
             "autopep8 == 1.4.0",
-            "openfisca-cote-d-ivoire",
+            "openfisca-cote-d-ivoire >= 0.8",
             "flake8 >= 3.5.0, < 3.6.0",
             "flake8-print",
             "pycodestyle >= 2.3.0, < 2.4.0",  # To avoid incompatibility with flake

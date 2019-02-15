@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 - [#X](https://github.com/openfisca-ceq/pull/X)
+
+* Minor change.
+  - Fix dependency
+
 ## 0.2.0 - [#X](https://github.com/openfisca-ceq/pull/X)
 
 * Minor change.
