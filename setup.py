@@ -20,7 +20,7 @@ setup(
         ],
     extras_require = {
         'dev': [
-            "autopep8 == 1.4.0",
+            "autopep8 ==1.4.3",
             "openfisca-cote-d-ivoire >= 0.8",
             "flake8 >= 3.5.0, < 3.6.0",
             "flake8-print",
