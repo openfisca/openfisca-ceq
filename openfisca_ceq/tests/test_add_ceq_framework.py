@@ -30,6 +30,7 @@ def test_add_ceq_framework_to_cote_d_ivoire():
         )
     log.info(survey_scenario.calculate_variable('impots_directs', period = 2017)[0:10])
     log.info(survey_scenario.calculate_variable('impot_general_revenu', period = 2017)[0:10])
+    return survey_scenario
 
 
 if __name__ == "__main__":
