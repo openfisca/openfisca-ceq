@@ -28,7 +28,7 @@ setup(
             "pytest < 4.0",
             "requests >= 2.8",
             "openfisca-survey-manager >= 0.16.2",
-            "yamllint >= 1.11.1, < 1.12",
+            "yamllint >=1.11.1,<1.16",
             ],
         },
     packages=find_packages(),
