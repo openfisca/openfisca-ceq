@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.2.1 - [#X](https://github.com/openfisca-ceq/pull/X)
+## 0.2.3 - [#12](https://github.com/openfisca-ceq/pull/12)
+
+* Minor change.
+  - Fix test
+
+## 0.2.2 - [#11](https://github.com/openfisca-ceq/pull/11)
+
+* Minor change.
+  - Fix module discovery
+
+## 0.2.1 - [#10](https://github.com/openfisca-ceq/pull/10)
 
 * Minor change.
   - Fix dependency
