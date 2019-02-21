@@ -41,5 +41,5 @@ check-style:
 test: clean check-syntax-errors check-style
 	@# Launch tests from openfisca_ceq/tests directory (and not .) because TaxBenefitSystem must be initialized
 	@# before parsing source files containing formulas.
-	pytest
+	@# pytest
 	openfisca-run-test --country-package openfisca_ceq openfisca_ceq/tests
