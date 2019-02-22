@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.4 - [#16](https://github.com/openfisca-ceq/pull/16)
+
+* Minor change.
+  - Remove CEQ framework test with openfisca-cote-d-ivoire
+
 ## 0.2.3 - [#12](https://github.com/openfisca-ceq/pull/12)
 
 * Minor change.
