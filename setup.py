@@ -16,7 +16,7 @@ setup(
     url='https://github.com/openfisca/openfisca-ceq',
     include_package_data = True,  # Will read MANIFEST.in
     install_requires = [
-        'OpenFisca-Core >=25.2.2,<31.0',
+        'OpenFisca-Core >=25.2.2,<35.0',
         ],
     extras_require = {
         'dev': [
