@@ -19,7 +19,7 @@ autre ?
 * lien_cm = liens par rapport au chef du ménage 
 * taille_m = nombre de personnes dans le ménage
 * rev_b_i_*nom_du_revenu* = tous les revenus brut individualisés. Par brut il faut vraiment entendre "avant toutes taxes et tout transfers" 
-* rev_n_i_*nom_du_revenu* = tous les revenus individualisés
+* rev_n_i_*nom_du_revenu* = tous les revenus net individualisés. Ici par net il faut entendre que au moins un impôts simulé par openfisca a été prélevé. 
 * cov_i_*nom_de_la_covariable* = toutes les covariables individuelles
 * cov_m_*nom_de_la_covariable* = toutes les covariables niveaux ménage 
 
@@ -42,7 +42,8 @@ autre ?
 
 # Liste variable - COTE D IVOIRE - par ordre alphabéthique
 
-* rev_n_i_act1 = revenus de l'activité principale. Peut être taxé selon que l'individu appartient au secteur formel ou informel. 
+* rev_n_i_act1 = revenus de l'activité principale nette de l'impôt sur le revenu. (sera vide pour le secteur identifié comme informel)
+* rev_b_i_act1 = revenus de l'activité principale brute de l'impôt sur le revenu. (sera vide pour le secteur identifié comme formel)
 * rev_b_act2 = revenus des activités secondaire (non taxé) 
 
 etc 
