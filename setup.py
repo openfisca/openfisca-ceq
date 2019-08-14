@@ -18,6 +18,7 @@ setup(
     install_requires = [
         'OpenFisca-Core >=34.3.2,<35.0',
         'pandas >= 0.24.1',
+        'python-slugify',
         'xlrd >= 1.0.0',
         ],
     extras_require = {
