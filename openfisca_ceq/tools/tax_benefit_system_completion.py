@@ -22,15 +22,17 @@ ceq_variables_directory = os.path.join(
 
 assert os.path.exists(ceq_variables_directory)
 
+
+ceq_variables = CEQTaxBenefitSystem().variables
 ceq_input_variables = {
     name
-    for name, variable in CEQTaxBenefitSystem().variables.items()
+    for name, variable in ceq_variables.items()
     if len(variable.formulas) == 0
     }
 
 ceq_computed_variables = {
     name
-    for name, variable in CEQTaxBenefitSystem().variables.items()
+    for name, variable in ceq_variables.items()
     if len(variable.formulas) > 0
     }
 

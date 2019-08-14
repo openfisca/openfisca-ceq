@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
+from sortedcontainers.sorteddict import SortedDict
+
+
 import logging
 
 
@@ -25,6 +28,7 @@ def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
                 value_type = float,
                 ))
             )
+
 
 def generate_depenses_ht_postes_variables(tax_benefit_system, categories_fiscales = None, reform_key = None):
     # Almost identical to openfisca-france-indirect-taxation eponymous function
@@ -92,7 +96,6 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, categories_fiscale
         del definitions_by_name
 
 
-
 def depenses_ht_postes_function_creator(poste_coicop, categorie_fiscale = None, year_start = None, year_stop = None):
     # Almost identical to openfisca-france-indirect-taxation eponymous function
     assert categorie_fiscale is not None
@@ -109,11 +112,28 @@ def depenses_ht_postes_function_creator(poste_coicop, categorie_fiscale = None, 
     return func
 
 
+def depenses_ht_categorie_function_creator(postes_coicop, year_start = None, year_stop = None):
+    if len(postes_coicop) != 0:
+        def func(entity, period_arg):
+            return sum(entity(
+                'depenses_ht_poste_' + slugify(poste, separator = '_'), period_arg) for poste in postes_coicop
+                )
+
+        func.__name__ = "formula_{year_start}".format(year_start = year_start, year_stop = year_stop)
+        return func
+
+    else:  # To deal with Reform emptying some fiscal categories
+        def func(entity, period_arg):
+            return 0
+
+    func.__name__ = "formula_{year_start}".format(year_start = year_start, year_stop = year_stop)
+    return func
+
+
 def generate_variables(tax_benefit_system, categories_fiscales = None, reform_key = None):
     assert categories_fiscales is not None
 
-    reference_categories = sorted(categories_fiscales_data_frame['categorie_fiscale'].drop_duplicates())
-    completed_categories_fiscales = insert_tva(categories_fiscales)
+    completed_categories_fiscales = sorted(categories_fiscales_data_frame['categorie_fiscale'].drop_duplicates())
 
     if reform_key:
         reference_categories = set(reference_categories).union(set(categories_fiscales.categorie_fiscale.unique()))
@@ -168,7 +188,7 @@ def generate_variables(tax_benefit_system, categories_fiscales = None, reform_ke
                 )
             definitions_by_name.update(functions_by_name)
             tax_benefit_system.add_variable(
-                type(class_name, (YearlyVariable,), definitions_by_name)
+                type(class_name, (Variable,), definitions_by_name)
                 )
 
         else:
@@ -179,7 +199,7 @@ def generate_variables(tax_benefit_system, categories_fiscales = None, reform_ke
                     definitions_by_name.pop(attribute, None)
                     # definitions_by_name['formulas'] = formulas
                 tax_benefit_system.update_variable(
-                    type(class_name, (YearlyVariable,), definitions_by_name)
+                    type(class_name, (Variable,), definitions_by_name)
                     )
             else:
                 definitions_by_name = dict(
@@ -190,7 +210,7 @@ def generate_variables(tax_benefit_system, categories_fiscales = None, reform_ke
                 definitions_by_name.update(functions_by_name)
                 definitions_by_name['formulas'] = formulas
                 tax_benefit_system.add_variable(
-                    type(class_name, (YearlyVariable,), definitions_by_name)
+                    type(class_name, (Variable,), definitions_by_name)
                     )
 
         del definitions_by_name
