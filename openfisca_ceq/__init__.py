@@ -79,6 +79,7 @@ class CountryTaxBenefitSystem(TaxBenefitSystem):
         # We add to our tax and benefit system all the variables
         self.add_variables_from_directory(path.join(COUNTRY_DIR, 'variables'))
 
+        # No parameter file for CEQ
         # We add to our tax and benefit system all the legislation parameters defined in the  parameters files
-        param_path = path.join(COUNTRY_DIR, 'parameters')
-        self.load_parameters(param_path)
+        # param_path = path.join(COUNTRY_DIR, 'parameters')
+        # self.load_parameters(param_path)
