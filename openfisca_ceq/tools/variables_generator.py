@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 
 
+import pandas as pd
+from slugify import slugify
 from sortedcontainers.sorteddict import SortedDict
-
-
 import logging
 
 
 from openfisca_core.model_api import Variable, YEAR
-from slugify import slugify
 
 
 log = logging.getLogger(__name__)
+
+
+categories_fiscales_data_frame = pd.DataFrame()
 
 
 def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
@@ -35,6 +37,7 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, categories_fiscale
     assert categories_fiscales is not None
     assert not categories_fiscales.duplicated().any().any()
     reference_categories = sorted(categories_fiscales_data_frame['categorie_fiscale'])
+
     functions_by_name_by_poste = dict()
     postes_coicop_all = set()
 
@@ -101,8 +104,8 @@ def depenses_ht_postes_function_creator(poste_coicop, categorie_fiscale = None, 
     assert categorie_fiscale is not None
 
     def func(entity, period_arg, parameters, categorie_fiscale = categorie_fiscale):
-        if (category_fiscale is not None) or (category_fiscale != ''):
-            taux = parameters(period_arg.start).imposition_indirecte.tva[tva_str]
+        if (categorie_fiscale is not None) or (categorie_fiscale != ''):
+            taux = parameters(period_arg.start).imposition_indirecte.tva[categorie_fiscale]
         else:
             taux = 0
 
@@ -133,7 +136,7 @@ def depenses_ht_categorie_function_creator(postes_coicop, year_start = None, yea
 def generate_variables(tax_benefit_system, categories_fiscales = None, reform_key = None):
     assert categories_fiscales is not None
 
-    completed_categories_fiscales = sorted(categories_fiscales_data_frame['categorie_fiscale'].drop_duplicates())
+    completed_categories_fiscales = reference_categories = sorted(categories_fiscales_data_frame['categorie_fiscale'].drop_duplicates())
 
     if reform_key:
         reference_categories = set(reference_categories).union(set(categories_fiscales.categorie_fiscale.unique()))

@@ -15,13 +15,7 @@ def main():
 
     produits = pd.read_excel(produits_file_path)
 
-    print(produits.columns)
-    taxes = ['tva', 'tax_speciale_1',  'tax_speciale_2', 'tax_import']
-    taxe = 'tva'
-
-    # for taxe in taxes:
-    #     print(produits.groupby(['id_produit', taxe])['id_hh'].count())
-
+    log.info(produits.columns)
     label_by_code_coicop = (produits
         .rename(
             columns = {
@@ -39,13 +33,12 @@ def main():
         .to_dict()['label']
         )
 
-    print(label_by_code_coicop)
-
+    log.info(label_by_code_coicop)
 
     tax_benefit_system = CEQTaxBenefitSystem()
-    print(tax_benefit_system.variables.keys())
+    log.info(tax_benefit_system.variables.keys())
     generate_postes_variables(tax_benefit_system, label_by_code_coicop)
-    print(tax_benefit_system.variables.keys())
+    log.info(tax_benefit_system.variables.keys())
 
 
 if __name__ == '__main__':
