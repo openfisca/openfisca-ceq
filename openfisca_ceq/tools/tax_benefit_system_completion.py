@@ -6,10 +6,14 @@ import os
 import pkg_resources
 
 
+from openfisca_core.model_api import Variable, YEAR
+
+
 from openfisca_ceq import (
     CountryTaxBenefitSystem as CEQTaxBenefitSystem,
     entities,
     )
+
 
 log = logging.getLogger(__name__)
 
@@ -74,4 +78,49 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.add_variables_from_directory(ceq_variables_directory,
         ignored_variables = ignored_variables)
 
+    from openfisca_ceq.tools.data_ceq_correspondence import non_ceq_input_by_person_variable
+    missing_income_variables = set(non_ceq_input_by_person_variable.values()).difference(
+        set(country_tax_benefit_system.variables.keys())
+        )
+    for missing_income_variable in missing_income_variables:
+        definitions_by_name = dict(
+            definition_period = YEAR,
+            entity = entities_by_name['person'],
+            label = missing_income_variable,
+            value_type = float,
+            )
+        country_tax_benefit_system.add_variable(
+            type(missing_income_variable, (Variable,), definitions_by_name)
+            )
+
+    from openfisca_ceq.tools.data_ceq_correspondence import multi_country_custom_ceq_variables
+    for variable in multi_country_custom_ceq_variables:
+        country_tax_benefit_system.replace_variable(variable)
+
     return country_tax_benefit_system
+
+
+def get_all_neutralized_variables(survey_scenario, period, variables = None):
+    assert variables is not None
+    df_by_entity = survey_scenario.create_data_frame_by_entity(
+        variables = variables,
+        )
+    by_design_neutralized_variables_by_entity = dict()
+    de_facto_neutralized_variables_by_entity = dict()
+
+    for entity, df in df_by_entity.items():
+        by_design_neutralized_variables = list()
+        de_facto_neutralized_variables = list()
+        for column in df:
+            variable = survey_scenario.tax_benefit_system.variables.get(column)
+            if variable is None:
+                continue
+            if variable.is_neutralized:
+                by_design_neutralized_variables.append(column)
+            elif (df[column] == variable.default_value).all():
+                de_facto_neutralized_variables.append(column)
+
+        by_design_neutralized_variables_by_entity[entity] = by_design_neutralized_variables
+        de_facto_neutralized_variables_by_entity[entity] = de_facto_neutralized_variables
+
+    return by_design_neutralized_variables, de_facto_neutralized_variables
