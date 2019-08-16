@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 
+from openfisca_core.model_api import Variable, YEAR
+from openfisca_ceq.entities import Household
+
+
 ceq_input_by_person_variable = {
     "rev_i_autoconsommation": "autoconsumption",
     "rev_i_autres_transferts": "other_income",
@@ -22,10 +26,6 @@ non_ceq_input_by_person_variable = {
     }
 
 
-from openfisca_core.model_api import Variable, YEAR
-from openfisca_ceq.entities import Household
-
-
 class all_income_excluding_transfers(Variable):
     value_type = float
     entity = Household
@@ -42,12 +42,12 @@ class all_income_excluding_transfers(Variable):
             "pension_retraite",
             "salaire",
             ]
-        person_array = sum(
-            household.members(variable, period)
-            for variable in income_variables
+        return household.sum(
+            sum(
+                household.members(variable, period)
+                for variable in income_variables
+                )
             )
-
-        return household.sum(person_array)
 
 
 class nontaxable_income(Variable):
@@ -61,12 +61,12 @@ class nontaxable_income(Variable):
             "revenu_informel_agricole",
             "autres_revenus_informels",
             ]
-        person_array = sum(
-            household.members(variable, period)
-            for variable in income_variables
+        return household.sum(
+            sum(
+                household.members(variable, period)
+                for variable in income_variables
+                )
             )
-
-        return household.sum(person_array)
 
 
 multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income]

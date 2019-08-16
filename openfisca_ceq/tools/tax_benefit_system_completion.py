@@ -105,10 +105,12 @@ def get_all_neutralized_variables(survey_scenario, period, variables = None):
     df_by_entity = survey_scenario.create_data_frame_by_entity(
         variables = variables,
         )
-    by_design_neutralized_variables = list()
-    de_facto_neutralized_variables = list()
+    by_design_neutralized_variables_by_entity = dict()
+    de_facto_neutralized_variables_by_entity = dict()
 
     for entity, df in df_by_entity.items():
+        by_design_neutralized_variables = list()
+        de_facto_neutralized_variables = list()
         for column in df:
             variable = survey_scenario.tax_benefit_system.variables.get(column)
             if variable is None:
@@ -117,5 +119,8 @@ def get_all_neutralized_variables(survey_scenario, period, variables = None):
                 by_design_neutralized_variables.append(column)
             elif (df[column] == variable.default_value).all():
                 de_facto_neutralized_variables.append(column)
+
+        by_design_neutralized_variables_by_entity[entity] = by_design_neutralized_variables
+        de_facto_neutralized_variables_by_entity[entity] = de_facto_neutralized_variables
 
     return by_design_neutralized_variables, de_facto_neutralized_variables
