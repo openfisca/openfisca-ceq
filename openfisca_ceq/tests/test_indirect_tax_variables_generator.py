@@ -22,13 +22,19 @@ def main():
                 'description_enquete': 'label',
                 }
             )
-        .filter(['label', 'nom_question'])
-        .rename(
-            columns = {
-                'nom_question': 'code_coicop',
-                }
-            )
+        .filter(['label', 'code_coicop'])
+        .dropna()
         .astype(str)
+        )
+    duplicated_coicop = label_by_code_coicop.loc[label_by_code_coicop.code_coicop.duplicated()]
+    for code_coicop in duplicated_coicop.code_coicop.unique():
+        n = sum(label_by_code_coicop.code_coicop == code_coicop)
+        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        enhanced_code_coicops = [code_coicop + '.' + alphabet[i] for i in range(n)]
+        label_by_code_coicop.loc[label_by_code_coicop.code_coicop == code_coicop, 'code_coicop'] = enhanced_code_coicops
+
+    assert not label_by_code_coicop.code_coicop.duplicated().any()
+    label_by_code_coicop = (label_by_code_coicop
         .set_index('code_coicop')
         .to_dict()['label']
         )
@@ -42,4 +48,6 @@ def main():
 
 
 if __name__ == '__main__':
+    import sys
+    logging.basicConfig(level = logging.INFO, stream = sys.stdout)
     main()

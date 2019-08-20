@@ -17,6 +17,11 @@ categories_fiscales_data_frame = pd.DataFrame()
 
 
 def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
+    """Generate COICOP item of consumption (poste de cpnsommation)
+
+    :param TaxBenfitSystem tax_benefit_system: the tax and benefit system to create the items variable for
+    :param dict label_by_code_coicop: Coicop item number and item description
+    """
     for code_coicop, label in label_by_code_coicop.items():
         class_name = "poste_{}".format(slugify(code_coicop, separator = '_'))
         log.info('Creating variable {} with label {}'.format(class_name, label))
