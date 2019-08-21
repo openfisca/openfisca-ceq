@@ -17,6 +17,7 @@ setup(
     include_package_data = True,  # Will read MANIFEST.in
     install_requires = [
         'OpenFisca-Core >=34.3.2,<35.0',
+        'OpenFisca-Survey-Manager >=0.35,<1.0',
         'pandas >= 0.24.1',
         'python-slugify',
         'xlrd >= 1.0.0',
