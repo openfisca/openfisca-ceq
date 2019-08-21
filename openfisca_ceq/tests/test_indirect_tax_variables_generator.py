@@ -10,14 +10,13 @@ from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
 log = logging.getLogger(__name__)
 
 
-
 def build_label_by_code_coicop(consumption_items_file_path):
     consumption_items = pd.read_excel(consumption_items_file_path)
     label_by_code_coicop = (consumption_items
         .rename(
             columns = {
                 'label': 'label_variable',
-                 'nom_variable_format_wide': 'variable_name'
+                'nom_variable_format_wide': 'variable_name'
                 }
             )
         .filter(['label_variable', 'code_coicop', 'variable_name'])
@@ -72,12 +71,7 @@ def main():
         .set_index("code_coicop")
         .to_dict()['label_variable']
         )
-    print(label_by_code_coicop)
-
-
     log.info(label_by_code_coicop)
-
-
 
     tax_benefit_system = CEQTaxBenefitSystem()
     log.info(tax_benefit_system.variables.keys())
