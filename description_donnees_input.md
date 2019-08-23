@@ -72,7 +72,7 @@ autre ?
 ## Variables de revenu
 
 
-| Nom de la variable 	| Définition 	| Question dans enquete 	|
+| Nom de la variable 	| Définition 	| Question dans l'enquete 	|
 |--------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------	|
 | rev_i_agricoles 	| Revenu agricole déclaré par ceux qui travaillent dans le sector agricole 	| e11a; e20==1 | e20==2 | e20==5; 	|
 | rev_i_assurance_sante 	| Prestations d'assurance maladie dont l'individu a bénéficié 	| d5 	|
@@ -91,7 +91,7 @@ autre ?
 
 ## Covariables d'intérêt
 
-| Nom_variable 	| Définition 	| Question_dans_enquete 	|
+| Nom de la variable 	| Définition 	| Question dans l'enquete 	|
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  	|
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête 	| c9 	|
