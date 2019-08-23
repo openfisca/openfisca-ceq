@@ -30,7 +30,7 @@ La construction des variaables par contre peut être spéficique à chaque pays,
 ### variables de revenus  
 
 * rev_i_salaires_taxe = les revenus salariés taxés (ou bien on l'appelle rev_i_salaires_formel ?)
-* rev_i_independants_taxe = les revenus des indépendants taxés
+* rev_i_independants_taxe = les revenus des indépendants taxés non agricole
 * rev_i_agricoles = tous les revenus de l'agriculture sauf ceux déjà comptés dans rev_i_salaires_taxe et rev_i_independants_taxe
 * rev_i_independants_Ntaxe = tous ceux qui travaillent dans le secteur informel non agricole en tant qu'indépendant et ne sont pas taxés 
 * rev_i_salarie_Ntaxe = tous ceux qui travaillent dans le secteur informel non agricole en tant que salarié et ne sont pas taxés 
