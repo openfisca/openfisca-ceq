@@ -137,8 +137,10 @@ autre ?
 | SUPERIEUR 5eme ANNEE 	| 19 	|
 | SUPERIEUR 6 et + 	| 20 	|
 | Ne sait pas 	| 99 	|
-|  	|  	|
+
+
 | cov_i_lien_cm 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Chef du Menage 	| 1 	|
 | Epoux/epouse 	| 2 	|
