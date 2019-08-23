@@ -153,10 +153,10 @@ autre ?
 | Autre parent 	| 11 	|
 | Domestique 	| 12 	|
 | Autre personne non apparentee 	| 13 	|
-|  	|  	|
 
 
 | cov_i_secteur_activite 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | trav agricole 	| 0 	|
 | sal/dep formel 	| 1 	|
@@ -165,31 +165,31 @@ autre ?
 | CGU comm/prod B 	| 4 	|
 | CGU services 	| 5 	|
 | indep BNC (prof lib) 	| 6 	|
-|  	|  	|
 
 
 | cov_i_secteur_formel_informel 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Formel 	| 1 	|
 | Informel 	| 0 	|
-|  	|  	|
 
 
 | cov_i_secteur_publique_prive 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Public 	| 1 	|
 | Prive 	| 0 	|
-|  	|  	|
 
 
 | cov_i_sexe 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Masculin 	| 1 	|
 | Feminin 	| 2 	|
-|  	|  	|
 
 
 | cov_i_statut_emploi 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Agricole 	| 1 	|
 | Salarie formel 	| 2 	|
@@ -197,19 +197,19 @@ autre ?
 | independant 	| 4 	|
 | Chomage 	| 5 	|
 | Inactif 	| 6 	|
-|  	|  	|
 
 
 | cov_i_statut_matrimonial 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Marié 	| 1 	|
 | Célibataire 	| 2 	|
 | Veuf/divorcé 	| 3 	|
 | Non concerné 	| 4 	|
-|  	|  	|
 
 
 | cov_i_type_ecole 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Public 	| 1 	|
 | Prive 	| 0 	|
