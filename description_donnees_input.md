@@ -154,6 +154,8 @@ autre ?
 | Domestique 	| 12 	|
 | Autre personne non apparentee 	| 13 	|
 |  	|  	|
+
+
 | cov_i_secteur_activite 	|  	|
 | Libelle 	| Code 	|
 | trav agricole 	| 0 	|
@@ -164,21 +166,29 @@ autre ?
 | CGU services 	| 5 	|
 | indep BNC (prof lib) 	| 6 	|
 |  	|  	|
+
+
 | cov_i_secteur_formel_informel 	|  	|
 | Libelle 	| Code 	|
 | Formel 	| 1 	|
 | Informel 	| 0 	|
 |  	|  	|
+
+
 | cov_i_secteur_publique_prive 	|  	|
 | Libelle 	| Code 	|
 | Public 	| 1 	|
 | Prive 	| 0 	|
 |  	|  	|
+
+
 | cov_i_sexe 	|  	|
 | Libelle 	| Code 	|
 | Masculin 	| 1 	|
 | Feminin 	| 2 	|
 |  	|  	|
+
+
 | cov_i_statut_emploi 	|  	|
 | Libelle 	| Code 	|
 | Agricole 	| 1 	|
@@ -188,6 +198,8 @@ autre ?
 | Chomage 	| 5 	|
 | Inactif 	| 6 	|
 |  	|  	|
+
+
 | cov_i_statut_matrimonial 	|  	|
 | Libelle 	| Code 	|
 | Marié 	| 1 	|
@@ -195,6 +207,8 @@ autre ?
 | Veuf/divorcé 	| 3 	|
 | Non concerné 	| 4 	|
 |  	|  	|
+
+
 | cov_i_type_ecole 	|  	|
 | Libelle 	| Code 	|
 | Public 	| 1 	|
