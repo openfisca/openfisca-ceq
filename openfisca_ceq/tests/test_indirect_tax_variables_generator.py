@@ -40,7 +40,7 @@ def build_label_by_code_coicop(consumption_items_file_path):
     return label_by_code_coicop
 
 
-def build_complete_label_coicop_data_frame(consumption_items_file_path):
+def build_complete_label_coicop_data_frame(consumption_items_file_path, file_path = None, deduplicate = True):
     label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
     raw_coicop_nomenclature = build_raw_coicop_nomenclature()
     completed_label_coicop = (label_by_code_coicop
@@ -53,17 +53,24 @@ def build_complete_label_coicop_data_frame(consumption_items_file_path):
             'label_sous_classe',
             'label_poste',
             'label_variable',
+            'code_coicop',
             'deduplicated_code_coicop',
             ])
-        .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
         )
-    completed_label_coicop.to_csv('toto.csv')
+
+    if deduplicate:
+        completed_label_coicop = (completed_label_coicop
+            .drop('code_coicop', axis = 1)
+            .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
+            )
+
+    if file_path:
+        completed_label_coicop.to_csv(file_path)
+
+    return completed_label_coicop
 
 
-def main():
-    consumption_items_file_path = os.path.join("/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_CIV.xlsx")
-    build_complete_label_coicop_data_frame(consumption_items_file_path)
-
+def add_coicop_item_to_tax_benefit_system(tax_benefit_system, consumption_items_file_path):
     label_by_code_coicop = (build_label_by_code_coicop(consumption_items_file_path)
         .filter(['label_variable'])
         .reset_index()
@@ -72,14 +79,67 @@ def main():
         .to_dict()['label_variable']
         )
     log.info(label_by_code_coicop)
-
-    tax_benefit_system = CEQTaxBenefitSystem()
     log.info(tax_benefit_system.variables.keys())
     generate_postes_variables(tax_benefit_system, label_by_code_coicop)
-    log.info(tax_benefit_system.variables.keys())
+
+
+def build_comparison_table(country_codes):
+    dfs = [
+        build_complete_label_coicop_data_frame(
+            os.path.join(
+                "/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_{}.xlsx".format(country_code)),
+            deduplicate = False
+            )
+        for country_code in country_codes
+        ]
+    index = [
+        'label_division',
+        'label_groupe',
+        'label_classe',
+        'label_sous_classe',
+        'label_poste',
+        'code_coicop'
+        ]
+    dfs = [
+        df.groupby(index)['label_variable'].unique()
+        for df in dfs
+        ]
+
+    merged = (pd.concat(dfs, axis = 1, keys = country_codes, on = index, join = 'outer', copy = False)
+        .reset_index()
+        .sort_values('code_coicop')
+        .set_index(index)
+        )
+    import pdfkit as pdf
+    merged.to_html("test.html")
+    # with open("test.html", "w", encoding="utf-8") as file:
+    #     file.write(merged.to_html())
+
+    PdfFilename = 'pdfPrintOut.pdf'
+    pdf.from_file('test.html', PdfFilename)
+
+    merged.to_csv('merged.csv')
+    merged.to_excel('merged.xls')
+    return merged.reset_index()
+
+
+def main():
+    consumption_items_file_path = os.path.join("/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_CIV.xlsx")
+    build_complete_label_coicop_data_frame(consumption_items_file_path)
+
+    tax_benefit_system = CEQTaxBenefitSystem()
+    add_coicop_item_to_tax_benefit_system(tax_benefit_system, consumption_items_file_path)
+    log.info(sorted(tax_benefit_system.variables.keys()))
+
 
 
 if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    main()
+    consumption_items_file_path = os.path.join("/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_SEN.xlsx")
+
+    label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
+
+    # country_codes = ['CIV', 'SEN']
+    # merged = build_comparison_table(country_codes)
+    # main()
