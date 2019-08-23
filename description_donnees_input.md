@@ -111,7 +111,94 @@ autre ?
 | hh_id 	| Identifiant du ménage 	| a07b;a08 	|
 | pers_id 	| identifiant de l'individu 	| a07b;a08;numpers 	|
 
+## Label code des covariables d'intérêt
 
+| cov_i_classe_frequente 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| Maternelle 	| 1 	|
+| CI 	| 2 	|
+| CP 	| 3 	|
+| CE1 	| 4 	|
+| CE2 	| 5 	|
+| CM1 	| 6 	|
+| CM2 	| 7 	|
+| 6eme 	| 8 	|
+| 5eme 	| 9 	|
+| 4eme 	| 10 	|
+| 3eme 	| 11 	|
+| 2nde 	| 12 	|
+| 1ere 	| 13 	|
+| TERMINALE 	| 14 	|
+| SUPERIEUR 1ere ANNEE 	| 15 	|
+| SUPERIEUR 2eme ANNEE 	| 16 	|
+| SUPERIEUR 3eme ANNEE 	| 17 	|
+| SUPERIEUR 4eme ANNEE 	| 18 	|
+| SUPERIEUR 5eme ANNEE 	| 19 	|
+| SUPERIEUR 6 et + 	| 20 	|
+| Ne sait pas 	| 99 	|
+|  	|  	|
+| cov_i_lien_cm 	|  	|
+| Libelle 	| Code 	|
+| Chef du Menage 	| 1 	|
+| Epoux/epouse 	| 2 	|
+| Fils/fille 	| 3 	|
+| Pere/mere 	| 4 	|
+| Frere/Soeur 	| 5 	|
+| Neveu/Niece 	| 6 	|
+| Grand-parent 	| 7 	|
+| Beau parent 	| 8 	|
+| Beau-fils/Belle fille 	| 9 	|
+| Petit-enfant 	| 10 	|
+| Autre parent 	| 11 	|
+| Domestique 	| 12 	|
+| Autre personne non apparentee 	| 13 	|
+|  	|  	|
+| cov_i_secteur_activite 	|  	|
+| Libelle 	| Code 	|
+| trav agricole 	| 0 	|
+| sal/dep formel 	| 1 	|
+| sal/dep informel 	| 2 	|
+| CGU comm/prod A 	| 3 	|
+| CGU comm/prod B 	| 4 	|
+| CGU services 	| 5 	|
+| indep BNC (prof lib) 	| 6 	|
+|  	|  	|
+| cov_i_secteur_formel_informel 	|  	|
+| Libelle 	| Code 	|
+| Formel 	| 1 	|
+| Informel 	| 0 	|
+|  	|  	|
+| cov_i_secteur_publique_prive 	|  	|
+| Libelle 	| Code 	|
+| Public 	| 1 	|
+| Prive 	| 0 	|
+|  	|  	|
+| cov_i_sexe 	|  	|
+| Libelle 	| Code 	|
+| Masculin 	| 1 	|
+| Feminin 	| 2 	|
+|  	|  	|
+| cov_i_statut_emploi 	|  	|
+| Libelle 	| Code 	|
+| Agricole 	| 1 	|
+| Salarie formel 	| 2 	|
+| Salarie informel 	| 3 	|
+| independant 	| 4 	|
+| Chomage 	| 5 	|
+| Inactif 	| 6 	|
+|  	|  	|
+| cov_i_statut_matrimonial 	|  	|
+| Libelle 	| Code 	|
+| Marié 	| 1 	|
+| Célibataire 	| 2 	|
+| Veuf/divorcé 	| 3 	|
+| Non concerné 	| 4 	|
+|  	|  	|
+| cov_i_type_ecole 	|  	|
+| Libelle 	| Code 	|
+| Public 	| 1 	|
+| Prive 	| 0 	|
 
 # Construction des variables - COTE D IVOIRE - par ordre alphabéthique
 
