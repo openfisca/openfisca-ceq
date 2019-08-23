@@ -94,7 +94,29 @@ autre ?
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  	|
-| cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête 	| c9 	|
+| cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête. Les modalités sont:
+
+Maternelle	1
+CI	2
+CP	3
+CE1	4
+CE2	5
+CM1	6
+CM2	7
+6eme	8
+5eme	9
+4eme	10
+3eme	11
+2nde	12
+1ere	13
+TERMINALE	14
+SUPERIEUR 1ere ANNEE	15
+SUPERIEUR 2eme ANNEE	16
+SUPERIEUR 3eme ANNEE	17
+SUPERIEUR 4eme ANNEE	18
+SUPERIEUR 5eme ANNEE	19
+SUPERIEUR 6 et +	20
+Ne sait pas	99 | c9 	|
 | cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| age; e7; b11; b12; b11; b9 	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| poids3_a 	|
