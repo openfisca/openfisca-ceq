@@ -74,7 +74,7 @@ autre ?
 
 | Nom de la variable 	| Définition 	| Question dans l'enquete 	|
 |--------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------	|
-| rev_i_agricoles 	| Revenu agricole déclaré par ceux qui travaillent dans le sector agricole 	| e11a; e20==1 | e20==2 | e20==5; 	|
+| rev_i_agricoles 	| Revenu agricole déclaré par ceux qui travaillent dans le sector agricole 	| e11a; e20==1 ; e20==2 ; e20==5; 	|
 | rev_i_assurance_sante 	| Prestations d'assurance maladie dont l'individu a bénéficié 	| d5 	|
 | rev_i_autoconsommation 	| Autoconsommation des produits agricoles, d'élevage et de la pêche. La variable est mesurée au niveau ménage 	| I8_1; I8_2; I8_3 	|
 | rev_i_autres 	| C'est la somme des revenus hors emplois et transferts associé à des prestations de service (commissions/honoraires, location véhicule, autres revenus hors emploi/transfers) et des revenus des activités sécondaires 	| fr2a; fr1; e14b 	|
@@ -84,7 +84,7 @@ autre ?
 | rev_i_loyers 	| Revenu tiré de la location de maison, terrain et champ 	| fr2a;fr1==4 	|
 | rev_i_loyers_imputes 	| Loyer imputé calculé par l'ANSD. Celui-ci étant mesuré au niveau ménage, la variable est dividsée par la taille du ménage 	|  	|
 | rev_i_pension 	| Pension de retraite 	| fr2a;fr1==2 	|
-| rev_i_salaires_formels 	| Salaires du secteur formel incluant administration, entreprise publique, Banques/assurances, organisations internationales/ ambassades, associations/ONG 	| e11a; e18a==1 | e18a==2 | e18a==3 | e18a==5 | e18a==6 | e18a==7 	|
+| rev_i_salaires_formels 	| Salaires du secteur formel incluant administration, entreprise publique, Banques/assurances, organisations internationales/ ambassades, associations/ONG 	| e11a; e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 	|
 | rev_i_salaires_informels 	| Tous les salaires du secteur non formel 	|  	|
 | rev_i_transferts_publics 	| Bourse scolaire, pension d'invalidité, programme/projet d'assistance sociale 	| p2_*; fr2a 	|
 
@@ -100,7 +100,7 @@ autre ?
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| poids3_a 	|
 | cov_i_region 	| Région de résidence 	|  	|
 | cov_i_secteur_activite 	| Secteur d'activité de l'individu 	| e20; e12; e10; e9; e18a 	|
-| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	| e18a==1 $\mid$ e18a==2 | e18a==3 | e18a==5 | e18a==6 | e18a==7 | e13_1==1 | e13_2==1 | e13_3==1 | e24i_annuel>0 & e24i_annuel!=. 	|
+| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	| e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 ; e13_1==1 ; e13_2==1 ; e13_3==1 ; e24i_annuel>0 & e24i_annuel!=. 	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_emploi 	| Statut d'emploi de l'individu 	| cov_i_secteur_activite; e1; e3; e7 	|
