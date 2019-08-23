@@ -9,7 +9,11 @@
 
 
 ## [EN] Introduction
-OpenFisca is a versatile microsimulation free software. This repository contains the OpenFisca implementation of [Commitemnt to Equity (CEQ)](http://commitmentoequity.org) analysis framework. It is currently developped to work with the [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire), [Mali](https://github.com/openfisca/openfisca-mali) and [Sénégal](https://github.com/openfisca/openfisca-senegal) country packages. Therefore, the working language here is French. You can however check the [general OpenFisca documentation](https://openfisca.org/doc/) in English!
+OpenFisca is a versatile microsimulation free software. This repository contains the OpenFisca implementation of [Commitment to Equity (CEQ)](http://commitmentoequity.org) analysis framework.
+
+A [brief introduction to CEQ concepts](./documentation/ceq.md) entering our model is available.
+
+This package is currently developped to work with the [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire), [Mali](https://github.com/openfisca/openfisca-mali) and [Sénégal](https://github.com/openfisca/openfisca-senegal) country packages. Therefore, the working language here is French. You can however check the [general OpenFisca documentation](https://openfisca.org/doc/) in English!
 
 ## [FR] Introduction
 [OpenFisca](https://www.openfisca.fr/) est un logiciel libre de micro-simulation. Ce dépôt contient la modélisation du cadre d'analyse développé dans le cadre du projet [Commitemnt to Equity (CEQ)](http://commitmentoequity.org). Ce module est en cours de développment pour fonctionner avec les modèles des pays suivants:

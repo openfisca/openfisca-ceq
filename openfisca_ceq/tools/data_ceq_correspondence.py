@@ -68,5 +68,4 @@ class nontaxable_income(Variable):
                 )
             )
 
-
 multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income]
