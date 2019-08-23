@@ -98,16 +98,16 @@ autre ?
 | cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| age; e7; b11; b12; b11; b9 	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| poids3_a 	|
+| cov_i_region 	| Région de résidence 	|  	|
 | cov_i_secteur_activite 	| Secteur d'activité de l'individu 	| e20; e12; e10; e9; e18a 	|
-| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	| e18a==1 | e18a==2 | e18a==3 | e18a==5 | e18a==6 | e18a==7 | e13_1==1 | e13_2==1 | e13_3==1 | e24i_annuel>0 & e24i_annuel!=. 	|
+| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	| e18a==1 $\mid$ e18a==2 | e18a==3 | e18a==5 | e18a==6 | e18a==7 | e13_1==1 | e13_2==1 | e13_3==1 | e24i_annuel>0 & e24i_annuel!=. 	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_emploi 	| Statut d'emploi de l'individu 	| cov_i_secteur_activite; e1; e3; e7 	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
+| cov_i_taille_menage 	| La taille du ménage 	|  	|
 | cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
-| cov_m_region 	| Région de résidence 	|  	|
-| cov_m_taille_menage 	| La taille du ménage 	|  	|
-| cov_m_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
+| cov_i_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
 | hh_id 	| Identifiant du ménage 	| a07b;a08 	|
 | pers_id 	| identifiant de l'individu 	| a07b;a08;numpers 	|
 
