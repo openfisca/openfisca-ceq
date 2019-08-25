@@ -43,9 +43,10 @@ def build_label_by_code_coicop(consumption_items_file_path):
 def build_complete_label_coicop_data_frame(consumption_items_file_path, file_path = None, deduplicate = True):
     label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
     raw_coicop_nomenclature = build_raw_coicop_nomenclature()
+    raw_coicop_nomenclature.to_csv('raw.csv')
     completed_label_coicop = (label_by_code_coicop
         .reset_index()
-        .merge(raw_coicop_nomenclature, on = 'code_coicop', how = 'inner')
+        .merge(raw_coicop_nomenclature, on = 'code_coicop', how = 'left')
         .filter(items = [
             'label_division',
             'label_groupe',
@@ -66,7 +67,6 @@ def build_complete_label_coicop_data_frame(consumption_items_file_path, file_pat
 
     if file_path:
         completed_label_coicop.to_csv(file_path)
-
     return completed_label_coicop
 
 
@@ -92,6 +92,7 @@ def build_comparison_table(country_codes):
             )
         for country_code in country_codes
         ]
+
     index = [
         'label_division',
         'label_groupe',
@@ -100,23 +101,13 @@ def build_comparison_table(country_codes):
         'label_poste',
         'code_coicop'
         ]
+
     dfs = [
         df.groupby(index)['label_variable'].unique()
         for df in dfs
         ]
 
-    merged = (pd.concat(dfs, axis = 1, keys = country_codes, on = index, join = 'outer', copy = False)
-        .reset_index()
-        .sort_values('code_coicop')
-        .set_index(index)
-        )
-    import pdfkit as pdf
-    merged.to_html("test.html")
-    # with open("test.html", "w", encoding="utf-8") as file:
-    #     file.write(merged.to_html())
-
-    PdfFilename = 'pdfPrintOut.pdf'
-    pdf.from_file('test.html', PdfFilename)
+    merged = pd.concat(dfs, axis = 1, keys = country_codes, join = 'outer', copy = False)
 
     merged.to_csv('merged.csv')
     merged.to_excel('merged.xls')
@@ -136,10 +127,11 @@ def main():
 if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    consumption_items_file_path = os.path.join("/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_SEN.xlsx")
+    # consumption_items_file_path = os.path.join("/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_SEN.xlsx")
 
-    label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
+    # label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
 
-    # country_codes = ['CIV', 'SEN']
-    # merged = build_comparison_table(country_codes)
+    country_codes = ['CIV', 'SEN']
+    merged = build_comparison_table(country_codes)
+
     # main()
