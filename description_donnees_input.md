@@ -88,15 +88,13 @@ autre ?
 | rev_i_transferts_publics 	| Bourse scolaire, pension d'invalidité, programme/projet d'assistance sociale 	| p2_*; fr2a 	|
 
 
-## Covariables d'intérêt
+## Covariables d'intérêt et variables structurels
 
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  	|
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête. | c9 	|
 | cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| age; e7; b11; b12; b11; b9 	|
-| cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
-| cov_i_ponderation 	| Poids de l'individu dans la population 	| poids3_a 	|
 | cov_i_region 	| Région de résidence 	|  	|
 | cov_i_secteur_activite 	| Secteur d'activité de l'individu 	| e20; e12; e10; e9; e18a 	|
 | cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	| e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 ; e13_1==1 ; e13_2==1 ; e13_3==1 ; e24i_annuel>0 & e24i_annuel!=. 	|
@@ -104,13 +102,16 @@ autre ?
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_emploi 	| Statut d'emploi de l'individu 	| cov_i_secteur_activite; e1; e3; e7 	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
-| cov_i_taille_menage 	| La taille du ménage 	|  	|
 | cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
 | cov_i_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
 | hh_id 	| Identifiant du ménage 	| a07b;a08 	|
+| lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
+| taille_m 	| La taille du ménage 	|  	|
 | pers_id 	| identifiant de l'individu 	| a07b;a08;numpers 	|
+| pond_i 	| Poids de l'individu dans la population 	| poids3_a 	|
 
-## Label code des covariables d'intérêt
+
+## Label code des covariables d'intérêt et variables structurels
 
 | cov_i_classe_frequente 	|  	|
 |-------------------------------	|------	|
@@ -136,24 +137,6 @@ autre ?
 | SUPERIEUR 5eme ANNEE 	| 19 	|
 | SUPERIEUR 6 et + 	| 20 	|
 | Ne sait pas 	| 99 	|
-
-
-| cov_i_lien_cm 	|  	|
-|-------------------------------	|------	|
-| Libelle 	| Code 	|
-| Chef du Menage 	| 1 	|
-| Epoux/epouse 	| 2 	|
-| Fils/fille 	| 3 	|
-| Pere/mere 	| 4 	|
-| Frere/Soeur 	| 5 	|
-| Neveu/Niece 	| 6 	|
-| Grand-parent 	| 7 	|
-| Beau parent 	| 8 	|
-| Beau-fils/Belle fille 	| 9 	|
-| Petit-enfant 	| 10 	|
-| Autre parent 	| 11 	|
-| Domestique 	| 12 	|
-| Autre personne non apparentee 	| 13 	|
 
 
 | cov_i_secteur_activite 	|  	|
@@ -214,6 +197,24 @@ autre ?
 | Libelle 	| Code 	|
 | Public 	| 1 	|
 | Prive 	| 0 	|
+
+| lien_cm 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| Chef du Menage 	| 1 	|
+| Epoux/epouse 	| 2 	|
+| Fils/fille 	| 3 	|
+| Pere/mere 	| 4 	|
+| Frere/Soeur 	| 5 	|
+| Neveu/Niece 	| 6 	|
+| Grand-parent 	| 7 	|
+| Beau parent 	| 8 	|
+| Beau-fils/Belle fille 	| 9 	|
+| Petit-enfant 	| 10 	|
+| Autre parent 	| 11 	|
+| Domestique 	| 12 	|
+| Autre personne non apparentee 	| 13 	|
+
 
 # Construction des variables - COTE D IVOIRE - par ordre alphabéthique
 
