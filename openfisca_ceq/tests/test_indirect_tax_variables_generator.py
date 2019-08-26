@@ -1,13 +1,24 @@
+import configparser
 import logging
 import os
 import pandas as pd
 
 
+from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
+from openfisca_survey_manager import default_config_files_directory as config_files_directory
+
 from openfisca_ceq import CountryTaxBenefitSystem as CEQTaxBenefitSystem
 from openfisca_ceq.tools.variables_generator import generate_postes_variables
-from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
+
 
 log = logging.getLogger(__name__)
+
+config_parser = configparser.ConfigParser()
+config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
+consumption_items_directory = config_parser.get('ceq', 'consumption_items_directory')
+assert os.path.exists(consumption_items_directory), \
+    "Consumption items directory {} does not exists, please create it and fill it with countries consumption items files"
+
 
 
 def build_label_by_code_coicop(consumption_items_file_path):
@@ -86,8 +97,7 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, consumption_items_
 def build_comparison_table(country_codes):
     dfs = [
         build_complete_label_coicop_data_frame(
-            os.path.join(
-                "/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_{}.xlsx".format(country_code)),
+            os.path.join(consumption_items_directory, "Produits_{}.xlsx".format(country_code)),
             deduplicate = False
             )
         for country_code in country_codes
@@ -107,15 +117,30 @@ def build_comparison_table(country_codes):
         for df in dfs
         ]
 
-    merged = pd.concat(dfs, axis = 1, keys = country_codes, join = 'outer', copy = False)
+    merged = pd.concat(dfs, axis = 1, keys = country_codes, join = 'outer', copy = False).reset_index()
 
-    merged.to_csv('merged.csv')
-    merged.to_excel('merged.xls')
-    return merged.reset_index()
+    merged['division_index'] = merged.code_coicop.str.split('.', 1).str[0].astype(int)
+    merged = (merged
+        .sort_values(['division_index', 'code_coicop'])
+        .drop('division_index', axis = 1)
+        )
+    import pkg_resources
+    assets_directory = os.path.join(
+        pkg_resources.get_distribution('openfisca-ceq').location,
+        'openfisca_ceq',
+        'assets'
+        )
+    merged.to_csv(os.path.join(assets_directory, 'merged.csv'))
+    merged.to_excel(os.path.join(assets_directory,'merged.xls'))
+
+    return merged
 
 
 def main():
-    consumption_items_file_path = os.path.join("/home/benjello/Dropbox/Projet_Micro_Sim/C_IO/Produits_CIV.xlsx")
+    consumption_items_file_path = os.path.join(
+        consumption_items_directory,
+        "Produits_CIV.xlsx"
+        )
     build_complete_label_coicop_data_frame(consumption_items_file_path)
 
     tax_benefit_system = CEQTaxBenefitSystem()
@@ -131,7 +156,7 @@ if __name__ == '__main__':
 
     # label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
 
-    country_codes = ['CIV', 'SEN']
+    country_codes = ['CIV', 'SEN', 'MLI']
     merged = build_comparison_table(country_codes)
 
     # main()
