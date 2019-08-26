@@ -100,7 +100,6 @@ autre ?
 | cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	| e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 ; e13_1==1 ; e13_2==1 ; e13_3==1 ; e24i_annuel>0 & e24i_annuel!=. 	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
-| cov_i_statut_emploi 	| Statut d'emploi de l'individu 	| cov_i_secteur_activite; e1; e3; e7 	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
 | cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
 | cov_i_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
@@ -170,18 +169,6 @@ autre ?
 | Libelle 	| Code 	|
 | Masculin 	| 1 	|
 | Feminin 	| 2 	|
-
-
-| cov_i_statut_emploi 	|  	|
-|-------------------------------	|------	|
-| Libelle 	| Code 	|
-| Agricole 	| 1 	|
-| Salarie formel 	| 2 	|
-| Salarie informel 	| 3 	|
-| independant 	| 4 	|
-| Chomage 	| 5 	|
-| Inactif 	| 6 	|
-
 
 | cov_i_statut_matrimonial 	|  	|
 |-------------------------------	|------	|
