@@ -15,7 +15,7 @@ A [brief introduction to CEQ concepts](./documentation/ceq.md) entering our mode
 
 This package is currently developped to work with the [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire), [Mali](https://github.com/openfisca/openfisca-mali) and [Sénégal](https://github.com/openfisca/openfisca-senegal) country packages. Therefore, the working language here is French. You can however check the [general OpenFisca documentation](https://openfisca.org/doc/) in English!
 
-A [detailed (but still WIP) description of the implementation of the multi-country comparison](./documentation/multi-country-comparison.md) is provided.
+A [detailed (but still WIP) description of the implementation of the multi-country comparison](./documentation/multi_country_comparison.md) is provided.
 
 ## [FR] Introduction
 [OpenFisca](https://www.openfisca.fr/) est un logiciel libre de micro-simulation. Ce dépôt contient la modélisation du cadre d'analyse développé dans le cadre du projet [Commitemnt to Equity (CEQ)](http://commitmentoequity.org).
@@ -29,7 +29,7 @@ Ce module est en cours de développment pour fonctionner avec les modèles des p
 
 Pour plus d'information sur les fonctionnalités et la manière d'utiliser OpenFisca, vous pouvez consulter la [documentation générale (en anglais)](https://openfisca.org/doc/).
 
-La mise en oeuvre de la comparaison des systèmes sociaux-fiscaux des différents pays est décrite en détail dans la [section idoine](./documentation/multi-country-comparison.md).
+La mise en oeuvre de la comparaison des systèmes sociaux-fiscaux des différents pays est décrite en détail dans la [section idoine](./documentation/multi_country_comparison.md).
 
 ## Installation
 
