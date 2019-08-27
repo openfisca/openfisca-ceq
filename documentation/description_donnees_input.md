@@ -226,3 +226,26 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | rev_i_loyers_imputes 	| Loyer imputé prédit à partir d'un modèle OLS exploitant les informations relatives aux caractéristiques du logement. 	| conso_hl; nbr_piece_log; nature_toit; nature_mure; nature_sol; evac_eaux; aisance; approv_eau; conso_hl_tet; Milieu; region 	|
 | rev_i_pension 	| Pas d'informations dans l'enquête 	|  	|
 | rev_i_salaires_formels 	| Salaires du secteur formel incluant administration, entreprise publique, entre prive/ ONG enregistrés à l'institut nationa de prevoyance sociale (INPS) 	| w27; ((w17==1 ; w17==2 ; w17==3 ; w17==4) & w18b==1) ; w26==1 & ( w16>=1 & w16<=5) ; w16==9 ; w16==8 ; w24==1 	|
+
+## Covariables et variables structurelles
+
+| Nom de la variable 	| Définition 	| Question dans l'enquete 	|
+|-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-------------------------------------------------	|
+| cov_i_age 	| Age de l'individu 	| m4 	|
+| cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête 	| E6 	|
+| cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| m4<=18 & m5==3; w11==7 & m4>18 & m4<=25 & m5==3 	|
+| cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| m5 	|
+| cov_i_ponderation 	| Poids de l'individu dans la population 	| weight_pc 	|
+| cov_i_secteur_activite 	| Secteur d'activité de l'individu 	|  	|
+| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR) ou lorsque l'indépendant déclare avoir versé un impôt. 	|  	|
+| cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| w17==1 	|
+| cov_i_sexe 	| Sexe de l'individu 	| m3 	|
+| cov_i_statut_emploi 	| Statut d'emploi de l'individu 	|  	|
+| cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	|  	|
+| cov_i_taxe_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
+| cov_i_type_ecole 	| Pas d'informations dans l'enquête 	|  	|
+| cov_m_region 	| Région de résidence 	|  	|
+| cov_m_taille_menage 	| La taille du ménage 	|  	|
+| cov_m_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
+| hh_id 	| Identifiant du ménage 	|  	|
+| pers_id 	| identifiant de l'individu 	|  	|
