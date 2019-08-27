@@ -16,17 +16,20 @@ A [brief introduction to CEQ concepts](./documentation/ceq.md) entering our mode
 This package is currently developped to work with the [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire), [Mali](https://github.com/openfisca/openfisca-mali) and [Sénégal](https://github.com/openfisca/openfisca-senegal) country packages. Therefore, the working language here is French. You can however check the [general OpenFisca documentation](https://openfisca.org/doc/) in English!
 
 ## [FR] Introduction
-[OpenFisca](https://www.openfisca.fr/) est un logiciel libre de micro-simulation. Ce dépôt contient la modélisation du cadre d'analyse développé dans le cadre du projet [Commitemnt to Equity (CEQ)](http://commitmentoequity.org). Ce module est en cours de développment pour fonctionner avec les modèles des pays suivants:
+[OpenFisca](https://www.openfisca.fr/) est un logiciel libre de micro-simulation. Ce dépôt contient la modélisation du cadre d'analyse développé dans le cadre du projet [Commitemnt to Equity (CEQ)](http://commitmentoequity.org).
+
+Une [brève introduction aux concepts de revenus mobilisés par le cadre d'analyse CEQ](./documentation/ceq.md) utilisée par nnotre modèle est fournie.
+
+Ce module est en cours de développment pour fonctionner avec les modèles des pays suivants:
  - [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire)
  - [Mali](https://github.com/openfisca/openfisca-mali)
  - [Sénégal](https://github.com/openfisca/openfisca-senegal)
 
-Pour plus d'information sur les fonctionnalités et la manière d'utiliser OpenFisca, vous pouvez consulter la [documentation générale](https://openfisca.org/doc/).
+Pour plus d'information sur les fonctionnalités et la manière d'utiliser OpenFisca, vous pouvez consulter la [documentation générale (en anglais)](https://openfisca.org/doc/).
 
 ## Installation
 
 Ce paquet requiert [Python 3.7](https://www.python.org/downloads/release/python-370/) et [pip](https://pip.pypa.io/en/stable/installing/).
-
 
 Plateformes supportées :
 - distributions GNU/Linux (en particulier Debian and Ubuntu) ;
