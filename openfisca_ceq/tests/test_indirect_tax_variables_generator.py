@@ -39,7 +39,6 @@ def main():
     log.info(sorted(tax_benefit_system.variables.keys()))
 
 
-
 if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)

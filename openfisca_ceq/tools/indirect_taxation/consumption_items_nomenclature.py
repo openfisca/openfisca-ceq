@@ -2,17 +2,21 @@ import configparser
 import logging
 import os
 import pandas as pd
+import pkg_resources
 
 
 from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
 from openfisca_survey_manager import default_config_files_directory as config_files_directory
+
+
+log = logging.getLogger(__name__)
+
 
 config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 consumption_items_directory = config_parser.get('ceq', 'consumption_items_directory')
 assert os.path.exists(consumption_items_directory), \
     "Consumption items directory {} does not exists, please create it and fill it with countries consumption items files"
-
 
 
 def build_label_by_code_coicop(consumption_items_file_path, additional_variables = None):
@@ -100,20 +104,15 @@ def build_comparison_table(country_codes):
         ]
 
     merged = pd.concat(dfs, axis = 1, keys = country_codes, join = 'outer', copy = False).reset_index()
-
     merged['division_index'] = merged.code_coicop.str.split('.', 1).str[0].astype(int)
-    merged = (merged
-        .sort_values(['division_index', 'code_coicop'])
-        .drop('division_index', axis = 1)
-        )
-    import pkg_resources
+    merged = (merged.sort_values(['division_index', 'code_coicop']).drop('division_index', axis = 1))
     assets_directory = os.path.join(
         pkg_resources.get_distribution('openfisca-ceq').location,
         'openfisca_ceq',
         'assets'
         )
     merged.to_csv(os.path.join(assets_directory, 'merged.csv'))
-    merged.to_excel(os.path.join(assets_directory,'merged.xls'))
+    merged.to_excel(os.path.join(assets_directory, 'merged.xls'))
 
     return merged
 
@@ -131,7 +130,6 @@ if __name__ == '__main__':
     tax_variables = ['tva']
     df = build_tax_rate_by_code_coicop(consumption_items_file_path, tax_variables)
     for tax_variable in tax_variables:
-        print(df[tax_variable].value_counts())
-
+        log.info(df[tax_variable].value_counts())
     # country_codes = ['CIV', 'SEN', 'MLI']
     # merged = build_comparison_table(country_codes)
