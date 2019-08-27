@@ -123,4 +123,4 @@ def get_all_neutralized_variables(survey_scenario, period, variables = None):
         by_design_neutralized_variables_by_entity[entity] = by_design_neutralized_variables
         de_facto_neutralized_variables_by_entity[entity] = de_facto_neutralized_variables
 
-    return by_design_neutralized_variables, de_facto_neutralized_variables
+    return by_design_neutralized_variables_by_entity, de_facto_neutralized_variables_by_entity

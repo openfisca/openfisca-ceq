@@ -3,7 +3,7 @@
 
 Les variables doivent être homogénéïsées entre les pays
 Tous les noms de variables de toutes les bases dépenses, revenus et taxes indiretcets doivent être les mêmes pour chaque pays.
-La construction des variaables par contre peut être spéficique à chaque pays, et doit être exlicitée dans les sections suivantes.
+En revanche, la construction des variables peut être spéficique à chaque pays, comme cela est explicité dans les sections suivantes.
 
 ## Dépenses
 
@@ -17,7 +17,7 @@ Les observations se font au niveau du ménage x produit et sont indexées par le
 
 * `prix`: prix du produit (potetiellement manquante)
 * `quantite`: quantité achetée (potetiellement manquante)
-* `depense` = valeur monétaire de ma dépensé (= prix x quantité - en théorie) - c'est la variable que l'on aura tout le temps, les deux autres, prix et quantité, ne sont malheureusement que rarement disponibles.
+* `depense`: valeur monétaire de ma dépensé (= prix x quantité - en théorie) - c'est la variable que l'on aura tout le temps, les deux autres, prix et quantité, ne sont malheureusement que rarement disponibles.
 
 ## Revenus
 
