@@ -249,3 +249,67 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_m_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
 | hh_id 	| Identifiant du ménage 	|  	|
 | pers_id 	| identifiant de l'individu 	|  	|
+
+## Labels code des variables d'intérêt et variables structurelles
+
+
+| cov_i_classe_frequente 	|  	|
+|-----------------------------------	|------	|
+| Libelle 	| Code 	|
+| Maternelle 	| 0 	|
+| 1ere annee 	| 1 	|
+| 2eme annee 	| 2 	|
+| 3eme annee 	| 3 	|
+| 4eme annee 	| 4 	|
+| 5eme annee 	| 5 	|
+| 6eme annee 	| 6 	|
+| 7eme annee 	| 7 	|
+| 8eme annee 	| 8 	|
+| 9eme annee 	| 9 	|
+| Secondaire 	| 10 	|
+| Superieur 	| 11 	|
+
+| cov_i_secteur_activite 	|  	|
+|-----------------------------------	|------	|
+| Libelle 	| Code 	|
+| trav agricole 	| 0 	|
+| sal/dep formel 	| 1 	|
+| sal/dep informel 	| 2 	|
+| CGU comm/prod A 	| 3 	|
+| CGU comm/prod B 	| 4 	|
+| CGU services 	| 5 	|
+| indep BNC (prof lib) 	| 6 	|
+
+| cov_i_secteur_formel_informel 	|  	|
+|-----------------------------------	|------	|
+| Libelle 	| Code 	|
+| Formel 	| 1 	|
+| Informel 	| 0 	|
+
+| cov_i_sexe 	|  	|
+|-----------------------------------	|------	|
+| Libelle 	| Code 	|
+| Masculin 	| 1 	|
+| Feminin 	| 2 	|
+
+| cov_i_statut_matrimonial 	|  	|
+|-----------------------------------	|------	|
+| Libelle 	| Code 	|
+| Marie monogame 	| 1 	|
+| Marie polygame 	| 2 	|
+| Union libre 	| 3 	|
+| Celibataire (jamais marie) 	| 4 	|
+| Divorce/separe 	| 5 	|
+| Veuf(ve) 	| 6 	|
+| Personnes de moins de 15 ans 	| 7 	|
+
+| lien_cm 	|  	|
+|-----------------------------------	|------	|
+| Libelle 	| Code 	|
+| Chef du menage 	| 1 	|
+| Conjoint du CM 	| 2 	|
+| Enfant du chef/conjoint du CM 	| 3 	|
+| Pere/mere du CM/conjoint du CM 	| 4 	|
+| Autre parent du CM/conjoint du CM 	| 5 	|
+| Autres personnes non apparentees 	| 6 	|
+| Domestique 	| 7 	|
