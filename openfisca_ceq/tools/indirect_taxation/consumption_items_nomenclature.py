@@ -127,9 +127,10 @@ if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
     country_code = "MLI"
     consumption_items_file_path = os.path.join(consumption_items_directory, "Produits_{}.xlsx".format(country_code))
-    tax_variables = ['tva']
+    tax_variables = ['tva', 'tax_special', 'taxe_activ_fin', 'droit_douane']
+
     df = build_tax_rate_by_code_coicop(consumption_items_file_path, tax_variables)
     for tax_variable in tax_variables:
-        log.info(df[tax_variable].value_counts())
+        log.info(tax_variable +"\n" + str(df[tax_variable].value_counts()))
     # country_codes = ['CIV', 'SEN', 'MLI']
     # merged = build_comparison_table(country_codes)
