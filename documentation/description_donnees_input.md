@@ -52,7 +52,7 @@ Si l'on prend la différence formel/informel dans un sens plus large que la seul
 * `rev_i_autres_transferts`
 * `rev_i_autres_revenus_capital`: Non disponible pour le Mali
 * `rev_i_pensions`: Non disponible pour le Mali
-* `rev_i_transferts_publics`
+* `rev_i_transferts_publics`: Non disponible pour le Mali
 
 ### Covariables d'intérêt
 
