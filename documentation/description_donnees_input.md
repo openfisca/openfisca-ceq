@@ -41,7 +41,7 @@ Les ménages sont pondérés:
 * `rev_i_agricoles`: tous les revenus de l'agriculture sauf ceux déjà comptés dans rev_i_salaires_taxe et rev_i_independants_taxe
 * `rev_i_independants_Ntaxe`: tous ceux qui travaillent dans le secteur informel non agricole en tant qu'indépendant et ne sont pas taxés
 * `rev_i_independants_Ntaxe`: Ensemble des revenus indépendants
-* `rev_i_salaires_informels`: tous ceux qui travaillent dans le secteur informel non agricole en tant que salarié et ne sont pas taxés
+* `rev_i_salaires_informels`: tous ceux qui travaillent dans le secteur informel non agricole
 
 Si l'on prend la différence formel/informel dans un sens plus large que la seule dichotomie taxé/non-taxé, mais au sens où le secteur formel est celui de la contractualisation, de la loi etc ... alors parmis les 5 catégorie de revenus énumérées plus haut seul rev_i_salaires_taxe appartient au formel, le reste c'est de l'informel.
 
