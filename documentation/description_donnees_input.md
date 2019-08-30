@@ -222,6 +222,7 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | rev_i_autres 	| Cette catégorie de revenu inclut uniquement les revenus tirés des activités secondaires. 	| w35 	|
 |rev_i_autres_revenus_capital| Pas d'informations dans l'enquête 	|  	|
 | rev_i_autres_transferts 	| Il s'agit de l'ensemble des transferts des migrants 	| MT5	|
+`rev_i_transferts_publics` | Pas d'informations dans l'enquête 	|  	|
 | rev_i_independants 	| Ensemble des revenu des indépendants non agricoles. 	| w27; cov_i_secteur_activite>=3 & cov_i_secteur_activite<=6 	|
 | rev_i_independants_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
 | rev_i_independants_taxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
