@@ -5,6 +5,24 @@ from openfisca_core.model_api import Variable, YEAR
 from openfisca_ceq.entities import Household
 
 
+# Conversion depuis les variables listées dans openfisca-ceq/documentation/description_donnees_input.md
+
+# 12 revenus
+initial_revenues_source = set([
+    "rev_i_salaires_taxe",
+    "rev_i_independants_taxe",
+    "rev_i_agricoles",
+    "rev_i_independants_Ntaxe",
+    "rev_i_salarie_Ntaxe",
+    "rev_i_autoconsommation",
+    "rev_i_loyers_imputes" ,
+    "rev_i_loyers",
+    "rev_i_autres_transferts",
+    "rev_i_autres_revenus_capital",
+    "rev_i_pensions",
+    "rev_i_transferts_publics",
+    ])
+
 ceq_input_by_person_variable = {
     "rev_i_autoconsommation": "autoconsumption",
     "rev_i_autres_transferts": "other_income",
@@ -16,14 +34,21 @@ ceq_intermediate_by_person_variable = {
     }
 
 non_ceq_input_by_person_variable = {
+    "rev_i_agricoles": "revenu_informel_agricole",
     "rev_i_autres_revenus_capital": "autres_revenus_du_capital",
-    "rev_i_independants_formels": "revenu_non_salarie",
-    "rev_i_informels_agricoles": "revenu_informel_agricole",
-    "rev_i_informels_autres": "autres_revenus_informels",
+    "rev_i_independants_Ntaxe": "revenu_informel_non_salarie",
+    "rev_i_independants_taxe": "revenu_non_salarie",
     "rev_i_loyers": "revenu_locatif",
     "rev_i_pensions": "pension_retraite",
-    "rev_i_salaires_formels": "salaire",
+    "rev_i_salaires_taxe": "salaire",
+    "rev_i_salarie_Ntaxe": "revenu_informel_salarie",
     }
+
+
+assert initial_revenues_source == (set(ceq_input_by_person_variable.keys())
+    .union(set(ceq_intermediate_by_person_variable.keys())
+    ).union(set(non_ceq_input_by_person_variable.keys()))
+    )
 
 
 class all_income_excluding_transfers(Variable):
@@ -35,11 +60,12 @@ class all_income_excluding_transfers(Variable):
     def formula(household, period):
         income_variables = [
             "autres_revenus_du_capital",
-            "revenu_non_salarie",
-            "revenu_informel_agricole",
-            "autres_revenus_informels",
-            "revenu_locatif",
             "pension_retraite",
+            "revenu_informel_agricole",
+            "revenu_informel_non_salarie",
+            "revenu_locatif",
+            "revenu_non_salarie",
+            "revenu_non_salarie",
             "salaire",
             ]
         return household.sum(
@@ -67,6 +93,5 @@ class nontaxable_income(Variable):
                 for variable in income_variables
                 )
             )
-
 
 multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income]

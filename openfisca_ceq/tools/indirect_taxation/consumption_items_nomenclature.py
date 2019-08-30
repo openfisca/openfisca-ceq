@@ -131,6 +131,6 @@ if __name__ == '__main__':
 
     df = build_tax_rate_by_code_coicop(consumption_items_file_path, tax_variables)
     for tax_variable in tax_variables:
-        log.info(tax_variable +"\n" + str(df[tax_variable].value_counts()))
+        log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
     # country_codes = ['CIV', 'SEN', 'MLI']
     # merged = build_comparison_table(country_codes)
