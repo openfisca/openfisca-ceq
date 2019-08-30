@@ -47,10 +47,10 @@ Si l'on prend la différence formel/informel dans un sens plus large que la seul
 
 * `rev_i_autoconsommation`
 * `rev_i_loyers_imputes`
-* `rev_i_loyers`
+* `rev_i_loyers`: Non disponible pour le Mali
 * `rev_i_autres_transferts`
-* `rev_i_autres_revenus_capital`
-* `rev_i_pensions`
+* `rev_i_autres_revenus_capital`: Non disponible pour le Mali
+* `rev_i_pensions`: Non disponible pour le Mali
 * `rev_i_transferts_publics`
 
 ### Covariables d'intérêt
