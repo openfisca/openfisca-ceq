@@ -9,17 +9,17 @@ from openfisca_ceq.entities import Household
 
 # 12 revenus
 initial_revenues_source = set([
-    "rev_i_salaires_taxe",
-    "rev_i_independants_taxe",
     "rev_i_agricoles",
-    "rev_i_independants_Ntaxe",
-    "rev_i_salarie_Ntaxe",
     "rev_i_autoconsommation",
-    "rev_i_loyers_imputes" ,
-    "rev_i_loyers",
-    "rev_i_autres_transferts",
     "rev_i_autres_revenus_capital",
+    "rev_i_autres_transferts",
+    "rev_i_independants_Ntaxe",
+    "rev_i_independants_taxe",
+    "rev_i_loyers_imputes",
+    "rev_i_loyers",
     "rev_i_pensions",
+    "rev_i_salaires_formels",
+    "rev_i_salaires_informels",
     "rev_i_transferts_publics",
     ])
 
@@ -40,8 +40,8 @@ non_ceq_input_by_person_variable = {
     "rev_i_independants_taxe": "revenu_non_salarie",
     "rev_i_loyers": "revenu_locatif",
     "rev_i_pensions": "pension_retraite",
-    "rev_i_salaires_taxe": "salaire",
-    "rev_i_salarie_Ntaxe": "revenu_informel_salarie",
+    "rev_i_salaires_formels": "salaire",
+    "rev_i_salaires_informels": "revenu_informel_salarie",
     }
 
 

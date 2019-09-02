@@ -18,8 +18,8 @@ log = logging.getLogger(__name__)
 config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 
-# income_data_path = config_parser.get('mali', 'revenus_harmonises_2014')
-income_data_path = config_parser.get('senegal', 'revenus_harmonises_2011')
+income_data_path = config_parser.get('mali', 'revenus_harmonises_2014')
+# income_data_path = config_parser.get('senegal', 'revenus_harmonises_2011')
 
 model_variable_by_person_variable = dict()
 for d in [non_ceq_input_by_person_variable, ceq_intermediate_by_person_variable, ceq_input_by_person_variable]:
