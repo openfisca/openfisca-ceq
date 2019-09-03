@@ -19,7 +19,17 @@ assert os.path.exists(consumption_items_directory), \
     "Consumption items directory {} does not exists, please create it and fill it with countries consumption items files"
 
 
-def build_label_by_code_coicop(consumption_items_file_path, additional_variables = None):
+country_code_by_country = {
+    "mali": "MLI",
+    "senegal": "SEN",
+    "cote_d_ivoire": "CIV",
+    }
+
+
+def build_label_by_code_coicop(country, additional_variables = None):
+    consumption_items_file_path = os.path.join(
+        consumption_items_directory, "Produits_{}.xlsx".format(country_code_by_country[country])
+        )
     if additional_variables is None:
         additional_variables = []
     consumption_items = pd.read_excel(consumption_items_file_path)
@@ -51,7 +61,10 @@ def build_label_by_code_coicop(consumption_items_file_path, additional_variables
     return label_by_code_coicop
 
 
-def build_complete_label_coicop_data_frame(consumption_items_file_path, file_path = None, deduplicate = True):
+def build_complete_label_coicop_data_frame(country, file_path = None, deduplicate = True):
+    consumption_items_file_path = os.path.join(
+        consumption_items_directory, "Produits_{}.xlsx".format(country_code_by_country[country])
+        )
     label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
     raw_coicop_nomenclature = build_raw_coicop_nomenclature()
     completed_label_coicop = (label_by_code_coicop
@@ -80,13 +93,10 @@ def build_complete_label_coicop_data_frame(consumption_items_file_path, file_pat
     return completed_label_coicop
 
 
-def build_comparison_table(country_codes):
+def build_comparison_table(countries):
     dfs = [
-        build_complete_label_coicop_data_frame(
-            os.path.join(consumption_items_directory, "Produits_{}.xlsx".format(country_code)),
-            deduplicate = False
-            )
-        for country_code in country_codes
+        build_complete_label_coicop_data_frame(country, deduplicate = False)
+        for country in countries
         ]
 
     index = [
@@ -117,20 +127,19 @@ def build_comparison_table(country_codes):
     return merged
 
 
-def build_tax_rate_by_code_coicop(consumption_items_file_path, tax_variables = None):
+def build_tax_rate_by_code_coicop(country, tax_variables = None):
     assert tax_variables is not None
-    return build_label_by_code_coicop(consumption_items_file_path, additional_variables = tax_variables)
+    return build_label_by_code_coicop(country, additional_variables = tax_variables)
 
 
 if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    country_code = "MLI"
-    consumption_items_file_path = os.path.join(consumption_items_directory, "Produits_{}.xlsx".format(country_code))
+    country = "mali"
     tax_variables = ['tva', 'tax_special', 'taxe_activ_fin', 'droit_douane']
 
-    df = build_tax_rate_by_code_coicop(consumption_items_file_path, tax_variables)
+    df = build_tax_rate_by_code_coicop(country, tax_variables)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
-    # country_codes = ['CIV', 'SEN', 'MLI']
-    # merged = build_comparison_table(country_codes)
+    # countries = ['cote_d_ivoire', 'senegal', 'mali']
+    # merged = build_comparison_table(countries)
