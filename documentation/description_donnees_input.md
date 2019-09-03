@@ -58,12 +58,12 @@ Si l'on prend la différence formel/informel dans un sens plus large que la seul
 #### Revenus indisponibles par pays
 
 * Mali
-- `rev_i_independants_taxe`
-- `rev_i_independants_Ntaxe`
-- `rev_i_loyers`
-- `rev_i_autres_revenus_capital`
-- `rev_i_pensions`
-- `rev_i_transferts_publics`
+  - `rev_i_independants_taxe`
+  - `rev_i_independants_Ntaxe`
+  - `rev_i_loyers`
+  - `rev_i_autres_revenus_capital`
+  - `rev_i_pensions`
+  - `rev_i_transferts_publics`
 
 
 ### Covariables d'intérêt
