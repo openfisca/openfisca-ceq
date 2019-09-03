@@ -36,23 +36,35 @@ Les ménages sont pondérés:
 
 ### Variables de revenus
 
+#### Concepts retenus et variables associées
+
 * `rev_i_agricoles`: tous les revenus de l'agriculture sauf ceux déjà comptés dans rev_i_salaires_taxe et rev_i_independants_taxe
 * `rev_i_salaires_formels`: les revenus salariés du secteur formel
 * `rev_i_salaires_informels`: tous ceux qui travaillent dans le secteur informel non agricole
 * `rev_i_independants`: Ensemble des revenus indépendants. Cette variable est particulièrement pertinente dans le cas du Mali parce que nous n'avons pas l'information sur le paiement effectif des taxes sur les revenus des indépendants.
-* `rev_i_independants_taxe`: les revenus des indépendants non agricole qui sont effectivement taxés. Variable uniquement disponible pour la CIV et le SEN. 
-* `rev_i_independants_Ntaxe`: tous ceux qui travaillent dans le secteur informel non agricole en tant qu'indépendant et ne sont pas taxés. Variable uniquement disponible pour la CIV et le SEN. 
-
+* `rev_i_independants_taxe`: les revenus des indépendants non agricole qui sont effectivement taxés.
+* `rev_i_independants_Ntaxe`: tous ceux qui travaillent dans le secteur informel non agricole en tant qu'indépendant et ne sont pas taxés.
 
 Si l'on prend la différence formel/informel dans un sens plus large que la seule dichotomie taxé/non-taxé, mais au sens où le secteur formel est celui de la contractualisation, de la loi etc ... alors parmis les 5 catégorie de revenus énumérées plus haut seul rev_i_salaires_taxe appartient au formel, le reste c'est de l'informel.
 
 * `rev_i_autoconsommation`
 * `rev_i_loyers_imputes`
-* `rev_i_loyers`: Non disponible pour le Mali
+* `rev_i_loyers`
 * `rev_i_autres_transferts`
-* `rev_i_autres_revenus_capital`: Non disponible pour le Mali
-* `rev_i_pensions`: Non disponible pour le Mali
-* `rev_i_transferts_publics`: Non disponible pour le Mali
+* `rev_i_autres_revenus_capital`
+* `rev_i_pensions`
+* `rev_i_transferts_publics`
+
+#### Revenus indisponibles par pays
+
+* Mali
+- `rev_i_independants_taxe`
+- `rev_i_independants_Ntaxe`
+- `rev_i_loyers`
+- `rev_i_autres_revenus_capital`
+- `rev_i_pensions`
+- `rev_i_transferts_publics`
+
 
 ### Covariables d'intérêt
 
