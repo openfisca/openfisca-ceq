@@ -34,7 +34,7 @@ ceq_intermediate_by_person_variable = {
     }
 
 non_ceq_input_by_person_variable = {
-    "rev_i_agricoles": "revenu_informel_agricole",
+    "rev_i_agricoles": "revenu_agricole",
     "rev_i_autres_revenus_capital": "autres_revenus_du_capital",
     "rev_i_independants_Ntaxe": "revenu_informel_non_salarie",
     "rev_i_independants_taxe": "revenu_non_salarie",
@@ -61,10 +61,10 @@ class all_income_excluding_transfers(Variable):
         income_variables = [
             "autres_revenus_du_capital",
             "pension_retraite",
-            "revenu_informel_agricole",
+            "revenu_agricole",
             "revenu_informel_non_salarie",
+            "revenu_informel_salarie"
             "revenu_locatif",
-            "revenu_non_salarie",
             "revenu_non_salarie",
             "salaire",
             ]
@@ -84,9 +84,10 @@ class nontaxable_income(Variable):
 
     def formula(household, period):
         income_variables = [
-            "revenu_informel_agricole",
-            "autres_revenus_informels",
-            ]
+            "revenu_informel_agricole",  # A construire
+            "revenu_informel_non_salarie",
+            "revenu_informel_salarie",
+            # TODO ]
         return household.sum(
             sum(
                 household.members(variable, period)
