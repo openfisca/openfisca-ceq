@@ -14,8 +14,8 @@ from openfisca_ceq.tools.indirect_taxation.variables_generator import generate_p
 log = logging.getLogger(__name__)
 
 
-def add_coicop_item_to_tax_benefit_system(tax_benefit_system, consumption_items_file_path):
-    label_by_code_coicop = (build_label_by_code_coicop(consumption_items_file_path)
+def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
+    label_by_code_coicop = (build_label_by_code_coicop(country)
         .filter(['label_variable'])
         .reset_index()
         .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
@@ -28,14 +28,11 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, consumption_items_
 
 
 def main():
-    consumption_items_file_path = os.path.join(
-        consumption_items_directory,
-        "Produits_CIV.xlsx"
-        )
-    build_complete_label_coicop_data_frame(consumption_items_file_path)
+    country = "senegal"
+    build_complete_label_coicop_data_frame(country)
 
     tax_benefit_system = CEQTaxBenefitSystem()
-    add_coicop_item_to_tax_benefit_system(tax_benefit_system, consumption_items_file_path)
+    add_coicop_item_to_tax_benefit_system(tax_benefit_system, country)
     log.info(sorted(tax_benefit_system.variables.keys()))
 
 

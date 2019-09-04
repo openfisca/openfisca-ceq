@@ -37,23 +37,24 @@ def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
             )
 
 
-def generate_depenses_ht_postes_variables(tax_benefit_system, categories_fiscales = None, reform_key = None):
+def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name = None, tax_rate_by_product = None, reform_key = None):
     # Almost identical to openfisca-france-indirect-taxation eponymous function
-    assert categories_fiscales is not None
-    assert not categories_fiscales.duplicated().any().any()
-    reference_categories = sorted(categories_fiscales_data_frame['categorie_fiscale'])
+
+    assert tax_name is not None
+    assert tax_rate_by_product is not None
+    reference_rates = sorted(tax_rate_by_product[tax_name])
 
     functions_by_name_by_poste = dict()
     postes_coicop_all = set()
 
-    for categorie_fiscale in reference_categories:
+    for tax_rate in reference_rates:
         year_start = 1994
-        year_final_stop = 2014
+        year_final_stop = 2019
         functions_by_name = dict()
         for year in range(year_start, year_final_stop + 1):
             postes_coicop = sorted(
-                categories_fiscales.query(
-                    'start <= @year and stop >= @year and categorie_fiscale == @categorie_fiscale'
+                tax_rate_by_product.query(
+                    'start <= @year and stop >= @year and tax_rate == @tax_rate'
                     )['code_coicop'].astype(str))
             if year == year_start:
                 previous_postes_coicop = postes_coicop
@@ -67,15 +68,13 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, categories_fiscale
                     # if not Reform:
                     dated_func = depenses_ht_postes_function_creator(
                         poste_coicop,
-                        categorie_fiscale = categorie_fiscale,
+                        tax_rate = tax_rate,
                         year_start = year_start,
-                        year_stop = year_stop
                         )
 
-                    dated_function_name = "formula_{year_start}".format(
-                        year_start = year_start, year_stop = year_stop)
-                    log.debug('Creating fiscal category {} ({}-{}) with the following products {}'.format(
-                        categorie_fiscale, year_start, year_stop, postes_coicop))
+                    dated_function_name = "formula_{year_start}".format(year_start = year_start)
+                    log.debug('Creating fiscal category {}-{} (starting in {}) with the following products {}'.format(
+                        tax_name, tax_rate, year_start, postes_coicop))
 
                     if poste_coicop not in functions_by_name_by_poste:
                         functions_by_name_by_poste[poste_coicop] = dict()
@@ -104,19 +103,20 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, categories_fiscale
         del definitions_by_name
 
 
-def depenses_ht_postes_function_creator(poste_coicop, categorie_fiscale = None, year_start = None, year_stop = None):
+def depenses_ht_postes_function_creator(poste_coicop, parameters = None, tax_rate = None, year_start = None):
     # Almost identical to openfisca-france-indirect-taxation eponymous function
-    assert categorie_fiscale is not None
+    assert tax_rate is not None
 
-    def func(entity, period_arg, parameters, categorie_fiscale = categorie_fiscale):
-        if (categorie_fiscale is not None) or (categorie_fiscale != ''):
-            taux = parameters(period_arg.start).imposition_indirecte.tva[categorie_fiscale]
+    def func(entity, period_arg, parameters, tax_rate = tax_rate):
+        impots_indirects = parameters(period_arg.start).prelevements_obligatoires.impots_indirects
+        if (tax_rate is not None) or (tax_rate != '') or (tax_rate != 'exonere'):
+            taux = impots_indirects.tva[tax_rate]
         else:
             taux = 0
 
         return entity('poste_' + slugify(poste_coicop, separator = '_'), period_arg) / (1 + taux)
 
-    func.__name__ = "formula_{year_start}".format(year_start = year_start, year_stop = year_stop)
+    func.__name__ = "formula_{year_start}".format(year_start = year_start)
     return func
 
 

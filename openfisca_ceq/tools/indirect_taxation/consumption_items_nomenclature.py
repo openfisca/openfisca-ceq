@@ -62,10 +62,7 @@ def build_label_by_code_coicop(country, additional_variables = None):
 
 
 def build_complete_label_coicop_data_frame(country, file_path = None, deduplicate = True):
-    consumption_items_file_path = os.path.join(
-        consumption_items_directory, "Produits_{}.xlsx".format(country_code_by_country[country])
-        )
-    label_by_code_coicop = build_label_by_code_coicop(consumption_items_file_path)
+    label_by_code_coicop = build_label_by_code_coicop(country)
     raw_coicop_nomenclature = build_raw_coicop_nomenclature()
     completed_label_coicop = (label_by_code_coicop
         .reset_index()
@@ -135,9 +132,11 @@ def build_tax_rate_by_code_coicop(country, tax_variables = None):
 if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    country = "mali"
-    tax_variables = ['tva', 'tax_special', 'taxe_activ_fin', 'droit_douane']
-
+    tax_variables_by_country = {
+        "senegal": ['tva']
+        }
+    country = "senegal"
+    tax_variables = tax_variables_by_country.get(country, [])
     df = build_tax_rate_by_code_coicop(country, tax_variables)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
