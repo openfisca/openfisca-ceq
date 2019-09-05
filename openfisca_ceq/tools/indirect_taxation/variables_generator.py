@@ -37,24 +37,26 @@ def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
             )
 
 
-def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name = None, tax_rate_by_product = None, reform_key = None):
+def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name = None, tax_rate_by_code_coicop = None, reform_key = None):
     # Almost identical to openfisca-france-indirect-taxation eponymous function
 
     assert tax_name is not None
-    assert tax_rate_by_product is not None
-    reference_rates = sorted(tax_rate_by_product[tax_name])
+    assert tax_rate_by_code_coicop is not None
+    reference_rates = sorted(tax_rate_by_code_coicop[tax_name].unique())
 
     functions_by_name_by_poste = dict()
     postes_coicop_all = set()
 
     for tax_rate in reference_rates:
+        print(tax_rate)
         year_start = 1994
         year_final_stop = 2019
         functions_by_name = dict()
         for year in range(year_start, year_final_stop + 1):
             postes_coicop = sorted(
-                tax_rate_by_product.query(
-                    'start <= @year and stop >= @year and tax_rate == @tax_rate'
+                tax_rate_by_code_coicop.query(
+                    # 'start <= @year and stop >= @year and tax_rate == @tax_rate'
+                    '{} == @tax_rate'.format(tax_name)
                     )['code_coicop'].astype(str))
             if year == year_start:
                 previous_postes_coicop = postes_coicop
@@ -89,12 +91,12 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name = None, t
 
     for poste, functions_by_name in list(functions_by_name_by_poste.items()):
         class_name = 'depenses_ht_poste_{}'.format(slugify(poste, separator = '_'))
-        # if Reform is None:
+        print("Dépenses hors taxe du poste_{}".format(poste))
         definitions_by_name = dict(
             definition_period = YEAR,
             value_type = float,
             entity = tax_benefit_system.entities_by_singular()['household'],
-            label = "Dépenses hors taxe du poste_{0}".format(poste),
+            label = "Dépenses hors taxe du poste_{}".format(poste),
             )
         definitions_by_name.update(functions_by_name)
         tax_benefit_system.add_variable(
