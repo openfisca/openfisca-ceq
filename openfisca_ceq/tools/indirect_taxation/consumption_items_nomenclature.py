@@ -126,7 +126,13 @@ def build_comparison_table(countries):
 
 def build_tax_rate_by_code_coicop(country, tax_variables = None):
     assert tax_variables is not None
-    return build_label_by_code_coicop(country, additional_variables = tax_variables)
+    label_by_code_coicop = (build_label_by_code_coicop(country, additional_variables = tax_variables)
+        .drop(columns = "code_coicop")
+        .reset_index()
+        .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
+        )
+    assert "code_coicop" in label_by_code_coicop.columns
+    return label_by_code_coicop
 
 
 if __name__ == '__main__':

@@ -87,7 +87,8 @@ class nontaxable_income(Variable):
             "revenu_informel_agricole",  # A construire
             "revenu_informel_non_salarie",
             "revenu_informel_salarie",
-            # TODO ]
+            # TODO
+            ]
         return household.sum(
             sum(
                 household.members(variable, period)
