@@ -76,6 +76,16 @@ class all_income_excluding_transfers(Variable):
             )
 
 
+class indirect_taxes(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Indirect taxes"
+
+    def formula(household, period):
+        return household('impots_indirects', period)
+
+
 class nontaxable_income(Variable):
     value_type = float
     entity = Household
@@ -96,4 +106,4 @@ class nontaxable_income(Variable):
                 )
             )
 
-multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income]
+multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income, indirect_taxes]

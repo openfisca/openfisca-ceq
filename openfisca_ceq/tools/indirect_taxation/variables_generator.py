@@ -213,6 +213,7 @@ def generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_cod
 
 def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates = []):
     reference_rates = sorted(tax_rate_by_code_coicop[tax_name].unique())
+    ad_valorem_tax_components = list()
     for tax_rate in reference_rates:
         functions_by_name = dict()
 
@@ -234,12 +235,33 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
 
         func.__name__ = "formula_{year_start}".format(year_start = GLOBAL_YEAR_START)
 
-
         functions_by_name[func.__name__] = func
-
         definitions_by_name.update(functions_by_name)
         tax_benefit_system.add_variable(
             type(class_name, (Variable,), definitions_by_name)
             )
 
+        ad_valorem_tax_components += [class_name]
         del definitions_by_name
+
+
+    class_name = tax_name
+    def ad_valorem_tax_total_func(entity, period_arg):
+        return sum(
+            entity(class_name, period_arg)
+            for class_name in ad_valorem_tax_components
+            )
+
+    ad_valorem_tax_total_func.__name__ = "formula_{year_start}".format(year_start = GLOBAL_YEAR_START)
+    functions_by_name = dict()
+    functions_by_name[func.__name__] = func
+    definitions_by_name = dict(
+        value_type = float,
+        entity = tax_benefit_system.entities_by_singular()['household'],
+        label = "{} - total".format(tax_name),
+        definition_period = YEAR,
+        )
+    definitions_by_name.update(functions_by_name)
+    tax_benefit_system.add_variable(
+        type(class_name, (Variable,), definitions_by_name)
+        )

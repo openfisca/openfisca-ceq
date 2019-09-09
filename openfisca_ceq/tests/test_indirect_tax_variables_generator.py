@@ -49,10 +49,8 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
 def main():
     country = "senegal"
     build_complete_label_coicop_data_frame(country)
-
     tax_benefit_system = CEQTaxBenefitSystem()
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, country)
-
     log.info(sorted(tax_benefit_system.variables.keys()))
 
 
