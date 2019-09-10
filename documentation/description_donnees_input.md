@@ -38,7 +38,7 @@ Les ménages sont pondérés:
 
 #### Concepts retenus et variables associées
 
-* `rev_i_agricoles`: tous les revenus de l'agriculture sauf ceux déjà comptés dans rev_i_salaires_taxe et rev_i_independants_taxe
+* `rev_i_agricoles`: tous les revenus de l'agriculture sauf ceux déjà comptés dans rev_i_salaires_formels et rev_i_independants_taxe
 * `rev_i_salaires_formels`: les revenus salariés du secteur formel
 * `rev_i_salaires_informels`: tous ceux qui travaillent dans le secteur informel non agricole
 * `rev_i_independants`: Ensemble des revenus indépendants. Cette variable est particulièrement pertinente dans le cas du Mali parce que nous n'avons pas l'information sur le paiement effectif des taxes sur les revenus des indépendants.
@@ -65,6 +65,14 @@ Si l'on prend la différence formel/informel dans un sens plus large que la seul
   - `rev_i_pensions`
   - `rev_i_transferts_publics`
 
+#### Entité auxquelles sont attribués les revenus
+
+Quand elles sont disponibles les variables suivantes sont mesurées au niveau du ménage:
+ - autoconsommation
+ - loyer imputé
+ - transferts publics
+
+Les autres variables ont mesurées au niveau des individus.
 
 ### Covariables d'intérêt
 
