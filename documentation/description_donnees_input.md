@@ -107,8 +107,8 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | rev_i_autres_transferts 	| Il s'agit de l'ensemble des transferts privés incluant transferts d'individus (migrants), entreprises, ONG, etc. 	| ftr2; ftr8; ftr7 	|
 | rev_i_independants_Ntaxe 	| Revenu des indépendants non agricoles éligibles à l'impôt type CGU n'ayant pas versé d'impôt.  A combiner avec la variable secteur d'activité pour savoir à quel type de CGU le revenu est eligible 	| e11a; e20; e19; e12; e10; e24i_annuel==0 	|
 | rev_i_independants_taxe 	| Revenu des indépendants non agricoles éligibles à l'impôt type CGU ayant versé un impôt.  A combiner avec la variable secteur d'activité pour savoir à quel type de CGU le revenu est eligible 	| e11a; e20; e19; e12; e10; e24i_annuel>0 & e24i_annuel!=. 	|
-| rev_i_loyers 	| Revenu tiré de la location de maison, terrain et champ 	| fr2a;fr1==4 	|
-| rev_i_loyers_imputes 	| Loyer imputé calculé par l'ANSD. Celui-ci étant mesuré au niveau ménage, la variable est divisée par la taille du ménage 	|  	|
+| rev_i_locatif 	| Revenu tiré de la location de maison, terrain et champ 	| fr2a;fr1==4 	|
+| rev_i_locatif_impute 	| Loyer imputé calculé par l'ANSD. Celui-ci étant mesuré au niveau ménage, la variable est divisée par la taille du ménage 	|  	|
 | rev_i_pension 	| Pension de retraite 	| fr2a;fr1==2 	|
 | rev_i_salaires_formels 	| Salaires du secteur formel incluant administration, entreprise publique, Banques/assurances, organisations internationales/ ambassades, associations/ONG 	| e11a; e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 	|
 | rev_i_salaires_informels 	| Tous les salaires du secteur non formel 	|  	|
@@ -128,8 +128,8 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
-| cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
 |cov_i_taxe_Ntaxe| Dummy indiquant si l'indépendant a versé un impôt| e24i_annuel>0 & e24i_annuel!=.|
+| cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
 | cov_i_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
 | cov_m_taille 	| La taille du ménage 	|  	|
@@ -169,7 +169,7 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_i_secteur_activite 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| trav agricole 	| 0 	|
+| actif agricole 	| 0 	|
 | sal/dep formel 	| 1 	|
 | sal/dep informel 	| 2 	|
 | CGU comm/prod A 	| 3 	|
@@ -214,21 +214,15 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | Prive 	| 0 	|
 
 | lien_cm 	|  	|
-|-------------------------------	|------	|
+|-----------------------------------	|------	|
 | Libelle 	| Code 	|
-| Chef du Menage 	| 1 	|
-| Epoux/epouse 	| 2 	|
-| Fils/fille 	| 3 	|
-| Pere/mere 	| 4 	|
-| Frere/Soeur 	| 5 	|
-| Neveu/Niece 	| 6 	|
-| Grand-parent 	| 7 	|
-| Beau parent 	| 8 	|
-| Beau-fils/Belle fille 	| 9 	|
-| Petit-enfant 	| 10 	|
-| Autre parent 	| 11 	|
-| Domestique 	| 12 	|
-| Autre personne non apparentee 	| 13 	|
+| Chef du menage 	| 1 	|
+| Conjoint du CM 	| 2 	|
+| Enfant du chef/conjoint du CM 	| 3 	|
+| Pere/mere du CM/conjoint du CM 	| 4 	|
+| Autre parent du CM/conjoint du CM 	| 5 	|
+| Autres personnes non apparentees 	| 6 	|
+| Domestique 	| 7 	|
 
 # Construction des variables - COTE D IVOIRE - par ordre alphabéthique
 
@@ -247,8 +241,8 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | rev_i_independants 	| Ensemble des revenu des indépendants non agricoles. 	| w27; cov_i_secteur_activite>=3 & cov_i_secteur_activite<=6 	|
 | rev_i_independants_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
 | rev_i_independants_taxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
-| rev_i_loyers 	| Pas d'informations dans l'enquête 	|  	|
-| rev_i_loyers_imputes 	| Loyer imputé prédit à partir d'un modèle OLS exploitant les informations relatives aux caractéristiques du logement. On a divisé par la taille du ménage.  	| conso_hl; nbr_piece_log; nature_toit; nature_mure; nature_sol; evac_eaux; aisance; approv_eau; conso_hl_tet; Milieu; region 	|
+| rev_i_locatif 	| Pas d'informations dans l'enquête 	|  	|
+| rev_i_locatif_impute	| Loyer imputé prédit à partir d'un modèle OLS exploitant les informations relatives aux caractéristiques du logement. On a divisé par la taille du ménage.  	| conso_hl; nbr_piece_log; nature_toit; nature_mure; nature_sol; evac_eaux; aisance; approv_eau; conso_hl_tet; Milieu; region 	|
 | rev_i_pension 	| Pas d'informations dans l'enquête 	|  	|
 | rev_i_salaires_formels 	| Salaires du secteur formel incluant administration, entreprise publique, entre prive/ ONG enregistrés à l'institut nationa de prevoyance sociale (INPS) 	| w27; ((w17==1 ; w17==2 ; w17==3 ; w17==4) & w18b==1) ; w26==1 & ( w16>=1 & w16<=5) ; w16==9 ; w16==8 ; w24==1 	|
 
@@ -296,7 +290,7 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_i_secteur_activite 	|  	|
 |-----------------------------------	|------	|
 | Libelle 	| Code 	|
-| trav agricole 	| 0 	|
+| actif agricole 	| 0 	|
 | sal/dep formel 	| 1 	|
 | sal/dep informel 	| 2 	|
 | CGU comm/prod A 	| 3 	|
