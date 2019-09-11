@@ -48,8 +48,8 @@ Les ménages sont pondérés:
 Si l'on prend la différence formel/informel dans un sens plus large que la seule dichotomie taxé/non-taxé, mais au sens où le secteur formel est celui de la contractualisation, de la loi etc ... alors parmis les 5 catégorie de revenus énumérées plus haut seul rev_i_salaires_taxe appartient au formel, le reste c'est de l'informel.
 
 * `rev_i_autoconsommation`
-* `rev_i_loyers_imputes`
-* `rev_i_loyers`
+* `rev_i_locatif_impute`
+* `rev_i_locatif`
 * `rev_i_autres_transferts`
 * `rev_i_autres_revenus_capital`
 * `rev_i_pensions`
@@ -60,7 +60,7 @@ Si l'on prend la différence formel/informel dans un sens plus large que la seul
 * Mali
   - `rev_i_independants_taxe`
   - `rev_i_independants_Ntaxe`
-  - `rev_i_loyers`
+  - `rev_i_locatif`
   - `rev_i_autres_revenus_capital`
   - `rev_i_pensions`
   - `rev_i_transferts_publics`
@@ -72,7 +72,7 @@ Quand elles sont disponibles les variables suivantes sont mesurées au niveau du
  - loyer imputé
  - transferts publics
 
-Les autres variables ont mesurées au niveau des individus.
+Les autres variables sont mesurées au niveau des individus.
 
 ### Covariables d'intérêt
 
