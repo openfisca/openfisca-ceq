@@ -70,7 +70,8 @@ Si l'on prend la différence formel/informel dans un sens plus large que la seul
 Quand elles sont disponibles les variables suivantes sont mesurées au niveau du ménage:
  - autoconsommation
  - loyer imputé
- - transferts autres transferts dans le cas du Mali
+ - transferts publics
+ - autres transferts dans le cas du Mali
 
 Les autres variables sont mesurées au niveau des individus.
 
