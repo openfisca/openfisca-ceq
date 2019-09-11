@@ -131,8 +131,8 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
 | cov_i_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
 | hh_id 	| Identifiant du ménage 	| a07b;a08 	|
-| lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
-| taille_m 	| La taille du ménage 	|  	|
+| cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
+| cov_m_taille 	| La taille du ménage 	|  	|
 | pers_id 	| identifiant de l'individu 	| a07b;a08;numpers 	|
 | pond_i 	| Poids de l'individu dans la population 	| poids3_a 	|
 
@@ -268,7 +268,7 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_i_taxe_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
 | cov_i_type_ecole 	| Pas d'informations dans l'enquête 	|  	|
 | cov_m_region 	| Région de résidence 	|  	|
-| cov_m_taille_menage 	| La taille du ménage 	|  	|
+| cov_m_taille 	| La taille du ménage 	|  	|
 | cov_m_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
 | hh_id 	| Identifiant du ménage 	|  	|
 | pers_id 	| identifiant de l'individu 	|  	|
