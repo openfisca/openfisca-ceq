@@ -264,7 +264,6 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration publique, entreprise publique ou parapublique,entreprise privée,entreprise associative et dont les entreprises sont enregistrées à l'INPS ou les individus ayant un bulletin de salaire 	| ((w17==1 ; w17==2 ; w17==3 ; w17==4) & w18b==1) ; w26==1 	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| w17==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	| m3 	|
-| cov_i_statut_emploi 	| Statut d'emploi de l'individu 	|  	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	|  	|
 | cov_i_taxe_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
 | cov_i_type_ecole 	| Pas d'informations dans l'enquête 	|  	|
