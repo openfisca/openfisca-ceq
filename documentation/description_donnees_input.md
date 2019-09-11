@@ -252,6 +252,7 @@ Les observations se font au niveau du produits sont indexées par les variables 
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	| m4 	|
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête 	| E6 	|
+| cov_i_enfant_charge 	| Nombre d'enfants à charge du chef de ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| m4<=21 & m5==3; w11==7 & m4>21 & m4<=25 & m5==3 	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| m5 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| weight_pc 	|
 | cov_i_secteur_activite 	| Secteur d'activité de l'individu 	|  	|
