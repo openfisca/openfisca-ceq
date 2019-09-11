@@ -6,9 +6,12 @@ import pandas as pd
 
 from openfisca_survey_manager import default_config_files_directory as config_files_directory
 from openfisca_ceq.tools.data_ceq_correspondence import (
-    non_ceq_input_by_person_variable,
-    ceq_intermediate_by_person_variable,
     ceq_input_by_person_variable,
+    ceq_intermediate_by_person_variable,
+    household_variables,
+    model_by_data_id_variables,
+    non_ceq_input_by_person_variable,
+    person_variables,
     )
 
 
@@ -39,10 +42,16 @@ missing_revenus_by_country = {
 for country, year in year_by_country.items():
     income_data_path = config_parser.get(country, 'revenus_harmonises_{}'.format(year))
     model_variable_by_person_variable = dict()
-    for d in [non_ceq_input_by_person_variable, ceq_intermediate_by_person_variable, ceq_input_by_person_variable]:
+    for d in [
+        ceq_input_by_person_variable,
+        ceq_intermediate_by_person_variable,
+        model_by_data_id_variables,
+        non_ceq_input_by_person_variable,
+        ]:
         model_variable_by_person_variable.update(d)
 
     income = pd.read_stata(income_data_path)
+
     for var in income.columns:
         if var.startswith("rev"):
             print(var, income[var].notnull().any())
@@ -56,3 +65,16 @@ for country, year in year_by_country.items():
         "Missing {} in income data source".format(
             set(model_variable_by_person_variable.keys()).difference(set(income.columns))
             )
+
+    for variables in person_variables:
+        data_by_model_id_variables = {v: k for k, v in model_by_data_id_variables.items()}
+
+        filtered_person_variables = list(
+            set(person_variables).difference(
+                set(missing_revenus_by_country.get(country, [])))
+            )
+
+        person_dataframe = income[
+            filtered_person_variables
+            + [data_by_model_id_variables["person_id"]]
+            ]

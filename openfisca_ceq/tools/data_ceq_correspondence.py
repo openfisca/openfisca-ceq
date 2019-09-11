@@ -7,6 +7,12 @@ from openfisca_ceq.entities import Household
 
 # Conversion depuis les variables listées dans openfisca-ceq/documentation/description_donnees_input.md
 
+
+model_by_data_id_variables = {
+    "hh_id": "household_id",
+    "pers_id": "person_id",
+    }
+
 # 12 revenus
 initial_revenues_source = set([
     "rev_i_agricoles",
@@ -43,6 +49,10 @@ non_ceq_input_by_person_variable = {
     "rev_i_salaires_formels": "salaire",
     "rev_i_salaires_informels": "revenu_informel_salarie",
     }
+
+
+person_variables = ["rev_i_independants_taxe", "rev_i_pensions", "rev_i_salaires_formels"]
+household_variables = list(initial_revenues_source.difference(set(person_variables)))
 
 
 assert initial_revenues_source == (set(ceq_input_by_person_variable.keys())
