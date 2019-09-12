@@ -17,7 +17,7 @@ from openfisca_ceq import (
 
 from openfisca_ceq.tools.data_ceq_correspondence import (
     multi_country_custom_ceq_variables,
-    non_ceq_input_by_person_variable,
+    non_ceq_input_by_harmonized_variable,
     )
 
 log = logging.getLogger(__name__)
@@ -103,7 +103,7 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.add_variables_from_directory(ceq_variables_directory,
         ignored_variables = ignored_variables)
 
-    missing_income_variables = set(non_ceq_input_by_person_variable.values()).difference(
+    missing_income_variables = set(non_ceq_input_by_harmonized_variable.values()).difference(
         set(country_tax_benefit_system.variables.keys())
         )
     for missing_income_variable in missing_income_variables:

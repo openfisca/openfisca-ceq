@@ -7,8 +7,8 @@ from openfisca_ceq.entities import Household
 
 # Conversion depuis les variables listées dans openfisca-ceq/documentation/description_donnees_input.md
 
-
-model_by_data_id_variables = {
+# entity ids
+model_by_data_id_variable = {
     "hh_id": "household_id",
     "pers_id": "person_id",
     }
@@ -21,30 +21,30 @@ initial_revenues_source = set([
     "rev_i_autres_transferts",
     "rev_i_independants_Ntaxe",
     "rev_i_independants_taxe",
-    "rev_i_loyers_imputes",
-    "rev_i_loyers",
+    "rev_i_locatif_impute",
+    "rev_i_locatif",
     "rev_i_pensions",
     "rev_i_salaires_formels",
     "rev_i_salaires_informels",
     "rev_i_transferts_publics",
     ])
 
-ceq_input_by_person_variable = {
+ceq_input_by_harmonized_variable = {
     "rev_i_autoconsommation": "autoconsumption",
     "rev_i_autres_transferts": "other_income",
-    "rev_i_loyers_imputes": "imputed_rent",
+    "rev_i_locatif_impute": "imputed_rent",
     }
 
-ceq_intermediate_by_person_variable = {
+ceq_intermediate_by_harmonized_variable = {
     "rev_i_transferts_publics": "direct_transfers"
     }
 
-non_ceq_input_by_person_variable = {
+non_ceq_input_by_harmonized_variable = {
     "rev_i_agricoles": "revenu_agricole",
     "rev_i_autres_revenus_capital": "autres_revenus_du_capital",
     "rev_i_independants_Ntaxe": "revenu_informel_non_salarie",
     "rev_i_independants_taxe": "revenu_non_salarie",
-    "rev_i_loyers": "revenu_locatif",
+    "rev_i_locatif": "revenu_locatif",
     "rev_i_pensions": "pension_retraite",
     "rev_i_salaires_formels": "salaire",
     "rev_i_salaires_informels": "revenu_informel_salarie",
@@ -54,11 +54,23 @@ non_ceq_input_by_person_variable = {
 person_variables = ["rev_i_independants_taxe", "rev_i_pensions", "rev_i_salaires_formels"]
 household_variables = list(initial_revenues_source.difference(set(person_variables)))
 
+variables_by_entity = {
+    "person": person_variables,
+    "household": household_variables,
+    }
 
-assert initial_revenues_source == (set(ceq_input_by_person_variable.keys())
-    .union(set(ceq_intermediate_by_person_variable.keys())
-    ).union(set(non_ceq_input_by_person_variable.keys()))
+assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
+    .union(set(ceq_intermediate_by_harmonized_variable.keys()))
+    .union(set(non_ceq_input_by_harmonized_variable.keys()))
     )
+
+
+# weights
+
+data_by_model_weight_variable = {
+    "household_weight": "pond_m",
+    "person_weight": "pond_i",
+    }
 
 
 class all_income_excluding_transfers(Variable):
