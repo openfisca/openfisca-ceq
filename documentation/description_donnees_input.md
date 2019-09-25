@@ -227,6 +227,15 @@ Les observations se font au niveau du produits sont indexées par les variables 
 
 # Construction des variables - COTE D IVOIRE - par ordre alphabéthique
 
+## Variables de consommation
+
+| Nom de la variable 	| Définition 	| Question dans l'enquete 	|
+|--------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
+||||
+|||| 
+|||| 
+|||| 
+
 # Construction des variables - MALI - par ordre alphabéthique
 
 ## Variables de revenu 
