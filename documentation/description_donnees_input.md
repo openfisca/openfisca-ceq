@@ -229,12 +229,88 @@ Les observations se font au niveau du produits sont indexées par les variables 
 
 ## Variables de consommation
 
+la variable consommation est la somme de toutes ces variables :
+
 | Nom de la variable 	| Définition 	| Question dans l'enquete 	|
 |--------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
-||||
-|||| 
-|||| 
-|||| 
+exp_activite_peri_scolaires |||la8|
+exp_administrations_scolaires |||la10|
+exp_allumette |||lg10|
+exp_ampoule |||lg4|
+exp_assurance_vignette |||lf6|
+exp_autre_scolaires |||la11|
+exp_bus_taxi |||lf1|
+exp_carburant |||lf2|
+exp_cloth_autre |||lc9|
+exp_cloth_chaussures  |||lc6|
+exp_cloth_coiffure  |||lc8|
+exp_cloth_coutures  |||lc5|
+exp_cloth_enfants  |||lc2|
+exp_cloth_femmes  |||lc3|
+exp_cloth_hommes  |||lc4|
+exp_cloth_montre  |||lc7|
+exp_comb_autre  |||o18|
+exp_comb_bois  |||o18|
+exp_comb_charbon  |||o18|
+exp_comb_electricite  |||o18|
+exp_comb_gaz  |||o18|
+exp_comb_petrole  |||o18|
+exp_comm_cabine  |||le1|
+exp_comm_carte_abonnements_tel  |||le2;le3|
+exp_comm_chaines_tele  |||le6|
+exp_comm_internet  |||le4|
+exp_comm_tel_autre  |||le5|
+exp_communication_autre  |||le9|
+exp_contributions_scolaires  |||la9|
+exp_courriers  |||le8|
+exp_droit_inscription  |||la1;la2|
+exp_entretient_reparation  |||lf3|
+exp_fournitures_scolaires  |||la3|
+exp_health_accompagnant  |||lb7|
+exp_health_assurance_mal  |||lb13|
+exp_health_autre  |||lb9|
+exp_health_consult  |||lb5|
+exp_health_hopital  |||lb6|
+exp_health_medic_trad  |||lb4|
+exp_health_produits_pharma  |||lb3|
+exp_health_trad_practicien  |||lb8|
+exp_hygn  |||lg1|
+exp_journaux  |||le7|
+exp_light_electricite  |||o16|
+exp_light_huile  |||o16|
+exp_light_petrole  |||o16|
+exp_loisirs  |||lg2a|
+exp_machette  |||lg7|
+exp_maid  |||lg3|
+exp_nourritures_scolaires  |||la6|
+exp_parapluie  |||lg9|
+exp_piles  |||lg5|
+exp_rasoire  |||lg10|
+exp_soutients_scolaires  |||la7|
+exp_tabac  |||lg2b|
+exp_torche  |||lg6|
+exp_transf_alim_parents  |||ld3|
+exp_transf_association  |||ld8|
+exp_transf_autre_aide  |||ld5|
+exp_transf_epouses  |||ld2|
+exp_transf_funerails  |||ld7|
+exp_transf_marriage  |||ld6|
+exp_transf_parents  |||ld1|
+exp_transf_parents_autre  |||ld4c|
+exp_transf_parents_education  |||ld4b|
+exp_transf_parents_sante  |||ld4|
+exp_transport_exceptionnel  |||lf5|
+exp_transports_scolaires  |||la5|
+exp_uniformes_scolaires  |||la4|
+exp_voyage  |||lf4|
+exp_waste  |||o22|
+exp_water_autre  |||o14|
+exp_water_publique  |||o14|
+exp_rent  |||o3|
+exp_equipement  |||secction K|
+exp_nourriture  |||secction M|
+exp_nourriture_dons  |||secction M|
+exp_autoconsommation  |||secction M|
 
 # Construction des variables - MALI - par ordre alphabéthique
 
