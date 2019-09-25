@@ -28,8 +28,8 @@ Les observations se font au niveau du ménage x individu et sont indexées par l
 * `pers_id`: identifiant de l'individu
 
 Les variables suivantes précisent les interactions:
-* `lien_cm`: liens par rapport au chef du ménage
-* `taille_m`: nombre de personnes dans le ménage
+* `cov_i_lien_cm`: liens par rapport au chef du ménage
+* `cov_m_taille`: nombre de personnes dans le ménage
 
 Les ménages sont pondérés:
 * `pond_m`: pondération du ménage
@@ -45,7 +45,7 @@ Les ménages sont pondérés:
 * `rev_i_independants_taxe`: les revenus des indépendants non agricole qui sont effectivement taxés.
 * `rev_i_independants_Ntaxe`: tous ceux qui travaillent dans le secteur informel non agricole en tant qu'indépendant et ne sont pas taxés.
 
-Si l'on prend la différence formel/informel dans un sens plus large que la seule dichotomie taxé/non-taxé, mais au sens où le secteur formel est celui de la contractualisation, de la loi etc ... alors parmis les 5 catégorie de revenus énumérées plus haut seul rev_i_salaires_taxe appartient au formel, le reste c'est de l'informel.
+Si l'on prend la différence formel/informel dans un sens plus large que la seule dichotomie taxé/non-taxé, mais au sens où le secteur formel est celui de la contractualisation, de la loi etc ... alors parmis les 5 catégories de revenus énumérées plus haut seul rev_i_salaires_taxe appartient au formel, le reste c'est de l'informel.
 
 * `rev_i_autoconsommation`
 * `rev_i_loyers_imputes`
@@ -75,7 +75,7 @@ Quand elles sont disponibles les variables suivantes sont mesurées au niveau du
 
 Les autres variables sont mesurées au niveau des individus.
 
-### Covariables d'intérêt
+### Autre covariables d'intérêt
 
 * cov_i_*nom_de_la_covariable* = toutes les covariables individuelles
 * cov_m_*nom_de_la_covariable* = toutes les covariables niveaux ménage
@@ -116,7 +116,7 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | rev_i_transferts_publics 	| Bourse scolaire, pension d'invalidité, programme/projet d'assistance sociale. La variable est mesurée au niveau ménage. Mais on a divisé par la taille du ménage. 	| p2_*; fr2a 	|
 
 
-## Covariables d'intérêt et variables structurels
+## Covariables d'intérêt et variables structurelles
 
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
