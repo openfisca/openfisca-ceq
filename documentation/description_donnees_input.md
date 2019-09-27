@@ -332,6 +332,98 @@ exp_autoconsommation  |||secction M|
 | rev_i_pension 	| Pas d'informations dans l'enquête 	|  	|
 | rev_i_salaires_formels 	| Salaires du secteur formel incluant administration, entreprise publique, entre prive/ ONG enregistrés à l'institut nationa de prevoyance sociale (INPS) 	| w27; ((w17==1 ; w17==2 ; w17==3 ; w17==4) & w18b==1) ; w26==1 & ( w16>=1 & w16<=5) ; w16==9 ; w16==8 ; w24==1 	|
 
+## Variables de consommation
+
+La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle a été divisée par la taille du ménage afin de rester cohérent avec les variables revenus mesurés niveau ménage rapportées à la taille du ménage.
+
+| Libellé postes TES 	| Période de reférence dans l'enquête 	| Méthode d'annualisation 	|
+|-----------------------------------------	|-------------------------------------	|--------------------------------------------------------	|
+| Education et formation 	| Année scolaire 2009-2010 	| Pas besoin 	|
+| Produits édités et imprimés 	| Année scolaire 2009-2010 	| Pas besoin 	|
+| Services de santé humaine 	| 12 derniers mois 	| Pas besoin 	|
+| Produits pharmaceutiques 	| 12 derniers mois 	| Pas besoin 	|
+| Mil-sorgho 	| 7 derniers jours 	| ANSD 	|
+| Maïs 	| 7 derniers jours 	| ANSD 	|
+| Fonio 	| 7 derniers jours 	| ANSD 	|
+| Farine de mil et Sorgho 	| 7 derniers jours 	| ANSD 	|
+| Riz décortiqué 	| 7 derniers jours 	| ANSD 	|
+| Riz paddy 	| 7 derniers jours 	| ANSD 	|
+| Arachide-coques 	| 7 derniers jours 	| ANSD 	|
+| Huile de palme 	| 7 derniers jours 	| ANSD 	|
+| Huile raffinée végétale (arachide, coto 	| 7 derniers jours 	| ANSD 	|
+| Autres corps gras alimentaires , autres 	| 7 derniers jours 	| ANSD 	|
+| Conserves de tomate 	| 7 derniers jours 	| ANSD 	|
+| Tomates 	| 7 derniers jours 	| ANSD 	|
+| Manioc 	| 7 derniers jours 	| ANSD 	|
+| Légumes 	| 7 derniers jours 	| ANSD 	|
+| Condiments et assaisonnement 	| 7 derniers jours 	| ANSD 	|
+| Fruits 	| 7 derniers jours 	| ANSD 	|
+| Bars et restaurants 	| 7 derniers jours 	| ANSD 	|
+| Poisson frais 	| 7 derniers jours 	| ANSD 	|
+| Poisson séché,salé et fûmé 	| 7 derniers jours 	| ANSD 	|
+| Viandes 	| 7 derniers jours 	| ANSD 	|
+| Ovins sur pied 	| 7 derniers jours 	| ANSD 	|
+| Bovins sur pied 	| 7 derniers jours 	| ANSD 	|
+| Volailles traditionnelles 	| 7 derniers jours 	| ANSD 	|
+| Sucre 	| 7 derniers jours 	| ANSD 	|
+| café et thé transformé 	| 7 derniers jours 	| ANSD 	|
+| Plantes et fleurs 	| 7 derniers jours 	| ANSD 	|
+| Eaux de table 	| 7 derniers jours 	| ANSD 	|
+| Bière, autres boissons alcoolisées et m 	| 7 derniers jours 	| ANSD 	|
+| Pain 	| 7 derniers jours 	| ANSD 	|
+| Pâtisserie de conservation, biscuits 	| 7 derniers jours 	| ANSD 	|
+| Produits laitiers 	| 7 derniers jours 	| ANSD 	|
+| Produits d'entretien et glycérine 	| 30 derniers jours 	| ANSD 	|
+| gaz 	| 30 derniers jours 	| ANSD 	|
+| Charbon de bois 	| 30 derniers jours 	| ANSD 	|
+| Bois en agrumes 	| 30 derniers jours 	| ANSD 	|
+| Services immobiliers du logement 	| 30 derniers jours 	| ANSD 	|
+| Bougies 	| 30 derniers jours 	| ANSD 	|
+| Pétrole 	| 30 derniers jours 	| ANSD 	|
+| Cigarettes 	| 30 derniers jours 	| ANSD 	|
+| Autres services associatifs, récréatifs 	| 30 derniers jours 	| ANSD 	|
+| Services domestiques 	| 30 derniers jours 	| ANSD 	|
+| uniforme scolaire 	| 30 derniers jours 	| ANSD 	|
+| Articles d'habillement 	| 30 derniers jours 	| ANSD 	|
+| Tissus imprimés et teints 	| 30 derniers jours 	| ANSD 	|
+| Chaussures 	| 30 derniers jours 	| ANSD 	|
+| gasoil, essence ordinaire, super carbur 	| 30 derniers jours 	| ANSD 	|
+| Services de transports de passagers 	| 30 derniers jours 	| ANSD 	|
+| Réparation, entretien, modification de 	| 30 derniers jours 	| ANSD 	|
+| Autres farines, céréales transformées, 	| 30 derniers jours 	| ANSD 	|
+| Eau courante 	| 2 derniers mois 	| ANSD 	|
+| Electricité, production et distribution 	| 2 derniers mois 	| ANSD 	|
+| Assainissement voirie et gestion des dé 	| 12 derniers mois 	| Pas besoin 	|
+| Services des réseaux de télécommunicati 	| 30 derniers jours 	| ANSD 	|
+| Services d'accès aux réseaux de télécom 	| 30 derniers jours 	| ANSD 	|
+| Sommiers et matelas 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Equipements appareils radios, télévisio 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Machines, appareils et matériels nca 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Produits de métallurgie et de fonderie 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Autres machines et appareils électrique 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Autres mobiliers 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Vélos et motocycles 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Véhicules automobiles et remorques 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| parfums, produits de toilette 	| 30 derniers jours 	| ANSD 	|
+| Boissons de fabrication traditionnelle 	| 30 derniers jours 	| ANSD 	|
+| Entretien et réparation de machines, au 	| 30 derniers jours 	| ANSD 	|
+| Auto conso agric 	| 12 derniers mois 	| ANSD 	|
+| Auto conso élév 	| 12 derniers mois 	| ANSD 	|
+| Auto conso peche 	| 12 derniers mois 	| ANSD 	|
+| Achats et modification de parrures (bij 	| 12 derniers mois 	| ANSD 	|
+| Loyer imputé 	| Pas d'info 	| Pas d'info 	|
+| Transport éducation 	| année scolaire 2009-2010 	| Pas besoin 	|
+| Transport santé 	| année scolaire 2009-2010 	| Pas besoin 	|
+| Dépenses de construction de logement/Ac 	| 12 derniers mois 	| Pas besoin 	|
+| Impôts. amendes. taxes contravention 	| 12 derniers mois 	| Pas besoin 	|
+| Grosses réparations 	| 12 derniers mois 	| Pas besoin 	|
+| Emballages métalliques 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Epices et autres produits de l'agricult 	| 30 derniers jours 	| ANSD 	|
+| Fauteuil, canapé 	| 12 derniers mois 	| Pas besoin 	|
+| Articles de bonneterie et autres articl 	| 12 derniers mois 	| Pas besoin 	|
+| Services de coiffure et autres soins de 	| 30 derniers jours 	| ANSD 	|
+| Cérémonies, fetes 	| 12 derniers mois 	| Pas besoin 	|
+
 ## Covariables et variables structurelles
 
 | Nom de la variable 	| Définition 	| Question dans l'enquete 	|
