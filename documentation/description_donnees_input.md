@@ -115,6 +115,98 @@ Les observations se font au niveau du produits sont indexées par les variables 
 | rev_i_salaires_informels 	| Tous les salaires du secteur non formel 	|  	|
 | rev_i_transferts_publics 	| Bourse scolaire, pension d'invalidité, programme/projet d'assistance sociale. La variable est mesurée au niveau ménage. Mais on a divisé par la taille du ménage. 	| p2_*; fr2a 	|
 
+## Variables de consommation
+
+La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle a été divisée par la taille du ménage afin de rester cohérent avec les variables revenus mesurés niveau ménage rapportées à la taille du ménage.
+
+| Libellé postes TES 	| Période de reférence dans l'enquête 	| Méthode d'annualisation 	|
+|-----------------------------------------	|-------------------------------------	|--------------------------------------------------------	|
+| Education et formation 	| Année scolaire 2009-2010 	| Pas besoin 	|
+| Produits édités et imprimés 	| Année scolaire 2009-2010 	| Pas besoin 	|
+| Services de santé humaine 	| 12 derniers mois 	| Pas besoin 	|
+| Produits pharmaceutiques 	| 12 derniers mois 	| Pas besoin 	|
+| Mil-sorgho 	| 7 derniers jours 	| ANSD 	|
+| Maïs 	| 7 derniers jours 	| ANSD 	|
+| Fonio 	| 7 derniers jours 	| ANSD 	|
+| Farine de mil et Sorgho 	| 7 derniers jours 	| ANSD 	|
+| Riz décortiqué 	| 7 derniers jours 	| ANSD 	|
+| Riz paddy 	| 7 derniers jours 	| ANSD 	|
+| Arachide-coques 	| 7 derniers jours 	| ANSD 	|
+| Huile de palme 	| 7 derniers jours 	| ANSD 	|
+| Huile raffinée végétale (arachide, coto 	| 7 derniers jours 	| ANSD 	|
+| Autres corps gras alimentaires , autres 	| 7 derniers jours 	| ANSD 	|
+| Conserves de tomate 	| 7 derniers jours 	| ANSD 	|
+| Tomates 	| 7 derniers jours 	| ANSD 	|
+| Manioc 	| 7 derniers jours 	| ANSD 	|
+| Légumes 	| 7 derniers jours 	| ANSD 	|
+| Condiments et assaisonnement 	| 7 derniers jours 	| ANSD 	|
+| Fruits 	| 7 derniers jours 	| ANSD 	|
+| Bars et restaurants 	| 7 derniers jours 	| ANSD 	|
+| Poisson frais 	| 7 derniers jours 	| ANSD 	|
+| Poisson séché,salé et fûmé 	| 7 derniers jours 	| ANSD 	|
+| Viandes 	| 7 derniers jours 	| ANSD 	|
+| Ovins sur pied 	| 7 derniers jours 	| ANSD 	|
+| Bovins sur pied 	| 7 derniers jours 	| ANSD 	|
+| Volailles traditionnelles 	| 7 derniers jours 	| ANSD 	|
+| Sucre 	| 7 derniers jours 	| ANSD 	|
+| café et thé transformé 	| 7 derniers jours 	| ANSD 	|
+| Plantes et fleurs 	| 7 derniers jours 	| ANSD 	|
+| Eaux de table 	| 7 derniers jours 	| ANSD 	|
+| Bière, autres boissons alcoolisées et m 	| 7 derniers jours 	| ANSD 	|
+| Pain 	| 7 derniers jours 	| ANSD 	|
+| Pâtisserie de conservation, biscuits 	| 7 derniers jours 	| ANSD 	|
+| Produits laitiers 	| 7 derniers jours 	| ANSD 	|
+| Produits d'entretien et glycérine 	| 30 derniers jours 	| ANSD 	|
+| gaz 	| 30 derniers jours 	| ANSD 	|
+| Charbon de bois 	| 30 derniers jours 	| ANSD 	|
+| Bois en agrumes 	| 30 derniers jours 	| ANSD 	|
+| Services immobiliers du logement 	| 30 derniers jours 	| ANSD 	|
+| Bougies 	| 30 derniers jours 	| ANSD 	|
+| Pétrole 	| 30 derniers jours 	| ANSD 	|
+| Cigarettes 	| 30 derniers jours 	| ANSD 	|
+| Autres services associatifs, récréatifs 	| 30 derniers jours 	| ANSD 	|
+| Services domestiques 	| 30 derniers jours 	| ANSD 	|
+| uniforme scolaire 	| 30 derniers jours 	| ANSD 	|
+| Articles d'habillement 	| 30 derniers jours 	| ANSD 	|
+| Tissus imprimés et teints 	| 30 derniers jours 	| ANSD 	|
+| Chaussures 	| 30 derniers jours 	| ANSD 	|
+| gasoil, essence ordinaire, super carbur 	| 30 derniers jours 	| ANSD 	|
+| Services de transports de passagers 	| 30 derniers jours 	| ANSD 	|
+| Réparation, entretien, modification de 	| 30 derniers jours 	| ANSD 	|
+| Autres farines, céréales transformées, 	| 30 derniers jours 	| ANSD 	|
+| Eau courante 	| 2 derniers mois 	| ANSD 	|
+| Electricité, production et distribution 	| 2 derniers mois 	| ANSD 	|
+| Assainissement voirie et gestion des dé 	| 12 derniers mois 	| Pas besoin 	|
+| Services des réseaux de télécommunicati 	| 30 derniers jours 	| ANSD 	|
+| Services d'accès aux réseaux de télécom 	| 30 derniers jours 	| ANSD 	|
+| Sommiers et matelas 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Equipements appareils radios, télévisio 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Machines, appareils et matériels nca 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Produits de métallurgie et de fonderie 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Autres machines et appareils électrique 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Autres mobiliers 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Vélos et motocycles 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Véhicules automobiles et remorques 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| parfums, produits de toilette 	| 30 derniers jours 	| ANSD 	|
+| Boissons de fabrication traditionnelle 	| 30 derniers jours 	| ANSD 	|
+| Entretien et réparation de machines, au 	| 30 derniers jours 	| ANSD 	|
+| Auto conso agric 	| 12 derniers mois 	| ANSD 	|
+| Auto conso élév 	| 12 derniers mois 	| ANSD 	|
+| Auto conso peche 	| 12 derniers mois 	| ANSD 	|
+| Achats et modification de parrures (bij 	| 12 derniers mois 	| ANSD 	|
+| Loyer imputé 	| Pas d'info 	| Pas d'info 	|
+| Transport éducation 	| année scolaire 2009-2010 	| Pas besoin 	|
+| Transport santé 	| année scolaire 2009-2010 	| Pas besoin 	|
+| Dépenses de construction de logement/Ac 	| 12 derniers mois 	| Pas besoin 	|
+| Impôts. amendes. taxes contravention 	| 12 derniers mois 	| Pas besoin 	|
+| Grosses réparations 	| 12 derniers mois 	| Pas besoin 	|
+| Emballages métalliques 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
+| Epices et autres produits de l'agricult 	| 30 derniers jours 	| ANSD 	|
+| Fauteuil, canapé 	| 12 derniers mois 	| Pas besoin 	|
+| Articles de bonneterie et autres articl 	| 12 derniers mois 	| Pas besoin 	|
+| Services de coiffure et autres soins de 	| 30 derniers jours 	| ANSD 	|
+| Cérémonies, fetes 	| 12 derniers mois 	| Pas besoin 	|
+
 
 ## Covariables d'intérêt et variables structurelles
 
@@ -336,93 +428,109 @@ exp_autoconsommation  |||secction M|
 
 La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle a été divisée par la taille du ménage afin de rester cohérent avec les variables revenus mesurés niveau ménage rapportées à la taille du ménage.
 
-| Libellé postes TES 	| Période de reférence dans l'enquête 	| Méthode d'annualisation 	|
-|-----------------------------------------	|-------------------------------------	|--------------------------------------------------------	|
-| Education et formation 	| Année scolaire 2009-2010 	| Pas besoin 	|
-| Produits édités et imprimés 	| Année scolaire 2009-2010 	| Pas besoin 	|
-| Services de santé humaine 	| 12 derniers mois 	| Pas besoin 	|
-| Produits pharmaceutiques 	| 12 derniers mois 	| Pas besoin 	|
-| Mil-sorgho 	| 7 derniers jours 	| ANSD 	|
-| Maïs 	| 7 derniers jours 	| ANSD 	|
-| Fonio 	| 7 derniers jours 	| ANSD 	|
-| Farine de mil et Sorgho 	| 7 derniers jours 	| ANSD 	|
-| Riz décortiqué 	| 7 derniers jours 	| ANSD 	|
-| Riz paddy 	| 7 derniers jours 	| ANSD 	|
-| Arachide-coques 	| 7 derniers jours 	| ANSD 	|
-| Huile de palme 	| 7 derniers jours 	| ANSD 	|
-| Huile raffinée végétale (arachide, coto 	| 7 derniers jours 	| ANSD 	|
-| Autres corps gras alimentaires , autres 	| 7 derniers jours 	| ANSD 	|
-| Conserves de tomate 	| 7 derniers jours 	| ANSD 	|
-| Tomates 	| 7 derniers jours 	| ANSD 	|
-| Manioc 	| 7 derniers jours 	| ANSD 	|
-| Légumes 	| 7 derniers jours 	| ANSD 	|
-| Condiments et assaisonnement 	| 7 derniers jours 	| ANSD 	|
-| Fruits 	| 7 derniers jours 	| ANSD 	|
-| Bars et restaurants 	| 7 derniers jours 	| ANSD 	|
-| Poisson frais 	| 7 derniers jours 	| ANSD 	|
-| Poisson séché,salé et fûmé 	| 7 derniers jours 	| ANSD 	|
-| Viandes 	| 7 derniers jours 	| ANSD 	|
-| Ovins sur pied 	| 7 derniers jours 	| ANSD 	|
-| Bovins sur pied 	| 7 derniers jours 	| ANSD 	|
-| Volailles traditionnelles 	| 7 derniers jours 	| ANSD 	|
-| Sucre 	| 7 derniers jours 	| ANSD 	|
-| café et thé transformé 	| 7 derniers jours 	| ANSD 	|
-| Plantes et fleurs 	| 7 derniers jours 	| ANSD 	|
-| Eaux de table 	| 7 derniers jours 	| ANSD 	|
-| Bière, autres boissons alcoolisées et m 	| 7 derniers jours 	| ANSD 	|
-| Pain 	| 7 derniers jours 	| ANSD 	|
-| Pâtisserie de conservation, biscuits 	| 7 derniers jours 	| ANSD 	|
-| Produits laitiers 	| 7 derniers jours 	| ANSD 	|
-| Produits d'entretien et glycérine 	| 30 derniers jours 	| ANSD 	|
-| gaz 	| 30 derniers jours 	| ANSD 	|
-| Charbon de bois 	| 30 derniers jours 	| ANSD 	|
-| Bois en agrumes 	| 30 derniers jours 	| ANSD 	|
-| Services immobiliers du logement 	| 30 derniers jours 	| ANSD 	|
-| Bougies 	| 30 derniers jours 	| ANSD 	|
-| Pétrole 	| 30 derniers jours 	| ANSD 	|
-| Cigarettes 	| 30 derniers jours 	| ANSD 	|
-| Autres services associatifs, récréatifs 	| 30 derniers jours 	| ANSD 	|
-| Services domestiques 	| 30 derniers jours 	| ANSD 	|
-| uniforme scolaire 	| 30 derniers jours 	| ANSD 	|
-| Articles d'habillement 	| 30 derniers jours 	| ANSD 	|
-| Tissus imprimés et teints 	| 30 derniers jours 	| ANSD 	|
-| Chaussures 	| 30 derniers jours 	| ANSD 	|
-| gasoil, essence ordinaire, super carbur 	| 30 derniers jours 	| ANSD 	|
-| Services de transports de passagers 	| 30 derniers jours 	| ANSD 	|
-| Réparation, entretien, modification de 	| 30 derniers jours 	| ANSD 	|
-| Autres farines, céréales transformées, 	| 30 derniers jours 	| ANSD 	|
-| Eau courante 	| 2 derniers mois 	| ANSD 	|
-| Electricité, production et distribution 	| 2 derniers mois 	| ANSD 	|
-| Assainissement voirie et gestion des dé 	| 12 derniers mois 	| Pas besoin 	|
-| Services des réseaux de télécommunicati 	| 30 derniers jours 	| ANSD 	|
-| Services d'accès aux réseaux de télécom 	| 30 derniers jours 	| ANSD 	|
-| Sommiers et matelas 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Equipements appareils radios, télévisio 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Machines, appareils et matériels nca 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Produits de métallurgie et de fonderie 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Autres machines et appareils électrique 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Autres mobiliers 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Vélos et motocycles 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Véhicules automobiles et remorques 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| parfums, produits de toilette 	| 30 derniers jours 	| ANSD 	|
-| Boissons de fabrication traditionnelle 	| 30 derniers jours 	| ANSD 	|
-| Entretien et réparation de machines, au 	| 30 derniers jours 	| ANSD 	|
-| Auto conso agric 	| 12 derniers mois 	| ANSD 	|
-| Auto conso élév 	| 12 derniers mois 	| ANSD 	|
-| Auto conso peche 	| 12 derniers mois 	| ANSD 	|
-| Achats et modification de parrures (bij 	| 12 derniers mois 	| ANSD 	|
-| Loyer imputé 	| Pas d'info 	| Pas d'info 	|
-| Transport éducation 	| année scolaire 2009-2010 	| Pas besoin 	|
-| Transport santé 	| année scolaire 2009-2010 	| Pas besoin 	|
-| Dépenses de construction de logement/Ac 	| 12 derniers mois 	| Pas besoin 	|
-| Impôts. amendes. taxes contravention 	| 12 derniers mois 	| Pas besoin 	|
-| Grosses réparations 	| 12 derniers mois 	| Pas besoin 	|
-| Emballages métalliques 	| 12 derniers mois 	| Nombre d'acquisition (g3-g2) X prix d'acquisition (g5) 	|
-| Epices et autres produits de l'agricult 	| 30 derniers jours 	| ANSD 	|
-| Fauteuil, canapé 	| 12 derniers mois 	| Pas besoin 	|
-| Articles de bonneterie et autres articl 	| 12 derniers mois 	| Pas besoin 	|
-| Services de coiffure et autres soins de 	| 30 derniers jours 	| ANSD 	|
-| Cérémonies, fetes 	| 12 derniers mois 	| Pas besoin 	|
+| Libellé poste 	| Période de reférence dans l'enquête 	| Méthode d'annualisation 	|
+|--------------------------------------------------------------------------------------------------------------	|-------------------------------------	|---------------------------------------------------------------------------------------------------------------	|
+| Boissons alcoolisees et tabac 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Habillement 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Chaussures  et  reparation 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Loyer 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Entretien de la maison  (excl. renovation, incl. services/materiels) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Approvisionnement en  eau 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Ramassage d'ordure et evacuation des eaux usees 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Autres services et  couts domestiques (excl. interet/assurance) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| electricite 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Gaz 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Combustibles liquides (carburant, etc.) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Combustibles solides (charbon, bois, etc.) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Services domestiques et autres services menagers 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Medicament  et produits et equipement therapeutiques 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Soins medicaux 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Soins dentaires 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Maintenance et reparation des vehicules 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Essence, autres combustibles  (pour le 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Bus et taxi (tous les membres du menages) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Autre couts lies au transport (sans les voyages internationaux) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Poste 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Services d'appel telephonique (portable) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Autres services telephoniques /fax 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Jeux  et  hobby 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Equipment de sport, camping et recreation plein aire 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Jardins, plantes et fleurs (pas pour l agriculture) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Animaux domestiques et les couts  (incl. nourriture des animaux) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Frais pour le sport, cinema, muse, etc 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Frais pour la TV, radio, etc (incl. L'eaupement loue) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| CD, Video et DVD (louer ou acheter) 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Jeux  de chance 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Autres  services de loisirs 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Journaux 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Livres, papiers et d'autre fournitures 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Hotel et services de logement 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Vacances organises 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Frais de scolarite et de prise en char 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Salon de coiffure 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Bijoux, horloges et montres 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Voyage et autres articles personnels 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Services de protection sociale, garderie 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Assurance maison 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Assurance maladie 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Assurance voyage et incendie 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Autres  assurances sans l'assurance vi 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Frais bancaires  et autres services financiers 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Funerailles et  autres  services nca 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Autres articles menagers non durables 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Frais funerailles et autres services n 	| 3 derniers mois 	| Aggrégation des 4 passages de l'enquêtes 	|
+| Meubles et revetement de sol 	| 12 derniers mois 	| Pas besoin 	|
+| Textiles domestiques (rideaux, torchons, serviettes) 	| 12 derniers mois 	| Pas besoin 	|
+| Refrigerateurs et congelateurs 	| 12 derniers mois 	| Pas besoin 	|
+| Gazinieres, cuisinieres electriques 	| 12 derniers mois 	| Pas besoin 	|
+| Lave vaisselles 	| 12 derniers mois 	| Pas besoin 	|
+| Machines a laver et a secher 	| 12 derniers mois 	| Pas besoin 	|
+| Gros appareils menagers (appareils de chauffage, climatiseurs, humidifcateur, chauffe-eau) 	| 12 derniers mois 	| Pas besoin 	|
+| Fer a repasser 	| 12 derniers mois 	| Pas besoin 	|
+| Mixeurs de tout genre 	| 12 derniers mois 	| Pas besoin 	|
+| Fours micro-ondes 	| 12 derniers mois 	| Pas besoin 	|
+| Aspirateurs et autre equipement de menage 	| 12 derniers mois 	| Pas besoin 	|
+| Machines a coudre et a tricoter 	| 12 derniers mois 	| Pas besoin 	|
+| Autres petits appareils electromenagers 	| 12 derniers mois 	| Pas besoin 	|
+| Verrerie, vaisselle et ustensiles de me 	| 12 derniers mois 	| Pas besoin 	|
+| Gros outillages et materiel pour la maison 	| 12 derniers mois 	| Pas besoin 	|
+| Petits outillages et accessoires divers 	| 12 derniers mois 	| Pas besoin 	|
+| Nouvelle voiture, moto te minibus 	| 12 derniers mois 	| Pas besoin 	|
+| Nouvelles voitures de seconde main 	| 12 derniers mois 	| Pas besoin 	|
+| Cycles et motocycles 	| 12 derniers mois 	| Pas besoin 	|
+| Autre equipement de transport (pas pour le bussiness ou l'agriculture) 	| 12 derniers mois 	| Pas besoin 	|
+| Biens durables comme voyages internationaux 	| 12 derniers mois 	| Pas besoin 	|
+| Telephones portables (y compris les reparations) 	| 12 derniers mois 	| Pas besoin 	|
+| Autres equipements de telephones et fax 	| 12 derniers mois 	| Pas besoin 	|
+| Radio ou autre equipement audio 	| 12 derniers mois 	| Pas besoin 	|
+| Tele, y compris l'antenne, video 	| 12 derniers mois 	| Pas besoin 	|
+| Autre materiel du son et de l'image (haut parleur, magnetophone, lecteur cassette/CD/DVD, casques, baladeur) 	| 12 derniers mois 	| Pas besoin 	|
+| Appareils photos, cameras et equipement 	| 12 derniers mois 	| Pas besoin 	|
+| Instruments optiques 	| 12 derniers mois 	| Pas besoin 	|
+| Ordinateurs personnels et autre equipement 	| 12 derniers mois 	| Pas besoin 	|
+| Reparation de materiel audiovisuel, photographique, trantement de l'information 	| 12 derniers mois 	| Pas besoin 	|
+| Instruments de musique 	| 12 derniers mois 	| Pas besoin 	|
+| Loisir et  la culture 	| 12 derniers mois 	| Pas besoin 	|
+| Riz 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Mil 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Sucre 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Sorgho 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Viande de boeuf fraiche 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| The 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Mais en grain crus 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Beurre de karite 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Poisson fume, seche, sale 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Poisson frais 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Huile d'arachide 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Pain 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Arachide decortiquee 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Viande de mouton ou de chevre fraeche 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Lait frais local 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Tubercules et plantain 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Oignon frais 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Cube( Maggi, Jumbo, etc) 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Lait en poudre 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
+| Haricots secs 	| 7 derniers jours 	| Multiplication par 12 pour obtenir la conso trimestrielle ensuite aggrégation sur les 4 passages de l'enquête 	|
 
 ## Covariables et variables structurelles
 
