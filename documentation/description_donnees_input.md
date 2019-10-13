@@ -408,6 +408,207 @@ la variable consommation est la somme de toutes ces variables :
 | exp_light_autre                | 247                                  | o15                   | Eclairage de source diverse                                                                          |
 | exp_nourriture_dons            | de 248 a 374                         | M                     | Consommation d'aliment produit donnes au menage                                                      |
 | exp_autoconsommation           | de 375 a 401                         | M                     | Consommation d'aliment produit par le menage                                                         |
+
+### liste des équipements 
+
+| nom variable (format wide) | identifiant du produit (format long) | numero de la question | Description               |
+|----------------------------|--------------------------------------|-----------------------|---------------------------|
+| exp_equipement             | 75                                   | K1                    | Telephone portable        |
+| exp_equipement             | 76                                   | K2                    | Telephone fixe            |
+| exp_equipement             | 77                                   | K3                    | Television                |
+| exp_equipement             | 78                                   | K4                    | Radio                     |
+| exp_equipement             | 79                                   | K5                    | Lecteur VCD/DVD           |
+| exp_equipement             | 80                                   | K6                    | Refrigerateur             |
+| exp_equipement             | 81                                   | K7                    | Congelateur               |
+| exp_equipement             | 82                                   | K8                    | Ventilateur               |
+| exp_equipement             | 83                                   | K9                    | Climatiseur               |
+| exp_equipement             | 84                                   | K10                   | Ordinateur                |
+| exp_equipement             | 85                                   | K11                   | Cuisinière               |
+| exp_equipement             | 86                                   | K12                   | Antenne parabolique       |
+| exp_equipement             | 87                                   | K13                   | Voiture                   |
+| exp_equipement             | 88                                   | K14                   | Camionnette               |
+| exp_equipement             | 89                                   | K15                   | Bicyclette                |
+| exp_equipement             | 90                                   | K16                   | Velomoteur                |
+| exp_equipement             | 91                                   | K17                   | Tracteur                  |
+| exp_equipement             | 92                                   | K18                   | Pirogue                   |
+| exp_equipement             | 93                                   | K19                   | Charette                  |
+| exp_equipement             | 94                                   | K20                   | Brouette                  |
+| exp_equipement             | 95                                   | K21                   | Charrue                   |
+| exp_equipement             | 96                                   | K22                   | Vaporisateur              |
+| exp_equipement             | 97                                   | K23                   | Bateau de plaisance       |
+| exp_equipement             | 98                                   | K24                   | Bateau de peche           |
+| exp_equipement             | 99                                   | K25                   | Fer a repasser            |
+| exp_equipement             | 100                                  | K26                   | Tablette                  |
+| exp_equipement             | 101                                  | K27                   | Tondeuse a gazon          |
+| exp_equipement             | 102                                  | K28                   | Machine a coudre          |
+| exp_equipement             | 103                                  | K29                   | Velo pour enfant          |
+| exp_equipement             | 104                                  | K30                   | Appareil photo numerique  |
+| exp_equipement             | 105                                  | K31                   | Camera                    |
+| exp_equipement             | 106                                  | K32                   | Chaine HIFI               |
+| exp_equipement             | 107                                  | K33                   | Scie non electrique       |
+| exp_equipement             | 108                                  | K34                   | Tondeuse electrique       |
+| exp_equipement             | 109                                  | K35                   | Salle a manger            |
+| exp_equipement             | 110                                  | K36                   | Salon ordinaire           |
+| exp_equipement             | 111                                  | K37                   | Fautteuil a mousse (salon |
+| exp_equipement             | 112                                  | K38                   | Table                     |
+| exp_equipement             | 113                                  | K39                   | Chaise                    |
+| exp_equipement             | 114                                  | K40                   | Lit                       |
+| exp_equipement             | 115                                  | K41                   | Matelas                   |
+| exp_equipement             | 116                                  | K42                   | Drap et couverture        |
+| exp_equipement             | 117                                  | K43                   | Natte                     |
+| exp_equipement             | 118                                  | K44                   | Sceau en plastique        |
+| exp_equipement             | 119                                  | K45                   | Pilon et mortier          |
+
+### liste des aliments 
+
+| nom variable (format wide) | identifiant du produit (format long) | numero de la question | Description                |
+|----------------------------|--------------------------------------|-----------------------|----------------------------|
+| exp_nourriture             | 120                                  | M1                    | Riz local                  |
+| exp_nourriture             | 121                                  | M2                    | Mais en epis               |
+| exp_nourriture             | 122                                  | M3                    | Mais e, grain              |
+| exp_nourriture             | 123                                  | M4                    | Farine de mais             |
+| exp_nourriture             | 124                                  | M5                    | Mil en grain               |
+| exp_nourriture             | 125                                  | M6                    | Farine de mil              |
+| exp_nourriture             | 126                                  | M7                    | Sorgho en grain            |
+| exp_nourriture             | 127                                  | M8                    | Farine de sorgho           |
+| exp_nourriture             | 128                                  | M9                    | Fonio en grain             |
+| exp_nourriture             | 129                                  | M10                   | Haricot vert               |
+| exp_nourriture             | 130                                  | M11                   | Haricot sec                |
+| exp_nourriture             | 131                                  | M12                   | Igname                     |
+| exp_nourriture             | 132                                  | M13                   | Farine d'ignale            |
+| exp_nourriture             | 133                                  | M14                   | Manioc fraix               |
+| exp_nourriture             | 134                                  | M15                   | Attieke                    |
+| exp_nourriture             | 135                                  | M16                   | Farine de manioc           |
+| exp_nourriture             | 136                                  | M17                   | Pâte de manioc             |
+| exp_nourriture             | 137                                  | M18                   | Gari                       |
+| exp_nourriture             | 138                                  | M19                   | Taro                       |
+| exp_nourriture             | 139                                  | M20                   | Patate douce               |
+| exp_nourriture             | 140                                  | M21                   | Banane plantain            |
+| exp_nourriture             | 141                                  | M22                   | Farine de banane           |
+| exp_nourriture             | 142                                  | M23                   | Arachide decortiquee       |
+| exp_nourriture             | 143                                  | M24                   | Pâte d'arachide            |
+| exp_nourriture             | 144                                  | M25                   | Pistache                   |
+| exp_nourriture             | 145                                  | M26                   | Persil                     |
+| exp_nourriture             | 146                                  | M27                   | Pâte de pistache           |
+| exp_nourriture             | 147                                  | M28                   | Nois de palme              |
+| exp_nourriture             | 148                                  | M29                   | Huile de palm trad.        |
+| exp_nourriture             | 149                                  | M30                   | Beurre de karite           |
+| exp_nourriture             | 150                                  | M31                   | Tomate fraiche             |
+| exp_nourriture             | 151                                  | M32                   | Aubergine locale           |
+| exp_nourriture             | 152                                  | M33                   | Aubergine violet           |
+| exp_nourriture             | 153                                  | M34                   | Gombo frais                |
+| exp_nourriture             | 154                                  | M35                   | Gombo sec                  |
+| exp_nourriture             | 155                                  | M36                   | Oignon                     |
+| exp_nourriture             | 156                                  | M37                   | Piment                     |
+| exp_nourriture             | 157                                  | M38                   | Carotte                    |
+| exp_nourriture             | 158                                  | M39                   | Chou                       |
+| exp_nourriture             | 159                                  | M40                   | Citrouille                 |
+| exp_nourriture             | 160                                  | M41                   | Concombre                  |
+| exp_nourriture             | 161                                  | M42                   | Courgette                  |
+| exp_nourriture             | 162                                  | M43                   | Poivron                    |
+| exp_nourriture             | 163                                  | M44                   | Salades divers             |
+| exp_nourriture             | 164                                  | M45                   | feuille de manios          |
+| exp_nourriture             | 165                                  | M46                   | Noix de cajou              |
+| exp_nourriture             | 166                                  | M47                   | Epinard                    |
+| exp_nourriture             | 167                                  | M48                   | Feuille de palme           |
+| exp_nourriture             | 168                                  | M49                   | Kloila                     |
+| exp_nourriture             | 169                                  | M50                   | Dah                        |
+| exp_nourriture             | 170                                  | M51                   | Autres feuilles            |
+| exp_nourriture             | 171                                  | M52                   | Ananas                     |
+| exp_nourriture             | 172                                  | M53                   | Banane douce               |
+| exp_nourriture             | 173                                  | M54                   | Orange                     |
+| exp_nourriture             | 174                                  | M55                   | Mandarine                  |
+| exp_nourriture             | 175                                  | M56                   | Pamplemousse               |
+| exp_nourriture             | 176                                  | M57                   | Citron                     |
+| exp_nourriture             | 177                                  | M58                   | Avocat                     |
+| exp_nourriture             | 178                                  | M59                   | Mangue                     |
+| exp_nourriture             | 179                                  | M60                   | Papaye                     |
+| exp_nourriture             | 180                                  | M61                   | Gombo sec en poudre        |
+| exp_nourriture             | 181                                  | M62                   | Viande de bœuf             |
+| exp_nourriture             | 182                                  | M63                   | Viande de mouton           |
+| exp_nourriture             | 183                                  | M64                   | Viande de porc             |
+| exp_nourriture             | 184                                  | M65                   | Viande de volaille         |
+| exp_nourriture             | 185                                  | M66                   | Abats                      |
+| exp_nourriture             | 186                                  | M67                   | poisson frais Appolo       |
+| exp_nourriture             | 187                                  | M68                   | Poisson fume Hareng        |
+| exp_nourriture             | 188                                  | M69                   | Escargot                   |
+| exp_nourriture             | 189                                  | M70                   | Viande de brousse          |
+| exp_nourriture             | 190                                  | M71                   | Œuf                        |
+| exp_nourriture             | 191                                  | M72                   | Lait frais                 |
+| exp_nourriture             | 192                                  | M73                   | Miel                       |
+| exp_nourriture             | 193                                  | M74                   | Boisson alc. Tradition     |
+| exp_nourriture             | 194                                  | M75                   | Boisson non alc. Tradition |
+| exp_nourriture             | 195                                  | M76                   | Fruit de la passion        |
+| exp_nourriture             | 196                                  | M77                   | Gingembre                  |
+| exp_nourriture             | 197                                  | M78                   | Amandes de karite          |
+| exp_nourriture             | 198                                  | M79                   | Soja                       |
+| exp_nourriture             | 199                                  | M80                   | Coprah                     |
+| exp_nourriture             | 200                                  | M81                   | Tabac brut                 |
+| exp_nourriture             | 201                                  | M82                   | Poisson frais capitaine    |
+| exp_nourriture             | 202                                  | M83                   | Poisson frais sosso        |
+| exp_nourriture             | 203                                  | M84                   | Poisson frais carpe rouge  |
+| exp_nourriture             | 204                                  | M85                   | Machoiron fume             |
+| exp_nourriture             | 205                                  | M86                   | Maquereau fume             |
+| exp_nourriture             | 206                                  | M87                   | Crabes                     |
+| exp_nourriture             | 207                                  | M88                   | Riz importe denicachia     |
+| exp_nourriture             | 208                                  | M89                   | Riz importe de luxe        |
+| exp_nourriture             | 209                                  | M90                   | Pain                       |
+| exp_nourriture             | 210                                  | M91                   | Pate alimentaire           |
+| exp_nourriture             | 211                                  | M92                   | farine de ble              |
+| exp_nourriture             | 212                                  | M93                   | Ble                        |
+| exp_nourriture             | 213                                  | M94                   | Biscuit et patisserie      |
+| exp_nourriture             | 214                                  | M95                   | Lait en poudre             |
+| exp_nourriture             | 215                                  | M96                   | Lait conc. Sucre           |
+| exp_nourriture             | 216                                  | M97                   | Lait conc. Non sucre       |
+| exp_nourriture             | 217                                  | M98                   | Yogourt                    |
+| exp_nourriture             | 218                                  | M99                   | Beurre de karite           |
+| exp_nourriture             | 219                                  | M100                  | Fromage                    |
+| exp_nourriture             | 220                                  | M101                  | Crevettes                  |
+| exp_nourriture             | 221                                  | M102                  | Bouillon cube              |
+| exp_nourriture             | 222                                  | M103                  | Pate de tomate             |
+| exp_nourriture             | 223                                  | M104                  | Sel                        |
+| exp_nourriture             | 224                                  | M105                  | Huile raffinee             |
+| exp_nourriture             | 225                                  | M106                  | Sucre                      |
+| exp_nourriture             | 226                                  | M107                  | Cafe                       |
+| exp_nourriture             | 227                                  | M108                  | Margarine                  |
+| exp_nourriture             | 228                                  | M109                  | Chocolat a croquer         |
+| exp_nourriture             | 229                                  | M110                  | The (sachet)               |
+| exp_nourriture             | 230                                  | M111                  | Autres boisson alcoolisee  |
+| exp_nourriture             | 231                                  | M112                  | Boisson non alcolisee      |
+| exp_nourriture             | 232                                  | M113                  | Pomme de terre             |
+| exp_nourriture             | 233                                  | M114                  | Boite de sardine           |
+| exp_nourriture             | 234                                  | M115                  | Conserve de viande         |
+| exp_nourriture             | 235                                  | M116                  | Conserve de fruit          |
+| exp_nourriture             | 236                                  | M117                  | Mangue importee            |
+| exp_nourriture             | 237                                  | M118                  | Plats emportes             |
+| exp_nourriture             | 238                                  | M119                  | Plats exterieurs           |
+| exp_nourriture             | 239                                  | M120                  | Champignon                 |
+| exp_nourriture             | 240                                  | M121                  | Eau minerale               |
+| exp_nourriture             | 241                                  | M122                  | Saucission                 |
+| exp_nourriture             | 242                                  | M123                  | Cacao en poudre sucree     |
+| exp_nourriture             | 243                                  | M124                  | Cafe soluble ou moulu      |
+| exp_nourriture             | 244                                  | M125                  | Lait infantile             |
+| exp_nourriture             | 245                                  | M126                  | Aliment pour bebe          |
+| exp_nourriture             | 246                                  | M127                  | Biere                      |  
+
+
+## Variables de revenu 
+
+| nom variable (format wide)   | numero de la question         | Description - methode                                                                                                                                                                                                         |
+|------------------------------|-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| rev_i_agricoles              | i1; i2; g15 ; g18 ; g21 ; g24 | revenu de l'activite principale si l'individu est agriculteur independant + des revenus résiduels, individualises, provenant de la vente de produit agricole et d elevage                                                     |
+| rev_i_autoconsommation       | section M                     | individualises - le menage valorise lui la quantite consommee                                                                                                                                                                 |
+| rev_i_autres_revenus_capital | i6                            | Revenus sous forme d'interets ou de dividendes                                                                                                                                                                                |
+| rev_i_autres_transferts      | i8; i9; i10                   | revenus monetaire ou non recus d autres menages                                                                                                                                                                               |
+| rev_i_independants_Ntaxe     | i1;i2                         | revenu de l'activitee principale si l'individu est independant, non agricole, et NE paie PAAS des impots                                                                                                                      |
+| rev_i_independants_taxe      | i1;i2                         | revenu de l'activitee principale si l'individu est independant, non agricole, et paie des impots                                                                                                                              |
+| rev_i_loyers                 | i5                            | revenus locatifs                                                                                                                                                                                                              |
+| rev_i_loyers_imputes         | NA                            | individualises - loyers imputes a partir de variable sur le type de l'habitation (connexion a l'electricite, eau courante, toilettes interieures, utilisation de charbon pour la cuisine, appartement, milieu rural, region)  |
+| rev_i_pensions               | i4                            | revenu des pensions de retraite                                                                                                                                                                                               |
+| rev_i_salaires_formels       | i1; i2                        | revenu de l'activitee principale si l'individu travaille dans le secteur formel - cotise a la secu et/ou contrat ecrit                                                                                                        |
+| rev_i_salaires_informels     | i1; i2; i3 ; i11              | revenu de l'activitee principale si l'individu ne tombe dans aucune des autres categories + revenu de l activite secondaire + autre revenu non encore listes                                                                  |
+| rev_i_transferts_publics     | i7                            | revenus tires de programme d'aide du gouvernment, ambassade ou institutions                                                                                                                                                   |
+
 # Construction des variables - MALI - par ordre alphabéthique
 
 ## Variables de revenu 
