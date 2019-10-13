@@ -319,91 +319,95 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 
 # Construction des variables - COTE D IVOIRE - par ordre alphabéthique
 
+## Variables de revenu 
+
+
+
 ## Variables de consommation
 
 la variable consommation est la somme de toutes ces variables :
 
-| Nom de la variable 	| Définition 	| Question dans l'enquete 	|
-|--------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
-exp_activite_peri_scolaires |||la8|
-exp_administrations_scolaires |||la10|
-exp_allumette |||lg10|
-exp_ampoule |||lg4|
-exp_assurance_vignette |||lf6|
-exp_autre_scolaires |||la11|
-exp_bus_taxi |||lf1|
-exp_carburant |||lf2|
-exp_cloth_autre |||lc9|
-exp_cloth_chaussures  |||lc6|
-exp_cloth_coiffure  |||lc8|
-exp_cloth_coutures  |||lc5|
-exp_cloth_enfants  |||lc2|
-exp_cloth_femmes  |||lc3|
-exp_cloth_hommes  |||lc4|
-exp_cloth_montre  |||lc7|
-exp_comb_autre  |||o18|
-exp_comb_bois  |||o18|
-exp_comb_charbon  |||o18|
-exp_comb_electricite  |||o18|
-exp_comb_gaz  |||o18|
-exp_comb_petrole  |||o18|
-exp_comm_cabine  |||le1|
-exp_comm_carte_abonnements_tel  |||le2;le3|
-exp_comm_chaines_tele  |||le6|
-exp_comm_internet  |||le4|
-exp_comm_tel_autre  |||le5|
-exp_communication_autre  |||le9|
-exp_contributions_scolaires  |||la9|
-exp_courriers  |||le8|
-exp_droit_inscription  |||la1;la2|
-exp_entretient_reparation  |||lf3|
-exp_fournitures_scolaires  |||la3|
-exp_health_accompagnant  |||lb7|
-exp_health_assurance_mal  |||lb13|
-exp_health_autre  |||lb9|
-exp_health_consult  |||lb5|
-exp_health_hopital  |||lb6|
-exp_health_medic_trad  |||lb4|
-exp_health_produits_pharma  |||lb3|
-exp_health_trad_practicien  |||lb8|
-exp_hygn  |||lg1|
-exp_journaux  |||le7|
-exp_light_electricite  |||o16|
-exp_light_huile  |||o16|
-exp_light_petrole  |||o16|
-exp_loisirs  |||lg2a|
-exp_machette  |||lg7|
-exp_maid  |||lg3|
-exp_nourritures_scolaires  |||la6|
-exp_parapluie  |||lg9|
-exp_piles  |||lg5|
-exp_rasoire  |||lg10|
-exp_soutients_scolaires  |||la7|
-exp_tabac  |||lg2b|
-exp_torche  |||lg6|
-exp_transf_alim_parents  |||ld3|
-exp_transf_association  |||ld8|
-exp_transf_autre_aide  |||ld5|
-exp_transf_epouses  |||ld2|
-exp_transf_funerails  |||ld7|
-exp_transf_marriage  |||ld6|
-exp_transf_parents  |||ld1|
-exp_transf_parents_autre  |||ld4c|
-exp_transf_parents_education  |||ld4b|
-exp_transf_parents_sante  |||ld4|
-exp_transport_exceptionnel  |||lf5|
-exp_transports_scolaires  |||la5|
-exp_uniformes_scolaires  |||la4|
-exp_voyage  |||lf4|
-exp_waste  |||o22|
-exp_water_autre  |||o14|
-exp_water_publique  |||o14|
-exp_rent  |||o3|
-exp_equipement  |||secction K|
-exp_nourriture  |||secction M|
-exp_nourriture_dons  |||secction M|
-exp_autoconsommation  |||secction M|
-
+| nom variable (format wide)     | identifiant du produit (format long) | numero de la question | Description                                                                                          |
+|--------------------------------|--------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------|
+| exp_activite_peri_scolaires    | 1                                    | la8                   | Contribution activite peri-scolaire ou activite culturelle                                           |
+| exp_administrations_scolaires  | 2                                    | la10                  | Depenses liees a l'etablissement des pieces administratives pour la scolarisation des enfants        |
+| exp_allumette                  | 3                                    | lg8                   | Allumette                                                                                            |
+| exp_ampoule                    | 4                                    | lg4                   | Ampoule ordinaire et neon                                                                            |
+| exp_assurance_vignette         | 5                                    | lf6                   | Assurance vignette et visite technique                                                               |
+| exp_autre_scolaires            | 6                                    | la11                  | Depenses scolaires autres non encore citees                                                          |
+| exp_bus_taxi                   | 7                                    | lf1                   | Depenses de bus, gbaka, woro-woro, taxi et autres transports en commun                               |
+| exp_carburant                  | 8                                    | lf2                   | Carburant                                                                                            |
+| exp_cloth_autre                | 9                                    | lc9                   | Autres depenses d'habillement non encore citees                                                      |
+| exp_cloth_chaussures           | 10                                   | lc6                   | Chaussures hommes, dammes et enfants                                                                 |
+| exp_cloth_coiffure             | 11                                   | lc8                   | Coiffure, tresse, coupe de cheveux, foulars                                                          |
+| exp_cloth_coutures             | 12                                   | lc5                   | Frais de couture hommes, dames et enfants                                                            |
+| exp_cloth_enfants              | 13                                   | lc2                   | Habits des enfants (vetements, tenues de fete)                                                       |
+| exp_cloth_femmes               | 14                                   | lc3                   | Habits des femmes (vetements, tenues de fetes, pagnes)                                               |
+| exp_cloth_hommes               | 15                                   | lc4                   | Habits des hommes (chemises, pantalons, tissus)                                                      |
+| exp_cloth_montre               | 16                                   | lc7                   | Montres et bijoux                                                                                    |
+| exp_comb_autre                 | 17                                   | o18                   | depense pour le chauffage - autre                                                                    |
+| exp_comb_bois                  | 18                                   | o18                   | bois pour le chauffage                                                                               |
+| exp_comb_charbon               | 19                                   | o18                   | charbon pour le chauffage                                                                            |
+| exp_comb_electricite           | 20                                   | o18                   | electricite pour le chauffage                                                                        |
+| exp_comb_gaz                   | 21                                   | o18                   | gaz pour le chauffage                                                                                |
+| exp_comb_petrole               | 22                                   | o18                   | petrole pour le chauffage                                                                            |
+| exp_comm_cabine                | 23                                   | le1                   | Cabines telephoniques (fixe ou mobile)                                                               |
+| exp_comm_carte_abonnements_tel | 24                                   | le2_le3               | Cartes prepayees ou abonnement telephone fixe ou mobile                                              |
+| exp_comm_chaines_tele          | 25                                   | le6                   | Abonnement aux chaines de television etrangeres                                                      |
+| exp_comm_internet              | 26                                   | le4                   | Cybercafe ou connexion domestiques a Internet                                                        |
+| exp_comm_tel_autre             | 27                                   | le5                   | Autres depenses de telephonie (citelcarte, Kibaro)                                                   |
+| exp_communication_autre        | 28                                   | le9                   | Depenses de communication non encore citees ou exceptionnelles                                       |
+| exp_contributions_scolaires    | 29                                   | la9                   | Contribution COGES, APE                                                                              |
+| exp_courriers                  | 30                                   | le8                   | Depenses de timbres et courriers divers                                                              |
+| exp_droit_inscription          | 31                                   | la1_la2               | Droits et autres frais d'inscription et scolarite                                                    |
+| exp_entretient_reparation      | 32                                   | lf3                   | Entretien et reparation de vehicule                                                                  |
+| exp_fournitures_scolaires      | 33                                   | la3                   | Livres scolaires, cahiers et autres fournitures scolaires                                            |
+| exp_health_accompagnant        | 34                                   | lb7                   | Frais de sejour et de transport des personnes accompagnant le malade                                 |
+| exp_health_assurance_mal       | 35                                   | lb13                  | Depense d'assurance maladie                                                                          |
+| exp_health_autre               | 36                                   | lb9                   | Depenses de sante non encore citees                                                                  |
+| exp_health_consult             | 37                                   | lb5                   | Consultation d'un personnel de sante moderne et de vaccination                                       |
+| exp_health_hopital             | 38                                   | lb6                   | Frais d'hospitalisation                                                                              |
+| exp_health_medic_trad          | 39                                   | lb4                   | Medicaments traditionnels                                                                            |
+| exp_health_produits_pharma     | 40                                   | lb3                   | Produits pharmaceutiques                                                                             |
+| exp_health_trad_practicien     | 41                                   | lb8                   | Frais de consultation d'un guerisseur ou d'un tradi-praticien et depenses ordonnees par ces derniers |
+| exp_hygn                       | 42                                   | lg1                   | Savons et papier hygienique                                                                          |
+| exp_journaux                   | 43                                   | le7                   | Achats de journaux ou autre presse                                                                   |
+| exp_light_electricite          | 44                                   | o16                   | electricite pour l'eclairage                                                                         |
+| exp_light_huile                | 45                                   | o16                   | huile pour l'eclairage                                                                               |
+| exp_light_petrole              | 46                                   | o16                   | petrole pour l'eclairage                                                                             |
+| exp_loisirs                    | 47                                   | lg2a                  | Loisir (jeux, excursion, sport)                                                                      |
+| exp_machette                   | 48                                   | lg7                   | Machette                                                                                             |
+| exp_maid                       | 49                                   | lg3                   | Domestique                                                                                           |
+| exp_nourritures_scolaires      | 50                                   | la6                   | Nourriture, cantine, internat, pensionat et tuteur                                                   |
+| exp_parapluie                  | 51                                   | lg9                   | Parapluie                                                                                            |
+| exp_piles                      | 52                                   | lg5                   | Pile                                                                                                 |
+| exp_rasoire                    | 53                                   | lg10                  | Rasoir                                                                                               |
+| exp_soutients_scolaires        | 54                                   | la7                   | Repetiteur, maitre de maison, cours de renforcement, cours de vacances                               |
+| exp_tabac                      | 55                                   | lg2b                  | Tabac                                                                                                |
+| exp_torche                     | 56                                   | lg6                   | Torche                                                                                               |
+| exp_transf_alim_parents        | 57                                   | ld3                   | Valeur des envois de produits alimentaires aux parents et autres persoones                           |
+| exp_transf_association         | 58                                   | ld8                   | Cotisations dans diverses associations                                                               |
+| exp_transf_autre_aide          | 59                                   | ld5                   | Aides et soutiens non encore citees                                                                  |
+| exp_transf_epouses             | 60                                   | ld2                   | Envois d'argent aux epouses                                                                          |
+| exp_transf_funerails           | 61                                   | ld7                   | Depenses aux funerailles ou autres ceremonies                                                        |
+| exp_transf_marriage            | 62                                   | ld6                   | Depenses pour les mariages et les baptemes                                                           |
+| exp_transf_parents             | 63                                   | ld1                   | Envois d'argent aux parents et autres                                                                |
+| exp_transf_parents_autre       | 64                                   | ld4c                  | Valeur des envois d'autres produits aux parents et autres personnes                                  |
+| exp_transf_parents_education   | 65                                   | ld4b                  | Valeur des envois de produits d education aux parents et autres personnes                            |
+| exp_transf_parents_sante       | 66                                   | ld4                   | Valeur des envois de produits de sante aux parents et autres personnes                               |
+| exp_transport_exceptionnel     | 67                                   | lf5                   | Transport exceptionnel                                                                               |
+| exp_transports_scolaires       | 68                                   | la5                   | Frais de transport des personnes qui vont a l'ecole                                                  |
+| exp_uniformes_scolaires        | 69                                   | la4                   | Frais d'uniforme, de tenue de sport et autres habillements                                           |
+| exp_voyage                     | 70                                   | lf4                   | Voyages                                                                                              |
+| exp_waste                      | 71                                   | o22                   | Enlevement des ordures                                                                               |
+| exp_water_autre                | 72                                   | o14                   | eau provenant d'autres sources                                                                       |
+| exp_water_publique             | 73                                   | o14                   | eau via le reseau publique                                                                           |
+| exp_rent                       | 74                                   | o3                    | loyers résidence principale                                                                          |
+| exp_equipement                 | de 75 a 119                          | K                     | Achats d'equipement - voir liste                                                                     |
+| exp_nourriture                 | de 120 a 246                         | M                     | depenses d'aliment                                                                                   |
+| exp_light_autre                | 247                                  | o15                   | Eclairage de source diverse                                                                          |
+| exp_nourriture_dons            | de 248 a 374                         | M                     | Consommation d'aliment produit donnes au menage                                                      |
+| exp_autoconsommation           | de 375 a 401                         | M                     | Consommation d'aliment produit par le menage                                                         |
 # Construction des variables - MALI - par ordre alphabéthique
 
 ## Variables de revenu 
