@@ -110,7 +110,7 @@ def build_comparison_table(countries):
         for df in dfs
         ]
 
-    merged = pd.concat(dfs, axis = 1, keys = country_codes, join = 'outer', copy = False).reset_index()
+    merged = pd.concat(dfs, axis = 1, keys = country_code_by_country.values(), join = 'outer', copy = False).reset_index()
     merged['division_index'] = merged.code_coicop.str.split('.', 1).str[0].astype(int)
     merged = (merged.sort_values(['division_index', 'code_coicop']).drop('division_index', axis = 1))
     assets_directory = os.path.join(

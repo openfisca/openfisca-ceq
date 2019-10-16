@@ -1,5 +1,4 @@
 import logging
-import os
 
 
 from openfisca_ceq import CountryTaxBenefitSystem as CEQTaxBenefitSystem
@@ -7,7 +6,6 @@ from openfisca_ceq.tools.indirect_taxation.consumption_items_nomenclature import
     build_tax_rate_by_code_coicop,
     build_complete_label_coicop_data_frame,
     build_label_by_code_coicop,
-    consumption_items_directory,
     )
 from openfisca_ceq.tools.indirect_taxation.variables_generator import (
     generate_postes_variables,
@@ -42,8 +40,8 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
     tax_name = 'tva'
     null_rates = ['exonere']
     generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
-    generate_fiscal_base_variables(tax_benefit_system, tax_name,tax_rate_by_code_coicop, null_rates)
-    generate_ad_valorem_tax_variables(tax_benefit_system, tax_name,tax_rate_by_code_coicop, null_rates)
+    generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
+    generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
 
 
 def main():

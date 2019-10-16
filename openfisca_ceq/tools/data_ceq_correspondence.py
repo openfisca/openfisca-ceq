@@ -119,7 +119,7 @@ class nontaxable_income(Variable):
             "revenu_informel_agricole",  # A construire
             "revenu_informel_non_salarie",
             "revenu_informel_salarie",
-            # TODO
+            # TODO
             ]
         return household.sum(
             sum(
@@ -127,5 +127,6 @@ class nontaxable_income(Variable):
                 for variable in income_variables
                 )
             )
+
 
 multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income, indirect_taxes]

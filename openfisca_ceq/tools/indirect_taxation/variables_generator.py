@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-import pandas as pd
 from slugify import slugify
-from sortedcontainers.sorteddict import SortedDict
 import logging
 
 
@@ -37,6 +35,7 @@ def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
                 ))
             )
 
+
 def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates = []):
     """Create depenses_ht_poste_code_coicop variables for every code_coicop
     assuming no code coicop dies and resucitates over time
@@ -62,7 +61,7 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate
         time_varying_rates = 'start' in tax_rate_by_code_coicop.columns
         if time_varying_rates:
             start_years = reference_rates.start.fillna(GLOBAL_YEAR_START).unique()
-            stop_years = reference_rates.start.fillna(GLOBAL_YEAR_STOP).unique()   # last year
+            stop_years = reference_rates.start.fillna(GLOBAL_YEAR_STOP).unique()  # last year
             years_range = sorted(list(set(start_years + stop_years)))
             year_stop_by_year_start = zip(years_range[:-1], years_range[1:])
         else:
@@ -76,8 +75,8 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate
                 tax_rate_by_code_coicop.query(filter_expression)['code_coicop'].astype(str)
                 )
 
-            log.debug('Creating fiscal category {} - {} (starting in {}) pre-tax expenses for the following products {}'.format(
-                tax_name, tax_rate, year_start, postes_coicop))
+            log.debug('Creating fiscal category {} - {} (starting in {} and ending in {}) pre-tax expenses for the following products {}'.format(
+                tax_name, tax_rate, year_start, year_stop, postes_coicop))
 
             for poste_coicop in postes_coicop:
                 dated_func = depenses_ht_postes_function_creator(
@@ -169,7 +168,7 @@ def generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_cod
         functions_by_name = dict()
         if time_varying_rates:
             start_years = reference_rates.start.fillna(GLOBAL_YEAR_START).unique()
-            stop_years = reference_rates.start.fillna(GLOBAL_YEAR_STOP).unique()   # last year
+            stop_years = reference_rates.start.fillna(GLOBAL_YEAR_STOP).unique()  # last year
             years_range = sorted(list(set(start_years + stop_years)))
             year_stop_by_year_start = zip(years_range[:-1], years_range[1:])
         else:
@@ -183,8 +182,8 @@ def generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_cod
                 tax_rate_by_code_coicop.query(filter_expression)['code_coicop'].astype(str)
                 )
 
-            log.debug('Creating fiscal category {} - {} (starting in {}) aggregate expenses with the following products {}'.format(
-                tax_name, tax_rate, year_start, postes_coicop))
+            log.debug('Creating fiscal category {} - {} (starting in {} and ending in {}) aggregate expenses with the following products {}'.format(
+                tax_name, tax_rate, year_start, year_stop, postes_coicop))
 
             dated_func = depenses_ht_categorie_function_creator(
                 postes_coicop,
@@ -210,7 +209,6 @@ def generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_cod
         del definitions_by_name
 
 
-
 def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates = []):
     reference_rates = sorted(tax_rate_by_code_coicop[tax_name].unique())
     ad_valorem_tax_components = list()
@@ -228,6 +226,7 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
             label = "{} - {}".format(tax_name, tax_rate),
             definition_period = YEAR,
             )
+
         def func(entity, period_arg, parameters):
             pre_tax_expenses = entity('depenses_ht_{}_{}'.format(tax_name, tax_rate), period_arg)
             rate = parameters(period_arg).prelevements_obligatoires.impots_indirects.tva[tax_rate]
@@ -244,8 +243,8 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
         ad_valorem_tax_components += [class_name]
         del definitions_by_name
 
-
     class_name = tax_name
+
     def ad_valorem_tax_total_func(entity, period_arg):
         return sum(
             entity(class_name, period_arg)

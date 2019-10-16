@@ -43,12 +43,13 @@ def build_income_dataframes(country):
     year = year_by_country[country]
     income_data_path = config_parser.get(country, 'revenus_harmonises_{}'.format(year))
     model_variable_by_person_variable = dict()
-    for d in [
+    variables = [
         ceq_input_by_harmonized_variable,
         ceq_intermediate_by_harmonized_variable,
         model_by_data_id_variable,
         non_ceq_input_by_harmonized_variable,
-        ]:
+        ]
+    for d in variables:
         model_variable_by_person_variable.update(d)
 
     income = pd.read_stata(income_data_path)

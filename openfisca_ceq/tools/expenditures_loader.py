@@ -7,7 +7,6 @@ import pandas as pd
 from openfisca_survey_manager import default_config_files_directory as config_files_directory
 from openfisca_ceq.tools.indirect_taxation.consumption_items_nomenclature import (
     build_label_by_code_coicop,
-    consumption_items_directory,
     )
 
 
