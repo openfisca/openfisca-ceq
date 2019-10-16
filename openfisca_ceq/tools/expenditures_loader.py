@@ -52,12 +52,6 @@ def load_expenditures(country):
         set(expenditures_variables).difference(set(expenditures.columns)),
         )
 
-    # for var in expenditures.columns:
-    #     if var not in country_expenditures_variables:
-    #         continue
-    #     print(expenditures[var].describe())
-    #     print(expenditures[var].value_counts())
-
     return expenditures.astype({"prod_id": str})
 
 
@@ -66,10 +60,7 @@ if __name__ == "__main__":
 
     df = build_consumption_items_list(country)
     expenditures = load_expenditures(country)
-    # print(df.prod_id)
-    # print(expenditures.prod_id)
-    #
-    print(sorted(expenditures.prod_id.unique()))
-    print(sorted(df.prod_id.unique()))
-    print(set(expenditures.prod_id.unique()).difference(set(df.prod_id.unique())))
-    print(set(df.prod_id.unique()).difference(set(expenditures.prod_id.unique())))
+    # print(sorted(expenditures.prod_id.unique()))
+    # print(sorted(df.prod_id.unique()))
+    # print(set(expenditures.prod_id.unique()).difference(set(df.prod_id.unique())))
+    # print(set(df.prod_id.unique()).difference(set(expenditures.prod_id.unique())))
