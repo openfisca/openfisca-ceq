@@ -21,7 +21,7 @@ initial_revenues_source = set([
     "rev_i_autres_transferts",
     "rev_i_independants_Ntaxe",
     "rev_i_independants_taxe",
-    "rev_i_locatif",
+    "rev_i_locatifs",
     "rev_i_loyers_imputes",
     "rev_i_pensions",
     "rev_i_salaires_formels",
@@ -32,7 +32,7 @@ initial_revenues_source = set([
 ceq_input_by_harmonized_variable = {
     "rev_i_autoconsommation": "autoconsumption",
     "rev_i_autres_transferts": "other_income",
-    "rev_i_locatif_impute": "imputed_rent",
+    "rev_i_loyers_imputes": "imputed_rent",
     }
 
 ceq_intermediate_by_harmonized_variable = {
@@ -44,7 +44,7 @@ non_ceq_input_by_harmonized_variable = {
     "rev_i_autres_revenus_capital": "autres_revenus_du_capital",
     "rev_i_independants_Ntaxe": "revenu_informel_non_salarie",
     "rev_i_independants_taxe": "revenu_non_salarie",
-    "rev_i_locatif": "revenu_locatif",
+    "rev_i_locatifs": "revenu_locatif",
     "rev_i_pensions": "pension_retraite",
     "rev_i_salaires_formels": "salaire",
     "rev_i_salaires_informels": "revenu_informel_salarie",
@@ -62,7 +62,10 @@ variables_by_entity = {
 assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
     .union(set(ceq_intermediate_by_harmonized_variable.keys()))
     .union(set(non_ceq_input_by_harmonized_variable.keys()))
-    )
+    ), initial_revenues_source.difference(set(ceq_input_by_harmonized_variable.keys())
+        .union(set(ceq_intermediate_by_harmonized_variable.keys()))
+        .union(set(non_ceq_input_by_harmonized_variable.keys()))
+        )
 
 
 # weights

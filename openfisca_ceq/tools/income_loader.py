@@ -31,7 +31,7 @@ missing_revenus_by_country = {
     'mali': [
         'rev_i_independants_taxe',
         'rev_i_independants_Ntaxe',
-        'rev_i_locatif',
+        'rev_i_locatifs',
         'rev_i_autres_revenus_capital',
         'rev_i_pensions',
         'rev_i_transferts_publics',
