@@ -22,8 +22,9 @@ config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 
 year_by_country = {
-    # 'mali': 2014,
+    'mali': 2014,
     'senegal': 2011,
+    'cote_d_ivoire': 2014,
     }
 
 
@@ -75,23 +76,35 @@ def build_income_dataframes(country):
 
     dataframe_by_entity = dict()
     for entity, variables in variables_by_entity.items():
+        print(entity)
+        data_entity_id = data_by_model_id_variable["{}_id".format(entity)]
+        data_entity_weight = data_by_model_weight_variable["person_weight"]
+
         filtered_variables = list(
             set(variables).difference(
                 set(missing_revenus_by_country.get(country, [])))
             )
 
-        dataframe_by_entity[entity] = income[
+        dataframe = income[
             filtered_variables
             + [
-                data_by_model_id_variable["{}_id".format(entity)],
-                data_by_model_weight_variable["{}_weight".format(entity)],
+                data_entity_id,
+                data_entity_weight,
                 ]
+            ].copy()
 
-            ]
+
+        if entity != 'person':
+            print(
+                (dataframe.groupby(data_entity_id)[filtered_variables].nunique() == 1).all().sort_index()
+                )
+
+        dataframe_by_entity[entity] = dataframe
 
     return dataframe_by_entity["person"], dataframe_by_entity["household"]
 
 
 if __name__ == "__main__":
     for country in year_by_country.keys():
+        print(country)
         person_dataframe, household_dataframe = build_income_dataframes(country)
