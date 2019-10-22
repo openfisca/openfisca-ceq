@@ -610,7 +610,6 @@ Les revenus dits individualises sont mesurés dans l'enquêtes au niveau du mén
 | rev_i_salaires_formels       | i1; i2                        | revenu de l'activitee principale si l'individu travaille dans le secteur formel = cotise a la secu et/ou contrat ecrit                                                                                                                |
 | rev_i_salaires_informels     | i1; i2;               | revenu de l'activitee principale si l'individu ne tombe dans aucune des autres categories                                                                        |
 | rev_i_transferts_publics     | i7                            | revenus tires de programme d'aide du gouvernment, ambassades ou institutions                                                                                                                                                          |
-
 | rev_i_autres     | i3 ; i11                           |  revenus de l activite secondaire + autres revenus non encore cites                                                                                                                                                          |
 
 # Construction des variables - MALI - par ordre alphabéthique
