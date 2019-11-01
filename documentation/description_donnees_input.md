@@ -216,7 +216,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête. | c9 	|
 | cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| age; e7; b11; b12; b11; b9 	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| b2 	|
-| cov_i_secteur_activite 	| Secteur d'activité de l'individu. Cette variable permet de distinguer les travailleurs agricoles, les salariés ainsi que les différents types d'indépendants (BIC, BNC) 	| e20; e12; e10; e9; e18a 	|
+| cov_i_secteur_activite 	| Secteur d'activité de l'individu âgé de plus de 15 ans. Cette variable permet de distinguer les travailleurs agricoles, les salariés ainsi que les différents types d'indépendants (BIC, BNC) 	| e20; e12; e10; e9; e18a 	|
 | cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration, grande entreprise, institution financière, association ou ceux affiliés au système de sécurité sociale (IPRES, CSS, FNR). 	| e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 ; e13_1==1 ; e13_2==1 ; e13_3==1  	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
@@ -265,7 +265,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | actif agricole 	| 0 	|
 | sal/dep formel 	| 1 	|
 | sal/dep informel 	| 2 	|
-| CGU comm/prod A 	| 3 	|
+| CGU comm/prod A (ciments, agro-alimentaires, vendeurs de denrées alimentaires 	| 3 	|
 | CGU comm/prod B 	| 4 	|
 | CGU services 	| 5 	|
 | indep BNC (prof lib) 	| 6 	|
@@ -423,7 +423,7 @@ la variable consommation est la somme de toutes ces variables :
 | exp_equipement             | 82                                   | K8                    | Ventilateur               |
 | exp_equipement             | 83                                   | K9                    | Climatiseur               |
 | exp_equipement             | 84                                   | K10                   | Ordinateur                |
-| exp_equipement             | 85                                   | K11                   | Cuisinière               |
+| exp_equipement             | 85                                   | K11                   | Cuisinière               |
 | exp_equipement             | 86                                   | K12                   | Antenne parabolique       |
 | exp_equipement             | 87                                   | K13                   | Voiture                   |
 | exp_equipement             | 88                                   | K14                   | Camionnette               |
