@@ -737,7 +737,8 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_enfant_charge 	| Nombre d'enfants à charge du chef de ménage ou du conjoint. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| m4<=21 & m5==3; w11==7 & m4>21 & m4<=25 & m5==3 	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| m5 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| weight_pc 	|
-| cov_i_secteur_activite 	| Secteur d'activité de l'individu 	|  	|
+| cov_i_secteur_activite 	|  Secteur d'activité de l'individu âgé de plus de 15 ans. Cette variable permet de distinguer les travailleurs agricoles, les salariés ainsi que les différents types d'indépendants (BIC, BNC) 	|  w17; w18a;w18b;w18c;w18d;w18e;w16;w24;w14;w15;w15_bis
+	|
 | cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration publique ou parapublique,entreprise privée,entreprise associative qui sont enregistrées (INPS, identifiant national/fiscal, etc.) ou les individus ayant un bulletin de salaire 	| w17==1 ; w17==2  ; w26==1 ; ((w17==3 ; w17==4) & (w18a==1 ; w18b==1 ; w18c==1 ; w18d==1 ; w18e==1))	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si l'individu travaille dans le publique. Publique est défini ici comme tous ceux qui travaillent dans l'administration. 	| w17==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	| m3 	|
@@ -745,10 +746,10 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_taxe_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
 | cov_i_type_ecole 	| Pas d'informations dans l'enquête 	|  	|
 | cov_m_enfant | Nombre d'enfants (age<=15) dans le menage|   |
-| cov_m_nbenf_mater | Nombre d'enfants inscrits en maternelle dans un établissement public |   |
-| cov_m_nbenf_prim | Nombre d'enfants inscrits au primaire dans un établissement public |   |
-| cov_m_nbenf_sec | Nombre d'enfants inscrits au secondaire dans un établissement public |   |
-| cov_m_nbenf_sup | Nombre d'enfants inscrits au superieur dans un établissement public |   |
+| cov_m_nbenf_mater | Indisponible parce que pas d'informations sur le caractère public de l'établissement |   |
+| cov_m_nbenf_prim | Indisponible parce que pas d'informations sur le caractère public de l'établissement |   |
+| cov_m_nbenf_sec | Indisponible parce que pas d'informations sur le caractère public de l'établissement |   |
+| cov_m_nbenf_sup | Indisponible parce que pas d'informations sur le caractère public de l'établissement |   |
 | cov_m_region 	| Région de résidence 	|  	|
 | cov_m_taille 	| La taille du ménage 	|  	|
 | cov_m_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
