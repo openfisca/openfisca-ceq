@@ -224,6 +224,11 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 |cov_i_taxe_Ntaxe| Dummy indiquant si l'indépendant a versé un impôt| e24i_annuel>0 & e24i_annuel!=.|
 | cov_i_type_ecole 	| Dummy indiquant si l'individu fréquente l'école publique. 	| c10==1 	|
 | cov_i_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
+| cov_m_enfant | Nombre d'enfants (age<=15) dans le menage|   |
+| cov_m_nbenf_mater | Nombre d'enfants inscrits en maternelle dans un établissement public |   |
+| cov_m_nbenf_prim | Nombre d'enfants inscrits au primaire dans un établissement public |   |
+| cov_m_nbenf_sec | Nombre d'enfants inscrits au secondaire dans un établissement public |   |
+| cov_m_nbenf_sup | Nombre d'enfants inscrits au superieur dans un établissement public |   |
 | cov_m_region 	| Région de résidence 	|  	|
 | cov_m_taille 	| La taille du ménage 	|  	|
 | hh_id 	| Identifiant du ménage 	| a07b;a08 	|
