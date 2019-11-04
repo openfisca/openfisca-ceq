@@ -242,26 +242,9 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Maternelle 	| 1 	|
-| CI 	| 2 	|
-| CP 	| 3 	|
-| CE1 	| 4 	|
-| CE2 	| 5 	|
-| CM1 	| 6 	|
-| CM2 	| 7 	|
-| 6eme 	| 8 	|
-| 5eme 	| 9 	|
-| 4eme 	| 10 	|
-| 3eme 	| 11 	|
-| 2nde 	| 12 	|
-| 1ere 	| 13 	|
-| TERMINALE 	| 14 	|
-| SUPERIEUR 1ere ANNEE 	| 15 	|
-| SUPERIEUR 2eme ANNEE 	| 16 	|
-| SUPERIEUR 3eme ANNEE 	| 17 	|
-| SUPERIEUR 4eme ANNEE 	| 18 	|
-| SUPERIEUR 5eme ANNEE 	| 19 	|
-| SUPERIEUR 6 et + 	| 20 	|
-| Ne sait pas 	| 99 	|
+| Primaire 	| 2 	|
+| Secondaire 	| 3 	|
+| Superieur 	| 4 	|
 
 
 | cov_i_secteur_activite 	|  	|
@@ -761,6 +744,11 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	|  	|
 | cov_i_taxe_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
 | cov_i_type_ecole 	| Pas d'informations dans l'enquête 	|  	|
+| cov_m_enfant | Nombre d'enfants (age<=15) dans le menage|   |
+| cov_m_nbenf_mater | Nombre d'enfants inscrits en maternelle dans un établissement public |   |
+| cov_m_nbenf_prim | Nombre d'enfants inscrits au primaire dans un établissement public |   |
+| cov_m_nbenf_sec | Nombre d'enfants inscrits au secondaire dans un établissement public |   |
+| cov_m_nbenf_sup | Nombre d'enfants inscrits au superieur dans un établissement public |   |
 | cov_m_region 	| Région de résidence 	|  	|
 | cov_m_taille 	| La taille du ménage 	|  	|
 | cov_m_urbain_rural 	| Milieu de résidence (urbain/rural) 	|  	|
@@ -771,20 +759,13 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 
 
 | cov_i_classe_frequente 	|  	|
-|-----------------------------------	|------	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Maternelle 	| 0 	|
-| 1ere annee 	| 1 	|
-| 2eme annee 	| 2 	|
-| 3eme annee 	| 3 	|
-| 4eme annee 	| 4 	|
-| 5eme annee 	| 5 	|
-| 6eme annee 	| 6 	|
-| 7eme annee 	| 7 	|
-| 8eme annee 	| 8 	|
-| 9eme annee 	| 9 	|
-| Secondaire 	| 10 	|
-| Superieur 	| 11 	|
+| Maternelle 	| 1 	|
+| Primaire 	| 2 	|
+| Secondaire 	| 3 	|
+| Superieur 	| 4 	|
+
 
 | cov_i_secteur_activite 	|  	|
 |-----------------------------------	|------	|
