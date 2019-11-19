@@ -31,7 +31,7 @@ setup(
             "pycodestyle >=2.3.0,<2.6.0",  # To avoid incompatibility with flake
             "pytest < 6.0",
             "requests >= 2.8",
-            "yamllint >=1.11.1,<1.19",
+            "yamllint >=1.11.1,<1.20",
             ],
         },
     packages=find_packages(),
