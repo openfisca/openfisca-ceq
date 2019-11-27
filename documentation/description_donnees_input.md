@@ -598,8 +598,9 @@ la variable consommation est la somme de toutes ces variables :
 
 ## Covariables et variables structurelles
 
-| cov_i_secteur_formel_informel | 1 / 0                                               | Sont considérés comme formels ceux qui déclarent côtiser à la caisse nationale de prévoyance sociale (eb12c) - informels tous les autres individus ayant une acctivité principale |
+| Nom de la variable            | Valeurs possibles                                   | Explications - Sources                                                                                                                                                            |
 |-------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| cov_i_secteur_formel_informel | 1 / 0                                               | Sont considérés comme formels ceux qui déclarent côtiser à la caisse nationale de prévoyance sociale (eb12c) - informels tous les autres individus ayant une acctivité principale |
 | cov_i_public_prive            | 1 / 0                                               | Variable définie à partir de l'activité principale (eb3b) - seulement pour le secteur formel                                                                                      |
 | cov_i_secteur_activite        | formel / agricoles / independant / autres informels | Variable définie à partir de l'activité principale (eb3b)                                                                                                                         |
 | cov_i_classe_frequente        | 1/2/3/4 - Maternelle/Primaire/Secondaire/Supérieur  | Classe frequentée lors de l'enquête (dq14)                                                                                                                                        |
