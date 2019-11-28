@@ -253,11 +253,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | actif agricole 	| 0 	|
 | sal/dep formel 	| 1 	|
 | sal/dep informel 	| 2 	|
-| CGU comm/prod A (ciments, agro-alimentaires, vendeurs de denrées alimentaires 	| 3 	|
-| CGU comm/prod B 	| 4 	|
-| CGU services 	| 5 	|
-| indep BNC (prof lib) 	| 6 	|
-
+| Independants	| 3 	|
 
 | cov_i_secteur_formel_informel 	|  	|
 |-------------------------------	|------	|
@@ -776,17 +772,13 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Secondaire 	| 3 	|
 | Superieur 	| 4 	|
 
-
 | cov_i_secteur_activite 	|  	|
-|-----------------------------------	|------	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | actif agricole 	| 0 	|
 | sal/dep formel 	| 1 	|
 | sal/dep informel 	| 2 	|
-| CGU comm/prod A 	| 3 	|
-| CGU comm/prod B 	| 4 	|
-| CGU services 	| 5 	|
-| indep BNC (prof lib) 	| 6 	|
+| Independants	| 3 	|
 
 | cov_i_secteur_formel_informel 	|  	|
 |-----------------------------------	|------	|
