@@ -258,8 +258,8 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
 | actif agricole 	| 0 	|
-| sal/dep formel 	| 1 	|
-| sal/dep informel 	| 2 	|
+| salarie/dependant formel 	| 1 	|
+| salarie/dependant informel 	| 2 	|
 | Independants	| 3 	|
 
 | cov_i_secteur_formel_informel 	|  	|
@@ -791,8 +791,8 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
 | actif agricole 	| 0 	|
-| sal/dep formel 	| 1 	|
-| sal/dep informel 	| 2 	|
+| salarie/dependant 	| 1 	|
+| salarie/dependant 	| 2 	|
 | Independants	| 3 	|
 
 | cov_i_secteur_formel_informel 	|  	|
