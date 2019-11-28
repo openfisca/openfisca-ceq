@@ -743,8 +743,9 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 
 ## Covariables et variables structurelles
 
+
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
-|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+|------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  m4 	|
 | cov_i_categorie_CGU | Cette variable est définie uniquement sur les indépendants. Elle permet de faire la distinction entre les indépendants entre les commerçants et revendeurs de ciments et de denrées alimentaires (CGU prod A) des autres commerçants ou revendeurs (CGU prod B) ou des prestataires de service (CGU service). Elle est particulièrement pertinente dans le cas du système socio-fiscal sénégalais. Les indépendants CGU prod A incluent ceux dont la branche d'activité est les produits des industries alimentaires tels que l'abattage, la conservation et la transformation de produits alimentaires et de boissons. Ceux dont l'entreprise se trouvent dans la branche des services sont considérés comme indépendants CGU services. Tous les autres indépendants qui ne sont pas dans les deux précédentes catégories sont dans CGU prod B.|   | 
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête 	| E6 	|
