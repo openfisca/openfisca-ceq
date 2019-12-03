@@ -220,7 +220,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_no_mere| Numero d'ordre du pere au sein du ménage | b9 |
 | cov_i_no_pere| Numero d'ordre du pere au sein du ménage | b10 |
 | cov_i_secteur_activite 	| Secteur d'activité des individus âgés de plus de 15 ans. Cette variable permet de distinguer les actifs agricoles, les salariés du formel et de l'informel ainsi que les indépendants. Les actifs agricoles comprennent ceux dont l'entreprise est dans la branche des produits agricoles, sylvicoles, pêche et piscicultures (Qe20). Les salaries regroupent les cadres, employés, ouvriers, aides-familiaux, apprentis (Qe12) ou ceux qui déclarent percevoir un salaire (Qe10). Les indépendants sont les employeurs ou les travailleurs sous compte propre (Qe12).	| e20; e12; e10; e9; e18a 	|
-| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration ou ceux affiliés à un système de sécurité sociale (IPRES, CSS, FNR). 	| e18a==1 ; e18a==2 ; e18a==3 ; e18a==5 ; e18a==6 ; e18a==7 ; e13_1==1 ; e13_2==1 ; e13_3==1  	|
+| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration ou ceux affiliés à un système de sécurité sociale (IPRES, CSS, FNR). 	| e18a==1 ; e13_1==1 ; e13_2==1 ; e13_3==1  ; 	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si le salarie travaille dans le publique. Le publique étant défini comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
@@ -750,7 +750,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| m5 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| weight_pc 	|
 | cov_i_secteur_activite 	| Secteur d'activité des individus âgés de plus de 15 ans. Cette variable permet de distinguer les actifs agricoles, les salariés du formel et de l'informel ainsi que les indépendants. Les actifs agricoles comprennent ceux dont l'entreprise est dans la branche des produits agricoles, sylvicoles, pêche et piscicultures (w15). Les salaries regroupent les cadres, employés, ouvriers, aides-familiaux, apprentis (w16) ou ceux qui déclarent percevoir un salaire (w24). Les indépendants sont les employeurs ou les travailleurs sous compte propre (w16). |  w17; w18a;w18b;w18c;w18d;w18e;w16;w24;w14;w15;w15_bis |
-| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus travaillant dans l'administration publique ou parapublique,entreprise privée,entreprise associative qui sont enregistrées (INPS, identifiant national/fiscal, etc.) ou les individus ayant un bulletin de salaire 	| w17==1 ; w17==2  ; w26==1 ; ((w17==3 ; w17==4) & (w18a==1 ; w18b==1 ; w18c==1 ; w18d==1 ; w18e==1))	|
+| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus ayant un bulletin de paie 	| w26==1 & agri==0 & w16<=5	|
 | cov_i_secteur_publique_prive 	| Dummy indiquant si le salarie travaille dans le publique. Le publique étant défini comme tous ceux qui travaillent dans l'administration. 	| w17==1 	|
 | cov_i_sexe 	| Sexe de l'individu 	| m3 	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	|  	|
