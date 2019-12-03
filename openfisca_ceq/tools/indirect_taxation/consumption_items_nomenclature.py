@@ -146,5 +146,8 @@ if __name__ == '__main__':
     df = build_tax_rate_by_code_coicop(country, tax_variables)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
-    # countries = ['cote_d_ivoire', 'senegal', 'mali']
-    # merged = build_comparison_table(countries)
+
+    print(df)
+    df['code_coicop_5'] = df.code_coicop.str.extract(r'([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})')
+    countries = ['cote_d_ivoire', 'senegal', 'mali']
+    merged = build_comparison_table(countries)

@@ -21,6 +21,7 @@ setup(
         'pandas >= 0.24.1',
         'python-slugify',
         'xlrd >= 1.0.0',
+        'xlwt >= 1.0.0',
         ],
     extras_require = {
         'dev': [
