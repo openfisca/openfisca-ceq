@@ -609,6 +609,9 @@ la variable consommation est la somme de toutes ces variables :
 | cov_i_lien_cm                 | 1 à 7                                               | Lien de parent avec le chef de ménage (a2)                                                                                                                                        |
 | cov_i_age                     | âge de l'individu                                   | a4aimput                                                                                                                                                                          |
 | cov_m_enfant                  | nombre d'enfant <=15 ans dans le ménage             | a4aimput                                                                                                                                                                          |
+| cov_i_no_mere| Numero d'ordre du pere au sein du ménage | a16 |
+| cov_i_no_pere| Numero d'ordre du pere au sein du ménage | a19 |
+
 
 # Construction des variables - MALI - par ordre alphabéthique
 
