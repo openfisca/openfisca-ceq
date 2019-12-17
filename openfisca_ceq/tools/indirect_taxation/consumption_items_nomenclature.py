@@ -12,6 +12,12 @@ from openfisca_survey_manager import default_config_files_directory as config_fi
 log = logging.getLogger(__name__)
 
 
+assets_directory = os.path.join(
+    pkg_resources.get_distribution('openfisca-ceq').location,
+    'openfisca_ceq',
+    'assets'
+    )
+
 config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 consumption_items_directory = config_parser.get('ceq', 'consumption_items_directory')
@@ -113,11 +119,6 @@ def build_comparison_table(countries):
     merged = pd.concat(dfs, axis = 1, keys = country_code_by_country.values(), join = 'outer', copy = False).reset_index()
     merged['division_index'] = merged.code_coicop.str.split('.', 1).str[0].astype(int)
     merged = (merged.sort_values(['division_index', 'code_coicop']).drop('division_index', axis = 1))
-    assets_directory = os.path.join(
-        pkg_resources.get_distribution('openfisca-ceq').location,
-        'openfisca_ceq',
-        'assets'
-        )
     merged.to_csv(os.path.join(assets_directory, 'merged.csv'))
     merged.to_excel(os.path.join(assets_directory, 'merged.xls'))
 
@@ -135,9 +136,68 @@ def build_tax_rate_by_code_coicop(country, tax_variables = None):
     return label_by_code_coicop
 
 
-if __name__ == '__main__':
-    import sys
-    logging.basicConfig(level = logging.INFO, stream = sys.stdout)
+def build_comparison_spreadsheet(countries):
+    dfs = [
+        build_complete_label_coicop_data_frame(country, deduplicate = False)
+        for country in countries
+        ]
+    writer = pd.ExcelWriter(os.path.join(assets_directory, 'merged_by_coicop.xlsx'), engine = 'xlsxwriter')
+    coicops = [set(df.code_coicop.unique()) for df in dfs]
+    unique_coicops = sorted(list(set().union(*coicops)))
+    summary = (
+        pd.concat(
+            [
+                (
+                    coicop_df[['label_variable', 'deduplicated_code_coicop', 'code_coicop']]
+                    .groupby('code_coicop')
+                    .count()
+                    )
+                for coicop_df in dfs
+                ],
+            axis = 1,
+            keys = country_code_by_country.values(),
+            join = 'outer',
+            copy = False,
+            sort = True,
+            )
+        .fillna(0)
+        )
+    summary.to_excel(
+        writer,
+        sheet_name = str("summary"),
+        )
+
+    for coicop in unique_coicops:
+        expr = "code_coicop == '{}'".format(coicop)
+
+        coicop_dfs = [
+            df.query(expr)[['label_variable', 'code_coicop', 'deduplicated_code_coicop']].set_index('deduplicated_code_coicop')
+            for df in dfs
+            ]
+        coicop_df = coicop_dfs[0]
+        merged = (
+            pd.concat(
+                coicop_dfs,
+                axis = 1,
+                keys = country_code_by_country.values(),
+                join = 'outer',
+                copy = False,
+                sort = True,
+                )
+            # .reset_index(drop = True)
+            )
+        try:
+            merged.to_excel(
+                writer,
+                sheet_name = str(coicop),
+                )
+        except Exception as e:
+            print(e)
+            pass
+    writer.save()
+    writer.close()
+
+def test():
     tax_variables_by_country = {
         "senegal": ['tva']
         }
@@ -146,8 +206,17 @@ if __name__ == '__main__':
     df = build_tax_rate_by_code_coicop(country, tax_variables)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
-
     print(df)
     df['code_coicop_5'] = df.code_coicop.str.extract(r'([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})')
     countries = ['cote_d_ivoire', 'senegal', 'mali']
     merged = build_comparison_table(countries)
+    print(df)
+
+
+
+
+if __name__ == '__main__':
+    import sys
+    logging.basicConfig(level = logging.INFO, stream = sys.stdout)
+    countries = ['cote_d_ivoire', 'senegal', 'mali']
+    build_comparison_spreadsheet(countries)
