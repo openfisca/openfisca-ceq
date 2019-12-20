@@ -161,7 +161,6 @@ def build_comparison_spreadsheet(countries):
             )
         .fillna(0)
         )
-    BIM
     writer = pd.ExcelWriter(os.path.join(assets_directory, 'merged_by_coicop.xlsx'), engine = 'xlsxwriter')
     summary.to_excel(
         writer,
@@ -182,7 +181,6 @@ def build_comparison_spreadsheet(countries):
         )
         .drop_duplicates()
         )
-
     for coicop in unique_coicops:
         # coicop = "1.1.2.3.1"
         expr = "code_coicop == '{}'".format(coicop)
@@ -200,15 +198,16 @@ def build_comparison_spreadsheet(countries):
             sort = True,
             )
         merged.columns = merged.columns.droplevel(1)
-        merged =(merged
+        merged = (merged
             .reset_index()
+            .rename(columns = {'index': 'deduplicated_code_coicop'})
             .assign(code_coicop = coicop)
             )
-        print(index.code_coicop.tolist())
-        if coicop not in index.code_coicop:
-            print("{} not in admisisble coicops".format(coicop))
-            print(merged)
-            print("----")
+
+        if coicop not in index.code_coicop.to_list():
+            log.info("{} not in admisisble coicops".format(coicop))
+            log.info(merged)
+            log.info("----")
             continue
 
         merged = (merged.merge(
@@ -225,7 +224,6 @@ def build_comparison_spreadsheet(countries):
                 writer,
                 sheet_name = str(coicop),
                 )
-
         except Exception as e:
             print(e)
             pass
