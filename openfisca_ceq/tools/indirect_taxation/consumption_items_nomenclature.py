@@ -141,7 +141,6 @@ def build_comparison_spreadsheet(countries):
         build_complete_label_coicop_data_frame(country, deduplicate = False)
         for country in countries
         ]
-    writer = pd.ExcelWriter(os.path.join(assets_directory, 'merged_by_coicop.xlsx'), engine = 'xlsxwriter')
     coicops = [set(df.code_coicop.unique()) for df in dfs]
     unique_coicops = sorted(list(set().union(*coicops)))
     summary = (
@@ -162,40 +161,77 @@ def build_comparison_spreadsheet(countries):
             )
         .fillna(0)
         )
+    BIM
+    writer = pd.ExcelWriter(os.path.join(assets_directory, 'merged_by_coicop.xlsx'), engine = 'xlsxwriter')
     summary.to_excel(
         writer,
         sheet_name = str("summary"),
         )
 
+    # Build index
+    index_variables = [
+        'label_division',
+        'label_groupe',
+        'label_classe',
+        'label_sous_classe',
+        'label_poste',
+        'code_coicop'
+        ]
+    index = (pd.concat(
+        [df[index_variables].copy() for df in dfs]
+        )
+        .drop_duplicates()
+        )
+
     for coicop in unique_coicops:
+        # coicop = "1.1.2.3.1"
         expr = "code_coicop == '{}'".format(coicop)
 
         coicop_dfs = [
-            df.query(expr)[['label_variable', 'code_coicop', 'deduplicated_code_coicop']].set_index('deduplicated_code_coicop')
+            df.query(expr)[['label_variable', 'deduplicated_code_coicop']].set_index('deduplicated_code_coicop')
             for df in dfs
             ]
-        coicop_df = coicop_dfs[0]
-        merged = (
-            pd.concat(
-                coicop_dfs,
-                axis = 1,
-                keys = country_code_by_country.values(),
-                join = 'outer',
-                copy = False,
-                sort = True,
-                )
-            # .reset_index(drop = True)
+        merged = pd.concat(
+            coicop_dfs,
+            axis = 1,
+            keys = country_code_by_country.values(),
+            join = 'outer',
+            copy = False,
+            sort = True,
+            )
+        merged.columns = merged.columns.droplevel(1)
+        merged =(merged
+            .reset_index()
+            .assign(code_coicop = coicop)
+            )
+        print(index.code_coicop.tolist())
+        if coicop not in index.code_coicop:
+            print("{} not in admisisble coicops".format(coicop))
+            print(merged)
+            print("----")
+            continue
+
+        merged = (merged.merge(
+            index,
+            how = 'inner',
+            on = "code_coicop",
+            )
+            .set_index(index_variables + ['deduplicated_code_coicop'], drop = True)
             )
         try:
+            if merged.empty:
+                continue
             merged.to_excel(
                 writer,
                 sheet_name = str(coicop),
                 )
+
         except Exception as e:
             print(e)
             pass
     writer.save()
     writer.close()
+
 
 def test():
     tax_variables_by_country = {
@@ -210,7 +246,6 @@ def test():
     df['code_coicop_5'] = df.code_coicop.str.extract(r'([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})')
     countries = ['cote_d_ivoire', 'senegal', 'mali']
     merged = build_comparison_table(countries)
-    print(df)
 
 
 
