@@ -136,7 +136,7 @@ def build_tax_rate_by_code_coicop(country, tax_variables = None):
     return label_by_code_coicop
 
 
-def build_comparison_spreadsheet(countries):
+def build_comparison_spreadsheet(countries, coicop_level = 3):
     dfs = [
         build_complete_label_coicop_data_frame(country, deduplicate = False)
         for country in countries
@@ -161,7 +161,10 @@ def build_comparison_spreadsheet(countries):
             )
         .fillna(0)
         )
-    writer = pd.ExcelWriter(os.path.join(assets_directory, 'merged_by_coicop.xlsx'), engine = 'xlsxwriter')
+    writer = pd.ExcelWriter(
+        os.path.join(assets_directory, 'merged_by_coicop_{}.xlsx'.format(coicop_level)),
+        engine = 'xlsxwriter'
+        )
     summary.to_excel(
         writer,
         sheet_name = str("summary"),
@@ -176,17 +179,36 @@ def build_comparison_spreadsheet(countries):
         'label_poste',
         'code_coicop'
         ]
+
+
+    def build_levels_list(coicop_list, level):
+        complete_coicop_digits = [
+            complete_coicop.split('.')
+            for complete_coicop in coicop_list
+            ]
+        levels_set = set([
+            "{}.{}.{}".format(*coicop_digits[0:coicop_level])
+            for coicop_digits in complete_coicop_digits
+            if len(coicop_digits) >= level
+            ])
+        return sorted(list(levels_set))
+
     index = (pd.concat(
         [df[index_variables].copy() for df in dfs]
         )
         .drop_duplicates()
         )
-    for coicop in unique_coicops:
-        # coicop = "1.1.2.3.1"
-        expr = "code_coicop == '{}'".format(coicop)
 
+    levelled_index = build_levels_list(index.code_coicop.to_list(), coicop_level)
+    levelled_unique_coicops = build_levels_list(unique_coicops, coicop_level)
+    for coicop_base in levelled_unique_coicops:
+        # coicop = "1.1.2.3.1"
+        print(coicop_base)
         coicop_dfs = [
-            df.query(expr)[['label_variable', 'deduplicated_code_coicop']].set_index('deduplicated_code_coicop')
+            df.loc[
+                df.code_coicop.str.startswith(coicop_base),
+                ['label_variable', 'deduplicated_code_coicop', 'code_coicop']
+                ].set_index('deduplicated_code_coicop')
             for df in dfs
             ]
         merged = pd.concat(
@@ -197,15 +219,16 @@ def build_comparison_spreadsheet(countries):
             copy = False,
             sort = True,
             )
+        BIM
         merged.columns = merged.columns.droplevel(1)
         merged = (merged
             .reset_index()
             .rename(columns = {'index': 'deduplicated_code_coicop'})
-            .assign(code_coicop = coicop)
+            .assign(coicop_base = coicop_base)
             )
 
-        if coicop not in index.code_coicop.to_list():
-            log.info("{} not in admisisble coicops".format(coicop))
+        if coicop_base not in levelled_index:
+            log.info("{} not in admisisble coicops".format(coicop_base))
             log.info(merged)
             log.info("----")
             continue
@@ -222,7 +245,7 @@ def build_comparison_spreadsheet(countries):
                 continue
             merged.to_excel(
                 writer,
-                sheet_name = str(coicop),
+                sheet_name = str(coicop_base),
                 )
         except Exception as e:
             print(e)
