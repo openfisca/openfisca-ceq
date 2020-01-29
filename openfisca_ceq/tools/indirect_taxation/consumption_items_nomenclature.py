@@ -32,13 +32,20 @@ country_code_by_country = {
     }
 
 
-def build_label_by_code_coicop(country, additional_variables = None):
+def build_label_by_code_coicop(country, additional_variables = None, new_code_coicop_variable = "nouveau__code"):
     consumption_items_file_path = os.path.join(
         consumption_items_directory, "Produits_{}.xlsx".format(country_code_by_country[country])
         )
     if additional_variables is None:
         additional_variables = []
     consumption_items = pd.read_excel(consumption_items_file_path)
+    if new_code_coicop_variable is not None:
+        consumption_items = (consumption_items
+            .drop(columns = ["code_coicop"])
+            .rename(
+                columns = {'nouveau_code_coicop': 'code_coicop'}
+                )
+            )
     label_by_code_coicop = (consumption_items
         .rename(
             columns = {
@@ -56,8 +63,7 @@ def build_label_by_code_coicop(country, additional_variables = None):
     label_by_code_coicop['deduplicated_code_coicop'] = label_by_code_coicop.code_coicop.copy()
     for code_coicop in duplicated_coicop.code_coicop.unique():
         n = sum(label_by_code_coicop.code_coicop == code_coicop)
-        alphabet = 'abcdefghijklmnopqrstuvwxyz'
-        enhanced_code_coicops = [code_coicop + '.' + alphabet[i] for i in range(n)]
+        enhanced_code_coicops = [code_coicop + '_item_' + str(i + 1) for i in range(n)]
         label_by_code_coicop.loc[label_by_code_coicop.code_coicop == code_coicop, 'deduplicated_code_coicop'] = enhanced_code_coicops
 
     assert not label_by_code_coicop.deduplicated_code_coicop.duplicated().any()
@@ -269,15 +275,14 @@ def test():
     df = build_tax_rate_by_code_coicop(country, tax_variables)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
-    print(df)
-    df['code_coicop_5'] = df.code_coicop.str.extract(r'([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})')
+
     countries = ['cote_d_ivoire', 'senegal', 'mali']
     merged = build_comparison_table(countries)
 
 
-
-
 if __name__ == '__main__':
+    test()
+    BIM
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
     countries = ['cote_d_ivoire', 'senegal', 'mali']

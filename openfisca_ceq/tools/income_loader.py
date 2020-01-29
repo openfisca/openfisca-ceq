@@ -93,7 +93,6 @@ def build_income_dataframes(country):
                 ]
             ].copy()
 
-
         if entity != 'person':
             print(
                 (dataframe.groupby(data_entity_id)[filtered_variables].nunique() == 1).all().sort_index()
