@@ -220,8 +220,14 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_no_mere| Numero d'ordre du pere au sein du ménage | b9 |
 | cov_i_no_pere| Numero d'ordre du pere au sein du ménage | b10 |
 | cov_i_secteur_activite 	| Secteur d'activité des individus âgés de plus de 15 ans. Cette variable permet de distinguer les actifs agricoles, les salariés du formel et de l'informel ainsi que les indépendants. Les actifs agricoles comprennent ceux dont l'entreprise est dans la branche des produits agricoles, sylvicoles, pêche et piscicultures (Qe20). Les salaries regroupent les cadres, employés, ouvriers, aides-familiaux, apprentis (Qe12) ou ceux qui déclarent percevoir un salaire (Qe10). Les indépendants sont les employeurs ou les travailleurs sous compte propre (Qe12).	| e20; e12; e10; e9; e18a 	|
-| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les salariés de l'administration publique, l'armée ou les forces de l'ordre ou ceux affiliés à un système de sécurité sociale (IPRES, CSS, FNR, mutuelle de santé, ou autres). 	| e18a==1 ; e12<=5 ; e12==8 ; e12==9 ; e10==1; e13_1==1 ; e13_2==1 ; e13_3==1  ; e13_4==1 | e13_5==1	|
-| cov_i_secteur_publique_prive 	| Dummy indiquant si le salarie travaille dans le publique. Le publique étant défini comme tous ceux qui travaillent dans l'administration. 	| e18a==1 	|
+| cov_i_secteur_publique_prive 	| Le secteur formel regroupe les salariés de l'administration publique, l'armée ou les forces de l'ordre ou ceux affiliés à un système de sécurité sociale (IPRES, CSS, FNR, mutuelle de santé, ou autres). 	| e18a==1 ; e12<=5 ; e12==8 ; e12==9 ; e10==1; e13_1==1 ; e13_2==1 ; e13_3==1  ; e13_4==1 | e13_5==1	|
+| cov_i_secteur_formel_informel 	| Il regroupe tous les salarié	| e18a==1 ; e12<=5 ; e12==8 ; e12==9 ; e10==1; e13_1==1 ; e13_2==1 ; e13_3==1  ; e13_4==1 | e13_5==1	|
+s du secteur publique et les salarié
+s du secteur privé
+ formel. Ces derniers é
+tant dé
+finis comme tous les salariés hors secteur publique affilié
+s à un système de sécurité sociale | cov_i_secteur_publique_prive==0; CSP==1 ; e13_1==1 ; e13_2==1 ; e13_3==;  ; e13_4==1 ; e13_5==1) |
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
 |cov_i_taxe_Ntaxe| Dummy indiquant si l'indépendant a versé un impôt| e24i_annuel>0 & e24i_annuel!=.|
