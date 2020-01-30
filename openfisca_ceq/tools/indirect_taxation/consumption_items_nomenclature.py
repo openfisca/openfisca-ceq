@@ -177,9 +177,8 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
         'label_classe',
         'label_sous_classe',
         'label_poste',
-        'code_coicop'
+        'code_coicop',
         ]
-
 
     def build_levels_list(coicop_list, level):
         complete_coicop_digits = [
@@ -187,7 +186,7 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
             for complete_coicop in coicop_list
             ]
         levels_set = set([
-            "{}.{}.{}".format(*coicop_digits[0:coicop_level])
+            ".".join(["{}"] * coicop_level).format(*coicop_digits[0:coicop_level])
             for coicop_digits in complete_coicop_digits
             if len(coicop_digits) >= level
             ])
@@ -208,7 +207,7 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
             df.loc[
                 df.code_coicop.str.startswith(coicop_base),
                 ['label_variable', 'deduplicated_code_coicop', 'code_coicop']
-                ].set_index('deduplicated_code_coicop')
+                ].set_index(['code_coicop', 'deduplicated_code_coicop'])
             for df in dfs
             ]
         merged = pd.concat(
@@ -219,11 +218,8 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
             copy = False,
             sort = True,
             )
-        BIM
         merged.columns = merged.columns.droplevel(1)
         merged = (merged
-            .reset_index()
-            .rename(columns = {'index': 'deduplicated_code_coicop'})
             .assign(coicop_base = coicop_base)
             )
 
@@ -232,13 +228,23 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
             log.info(merged)
             log.info("----")
             continue
-
-        merged = (merged.merge(
-            index,
-            how = 'inner',
-            on = "code_coicop",
-            )
-            .set_index(index_variables + ['deduplicated_code_coicop'], drop = True)
+        merged = (merged
+            .reset_index()
+            .merge(
+                index,
+                how = 'inner',
+                on = "code_coicop",
+                )
+            .set_index([
+                'coicop_base',
+                'code_coicop',
+                'label_division',
+                'label_groupe',
+                'label_classe',
+                'label_sous_classe',
+                'label_poste',
+                'deduplicated_code_coicop',
+                ])
             )
         try:
             if merged.empty:
@@ -275,4 +281,5 @@ if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
     countries = ['cote_d_ivoire', 'senegal', 'mali']
-    build_comparison_spreadsheet(countries)
+    for coicop_level in range(3, 6):
+        build_comparison_spreadsheet(countries, coicop_level = coicop_level)
