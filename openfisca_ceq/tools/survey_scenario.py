@@ -1,14 +1,20 @@
+import logging
 import pandas as pd
 
 from openfisca_core import periods
 from openfisca_survey_manager.scenarios import AbstractSurveyScenario
-from openfisca_ceq.tools.tax_benefit_system_completion import ceq
+from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
 from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import (
     add_coicop_item_to_tax_benefit_system)
+from openfisca_ceq.tools.expenditures_loader import load_expenditures
+
 
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
 from openfisca_mali import CountryTaxBenefitSystem as MaliTaxBenefitSystem
 from openfisca_senegal import CountryTaxBenefitSystem as SenegalTaxBenefitSystem
+
+
+log = logging.getLogger(__name__)
 
 
 tax_benefit_system_class_by_country = dict(
@@ -69,15 +75,28 @@ class CEQSurveyScenario(AbstractSurveyScenario):
         self.init_from_data(data = data, use_marginal_tax_rate = use_marginal_tax_rate)
 
 
-def build_ceq_survey_scenario(legislation_country, year = None, data_country = None):
+def build_ceq_data(country, year = None):
+    expenditures = load_expenditures(country)
+    print(expenditures.columns)
 
+    household = expenditures
+    person = None
+    input_data_frame_by_entity = dict(household = household, person = person)
+    input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
+    data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)
+    return data
+
+
+
+
+def build_ceq_survey_scenario(legislation_country, year = None, data_country = None):
     if data_country is None:
         data_country = legislation_country
 
     CountryTaxBenefitSystem = tax_benefit_system_class_by_country[legislation_country]
     tax_benefit_system = ceq(CountryTaxBenefitSystem())
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
-    data = dict()
+    data = build_ceq_data(data_country, year)
 
     scenario = CEQSurveyScenario(
         tax_benefit_system = tax_benefit_system,

@@ -52,18 +52,10 @@ def load_expenditures(country):
         set(expenditures_variables).difference(set(expenditures.columns)),
         )
 
-    return expenditures.astype({"prod_id": str})
-
-
-if __name__ == "__main__":
-    country = 'senegal'
-
-    df = build_consumption_items_list(country)
-    # print(df)
-
-    expenditures = load_expenditures(country)
+    # Checks
+    consumption_items = build_consumption_items_list(country)
     missing_products_in_legislation = set(expenditures.prod_id.unique()).difference(
-        set(df.prod_id.unique()))
+        set(consumption_items.prod_id.unique()))
     if missing_products_in_legislation:
         log.info("Missing product in legislation: \n {}".format(
             (expenditures
@@ -74,10 +66,10 @@ if __name__ == "__main__":
                     ])
                 .drop_duplicates()
                 )
-            )
-        )
-
-    missing_products_in_expenditures = set(df.prod_id.unique()).difference(set(expenditures.prod_id.unique()))
+            ))
+    missing_products_in_expenditures = set(consumption_items.prod_id.unique()).difference(
+        set(expenditures.prod_id.unique()))
+    if missing_products_in_expenditures:
         log.info("Missing product in legislation: \n {}".format(
             (expenditures
                 .reset_index()
@@ -87,5 +79,10 @@ if __name__ == "__main__":
                     ])
                 .drop_duplicates()
                 )
-            )
-        )
+            ))
+
+    return expenditures.astype({"prod_id": str})
+
+
+if __name__ == "__main__":
+    country = 'senegal'
