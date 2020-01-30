@@ -7,6 +7,7 @@ from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
 from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import (
     add_coicop_item_to_tax_benefit_system)
 from openfisca_ceq.tools.expenditures_loader import load_expenditures
+from openfisca_ceq.tools.income_loader import build_income_dataframes
 
 
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
@@ -76,17 +77,26 @@ class CEQSurveyScenario(AbstractSurveyScenario):
 
 
 def build_ceq_data(country, year = None):
-    expenditures = load_expenditures(country)
-    print(expenditures.columns)
+    household_expenditures = load_expenditures(country)
+    person, household = build_income_dataframes(country)
 
-    household = expenditures
-    person = None
+    households_missing_in_income = set(household_expenditures.hh_id).difference(
+        set(household.hh_id))
+    if households_missing_in_income:
+        log.info("Households missing in income: \n {}".format(households_missing_in_income))
+    households_missing_in_expenditures = set(household.hh_id).difference(set(household_expenditures.hh_id))
+    if households_missing_in_expenditures:
+        log.info("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
+
+    household = household.merge(household_expenditures, on = "hh_id", how = "inner")
+
+    household.rename(columns = {"hh_id": "household_id"}, inplace = True)
+    person.rename(columns = {"pers_id": "person_id"}, inplace = True)
+
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
     data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)
     return data
-
-
 
 
 def build_ceq_survey_scenario(legislation_country, year = None, data_country = None):
@@ -97,7 +107,7 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     tax_benefit_system = ceq(CountryTaxBenefitSystem())
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
     data = build_ceq_data(data_country, year)
-
+    print(data)
     scenario = CEQSurveyScenario(
         tax_benefit_system = tax_benefit_system,
         year = year,

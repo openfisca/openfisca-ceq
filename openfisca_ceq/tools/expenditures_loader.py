@@ -2,6 +2,7 @@ import configparser
 import logging
 import os
 import pandas as pd
+import slugify
 
 
 from openfisca_survey_manager import default_config_files_directory as config_files_directory
@@ -37,12 +38,11 @@ def load_expenditures(country):
             'quantite',
             ],
         }
-
     expenditures_variables = ['prod_id', 'hh_id', 'depense', 'quantite', 'prix']
     year = year_by_country[country]
     expenditures_data_path = config_parser.get(country, 'consommation_{}'.format(year))
 
-    expenditures = pd.read_stata(expenditures_data_path)
+    expenditures = pd.read_stata(expenditures_data_path).astype({"prod_id": str})
 
     country_expenditures_variables = set(expenditures_variables).difference(
         set(missing_variables_by_country.get(country, []))
@@ -52,7 +52,7 @@ def load_expenditures(country):
         set(expenditures_variables).difference(set(expenditures.columns)),
         )
 
-    # Checks
+    # Checks
     consumption_items = build_consumption_items_list(country)
     missing_products_in_legislation = set(expenditures.prod_id.unique()).difference(
         set(consumption_items.prod_id.unique()))
@@ -80,9 +80,24 @@ def load_expenditures(country):
                 .drop_duplicates()
                 )
             ))
-
-    return expenditures.astype({"prod_id": str})
-
-
-if __name__ == "__main__":
-    country = 'senegal'
+    consumption_items.reset_index(inplace = True)
+    consumption_items['poste_coicop'] = (
+        "poste_" + consumption_items.deduplicated_code_coicop.apply(
+            lambda x: slugify.slugify(x, separator = "_")
+            )
+        )
+    household_expenditures = (expenditures
+        .merge(
+            consumption_items.reset_index()[['poste_coicop', 'prod_id']],
+            on = 'prod_id',
+            how = "left"
+            )
+        .filter(["hh_id", "poste_coicop", "depense"], axis = 1)
+        .pivot(index = "hh_id", columns = "poste_coicop", values = "depense")
+        .reset_index()
+        )
+    irregular_columns = [column for column in household_expenditures.columns if (not str(column).startswith('poste_')) and (column != "hh_id")]
+    if irregular_columns:
+        log.info("Irregular colums in household expenditures: {}".format(
+            irregular_columns))
+    return household_expenditures
