@@ -1,21 +1,15 @@
-import configparser
 import logging
-import os
 import pandas as pd
 import slugify
 
 
-from openfisca_survey_manager import default_config_files_directory as config_files_directory
+from openfisca_ceq.tools.data import config_parser
 from openfisca_ceq.tools.indirect_taxation.consumption_items_nomenclature import (
     build_label_by_code_coicop,
     )
 
 
 log = logging.getLogger(__name__)
-
-
-config_parser = configparser.ConfigParser()
-config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 
 
 def build_consumption_items_list(country):

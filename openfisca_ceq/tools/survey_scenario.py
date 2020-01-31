@@ -96,6 +96,7 @@ def build_ceq_data(country, year = None):
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
     data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)
+    print(data)
     return data
 
 
