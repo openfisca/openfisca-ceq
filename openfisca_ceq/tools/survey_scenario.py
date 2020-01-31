@@ -6,8 +6,8 @@ from openfisca_survey_manager.scenarios import AbstractSurveyScenario
 from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
 from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import (
     add_coicop_item_to_tax_benefit_system)
-from openfisca_ceq.tools.expenditures_loader import load_expenditures
-from openfisca_ceq.tools.income_loader import build_income_dataframes
+from openfisca_ceq.tools.data.expenditures_loader import load_expenditures
+from openfisca_ceq.tools.data.income_loader import build_income_dataframes
 
 
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
