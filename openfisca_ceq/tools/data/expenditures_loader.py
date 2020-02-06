@@ -3,7 +3,7 @@ import pandas as pd
 import slugify
 
 
-from openfisca_ceq.tools.data import config_parser
+from openfisca_ceq.tools.data import config_parser, year_by_country
 from openfisca_ceq.tools.indirect_taxation.consumption_items_nomenclature import (
     build_label_by_code_coicop,
     )
@@ -18,10 +18,6 @@ def build_consumption_items_list(country):
 
 
 def load_expenditures(country):
-    year_by_country = {
-        'mali': 2014,
-        'senegal': 2011,
-        }
     missing_variables_by_country = {
         'mali': [
             'prix',
@@ -32,10 +28,11 @@ def load_expenditures(country):
             'quantite',
             ],
         }
+
+
     expenditures_variables = ['prod_id', 'hh_id', 'depense', 'quantite', 'prix']
     year = year_by_country[country]
     expenditures_data_path = config_parser.get(country, 'consommation_{}'.format(year))
-
     expenditures = pd.read_stata(expenditures_data_path).astype({"prod_id": str})
 
     country_expenditures_variables = set(expenditures_variables).difference(

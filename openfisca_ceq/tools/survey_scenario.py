@@ -8,7 +8,7 @@ from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_
     add_coicop_item_to_tax_benefit_system)
 from openfisca_ceq.tools.data.expenditures_loader import load_expenditures
 from openfisca_ceq.tools.data.income_loader import build_income_dataframes
-
+from openfisca_ceq.tools.data_ceq_correspondence import model_by_data_id_variable
 
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
 from openfisca_mali import CountryTaxBenefitSystem as MaliTaxBenefitSystem
@@ -88,10 +88,18 @@ def build_ceq_data(country, year = None):
     if households_missing_in_expenditures:
         log.info("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
 
-    household = household.merge(household_expenditures, on = "hh_id", how = "inner")
+    if country == "senegal":
+        log.info("Sénégal: we keep only household from income")
+        household = household.merge(household_expenditures, on = "hh_id", how = "left")
 
-    household.rename(columns = {"hh_id": "household_id"}, inplace = True)
-    person.rename(columns = {"pers_id": "person_id"}, inplace = True)
+    if country == "mali":
+        # Mali: manque 165 ménages
+        pass
+
+    household.rename(columns = model_by_data_id_variable, inplace = True)
+    person.rename(columns = model_by_data_id_variable, inplace = True)
+
+    person.rename(columns = {"lien_chef_menage": "household_role_index"}, inplace = True)
 
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}

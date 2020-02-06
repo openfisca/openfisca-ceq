@@ -11,6 +11,7 @@ from openfisca_ceq.entities import Household
 model_by_data_id_variable = {
     "hh_id": "household_id",
     "pers_id": "person_id",
+    # "cov_i_lien_cm": "lien_chef_menage",
     }
 
 # 12 revenus

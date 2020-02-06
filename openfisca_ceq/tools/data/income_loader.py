@@ -1,10 +1,12 @@
-import configparser
 import logging
 import os
 import pandas as pd
 
 
-from openfisca_survey_manager import default_config_files_directory as config_files_directory
+
+from openfisca_ceq.tools.data import config_parser, year_by_country
+
+
 from openfisca_ceq.tools.data_ceq_correspondence import (
     ceq_input_by_harmonized_variable,
     ceq_intermediate_by_harmonized_variable,
@@ -16,16 +18,6 @@ from openfisca_ceq.tools.data_ceq_correspondence import (
 
 
 log = logging.getLogger(__name__)
-
-
-config_parser = configparser.ConfigParser()
-config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
-
-year_by_country = {
-    'mali': 2014,
-    'senegal': 2011,
-    'cote_d_ivoire': 2014,
-    }
 
 
 missing_revenus_by_country = {
