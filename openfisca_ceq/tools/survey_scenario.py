@@ -104,7 +104,6 @@ def build_ceq_data(country, year = None):
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
     data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)
-    print(data)
     return data
 
 
@@ -116,7 +115,6 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     tax_benefit_system = ceq(CountryTaxBenefitSystem())
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
     data = build_ceq_data(data_country, year)
-    print(data)
     scenario = CEQSurveyScenario(
         tax_benefit_system = tax_benefit_system,
         year = year,

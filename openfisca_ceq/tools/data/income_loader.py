@@ -42,14 +42,15 @@ def build_income_dataframes(country):
         model_by_data_id_variable,
         non_ceq_input_by_harmonized_variable,
         ]
-    for d in variables:
-        model_variable_by_person_variable.update(d)
+    for item in variables:
+        model_variable_by_person_variable.update(item)
 
     income = pd.read_stata(income_data_path)
 
-    for var in income.columns:
-        if var.startswith("rev"):
-            assert income[var].notnull().any(), "{} income variable for {} is all null".format(var, country)
+    for variable in income.columns:
+        if variable.startswith("rev"):
+            assert income[variable].notnull().any(), "{} income variable for {} is all null".format(
+                variable, country)
 
     assert (
         set(model_variable_by_person_variable.keys()).difference(
@@ -77,12 +78,21 @@ def build_income_dataframes(country):
                 set(missing_revenus_by_country.get(country, [])))
             )
 
+        data_group_entity_ids = list()
+        if entity == 'person':
+            for group_entity in variables_by_entity.keys():
+                if group_entity == 'person':
+                    continue
+
+                data_group_entity_ids += [data_by_model_id_variable["{}_id".format(group_entity)]]
+
         dataframe = income[
             filtered_variables
             + [
                 data_entity_id,
                 data_entity_weight,
                 ]
+            + data_group_entity_ids
             ].copy()
 
         if entity != 'person':

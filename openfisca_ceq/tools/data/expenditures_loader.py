@@ -71,7 +71,11 @@ def load_expenditures(country):
                 .drop_duplicates()
                 )
             ))
+
     consumption_items.reset_index(inplace = True)
+    if missing_products_in_legislation:
+        expenditures = expenditures.query("prod_id not in @missing_products_in_legislation").copy()
+
     consumption_items['poste_coicop'] = (
         "poste_" + consumption_items.deduplicated_code_coicop.apply(
             lambda x: slugify.slugify(x, separator = "_")
@@ -83,10 +87,13 @@ def load_expenditures(country):
             on = 'prod_id',
             how = "left"
             )
+        )
+    household_expenditures = (household_expenditures
         .filter(["hh_id", "poste_coicop", "depense"], axis = 1)
         .pivot(index = "hh_id", columns = "poste_coicop", values = "depense")
         .reset_index()
         )
+
     irregular_columns = [column for column in household_expenditures.columns if (not str(column).startswith('poste_')) and (column != "hh_id")]
     if irregular_columns:
         log.info("Irregular colums in household expenditures: {}".format(
