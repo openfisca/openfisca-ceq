@@ -29,7 +29,6 @@ def load_expenditures(country):
             ],
         }
 
-
     expenditures_variables = ['prod_id', 'hh_id', 'depense', 'quantite', 'prix']
     year = year_by_country[country]
     expenditures_data_path = config_parser.get(country, 'consommation_{}'.format(year))

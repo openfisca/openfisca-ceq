@@ -96,10 +96,12 @@ def build_ceq_data(country, year = None):
         # Mali: manque 165 ménages
         pass
 
+    person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)
+    person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
+    assert (person.household_role_index == 0).sum()
+
     household.rename(columns = model_by_data_id_variable, inplace = True)
     person.rename(columns = model_by_data_id_variable, inplace = True)
-
-    person.rename(columns = {"lien_chef_menage": "household_role_index"}, inplace = True)
 
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}

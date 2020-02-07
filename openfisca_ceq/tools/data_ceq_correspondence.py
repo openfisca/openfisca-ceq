@@ -11,15 +11,19 @@ from openfisca_ceq.entities import Household
 model_by_data_id_variable = {
     "hh_id": "household_id",
     "pers_id": "person_id",
-    # "cov_i_lien_cm": "lien_chef_menage",
     }
 
-# 12 revenus
+model_by_data_role_index_variable = {
+    "cov_i_lien_cm": "household_role_index",
+    }
+
+# 12 + 1 revenus
 initial_revenues_source = set([
     "rev_i_agricoles",
     "rev_i_autoconsommation",
     "rev_i_autres_revenus_capital",
     "rev_i_autres_transferts",
+    "rev_i_independants",
     "rev_i_independants_Ntaxe",
     "rev_i_independants_taxe",
     "rev_i_locatifs",
@@ -45,15 +49,20 @@ non_ceq_input_by_harmonized_variable = {
     "rev_i_autres_revenus_capital": "autres_revenus_du_capital",
     "rev_i_independants_Ntaxe": "revenu_informel_non_salarie",
     "rev_i_independants_taxe": "revenu_non_salarie",
+    "rev_i_independants": "revenu_non_salarie_total",
     "rev_i_locatifs": "revenu_locatif",
     "rev_i_pensions": "pension_retraite",
     "rev_i_salaires_formels": "salaire",
     "rev_i_salaires_informels": "revenu_informel_salarie",
     }
 
+household_variables = [
+    "rev_i_autoconsommation",
+    "rev_i_loyers_imputes",
+    "rev_i_transferts_publics",
+    ]
 
-person_variables = ["rev_i_independants_taxe", "rev_i_pensions", "rev_i_salaires_formels"]
-household_variables = list(initial_revenues_source.difference(set(person_variables)))
+person_variables = list(initial_revenues_source.difference(set(household_variables)))
 
 variables_by_entity = {
     "person": person_variables,
