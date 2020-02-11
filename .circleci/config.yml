@@ -37,7 +37,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            pytest `circleci tests glob "openfisca_ceq/tests/**/[^_]*.py" | circleci tests split`
+            # pytest `circleci tests glob "openfisca_ceq/tests/**/[^_]*.py" | circleci tests split`
+            pytest
             openfisca test `circleci tests glob "openfisca_ceq/tests/**/*.{yaml,yml}" | circleci tests split`
 
   lint_yaml_files:
