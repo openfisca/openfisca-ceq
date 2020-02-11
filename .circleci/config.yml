@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Activate virtualenv
           command: |
-            echo "source /tmp/venv/openfisca_france/bin/activate" >> $BASH_ENV
+            echo "source /tmp/venv/openfisca_ceq/bin/activate" >> $BASH_ENV
 
       - run:
           name: Lint files
@@ -76,7 +76,7 @@ jobs:
       - run:
           name: Activate virtualenv
           command: |
-            echo "source /tmp/venv/openfisca_france/bin/activate" >> $BASH_ENV
+            echo "source /tmp/venv/openfisca_ceq/bin/activate" >> $BASH_ENV
 
       - run:
           name: Lint files
