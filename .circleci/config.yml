@@ -39,7 +39,7 @@ jobs:
           command: |
             # pytest `circleci tests glob "openfisca_ceq/tests/**/[^_]*.py" | circleci tests split`
             # openfisca test `circleci tests glob "openfisca_ceq/tests/**/*.{yaml,yml}" | circleci tests split`
-            pytest
+            # pytest
             openfisca test --country-package openfisca_ceq openfisca_ceq/tests
 
 
