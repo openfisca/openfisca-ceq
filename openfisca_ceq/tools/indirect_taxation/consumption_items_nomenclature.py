@@ -277,6 +277,7 @@ def test():
 
     countries = ['cote_d_ivoire', 'senegal', 'mali']
     merged = build_comparison_table(countries)
+    log.info(merged)
 
 
 if __name__ == '__main__':
