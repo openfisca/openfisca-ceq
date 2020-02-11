@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - [#41](https://github.com/openfisca-ceq/pull/41)
+
+- Many changes
+
 ## 0.2.5 - [#30](https://github.com/openfisca-ceq/pull/30)
 
 * Minor change.
