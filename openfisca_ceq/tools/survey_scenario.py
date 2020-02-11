@@ -146,7 +146,9 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
 
 if __name__ == "__main__":
     from openfisca_ceq.tools.data import year_by_country
+    import sys
     country = "senegal"
-    print(country)
+    logging.basicConfig(level = logging.INFO, stream = sys.stdout)
+    log.info(country)
     year = year_by_country[country]
     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)

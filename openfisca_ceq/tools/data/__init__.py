@@ -1,5 +1,4 @@
 import configparser
-import logging
 import os
 
 
@@ -15,6 +14,7 @@ year_by_country = {
     'senegal': 2011,
     'cote_d_ivoire': 2014,
     }
+
 
 def get_data_file_paths(country, year):
     file_paths = dict(config_parser.items(country))

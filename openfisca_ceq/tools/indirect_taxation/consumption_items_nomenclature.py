@@ -208,7 +208,6 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
     levelled_unique_coicops = build_levels_list(unique_coicops, coicop_level)
     for coicop_base in levelled_unique_coicops:
         # coicop = "1.1.2.3.1"
-        print(coicop_base)
         coicop_dfs = [
             df.loc[
                 df.code_coicop.str.startswith(coicop_base),
@@ -260,7 +259,7 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
                 sheet_name = str(coicop_base),
                 )
         except Exception as e:
-            print(e)
+            log.info(e)
             pass
     writer.save()
     writer.close()
@@ -282,7 +281,6 @@ def test():
 
 if __name__ == '__main__':
     test()
-    BIM
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
     countries = ['cote_d_ivoire', 'senegal', 'mali']

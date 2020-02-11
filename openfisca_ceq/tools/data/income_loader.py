@@ -108,8 +108,7 @@ def build_income_dataframes(country):
 
         dataframe_by_entity[entity] = dataframe
 
-
-    print("For country {}: {} persons and {} households".format(
+    log.info("For country {}: {} persons and {} households".format(
         country, len(dataframe_by_entity["person"]), len(dataframe_by_entity["household"])
         ))
     assert len(dataframe_by_entity["person"]) == dataframe_by_entity["person"].pers_id.nunique()
@@ -120,6 +119,7 @@ def build_income_dataframes(country):
 
 if __name__ == "__main__":
     # for country in year_by_country.keys():
+    import sys
+    logging.basicConfig(level = logging.INFO, stream = sys.stdout)
     country = "cote_d_ivoire"
-    print(country)
     person_dataframe, household_dataframe = build_income_dataframes(country)
