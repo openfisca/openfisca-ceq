@@ -176,7 +176,7 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
         sheet_name = str("summary"),
         )
 
-    # Build index
+    # Build index
     index_variables = [
         'label_division',
         'label_groupe',
@@ -224,9 +224,7 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
             sort = True,
             )
         merged.columns = merged.columns.droplevel(1)
-        merged = (merged
-            .assign(coicop_base = coicop_base)
-            )
+        merged = merged.assign(coicop_base = coicop_base)
 
         if coicop_base not in levelled_index:
             log.info("{} not in admisisble coicops".format(coicop_base))
