@@ -48,7 +48,8 @@ def load_expenditures(country):
         set(consumption_items.prod_id.unique()))
     if missing_products_in_legislation:
         log.info("Missing product in legislation: \n {}".format(
-            (expenditures
+            (
+                expenditures
                 .reset_index()
                 .query("prod_id in @missing_products_in_legislation")
                 .filter(items = [
@@ -61,7 +62,8 @@ def load_expenditures(country):
         set(expenditures.prod_id.unique()))
     if missing_products_in_expenditures:
         log.info("Missing product in legislation: \n {}".format(
-            (expenditures
+            (
+                expenditures
                 .reset_index()
                 .query("prod_id in @missing_products_in_legislation")
                 .filter(items = [
