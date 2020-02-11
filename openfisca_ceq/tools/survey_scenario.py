@@ -8,7 +8,13 @@ from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_
     add_coicop_item_to_tax_benefit_system)
 from openfisca_ceq.tools.data.expenditures_loader import load_expenditures
 from openfisca_ceq.tools.data.income_loader import build_income_dataframes
-from openfisca_ceq.tools.data_ceq_correspondence import model_by_data_id_variable
+from openfisca_ceq.tools.data_ceq_correspondence import (
+    ceq_input_by_harmonized_variable,
+    ceq_intermediate_by_harmonized_variable,
+    data_by_model_weight_variable,
+    model_by_data_id_variable,
+    non_ceq_input_by_harmonized_variable,
+    )
 
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
 from openfisca_mali import CountryTaxBenefitSystem as MaliTaxBenefitSystem
@@ -100,9 +106,21 @@ def build_ceq_data(country, year = None):
     person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
     assert (person.household_role_index == 0).sum()
 
-    household.rename(columns = model_by_data_id_variable, inplace = True)
-    person.rename(columns = model_by_data_id_variable, inplace = True)
+    model_by_data_weight_variable = {v: k for k, v in data_by_model_weight_variable.items()}
 
+    model_variable_by_person_variable = dict()
+    variables = [
+        ceq_input_by_harmonized_variable,
+        ceq_intermediate_by_harmonized_variable,
+        model_by_data_id_variable,
+        non_ceq_input_by_harmonized_variable,
+        model_by_data_weight_variable,
+        ]
+    for item in variables:
+        model_variable_by_person_variable.update(item)
+
+    household.rename(columns = model_variable_by_person_variable, inplace = True)
+    person.rename(columns = model_variable_by_person_variable, inplace = True)
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
     data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)
@@ -114,7 +132,7 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
         data_country = legislation_country
 
     CountryTaxBenefitSystem = tax_benefit_system_class_by_country[legislation_country]
-    tax_benefit_system = ceq(CountryTaxBenefitSystem())
+    tax_benefit_system = ceq(CountryTaxBenefitSystem(coicop = False))
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
     data = build_ceq_data(data_country, year)
     scenario = CEQSurveyScenario(
@@ -124,3 +142,11 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
         )
 
     return scenario
+
+
+if __name__ == "__main__":
+    from openfisca_ceq.tools.data import year_by_country
+    country = "senegal"
+    print(country)
+    year = year_by_country[country]
+    survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
