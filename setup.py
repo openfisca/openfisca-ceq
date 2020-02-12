@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='OpenFisca-CEQ',
-    version='0.3.1',
+    version='0.3.2',
     author='OpenFisca Team',
     author_email='contact@openfisca.fr',
     description=u'OpenFisca tax and benefit system for CEQ',
@@ -16,7 +16,7 @@ setup(
     url='https://github.com/openfisca/openfisca-ceq',
     include_package_data = True,  # Will read MANIFEST.in
     install_requires = [
-        'OpenFisca-Survey-Manager >=0.35.2,<1.0',
+        'OpenFisca-Survey-Manager >=0.38.3,<1.0',
         'OpenFisca-Core >=34.4.2,<35.0',
         'pandas >= 0.24.1',
         'python-slugify',
