@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='OpenFisca-CEQ',
-    version='0.3.0',
+    version='0.3.1',
     author='OpenFisca Team',
     author_email='contact@openfisca.fr',
     description=u'OpenFisca tax and benefit system for CEQ',
@@ -21,6 +21,8 @@ setup(
         'pandas >= 0.24.1',
         'python-slugify',
         'xlrd >= 1.0.0',
+        'xlsxwriter',
+        'xlwt >= 1.0.0',
         ],
     extras_require = {
         'dev': [
