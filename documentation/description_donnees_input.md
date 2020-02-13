@@ -759,8 +759,8 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| m5 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| weight_pc 	|
 | cov_i_secteur_activite 	| Secteur d'activité des individus âgés de plus de 15 ans. Cette variable permet de distinguer les actifs agricoles, les salariés du formel et de l'informel ainsi que les indépendants. Les actifs agricoles comprennent ceux dont l'entreprise est dans la branche des produits agricoles, sylvicoles, pêche et piscicultures (w15). Les salaries regroupent les cadres, employés, ouvriers, aides-familiaux, apprentis (w16) ou ceux qui déclarent percevoir un salaire (w24). Les indépendants sont les employeurs ou les travailleurs sous compte propre (w16). |  w17; w18a;w18b;w18c;w18d;w18e;w16;w24;w14;w15;w15_bis |
-| cov_i_secteur_formel_informel 	| Le secteur formel regroupe les individus ayant un bulletin de paie 	| w26==1 & agri==0 & w16<=5	|
-| cov_i_secteur_publique_prive 	| Dummy indiquant si le salarie travaille dans le publique. Le publique étant défini comme tous ceux qui travaillent dans l'administration. 	| w17==1 	|
+| cov_i_secteur_publique_prive 	| Tous les salariés qui travaillent dans l'administration publique, l'armée ou les forces de l'ordre	| w15==751 ; w15==752 ; w14==340 ; w14==22; ; w14>=546 ; w14<=550 	|
+| cov_i_secteur_formel_informel 	| Tous les salariés du publique plus ceux du privé formels. 	| w26==1 & agri==0 & w16<=5	|
 | cov_i_sexe 	| Sexe de l'individu 	| m3 	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	|  	|
 | cov_i_taxe_Ntaxe 	| Pas d'informations dans l'enquête sur le prelevement effectif des taxes 	|  	|
