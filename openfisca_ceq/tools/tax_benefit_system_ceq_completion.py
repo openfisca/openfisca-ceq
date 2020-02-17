@@ -2,6 +2,7 @@
 
 
 import logging
+import numexpr as ne
 import os
 import pkg_resources
 
@@ -18,6 +19,10 @@ from openfisca_ceq import (
 from openfisca_ceq.tools.data_ceq_correspondence import (
     multi_country_custom_ceq_variables,
     non_ceq_input_by_harmonized_variable,
+    )
+
+from openfisca_ceq.tools.data.education_unit_cost import (
+    build_unit_cost_by_category_by_country
     )
 
 log = logging.getLogger(__name__)
@@ -46,15 +51,18 @@ ceq_computed_variables = {
     }
 
 
+unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
+
+
 # Reform
 
-
 class ceq(Reform):
-    name = "CEQ enhanced Sénégal tax and benefit system"
+    name = "CEQ enhanced tax and benefit system"
 
     def apply(self):
         add_ceq_framework(self)
-
+        assert self.legislation_country is not None
+        add_ceq_education_unit_cost(self, self.legislation_country)
 
 # Helpers
 
@@ -121,6 +129,55 @@ def add_ceq_framework(country_tax_benefit_system):
         country_tax_benefit_system.replace_variable(variable)
 
     return country_tax_benefit_system
+
+
+def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country):
+
+    entities_by_name = dict(
+        (entity.key, entity)
+        for entity in country_tax_benefit_system.entities
+        )
+
+    definitions_by_name = dict(
+        definition_period = YEAR,
+        entity = entities_by_name['person'],
+        label = "Niveau d'enseignement de l'élève ou de l'étudiant",
+        value_type = float,
+        )
+    country_tax_benefit_system.add_variable(
+        type("eleve_enseignement_niveau", (Variable,), definitions_by_name)
+        )
+    del definitions_by_name
+
+    enseignement_niveau_by_variable_names = {
+        'pre_school_education': 0,
+        'primary_education': 1,
+        'secondary_education': 2,
+        'tertiary_education': 3,
+        }
+    for variable_name, enseignement_niveau in enseignement_niveau_by_variable_names.items():
+
+        def unit_cost_function_creator(cost, enseignement_niveau):
+            def func(entity, period_arg):
+                eleve_enseignement_niveau = entity('eleve_enseignement_niveau', period_arg)
+                expression = "(eleve_enseignement_niveau == {enseignement_niveau}) * {cost}".format(
+                    enseignement_niveau = enseignement_niveau, cost = cost)
+                return ne.evaluate(str(expression))
+
+            func.__name__ = "formula"
+            return func
+
+        cost = unit_cost_by_category_by_country[legislation_country]
+        definitions_by_name = dict(
+            definition_period = YEAR,
+            entity = entities_by_name['person'],
+            formula = unit_cost_function_creator(cost[variable_name], enseignement_niveau),
+            label = variable_name,
+            value_type = float,
+            )
+        country_tax_benefit_system.add_variable(
+            type(variable_name + '_person', (Variable,), definitions_by_name)
+            )
 
 
 def get_all_neutralized_variables(survey_scenario, period, variables):

@@ -104,7 +104,9 @@ def build_income_dataframes(country):
             ].copy()
 
         if entity != 'person':
+            household_weight = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)])['person_weight'].max()
             dataframe = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)]).sum().reset_index()
+            dataframe['household_weight'] = household_weight
 
         dataframe_by_entity[entity] = dataframe
 
@@ -121,5 +123,5 @@ if __name__ == "__main__":
     # for country in year_by_country.keys():
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    country = "cote_d_ivoire"
+    country = "senegal"
     person_dataframe, household_dataframe = build_income_dataframes(country)

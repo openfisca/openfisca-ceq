@@ -26,10 +26,10 @@ def build_unit_cost_by_category_by_country():
         country_df = df.query("country == @country")
         unit_cost_by_category = dict(zip(
             country_df.harmonized_category,
-            country_df.unit_cost_thousands_fcfa
+            country_df.unit_cost_thousands_fcfa * 1000
             ))
 
-        deleted_variables = ['total', 'preschool']
+        deleted_variables = ['total']
         for deleted_variable in deleted_variables:
             if deleted_variable in unit_cost_by_category:
                 del unit_cost_by_category[deleted_variable]
@@ -43,7 +43,15 @@ def build_unit_cost_by_category_by_country():
 
         unit_cost_by_category_by_country[country] = unit_cost_by_category
 
+        harmonized_key_by_variable_name = {
+            'pre_school_education': "preschool",
+            'primary_education': "primary",
+            'secondary_education': "secondary",
+            'tertiary_education': "higher",
+            }
+
+        for variable_name, harmonized_key in harmonized_key_by_variable_name.items():
+            if harmonized_key in unit_cost_by_category:
+                unit_cost_by_category[variable_name] = unit_cost_by_category.pop(harmonized_key)
+
     return unit_cost_by_category_by_country
-
-
-print(build_unit_cost_by_category_by_country()['mali'])

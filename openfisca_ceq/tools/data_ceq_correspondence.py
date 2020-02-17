@@ -62,12 +62,6 @@ household_variables = [
     "rev_i_transferts_publics",
     ]
 
-person_variables = list(initial_revenues_source.difference(set(household_variables)))
-
-variables_by_entity = {
-    "person": person_variables,
-    "household": household_variables,
-    }
 
 assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
     .union(set(ceq_intermediate_by_harmonized_variable.keys()))
@@ -76,6 +70,21 @@ assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
         .union(set(ceq_intermediate_by_harmonized_variable.keys()))
         .union(set(non_ceq_input_by_harmonized_variable.keys()))
         )
+
+other_model_by_harmonized_person_variable = {
+    "cov_i_classe_frequente": "eleve_enseignement_niveau"
+    }
+
+person_variables = list(
+    initial_revenues_source
+    .union(set(other_model_by_harmonized_person_variable.keys()))
+    .difference(set(household_variables))
+    )
+
+variables_by_entity = {
+    "person": person_variables,
+    "household": household_variables,
+    }
 
 
 # weights

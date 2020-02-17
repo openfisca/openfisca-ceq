@@ -82,12 +82,20 @@ class pre_school(Variable):
     definition_period = YEAR
     label = "Pre-school"
 
+    def formula(household, period):
+        return household.sum(
+            household.members("pre_school_education_person", period))
+
 
 class primary_education(Variable):
     value_type = float
     entity = Household
     definition_period = YEAR
     label = "Primary"
+
+    def formula(household, period):
+        return household.sum(
+            household.members("primary_education_person", period))
 
 
 class secondary_education(Variable):
@@ -96,6 +104,10 @@ class secondary_education(Variable):
     definition_period = YEAR
     label = "Secondary"
 
+    def formula(household, period):
+        return household.sum(
+            household.members("secondary_education_person", period))
+
 
 class post_secondary_education(Variable):
     value_type = float
@@ -103,6 +115,9 @@ class post_secondary_education(Variable):
     definition_period = YEAR
     label = "Post-secondary non-tertiary"
 
+    def formula(household, period):
+        return household.sum(
+            household.members("post_secondary_education_person", period))
 
 class tertiary_education(Variable):
     value_type = float
@@ -110,13 +125,15 @@ class tertiary_education(Variable):
     definition_period = YEAR
     label = "Tertiary"
 
+    def formula(household, period):
+        return household.sum(
+            household.members("tertiary_education_person", period))
 
 class school_fees(Variable):
     value_type = float
     entity = Household
     definition_period = YEAR
     label = "School Fees"
-
 
 class health_contributory(Variable):
     value_type = float
