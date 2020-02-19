@@ -12,8 +12,11 @@ log = logging.getLogger(__name__)
 
 def build_unit_cost_by_category_by_country():
     df = pd.read_csv(
-        os.path.join(assets_directory, "unit_cost_of_education_public_service_by_country.csv"
-        ))
+        os.path.join(
+            assets_directory,
+            "unit_cost_of_education_public_service_by_country.csv"
+            )
+        )
     df.columns = [slugify.slugify(column, separator = "_") for column in df.columns]
     df['country'] = df.country.apply(
         lambda x: slugify.slugify(x, separator = "_")

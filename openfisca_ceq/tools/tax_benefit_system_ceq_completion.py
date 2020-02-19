@@ -160,7 +160,7 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
 
         def unit_cost_function_creator(cost, enseignement_niveau):
             def func(entity, period_arg):
-                eleve_enseignement_niveau = entity('eleve_enseignement_niveau', period_arg)
+                eleve_enseignement_niveau = entity('eleve_enseignement_niveau', period_arg)  # noqa F841
                 expression = "(eleve_enseignement_niveau == {enseignement_niveau}) * {cost}".format(
                     enseignement_niveau = enseignement_niveau, cost = cost)
                 return ne.evaluate(str(expression))

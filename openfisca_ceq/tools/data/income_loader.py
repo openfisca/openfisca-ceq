@@ -111,8 +111,10 @@ def build_income_dataframes(country):
             assert (
                 dataframe.groupby(
                     data_by_model_id_variable["{}_id".format(group_entity)]
-                    )[data_by_model_weight_variable["person_weight"]
-                    ].nunique() == 1).all()
+                    )[
+                        data_by_model_weight_variable["person_weight"]
+                        ].nunique() == 1
+                ).all()
 
             dataframe = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)]).sum()
             del dataframe[data_by_model_weight_variable["person_weight"]]
