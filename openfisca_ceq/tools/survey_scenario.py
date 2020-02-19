@@ -14,6 +14,7 @@ from openfisca_ceq.tools.data_ceq_correspondence import (
     data_by_model_weight_variable,
     model_by_data_id_variable,
     non_ceq_input_by_harmonized_variable,
+    other_model_by_harmonized_person_variable,
     )
 
 from openfisca_cote_d_ivoire import CountryTaxBenefitSystem as CoteDIvoireTaxBenefitSystem
@@ -32,7 +33,7 @@ tax_benefit_system_class_by_country = dict(
 
 
 class CEQSurveyScenario(AbstractSurveyScenario):
-    weight_column_name_by_entity = dict(
+    weight_variable_by_entity = dict(
         household = 'household_weight',
         person = 'person_weight',
         )
@@ -115,12 +116,24 @@ def build_ceq_data(country, year = None):
         model_by_data_id_variable,
         non_ceq_input_by_harmonized_variable,
         model_by_data_weight_variable,
+        other_model_by_harmonized_person_variable,
         ]
     for item in variables:
         model_variable_by_person_variable.update(item)
 
     household.rename(columns = model_variable_by_person_variable, inplace = True)
     person.rename(columns = model_variable_by_person_variable, inplace = True)
+
+    assert person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
+        categories = ['Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
+        ordered = True)
+    person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
+
+    assert 'person_weight' in person
+    assert 'household_weight' in household
+    person.person_id = (person.person_id.rank() - 1).astype(int)
+    person.household_id = (person.household_id.rank() - 1).astype(int)
+    household.household_id = (household.household_id.rank() - 1).astype(int)
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
     data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)
@@ -132,8 +145,10 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
         data_country = legislation_country
 
     CountryTaxBenefitSystem = tax_benefit_system_class_by_country[legislation_country]
+    CountryTaxBenefitSystem.legislation_country = legislation_country
     tax_benefit_system = ceq(CountryTaxBenefitSystem(coicop = False))
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
+
     data = build_ceq_data(data_country, year)
     scenario = CEQSurveyScenario(
         tax_benefit_system = tax_benefit_system,

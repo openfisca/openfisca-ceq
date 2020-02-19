@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 - [#43](https://github.com/openfisca-ceq/pull/43)
+
+* Technical improvement.
+* Impacted periods: all.
+* Details:
+  - Add education unit cost by country
+
 ## 0.3.1 - [#41](https://github.com/openfisca-ceq/pull/41)
 
 - Many changes
