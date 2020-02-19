@@ -149,13 +149,14 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
         )
     del definitions_by_name
 
-    enseignement_niveau_by_variable_names = {
+    enseignement_niveau_by_variable_name = {
         'pre_school': 0,
         'primary_education': 1,
         'secondary_education': 2,
         'tertiary_education': 3,
         }
-    for variable_name, enseignement_niveau in enseignement_niveau_by_variable_names.items():
+
+    for variable_name, enseignement_niveau in enseignement_niveau_by_variable_name.items():
 
         def unit_cost_function_creator(cost, enseignement_niveau):
             def func(entity, period_arg):
@@ -177,6 +178,16 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
             )
         country_tax_benefit_system.add_variable(
             type(variable_name + '_person', (Variable,), definitions_by_name)
+            )
+
+        def household_education_formula_creator(person_variable_name):
+            def func(household, period_arg):
+                return household.sum(household.members(person_variable_name, period_arg))
+            func.__name__ = "formula"
+            return func
+
+        country_tax_benefit_system.update_variable(
+            type(variable_name, (Variable,), dict(formula = household_education_formula_creator(variable_name + "_person")))
             )
 
 
