@@ -44,7 +44,7 @@ def build_unit_cost_by_category_by_country():
         unit_cost_by_category_by_country[country] = unit_cost_by_category
 
         harmonized_key_by_variable_name = {
-            'pre_school_education': "preschool",
+            'pre_school': "preschool",
             'primary_education': "primary",
             'secondary_education': "secondary",
             'tertiary_education': "higher",

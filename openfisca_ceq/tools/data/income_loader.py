@@ -104,9 +104,20 @@ def build_income_dataframes(country):
             ].copy()
 
         if entity != 'person':
-            household_weight = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)])['person_weight'].max()
-            dataframe = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)]).sum().reset_index()
-            dataframe['household_weight'] = household_weight
+            household_weight = dataframe.groupby(
+                data_by_model_id_variable["{}_id".format(group_entity)]
+                )[data_by_model_weight_variable["person_weight"]].mean()
+
+            assert (
+                dataframe.groupby(
+                    data_by_model_id_variable["{}_id".format(group_entity)]
+                    )[data_by_model_weight_variable["person_weight"]
+                    ].nunique() == 1).all()
+
+            dataframe = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)]).sum()
+            del dataframe[data_by_model_weight_variable["person_weight"]]
+            dataframe['household_weight'] = household_weight.values
+            dataframe = dataframe.reset_index()
 
         dataframe_by_entity[entity] = dataframe
 

@@ -129,6 +129,11 @@ def build_ceq_data(country, year = None):
         ordered = True)
     person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
 
+    assert 'person_weight' in person
+    assert 'household_weight' in household
+    person.person_id = (person.person_id.rank() - 1).astype(int)
+    person.household_id = (person.household_id.rank() - 1).astype(int)
+    household.household_id = (household.household_id.rank() - 1).astype(int)
     input_data_frame_by_entity = dict(household = household, person = person)
     input_data_frame_by_entity_by_period = {periods.period(year): input_data_frame_by_entity}
     data = dict(input_data_frame_by_entity_by_period = input_data_frame_by_entity_by_period)

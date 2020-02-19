@@ -84,7 +84,7 @@ class pre_school(Variable):
 
     def formula(household, period):
         return household.sum(
-            household.members("pre_school_education_person", period))
+            household.members("pre_school_person", period))
 
 
 class primary_education(Variable):

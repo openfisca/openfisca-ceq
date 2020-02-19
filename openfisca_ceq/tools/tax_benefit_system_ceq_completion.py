@@ -150,7 +150,7 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
     del definitions_by_name
 
     enseignement_niveau_by_variable_names = {
-        'pre_school_education': 0,
+        'pre_school': 0,
         'primary_education': 1,
         'secondary_education': 2,
         'tertiary_education': 3,
