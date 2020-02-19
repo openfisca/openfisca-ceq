@@ -1,5 +1,6 @@
 # Python builds
 
+*.ipynb
 *.egg-info
 *.pyc
 build

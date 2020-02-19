@@ -13,6 +13,7 @@ log = logging.getLogger(__name__)
 def test(country, year):
     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
     assert survey_scenario is not None
+    assert not survey_scenario.tax_benefit_system.variables['eleve_enseignement_niveau'].is_neutralized
 
 
 if __name__ == '__main__':
@@ -22,8 +23,8 @@ if __name__ == '__main__':
 
     year = year_by_country[country]
     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
-
     assert not survey_scenario.tax_benefit_system.variables['eleve_enseignement_niveau'].is_neutralized
+
     log.info("Counts (in millions)")
     log.info((survey_scenario.compute_pivot_table(columns = 'eleve_enseignement_niveau', aggfunc = 'count', period = survey_scenario.year) / 1e6).round(1))
     variables = [
