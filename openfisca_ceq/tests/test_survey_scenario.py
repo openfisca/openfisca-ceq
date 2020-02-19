@@ -44,5 +44,3 @@ if __name__ == '__main__':
                 aggregate = int(round(survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9))
                 )
             )
-
-    # df = survey_scenario.create
