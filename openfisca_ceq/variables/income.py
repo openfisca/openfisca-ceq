@@ -115,7 +115,7 @@ class market_income(Variable):
         alimony = household('alimony', period)
         autoconsumption = household('autoconsumption', period)
         imputed_rent = household('imputed_rent', period)
-        other_income = household('other_income', period)
+        other_income = household.sum(household.members('other_income', period))
 
         market_income = (
             all_income_excluding_transfers
@@ -169,7 +169,7 @@ class net_market_income(Variable):
 
 class other_income(Variable):
     value_type = float
-    entity = Household
+    entity = Person
     definition_period = YEAR
     label = "Other sources of income"
 

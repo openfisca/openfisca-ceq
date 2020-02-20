@@ -10,7 +10,6 @@ import pkg_resources
 from openfisca_core.model_api import Variable, YEAR
 from openfisca_core.reforms import Reform
 
-
 from openfisca_ceq import (
     CountryTaxBenefitSystem as CEQTaxBenefitSystem,
     entities,
@@ -52,6 +51,17 @@ ceq_computed_variables = {
 
 
 unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
+
+
+
+class revenu_non_salarie_total(Variable):
+    value_type = float
+    entity = entities.Person
+    definition_period = YEAR
+    label = "Revenu non salarié total"
+
+    def formula(person, period):
+        return person('revenu_informel_non_salarie', period) + person('revenu_non_salarie', period)
 
 
 # Reform
@@ -128,6 +138,8 @@ def add_ceq_framework(country_tax_benefit_system):
     for variable in multi_country_custom_ceq_variables:
         country_tax_benefit_system.replace_variable(variable)
 
+        country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
+
     return country_tax_benefit_system
 
 
@@ -148,6 +160,15 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
         type("eleve_enseignement_niveau", (Variable,), definitions_by_name)
         )
     del definitions_by_name
+    definitions_by_name = dict(
+        definition_period = YEAR,
+        entity = entities_by_name['person'],
+        label = "L'élève ou de l'étudiant fréquente l'enseignement public" ,
+        value_type = float,
+        )
+    country_tax_benefit_system.add_variable(
+        type("eleve_enseignement_public", (Variable,), definitions_by_name)
+        )
 
     enseignement_niveau_by_variable_name = {
         'pre_school': 0,
@@ -161,8 +182,11 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
         def unit_cost_function_creator(cost, enseignement_niveau):
             def func(entity, period_arg):
                 eleve_enseignement_niveau = entity('eleve_enseignement_niveau', period_arg)  # noqa F841
-                expression = "(eleve_enseignement_niveau == {enseignement_niveau}) * {cost}".format(
-                    enseignement_niveau = enseignement_niveau, cost = cost)
+                eleve_enseignement_public = entity('eleve_enseignement_public', period_arg)  # noqa F841
+                expression = "(eleve_enseignement_niveau == {enseignement_niveau}) * eleve_enseignement_public * {cost}".format(
+                    enseignement_niveau = enseignement_niveau,
+                    cost = cost,
+                    )
                 return ne.evaluate(str(expression))
 
             func.__name__ = "formula"

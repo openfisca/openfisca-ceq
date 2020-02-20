@@ -104,17 +104,17 @@ def build_income_dataframes(country):
             ].copy()
 
         if entity != 'person':
-            household_weight = dataframe.groupby(
-                data_by_model_id_variable["{}_id".format(group_entity)]
-                )[data_by_model_weight_variable["person_weight"]].mean()
+            person_weight_variable = data_by_model_weight_variable["person_weight"]
+            group_id_variable = data_by_model_id_variable["{}_id".format(group_entity)]
+            household_weight = dataframe.groupby(group_id_variable)[person_weight_variable].mean()
 
-            assert (
-                dataframe.groupby(
-                    data_by_model_id_variable["{}_id".format(group_entity)]
-                    )[
-                        data_by_model_weight_variable["person_weight"]
-                        ].nunique() == 1
-                ).all()
+            weight_by_group_ok = dataframe.groupby(group_id_variable)[person_weight_variable].nunique() == 1
+            problematic_group_id = weight_by_group_ok.reset_index().query(
+                "~{}".format(person_weight_variable)
+                )[group_id_variable].tolist()
+            assert weight_by_group_ok.all(), "Problematic weights:\n{}".format(
+                dataframe.loc[dataframe[group_id_variable].isin(problematic_group_id)]
+                )
 
             dataframe = dataframe.groupby(data_by_model_id_variable["{}_id".format(group_entity)]).sum()
             del dataframe[data_by_model_weight_variable["person_weight"]]
