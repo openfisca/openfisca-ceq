@@ -213,6 +213,8 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
     reference_rates = sorted(tax_rate_by_code_coicop[tax_name].unique())
     ad_valorem_tax_components = list()
     for tax_rate in reference_rates:
+        if tax_rate in null_rates:
+            continue
         functions_by_name = dict()
 
         log.debug('Creating tax amount {} - {}'.format(tax_name, tax_rate))

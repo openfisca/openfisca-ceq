@@ -25,18 +25,11 @@ if __name__ == '__main__':
     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
     assert not survey_scenario.tax_benefit_system.variables['eleve_enseignement_niveau'].is_neutralized
 
-    log.info("Counts (in millions)")
-    log.info((survey_scenario.compute_pivot_table(columns = 'eleve_enseignement_niveau', aggfunc = 'count', period = survey_scenario.year) / 1e6).round(1))
     variables = [
-        'pre_school_person',
-        'pre_school',
-        'primary_education_person',
-        'primary_education',
-        'secondary_education_person',
-        'secondary_education',
-        'tertiary_education_person',
-        'tertiary_education',
-        'education_net_transfers',
+        'tva_taux_normal',
+        'tva',
+        'value_added_tax',
+        'indirect_taxes'
         ]
     for variable in variables:
         log.info(
