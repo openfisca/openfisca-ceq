@@ -91,10 +91,10 @@ def build_ceq_data(country, year = None):
     households_missing_in_income = set(household_expenditures.hh_id).difference(
         set(household.hh_id))
     if households_missing_in_income:
-        log.info("Households missing in income: \n {}".format(households_missing_in_income))
+        log.debug("Households missing in income: \n {}".format(households_missing_in_income))
     households_missing_in_expenditures = set(household.hh_id).difference(set(household_expenditures.hh_id))
     if households_missing_in_expenditures:
-        log.info("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
+        log.debug("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
 
     if country == "senegal":
         log.info("Sénégal: we keep only household from income")
@@ -148,7 +148,6 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     CountryTaxBenefitSystem.legislation_country = legislation_country
     tax_benefit_system = ceq(CountryTaxBenefitSystem(coicop = False))
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
-
 
     data = build_ceq_data(data_country, year)
 
