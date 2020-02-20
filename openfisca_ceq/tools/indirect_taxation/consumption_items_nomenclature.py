@@ -264,11 +264,8 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
 
 
 def test():
-    tax_variables_by_country = {
-        "senegal": ['tva']
-        }
     country = "senegal"
-    tax_variables = tax_variables_by_country.get(country, [])
+    tax_variables = "tva"
     df = build_tax_rate_by_code_coicop(country, tax_variables)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))

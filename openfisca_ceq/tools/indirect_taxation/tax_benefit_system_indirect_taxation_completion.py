@@ -16,8 +16,9 @@ log = logging.getLogger(__name__)
 
 
 tax_variables_by_country = {
-    "senegal": ['tva'],
+    "cote_d_ivoire": ['tva'],
     "mali": ['tva'],
+    "senegal": ['tva'],
     }
 
 

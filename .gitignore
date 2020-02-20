@@ -1,6 +1,7 @@
 # Python builds
 
 *.ipynb
+**/*.ipynb
 *.egg-info
 *.pyc
 build
@@ -18,3 +19,4 @@ dist
 
 .DS_Store
 *~
+notebooks/.ipynb_checkpoints/test-checkpoint.ipynb

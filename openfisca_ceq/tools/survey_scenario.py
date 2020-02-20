@@ -2,6 +2,7 @@ import logging
 import pandas as pd
 
 from openfisca_core import periods
+
 from openfisca_survey_manager.scenarios import AbstractSurveyScenario
 from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
 from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import (
@@ -123,7 +124,6 @@ def build_ceq_data(country, year = None):
 
     household.rename(columns = model_variable_by_person_variable, inplace = True)
     person.rename(columns = model_variable_by_person_variable, inplace = True)
-
     assert person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
         categories = ['Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
         ordered = True)
@@ -149,7 +149,9 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     tax_benefit_system = ceq(CountryTaxBenefitSystem(coicop = False))
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
 
+
     data = build_ceq_data(data_country, year)
+
     scenario = CEQSurveyScenario(
         tax_benefit_system = tax_benefit_system,
         year = year,
