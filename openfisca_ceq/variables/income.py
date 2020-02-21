@@ -71,7 +71,7 @@ class final_income(Variable):
 
 class gifts_sales_durables(Variable):
     value_type = float
-    entity = Household
+    entity = Person
     definition_period = YEAR
     label = "Gifts, proceeds from sale of durables"
 
@@ -111,7 +111,7 @@ class market_income(Variable):
 
     def formula(household, period):
         all_income_excluding_transfers = household('all_income_excluding_transfers', period)
-        gifts_sales_durables = household('gifts_sales_durables', period)
+        gifts_sales_durables = household.sum(household.members('gifts_sales_durables', period))
         alimony = household('alimony', period)
         autoconsumption = household('autoconsumption', period)
         imputed_rent = household('imputed_rent', period)

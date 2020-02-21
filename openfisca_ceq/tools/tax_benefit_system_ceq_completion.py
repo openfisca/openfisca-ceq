@@ -138,7 +138,19 @@ def add_ceq_framework(country_tax_benefit_system):
     for variable in multi_country_custom_ceq_variables:
         country_tax_benefit_system.replace_variable(variable)
 
-        country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
+    if country_tax_benefit_system.legislation_country is 'mali':
+        class revenu_non_salarie(Variable):
+            def formula(person, period):
+                return .5 * person('revenu_non_salarie_total', period)
+
+        class revenu_informel_non_salarie(Variable):
+            def formula(person, period):
+                return .5 * person('revenu_non_salarie_total', period)
+
+        country_tax_benefit_system.update_variable(revenu_non_salarie)
+        country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
+
+    country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
 
     return country_tax_benefit_system
 
@@ -165,6 +177,7 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
         entity = entities_by_name['person'],
         label = "L'élève ou de l'étudiant fréquente l'enseignement public" ,
         value_type = float,
+        default_value = 1.0,
         )
     country_tax_benefit_system.add_variable(
         type("eleve_enseignement_public", (Variable,), definitions_by_name)

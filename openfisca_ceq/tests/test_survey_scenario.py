@@ -1,4 +1,5 @@
 import logging
+import pandas as pd
 import pytest
 
 
@@ -19,22 +20,31 @@ def test(country, year):
 if __name__ == '__main__':
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    country = "senegal"
+    from openfisca_ceq.tools.data_ceq_correspondence import (
+        ceq_input_by_harmonized_variable,
+        ceq_intermediate_by_harmonized_variable,
+        non_ceq_input_by_harmonized_variable,
+        )
 
+    country = "mali"
     year = year_by_country[country]
     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
     assert not survey_scenario.tax_benefit_system.variables['eleve_enseignement_niveau'].is_neutralized
 
-    variables = [
-        'tva_taux_normal',
-        'tva',
-        'value_added_tax',
-        'indirect_taxes'
+    ceq_by_harmonized_variable = dict()
+    ceq_by_harmonized_variable.update(ceq_input_by_harmonized_variable)
+    ceq_by_harmonized_variable.update(ceq_intermediate_by_harmonized_variable)
+    ceq_by_harmonized_variable.update(non_ceq_input_by_harmonized_variable)
+
+    data = [
+        (harmonized_variable, openfisca_variable, survey_scenario.compute_aggregate(openfisca_variable, period = year) / 1e9)
+        for harmonized_variable, openfisca_variable in ceq_by_harmonized_variable.items()
         ]
-    for variable in variables:
-        log.info(
-            "{variable}: {aggregate} billions FCFA".format(
-                variable = variable,
-                aggregate = int(round(survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9))
-                )
-            )
+    log.info(pd.DataFrame(data, columns = ["harmonized", "openfisca", "aggregate"]))
+    # for variable in variables:
+    #     log.info(
+    #         "{variable}: {aggregate} billions FCFA".format(
+    #             variable = variable,
+    #             aggregate = int(round(survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9))
+    #             )
+    #         )
