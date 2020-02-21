@@ -79,7 +79,8 @@ class CEQSurveyScenario(AbstractSurveyScenario):
             self.used_as_input_variables = list(
                 set(tax_benefit_system.variables.keys()).intersection(
                     set(input_data_frame.columns)
-                    ))
+                    )
+                )
 
         self.init_from_data(data = data, use_marginal_tax_rate = use_marginal_tax_rate)
 
@@ -102,6 +103,7 @@ def build_ceq_data(country, year = None):
 
     if country == "mali":
         # Mali: manque 165 ménages
+        household = household.merge(household_expenditures, on = "hh_id", how = "left")
         pass
 
     person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)

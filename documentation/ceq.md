@@ -187,4 +187,3 @@ final_income = consumable_income + in_kind_transfers
 What should we do with corporate_income_tax ?
   - simple for the self-employed
   - distribute macro aggregate using distribution of capital income in the survey (?)
-

@@ -22,6 +22,7 @@ initial_revenues_source = set([
     "rev_i_agricoles",
     "rev_i_autoconsommation",
     "rev_i_autres_revenus_capital",
+    "rev_i_autres",
     "rev_i_autres_transferts",
     "rev_i_independants",
     "rev_i_independants_Ntaxe",
@@ -36,7 +37,8 @@ initial_revenues_source = set([
 
 ceq_input_by_harmonized_variable = {
     "rev_i_autoconsommation": "autoconsumption",
-    "rev_i_autres_transferts": "other_income",
+    "rev_i_autres": "other_income",
+    "rev_i_autres_transferts": "gifts_sales_durables",
     "rev_i_loyers_imputes": "imputed_rent",
     }
 
@@ -105,10 +107,9 @@ class all_income_excluding_transfers(Variable):
     def formula(household, period):
         income_variables = [
             "autres_revenus_du_capital",
-            "pension_retraite",
             "revenu_agricole",
             "revenu_informel_non_salarie",
-            "revenu_informel_salarie"
+            "revenu_informel_salarie",
             "revenu_locatif",
             "revenu_non_salarie",
             "salaire",
@@ -119,6 +120,16 @@ class all_income_excluding_transfers(Variable):
                 for variable in income_variables
                 )
             )
+
+
+class pensions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Old-age contributory pensions"
+
+    def formula(household, period):
+        return household.sum(household.members("pension_retraite", period))
 
 
 class indirect_taxes(Variable):
@@ -152,4 +163,4 @@ class nontaxable_income(Variable):
             )
 
 
-multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income, indirect_taxes]
+multi_country_custom_ceq_variables = [all_income_excluding_transfers, pensions, nontaxable_income, indirect_taxes]

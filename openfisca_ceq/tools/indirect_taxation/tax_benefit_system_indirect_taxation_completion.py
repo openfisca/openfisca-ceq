@@ -15,7 +15,7 @@ from openfisca_ceq.tools.indirect_taxation.variables_generator import (
 log = logging.getLogger(__name__)
 
 
-tax_variables_by_country = {
+indirect_tax_by_country = {
     "cote_d_ivoire": ['tva'],
     "mali": ['tva'],
     "senegal": ['tva'],
@@ -33,7 +33,7 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
     log.debug(label_by_code_coicop)
     log.debug(tax_benefit_system.variables.keys())
     generate_postes_variables(tax_benefit_system, label_by_code_coicop)
-    tax_variables = tax_variables_by_country.get(country)
+    tax_variables = indirect_tax_by_country.get(country)
     tax_rate_by_code_coicop = build_tax_rate_by_code_coicop(country, tax_variables)
 
     tax_name = 'tva'

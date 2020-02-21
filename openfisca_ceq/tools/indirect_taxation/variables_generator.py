@@ -193,8 +193,6 @@ def generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_cod
             functions_by_name[dated_function_name] = dated_func
 
         class_name = 'depenses_ht_{}_{}'.format(tax_name, tax_rate)
-
-        # Trick to create a class with a dynamic name.
         definitions_by_name = dict(
             value_type = float,
             entity = tax_benefit_system.entities_by_singular()['household'],
@@ -206,8 +204,17 @@ def generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_cod
             type(class_name, (Variable,), definitions_by_name)
             )
 
-        del definitions_by_name
+        del definitions_by_name, functions_by_name
 
+
+def create_tax_formula(tax_name, tax_rate):
+    def func(entity, period_arg, parameters):
+        pre_tax_expenses = entity('depenses_ht_{}_{}'.format(tax_name, tax_rate), period_arg)
+        rate = parameters(period_arg).prelevements_obligatoires.impots_indirects.tva[tax_rate]
+        return pre_tax_expenses * rate
+
+    func.__name__ = "formula_{year_start}".format(year_start = GLOBAL_YEAR_START)
+    return func
 
 def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates = []):
     reference_rates = sorted(tax_rate_by_code_coicop[tax_name].unique())
@@ -215,13 +222,11 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
     for tax_rate in reference_rates:
         if tax_rate in null_rates:
             continue
-        functions_by_name = dict()
 
         log.debug('Creating tax amount {} - {}'.format(tax_name, tax_rate))
 
         class_name = '{}_{}'.format(tax_name, tax_rate)
 
-        # Trick to create a class with a dynamic name.
         definitions_by_name = dict(
             value_type = float,
             entity = tax_benefit_system.entities_by_singular()['household'],
@@ -229,24 +234,14 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
             definition_period = YEAR,
             )
 
-        def func(entity, period_arg, parameters):
-            pre_tax_expenses = entity('depenses_ht_{}_{}'.format(tax_name, tax_rate), period_arg)
-            rate = parameters(period_arg).prelevements_obligatoires.impots_indirects.tva[tax_rate]
-            return pre_tax_expenses * rate
-
-        func.__name__ = "formula_{year_start}".format(year_start = GLOBAL_YEAR_START)
-
-        functions_by_name[func.__name__] = func
-        definitions_by_name.update(functions_by_name)
+        definitions_by_name.update({"formula": create_tax_formula(tax_name, tax_rate)})
         tax_benefit_system.add_variable(
             type(class_name, (Variable,), definitions_by_name)
             )
 
         ad_valorem_tax_components += [class_name]
-        del definitions_by_name
 
     class_name = tax_name
-
     def ad_valorem_tax_total_func(entity, period_arg):
         return sum(
             entity(class_name, period_arg)
@@ -254,15 +249,16 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
             )
 
     ad_valorem_tax_total_func.__name__ = "formula_{year_start}".format(year_start = GLOBAL_YEAR_START)
-    functions_by_name = dict()
-    functions_by_name[func.__name__] = func
     definitions_by_name = dict(
         value_type = float,
         entity = tax_benefit_system.entities_by_singular()['household'],
         label = "{} - total".format(tax_name),
         definition_period = YEAR,
         )
-    definitions_by_name.update(functions_by_name)
+    definitions_by_name.update(
+        {ad_valorem_tax_total_func.__name__: ad_valorem_tax_total_func}
+        )
+
     tax_benefit_system.add_variable(
         type(class_name, (Variable,), definitions_by_name)
         )

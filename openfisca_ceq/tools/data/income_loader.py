@@ -24,6 +24,7 @@ missing_revenus_by_country = {
         'rev_i_independants',
         ],
     'mali': [
+        'cov_i_type_ecole',
         'rev_i_independants_taxe',
         'rev_i_independants_Ntaxe',
         'rev_i_locatifs',
