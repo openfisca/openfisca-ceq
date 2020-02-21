@@ -216,6 +216,7 @@ def create_tax_formula(tax_name, tax_rate):
     func.__name__ = "formula_{year_start}".format(year_start = GLOBAL_YEAR_START)
     return func
 
+
 def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates = []):
     reference_rates = sorted(tax_rate_by_code_coicop[tax_name].unique())
     ad_valorem_tax_components = list()
@@ -242,6 +243,7 @@ def generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_
         ad_valorem_tax_components += [class_name]
 
     class_name = tax_name
+
     def ad_valorem_tax_total_func(entity, period_arg):
         return sum(
             entity(class_name, period_arg)

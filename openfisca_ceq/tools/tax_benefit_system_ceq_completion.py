@@ -53,7 +53,6 @@ ceq_computed_variables = {
 unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
 
 
-
 class revenu_non_salarie_total(Variable):
     value_type = float
     entity = entities.Person
@@ -138,7 +137,8 @@ def add_ceq_framework(country_tax_benefit_system):
     for variable in multi_country_custom_ceq_variables:
         country_tax_benefit_system.replace_variable(variable)
 
-    if country_tax_benefit_system.legislation_country is 'mali':
+    if country_tax_benefit_system.legislation_country == 'mali':
+
         class revenu_non_salarie(Variable):
             def formula(person, period):
                 return .5 * person('revenu_non_salarie_total', period)
@@ -175,7 +175,7 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
     definitions_by_name = dict(
         definition_period = YEAR,
         entity = entities_by_name['person'],
-        label = "L'élève ou de l'étudiant fréquente l'enseignement public" ,
+        label = "L'élève ou de l'étudiant fréquente l'enseignement public",
         value_type = float,
         default_value = 1.0,
         )
