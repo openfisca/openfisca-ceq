@@ -89,8 +89,8 @@ Les observations se font au niveau du produits sont indexées par les variables 
 * `label`: Label du type de dépense tel qu'indiqué dans le questionnaire
 * `categorie_coicop`: label de la catégorie coicop
 * `code_coicop`: code de la catégorie coicop
-* `taux_tva`: taux tva appliqué pour ce type de bien (ex : 0.18)
-* `taux_importation`: taux appliqué aux importations de ce type de bien
+* `tva`: taux tva appliqué pour ce type de bien (ex : `taux_normal`, `taux_reduit`)
+* `douanes`: taux appliqué aux importations de ce type de bien
 * `taux_taxe_speciale_1`: taux appliqué aux bien de ce type, au titre d'une autre tax sur la conso
 * `taux_taxe_speciale_2`:..
 * ...
