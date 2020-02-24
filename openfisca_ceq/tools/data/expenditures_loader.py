@@ -30,6 +30,10 @@ def load_expenditures(country):
         }
 
     expenditures_variables = ['prod_id', 'hh_id', 'depense', 'quantite', 'prix']
+    if country == "cote_d_ivoire":
+        expenditures_variables.remove('quantite')
+        expenditures_variables.remove('prix')
+
     year = year_by_country[country]
     expenditures_data_path = config_parser.get(country, 'consommation_{}'.format(year))
     expenditures = pd.read_stata(expenditures_data_path).astype({"prod_id": str})
@@ -37,10 +41,12 @@ def load_expenditures(country):
     country_expenditures_variables = set(expenditures_variables).difference(
         set(missing_variables_by_country.get(country, []))
         )
+
     assert country_expenditures_variables <= set(expenditures.columns), "{}: missing variables {}".format(
         country,
         set(expenditures_variables).difference(set(expenditures.columns)),
         )
+
 
     # Checks
     consumption_items = build_consumption_items_list(country)

@@ -107,8 +107,14 @@ def build_ceq_data(country, year = None):
         pass
 
     person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)
-    person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
-    assert (person.household_role_index == 0).sum()
+
+    if person.household_role_index.dtype.name == 'category':
+        person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
+    else:
+        person.household_role_index =  (person.household_role_index - 1).clip(0, 3).astype(int)
+
+    assert (person.household_role_index == 0).sum() == len(household)
+    assert (person.household_role_index == 0).sum() == len(person.hh_id.unique())
 
     model_by_data_weight_variable = {v: k for k, v in data_by_model_weight_variable.items()}
 
