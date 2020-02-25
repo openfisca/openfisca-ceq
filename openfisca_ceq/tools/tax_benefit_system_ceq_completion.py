@@ -84,6 +84,7 @@ def add_ceq_framework(country_tax_benefit_system):
     :return: The completed tax benefit system
     :rtype: TaxBenefitSystem
     """
+
     country_entities = country_tax_benefit_system.entities
     entities_by_name = dict((entity.key, entity) for entity in country_entities)
     entities.Person = entities_by_name['person']
@@ -137,7 +138,10 @@ def add_ceq_framework(country_tax_benefit_system):
     for variable in multi_country_custom_ceq_variables:
         country_tax_benefit_system.replace_variable(variable)
 
-    if country_tax_benefit_system.legislation_country == 'mali':
+    if (
+            hasattr(country_tax_benefit_system, 'legislation_country')
+            and country_tax_benefit_system.legislation_country == 'mali'
+            ):
 
         class revenu_non_salarie(Variable):
             def formula(person, period):
