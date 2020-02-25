@@ -48,3 +48,24 @@ if __name__ == '__main__':
     #             aggregate = int(round(survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9))
     #             )
     #         )
+
+    from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import indirect_tax_by_country
+
+    indirect_tax_variables = [
+        variable
+        for tax in indirect_tax_by_country[country]
+        for variable in survey_scenario.tax_benefit_system.variables.keys()
+        if tax in variable
+        ]
+    log.info(indirect_tax_variables)
+
+    log.info(
+        pd.DataFrame(
+            index = indirect_tax_variables,
+            columns = ['aggregate'],
+            data = [
+                survey_scenario.compute_aggregate(variable, period = year) / 1e9
+                for variable in indirect_tax_variables
+                ]
+            )
+        )

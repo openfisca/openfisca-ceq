@@ -87,34 +87,40 @@ class CEQSurveyScenario(AbstractSurveyScenario):
 
 def build_ceq_data(country, year = None):
     household_expenditures = load_expenditures(country)
-    person, household = build_income_dataframes(country)
+    person, household_income = build_income_dataframes(country)
 
     households_missing_in_income = set(household_expenditures.hh_id).difference(
-        set(household.hh_id))
+        set(household_income.hh_id))
     if households_missing_in_income:
         log.debug("Households missing in income: \n {}".format(households_missing_in_income))
-    households_missing_in_expenditures = set(household.hh_id).difference(set(household_expenditures.hh_id))
+    households_missing_in_expenditures = set(household_income.hh_id).difference(set(household_expenditures.hh_id))
     if households_missing_in_expenditures:
         log.debug("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
 
-    if country == "senegal":
-        log.info("Sénégal: we keep only household from income")
-        household = household.merge(household_expenditures, on = "hh_id", how = "left")
-
-    if country == "mali":
-        # Mali: manque 165 ménages
-        household = household.merge(household_expenditures, on = "hh_id", how = "left")
-        pass
+    household = household_income.merge(household_expenditures, on = "hh_id", how = "left")
+    log.info(
+        "{}: keeping only {} households from income data but {} are present in expenditures data".format(
+            country, len(household_income.hh_id.unique()), len(household_expenditures.hh_id.unique())
+            )
+        )
 
     person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)
 
     if person.household_role_index.dtype.name == 'category':
         person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
     else:
-        person.household_role_index =  (person.household_role_index - 1).clip(0, 3).astype(int)
+        person.household_role_index = (person.household_role_index - 1).clip(0, 3).astype(int)
 
-    assert (person.household_role_index == 0).sum() == len(household)
-    assert (person.household_role_index == 0).sum() == len(person.hh_id.unique())
+    assert (person.household_role_index == 0).sum() == len(household), (
+        "Only {} personne de reference for {} households".format(
+            (person.household_role_index == 0).sum(), len(household))
+        )
+
+    assert (person.household_role_index == 0).sum() == len(person.hh_id.unique()), (
+        "Only {} personne de reference for {} unique households IDs".format(
+            (person.household_role_index == 0).sum(), len(person.hh_id.unique())
+            )
+        )
 
     model_by_data_weight_variable = {v: k for k, v in data_by_model_weight_variable.items()}
 
@@ -132,11 +138,18 @@ def build_ceq_data(country, year = None):
 
     household.rename(columns = model_variable_by_person_variable, inplace = True)
     person.rename(columns = model_variable_by_person_variable, inplace = True)
-    assert person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
-        categories = ['Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
-        ordered = True)
-    person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
 
+    if pd.api.types.is_numeric_dtype(person.eleve_enseignement_niveau):
+        person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.fillna(0).astype(int) - 1
+
+    elif person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
+            categories = [
+                'Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
+            ordered = True
+            ):  # senegal and mali
+        person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
+
+    assert set(person.eleve_enseignement_niveau.unique()) == set(range(-1, 4))
     assert 'person_weight' in person
     assert 'household_weight' in household
     person.person_id = (person.person_id.rank() - 1).astype(int)
