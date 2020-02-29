@@ -52,6 +52,8 @@ ceq_computed_variables = {
 
 unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
 
+MALI_PART_INFORMEL_NON_SALARIE = 1.0
+
 
 class revenu_non_salarie_total(Variable):
     value_type = float
@@ -136,7 +138,7 @@ def add_ceq_framework(country_tax_benefit_system):
             )
 
     for variable in multi_country_custom_ceq_variables:
-        country_tax_benefit_system.replace_variable(variable)
+        country_tax_benefit_system.update_variable(variable)
 
     if (
             hasattr(country_tax_benefit_system, 'legislation_country')
@@ -145,11 +147,11 @@ def add_ceq_framework(country_tax_benefit_system):
 
         class revenu_non_salarie(Variable):
             def formula(person, period):
-                return .5 * person('revenu_non_salarie_total', period)
+                return (1 - MALI_PART_INFORMEL_NON_SALARIE) * person('revenu_non_salarie_total', period)
 
         class revenu_informel_non_salarie(Variable):
             def formula(person, period):
-                return .5 * person('revenu_non_salarie_total', period)
+                return MALI_PART_INFORMEL_NON_SALARIE * person('revenu_non_salarie_total', period)
 
         country_tax_benefit_system.update_variable(revenu_non_salarie)
         country_tax_benefit_system.update_variable(revenu_informel_non_salarie)

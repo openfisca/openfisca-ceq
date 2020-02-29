@@ -16,11 +16,12 @@ GLOBAL_YEAR_STOP = 2019
 
 
 def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
-    """Generate COICOP item of consumption (poste de cpnsommation)
+    """Generate COICOP item of consumption (poste de consommation)
 
     :param TaxBenfitSystem tax_benefit_system: the tax and benefit system to create the items variable for
     :param dict label_by_code_coicop: Coicop item number and item description
     """
+    item_variables = list()
     for code_coicop, label in label_by_code_coicop.items():
         class_name = "poste_{}".format(slugify(code_coicop, separator = '_'))
         log.info('Creating variable {} with label {}'.format(class_name, label))
@@ -34,6 +35,29 @@ def generate_postes_variables(tax_benefit_system, label_by_code_coicop):
                 value_type = float,
                 ))
             )
+        item_variables.append(class_name)
+
+    generate_total_consumption(tax_benefit_system, item_variables)
+
+
+def generate_total_consumption(tax_benefit_system, item_variables, consumption_variable_name = 'consumption'):
+
+    def formula(household, period):
+        return sum(
+            household(variable, period)
+            for variable in item_variables
+            )
+
+    definitions_by_name = dict(
+        definition_period = YEAR,
+        value_type = float,
+        entity = tax_benefit_system.entities_by_singular()['household'],
+        label = "Consommation",
+        )
+    definitions_by_name.update(dict(formula = formula))
+    tax_benefit_system.add_variable(
+        type(consumption_variable_name, (Variable,), definitions_by_name)
+        )
 
 
 def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates = []):

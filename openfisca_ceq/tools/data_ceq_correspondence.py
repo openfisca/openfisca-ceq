@@ -112,7 +112,7 @@ class all_income_excluding_transfers(Variable):
             "revenu_informel_salarie",
             "revenu_locatif",
             "revenu_non_salarie",
-            "salaire",
+            "salaire_super_brut",
             ]
         return household.sum(
             sum(
@@ -122,14 +122,27 @@ class all_income_excluding_transfers(Variable):
             )
 
 
-class pensions(Variable):
-    value_type = float
-    entity = Household
-    definition_period = YEAR
-    label = "Old-age contributory pensions"
-
+class employee_contributions_pensions(Variable):
     def formula(household, period):
-        return household.sum(household.members("pension_retraite", period))
+        return household.sum(household.members("retraite_salarie", period))
+
+
+class employer_contributions_health(Variable):
+    def formula(household, period):
+        return household.sum(household.members("sante_employeur", period))
+
+
+class employer_contributions_pensions(Variable):
+    def formula(household, period):
+        return household.sum(household.members("retraite_employeur", period))
+
+
+class employer_other_contributions(Variable):
+    def formula(household, period):
+        return (
+            household.sum(household.members("famille", period))
+            + household.sum(household.members("accidents_du_travail", period))
+            )
 
 
 class indirect_taxes(Variable):
@@ -163,4 +176,23 @@ class nontaxable_income(Variable):
             )
 
 
-multi_country_custom_ceq_variables = [all_income_excluding_transfers, pensions, nontaxable_income, indirect_taxes]
+class pensions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Old-age contributory pensions"
+
+    def formula(household, period):
+        return household.sum(household.members("pension_retraite", period))
+
+
+multi_country_custom_ceq_variables = [
+    all_income_excluding_transfers,
+    employee_contributions_pensions,
+    employer_contributions_health,
+    employer_contributions_pensions,
+    employer_other_contributions,
+    indirect_taxes,
+    nontaxable_income,
+    pensions,
+    ]
