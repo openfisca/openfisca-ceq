@@ -35,7 +35,7 @@ market_income = (
 market_income_plus_pensions = market_income + pensions - contributions_pensions
 ```
 
-## net market income= market income + pensions - (direct taxes and contributions to social security that are not directed to old-age pensions)
+## net market income= market income + pensions - contributions_pensions - (direct taxes and contributions to social security that are not directed to old-age pensions)
 
 - Direct Taxes (`direct_taxes`)
   - Personal Income Tax (`personal_income_tax`)
