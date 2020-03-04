@@ -113,13 +113,21 @@ def build_ceq_data(country, year = None):
 
     assert (person.household_role_index == 0).sum() == len(household), (
         "Only {} personne de reference for {} households".format(
-            (person.household_role_index == 0).sum(), len(household))
+            (person.household_role_index == 0).sum(), len(household)),
+        "Household without personne de reference are: {}".format(
+            set(household.hh_id).difference(
+                set(
+                    person.loc[person.household_role_index == 0, 'hh_id'].unique()
+                    )
+                )
+            )
         )
 
     assert (person.household_role_index == 0).sum() == len(person.hh_id.unique()), (
         "Only {} personne de reference for {} unique households IDs".format(
             (person.household_role_index == 0).sum(), len(person.hh_id.unique())
             )
+
         )
 
     model_by_data_weight_variable = {v: k for k, v in data_by_model_weight_variable.items()}
