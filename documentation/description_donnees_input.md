@@ -213,6 +213,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  	|
+| cov_i_cadre 	| Dummy prenant la valeur 1 pour les individus ayant comme catégorie socio-professionnelle est cadre supérieur, ingénieur, cadre moyen ou agent de maitrise	|  e12==1 ; e12==2	|
 | cov_i_categorie_CGU| Cette variable est définie uniquement sur les indépendants. Elle permet de faire la distinction entre les indépendants entre les commerçants et revendeurs de ciments et de denrées alimentaires (CGU prod A) des autres commerçants ou revendeurs (CGU prod B) ou des prestataires de service (CGU service). Elle est particulièrement pertinente dans le cas du système socio-fiscal sénégalais. En lien avec les données de l'enquête, les indépendants CGU prod A incluent ceux dont la branche d'activité est les produits des industries alimentaires (Qe20). Ceux dont l'entreprise se trouvent dans la branche des services (hotelerie, transport, immobilier, informatique, education, etc) sont considérés comme indépendants CGU services (Qe20). Tous les autres indépendants qui ne sont pas dans les deux précédentes catégories sont dans CGU prod B (Qe20).| |
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête. | c9 	|
 | cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| age; e7; b11; b12; b11; b9 	|
@@ -220,14 +221,8 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_no_mere| Numero d'ordre du pere au sein du ménage | b9 |
 | cov_i_no_pere| Numero d'ordre du pere au sein du ménage | b10 |
 | cov_i_secteur_activite 	| Secteur d'activité des individus âgés de plus de 15 ans. Cette variable permet de distinguer les actifs agricoles, les salariés du formel et de l'informel ainsi que les indépendants. Les actifs agricoles comprennent ceux dont l'entreprise est dans la branche des produits agricoles, sylvicoles, pêche et piscicultures (Qe20). Les salaries regroupent les cadres, employés, ouvriers, aides-familiaux, apprentis (Qe12) ou ceux qui déclarent percevoir un salaire (Qe10). Les indépendants sont les employeurs ou les travailleurs sous compte propre (Qe12).	| e20; e12; e10; e9; e18a 	|
-| cov_i_secteur_publique_prive 	| Le secteur formel regroupe les salariés de l'administration publique, l'armée ou les forces de l'ordre ou ceux affiliés à un système de sécurité sociale (IPRES, CSS, FNR, mutuelle de santé, ou autres). 	| e18a==1 ; e12<=5 ; e12==8 ; e12==9 ; e10==1; e13_1==1 ; e13_2==1 ; e13_3==1  ; e13_4==1 | e13_5==1	|
-| cov_i_secteur_formel_informel 	| Il regroupe tous les salarié	| e18a==1 ; e12<=5 ; e12==8 ; e12==9 ; e10==1; e13_1==1 ; e13_2==1 ; e13_3==1  ; e13_4==1 | e13_5==1	|
-s du secteur publique et les salarié
-s du secteur privé
- formel. Ces derniers é
-tant dé
-finis comme tous les salariés hors secteur publique affilié
-s à un système de sécurité sociale | cov_i_secteur_publique_prive==0; CSP==1 ; e13_1==1 ; e13_2==1 ; e13_3==;  ; e13_4==1 ; e13_5==1) |
+| cov_i_secteur_publique_prive 	| Variable dichotomique égale à 1 lorsque l'individu est un salarié de l'administration publique, l'armée ou les forces de l'ordre. Elle prend la valeur 0 pour les salariés du privé affiliés à un système de sécurité sociale (IPRES, CSS, FNR, mutuelle de santé, ou autres). 	| e18a==1 ; e12<=5 ; e12==8 ; e12==9 ; e10==1; e13_1==1 ; e13_2==1 ; e13_3==1  ; e13_4==1 | e13_5==1	|
+| cov_i_secteur_formel_informel 	| Il regroupe tous les salariés du secteur publique et les salariés du secteur privé formel. Ces derniers étant dé finis comme tous les salariés hors secteur publique affiliés à un système de sécurité sociale | 
 | cov_i_sexe 	| Sexe de l'individu 	|  	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	| b4 	|
 |cov_i_taxe_Ntaxe| Dummy indiquant si l'indépendant a versé un impôt| e24i_annuel>0 & e24i_annuel!=.|
@@ -753,13 +748,14 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
 |------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  m4 	|
+| cov_i_cadre 	| Dummy prenant la valeur 1 pour les individus ayant comme catégorie socio-professionnelle est cadre supérieur, ingénieur, cadre moyen ou agent de maitrise 	| w16==1 ; w16==2 	|
 | cov_i_categorie_CGU | Cette variable est définie uniquement sur les indépendants. Elle permet de faire la distinction entre les indépendants entre les commerçants et revendeurs de ciments et de denrées alimentaires (CGU prod A) des autres commerçants ou revendeurs (CGU prod B) ou des prestataires de service (CGU service). Elle est particulièrement pertinente dans le cas du système socio-fiscal sénégalais. Les indépendants CGU prod A incluent ceux dont la branche d'activité est les produits des industries alimentaires tels que l'abattage, la conservation et la transformation de produits alimentaires et de boissons. Ceux dont l'entreprise se trouvent dans la branche des services sont considérés comme indépendants CGU services. Tous les autres indépendants qui ne sont pas dans les deux précédentes catégories sont dans CGU prod B.|   | 
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête 	| E6 	|
 | cov_i_enfant_charge 	| Nombre d'enfants à charge du chef de ménage ou du conjoint. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| m4<=21 & m5==3; w11==7 & m4>21 & m4<=25 & m5==3 	|
 | cov_i_lien_cm 	| Lien de l'individu avec le chef de ménage 	| m5 	|
 | cov_i_ponderation 	| Poids de l'individu dans la population 	| weight_pc 	|
 | cov_i_secteur_activite 	| Secteur d'activité des individus âgés de plus de 15 ans. Cette variable permet de distinguer les actifs agricoles, les salariés du formel et de l'informel ainsi que les indépendants. Les actifs agricoles comprennent ceux dont l'entreprise est dans la branche des produits agricoles, sylvicoles, pêche et piscicultures (w15). Les salaries regroupent les cadres, employés, ouvriers, aides-familiaux, apprentis (w16) ou ceux qui déclarent percevoir un salaire (w24). Les indépendants sont les employeurs ou les travailleurs sous compte propre (w16). |  w17; w18a;w18b;w18c;w18d;w18e;w16;w24;w14;w15;w15_bis |
-| cov_i_secteur_publique_prive 	| Tous les salariés qui travaillent dans l'administration publique, l'armée ou les forces de l'ordre	| w15==751 ; w15==752 ; w14==340 ; w14==22; ; w14>=546 ; w14<=550 	|
+| cov_i_secteur_publique_prive 	| Variable dichotomique prenant la valeur 1 pour tous les salariés qui travaillent dans l'administration publique, l'armée ou les forces de l'ordre. Elle prend la valeur 0 pour tous les salariés du privé ayant un bulletin de paie.	| w15==751 ; w15==752 ; w14==340 ; w14==22; ; w14>=546 ; w14<=550 	|
 | cov_i_secteur_formel_informel 	| Tous les salariés du publique plus ceux du privé formels. 	| w26==1 & agri==0 & w16<=5	|
 | cov_i_sexe 	| Sexe de l'individu 	| m3 	|
 | cov_i_statut_matrimonial 	| Statut matrimonial de l'individu 	|  	|
