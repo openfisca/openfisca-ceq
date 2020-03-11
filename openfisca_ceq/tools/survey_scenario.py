@@ -105,10 +105,39 @@ def build_ceq_data(country, year = None):
         )
 
     person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)
-
     if person.household_role_index.dtype.name == 'category':
+        if country == "mali":
+            log.info("{}: there are {} NaN household_role_index".format(
+                country,
+                person.household_role_index.isnull().sum(),
+                ))
+            person = person.loc[person.household_role_index.notnull()].copy()
+
+        assert person.household_role_index.notnull().all()
         person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
+
+        one_personne_de_reference = (person
+            .query("household_role_index == 0")
+            .groupby("hh_id")['household_role_index']
+            .count() == 1)
+
+        problematic_hh_id = one_personne_de_reference.loc[~one_personne_de_reference].index.tolist()
+        assert one_personne_de_reference.all(), "Problem with households: {}".format(
+            person.loc[person.hh_id.isin(problematic_hh_id), ["household_role_index", "hh_id"]]
+            )
+
+        if country == "mali":
+            hh_id_with_missing_personne_de_reference = set(household.hh_id).difference(
+                set(
+                    person.loc[person.household_role_index == 0, 'hh_id'].unique()
+                    )
+                )
+            person = person.loc[~person.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
+            household = household.loc[~household.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
+
+
     else:
+        assert person.household_role_index.min() == 1
         person.household_role_index = (person.household_role_index - 1).clip(0, 3).astype(int)
 
     assert (person.household_role_index == 0).sum() == len(household), (
