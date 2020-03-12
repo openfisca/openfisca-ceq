@@ -116,6 +116,12 @@ def build_ceq_data(country, year = None):
         assert person.household_role_index.notnull().all()
         person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
 
+        if country == "mali":
+            person.loc[
+                (person.hh_id == "098105") & (person.household_role_index == 0),
+                "household_role_index"
+                ] = (0, 1)
+
         one_personne_de_reference = (person
             .query("household_role_index == 0")
             .groupby("hh_id")['household_role_index']
@@ -134,7 +140,6 @@ def build_ceq_data(country, year = None):
                 )
             person = person.loc[~person.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
             household = household.loc[~household.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
-
 
     else:
         assert person.household_role_index.min() == 1
