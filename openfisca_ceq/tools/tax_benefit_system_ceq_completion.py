@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 import logging
 import numexpr as ne
 import os
