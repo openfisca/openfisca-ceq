@@ -122,6 +122,11 @@ class all_income_excluding_transfers(Variable):
             )
 
 
+class employee_contributions_health(Variable):
+    def formula(household, period):
+        return household.sum(household.members("sante_salarie", period))
+
+
 class employee_contributions_pensions(Variable):
     def formula(household, period):
         return household.sum(household.members("retraite_salarie", period))
