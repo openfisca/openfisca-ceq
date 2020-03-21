@@ -38,8 +38,6 @@ check-style:
 	@# `make` needs `$$` to output `$`. Ref: http://stackoverflow.com/questions/2382764.
 	flake8 `git ls-files | grep "\.py$$"`
 
-
-
 notebook-all: notebook-cote_d_ivoire notebook-mali notebook-senegal
 
 notebook-cote_d_ivoire:
