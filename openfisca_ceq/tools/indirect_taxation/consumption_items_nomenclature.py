@@ -32,7 +32,7 @@ country_code_by_country = {
     }
 
 
-def build_label_by_code_coicop(country, additional_variables = None, new_code_coicop_variable = "nouveau__code"):
+def build_label_by_code_coicop(country, additional_variables = None, new_code_coicop_variable = "nouveau__code", fillna = dict()):
     consumption_items_file_path = os.path.join(
         consumption_items_directory, "Produits_{}.xlsx".format(country_code_by_country[country])
         )
@@ -54,6 +54,7 @@ def build_label_by_code_coicop(country, additional_variables = None, new_code_co
                 }
             )
         .filter(['label_variable', 'code_coicop', 'variable_name'] + additional_variables)
+        .fillna(fillna)
         .dropna()
         .astype(str)
         .sort_values('code_coicop')
@@ -131,9 +132,9 @@ def build_comparison_table(countries):
     return merged
 
 
-def build_tax_rate_by_code_coicop(country, tax_variables = None):
+def build_tax_rate_by_code_coicop(country, tax_variables = None, fillna = dict()):
     assert tax_variables is not None
-    label_by_code_coicop = (build_label_by_code_coicop(country, additional_variables = tax_variables)
+    label_by_code_coicop = (build_label_by_code_coicop(country, additional_variables = tax_variables, fillna = fillna)
         .drop(columns = "code_coicop")
         .reset_index()
         .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
@@ -264,21 +265,22 @@ def build_comparison_spreadsheet(countries, coicop_level = 3):
 
 
 def test():
-    country = "senegal"
-    tax_variables = "tva"
+    country = "mali"
+    tax_variables = ["tva", "droits_douane", "part_importation"]
     df = build_tax_rate_by_code_coicop(country, tax_variables)
+    print(df)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
 
-    countries = ['cote_d_ivoire', 'senegal', 'mali']
-    merged = build_comparison_table(countries)
-    log.info(merged)
+    # countries = ['cote_d_ivoire', 'senegal', 'mali']
+    # merged = build_comparison_table(countries)
+    # log.info(merged)
 
 
 if __name__ == '__main__':
-    test()
     import sys
     logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    countries = ['cote_d_ivoire', 'senegal', 'mali']
-    for coicop_level in range(3, 6):
-        build_comparison_spreadsheet(countries, coicop_level = coicop_level)
+    test()
+    # countries = ['cote_d_ivoire', 'senegal', 'mali']
+    # for coicop_level in range(3, 6):
+    #     build_comparison_spreadsheet(countries, coicop_level = coicop_level)

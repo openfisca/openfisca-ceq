@@ -5,10 +5,12 @@ from openfisca_ceq.tools.indirect_taxation.consumption_items_nomenclature import
     build_label_by_code_coicop,
     )
 from openfisca_ceq.tools.indirect_taxation.variables_generator import (
-    generate_postes_variables,
+    generate_ad_valorem_tax_variables,
     generate_depenses_ht_postes_variables,
     generate_fiscal_base_variables,
-    generate_ad_valorem_tax_variables,
+    generate_postes_variables,
+    generate_tariff_base_variables,
+    generate_tariff_variables,
     )
 
 
@@ -17,7 +19,7 @@ log = logging.getLogger(__name__)
 
 indirect_tax_by_country = {
     "cote_d_ivoire": ['tva'],
-    "mali": ['tva'],
+    "mali": ['tva', 'droits_douane'],
     "senegal": ['tva'],
     }
 
@@ -34,10 +36,20 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
     log.debug(tax_benefit_system.variables.keys())
     generate_postes_variables(tax_benefit_system, label_by_code_coicop)
     tax_variables = indirect_tax_by_country.get(country)
-    tax_rate_by_code_coicop = build_tax_rate_by_code_coicop(country, tax_variables)
-
+    if 'droits_douane' in tax_variables:
+        tax_variables.append("part_importation")
+        fillna = {'part_importation': 0}
+    tax_rate_by_code_coicop = build_tax_rate_by_code_coicop(country, tax_variables, fillna = fillna)
     tax_name = 'tva'
     null_rates = ['exonere']
-    generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
+    generate_depenses_ht_postes_variables(
+        tax_benefit_system,
+        tax_name,
+        tax_rate_by_code_coicop,
+        null_rates = null_rates,
+        )
+
     generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
+    generate_tariff_base_variables(tax_benefit_system, 'droits_douane', tax_rate_by_code_coicop, null_rates)
     generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
+    generate_tariff_variables(tax_benefit_system, 'droits_douane', tax_rate_by_code_coicop, null_rates)
