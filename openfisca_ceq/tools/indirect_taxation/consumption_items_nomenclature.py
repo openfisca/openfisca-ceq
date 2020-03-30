@@ -268,7 +268,6 @@ def test():
     country = "mali"
     tax_variables = ["tva", "droits_douane", "part_importation"]
     df = build_tax_rate_by_code_coicop(country, tax_variables)
-    print(df)
     for tax_variable in tax_variables:
         log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
 

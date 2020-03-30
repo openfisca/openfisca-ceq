@@ -18,9 +18,9 @@ log = logging.getLogger(__name__)
 
 
 indirect_tax_by_country = {
-    "cote_d_ivoire": ['tva'],
+    "cote_d_ivoire": ['tva', 'droits_douane'],
     "mali": ['tva', 'droits_douane'],
-    "senegal": ['tva'],
+    "senegal": ['tva', 'droits_douane'],
     }
 
 
@@ -36,6 +36,7 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
     log.debug(tax_benefit_system.variables.keys())
     generate_postes_variables(tax_benefit_system, label_by_code_coicop)
     tax_variables = indirect_tax_by_country.get(country)
+    fillna = dict()
     if 'droits_douane' in tax_variables:
         tax_variables.append("part_importation")
         fillna = {'part_importation': 0}
@@ -48,7 +49,6 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
         tax_rate_by_code_coicop,
         null_rates = null_rates,
         )
-
     generate_fiscal_base_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
     generate_tariff_base_variables(tax_benefit_system, 'droits_douane', tax_rate_by_code_coicop, null_rates)
     generate_ad_valorem_tax_variables(tax_benefit_system, tax_name, tax_rate_by_code_coicop, null_rates)
