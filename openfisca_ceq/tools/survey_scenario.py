@@ -9,6 +9,7 @@ from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_
     add_coicop_item_to_tax_benefit_system)
 from openfisca_ceq.tools.data.expenditures_loader import load_expenditures
 from openfisca_ceq.tools.data.income_loader import build_income_dataframes
+from openfisca_ceq.tools.data.income_targets import read_income_target
 from openfisca_ceq.tools.data_ceq_correspondence import (
     ceq_input_by_harmonized_variable,
     ceq_intermediate_by_harmonized_variable,
@@ -83,6 +84,21 @@ class CEQSurveyScenario(AbstractSurveyScenario):
                 )
 
         self.init_from_data(data = data, use_marginal_tax_rate = use_marginal_tax_rate)
+
+    def inflate_variables_sum_to_target(self, income_variables, target, period):
+        for income_variable in income_variables:
+            assert income_variable in self.tax_benefit_system.variables
+
+        aggregate = sum(
+            self.compute_aggregate(income_variable, period = period)
+            for income_variable in income_variables
+            )
+        inflator = target / aggregate
+        inflator_by_variable = dict(
+            (income_variable, inflator)
+            for income_variable in income_variables
+            )
+        self.inflate(inflator_by_variable = inflator_by_variable, period = period)
 
 
 def build_ceq_data(country, year = None):
@@ -203,7 +219,9 @@ def build_ceq_data(country, year = None):
     return data
 
 
-def build_ceq_survey_scenario(legislation_country, year = None, data_country = None):
+def build_ceq_survey_scenario(legislation_country, year = None, data_country = None,
+        income_variables = [], inflate = False):
+
     if data_country is None:
         data_country = legislation_country
 
@@ -218,6 +236,17 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
         tax_benefit_system = tax_benefit_system,
         year = year,
         data = data,
+        )
+
+    if not inflate:
+        return scenario
+
+    assert income_variables
+    target = read_income_target(data_country)
+    scenario.inflate_variables_sum_to_target(
+        target = target,
+        income_variables = income_variables,
+        period = year
         )
 
     return scenario
