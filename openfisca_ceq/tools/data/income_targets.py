@@ -24,4 +24,3 @@ def read_income_target(country):
     log.info("Income target for {} is {} Billion CFA".format(country, target))
     del code_country
     return target * 1e9
-
