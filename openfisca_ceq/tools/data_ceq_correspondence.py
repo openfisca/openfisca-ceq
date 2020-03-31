@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 from openfisca_core.model_api import Variable, YEAR
 from openfisca_ceq.entities import Household
 
@@ -22,6 +19,7 @@ initial_revenues_source = set([
     "rev_i_agricoles",
     "rev_i_autoconsommation",
     "rev_i_autres_revenus_capital",
+    "rev_i_autres",
     "rev_i_autres_transferts",
     "rev_i_independants",
     "rev_i_independants_Ntaxe",
@@ -36,7 +34,8 @@ initial_revenues_source = set([
 
 ceq_input_by_harmonized_variable = {
     "rev_i_autoconsommation": "autoconsumption",
-    "rev_i_autres_transferts": "other_income",
+    "rev_i_autres": "other_income",
+    "rev_i_autres_transferts": "gifts_sales_durables",
     "rev_i_loyers_imputes": "imputed_rent",
     }
 
@@ -72,7 +71,8 @@ assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
         )
 
 other_model_by_harmonized_person_variable = {
-    "cov_i_classe_frequente": "eleve_enseignement_niveau"
+    "cov_i_classe_frequente": "eleve_enseignement_niveau",
+    "cov_i_type_ecole": "eleve_enseignement_public",
     }
 
 person_variables = list(
@@ -104,19 +104,46 @@ class all_income_excluding_transfers(Variable):
     def formula(household, period):
         income_variables = [
             "autres_revenus_du_capital",
-            "pension_retraite",
             "revenu_agricole",
             "revenu_informel_non_salarie",
-            "revenu_informel_salarie"
+            "revenu_informel_salarie",
             "revenu_locatif",
             "revenu_non_salarie",
-            "salaire",
+            "salaire_super_brut",
             ]
         return household.sum(
             sum(
                 household.members(variable, period)
                 for variable in income_variables
                 )
+            )
+
+
+class employee_contributions_health(Variable):
+    def formula(household, period):
+        return household.sum(household.members("sante_salarie", period))
+
+
+class employee_contributions_pensions(Variable):
+    def formula(household, period):
+        return household.sum(household.members("retraite_salarie", period))
+
+
+class employer_contributions_health(Variable):
+    def formula(household, period):
+        return household.sum(household.members("sante_employeur", period))
+
+
+class employer_contributions_pensions(Variable):
+    def formula(household, period):
+        return household.sum(household.members("retraite_employeur", period))
+
+
+class employer_other_contributions(Variable):
+    def formula(household, period):
+        return (
+            household.sum(household.members("famille", period))
+            + household.sum(household.members("accidents_du_travail", period))
             )
 
 
@@ -151,4 +178,23 @@ class nontaxable_income(Variable):
             )
 
 
-multi_country_custom_ceq_variables = [all_income_excluding_transfers, nontaxable_income, indirect_taxes]
+class pensions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Old-age contributory pensions"
+
+    def formula(household, period):
+        return household.sum(household.members("pension_retraite", period))
+
+
+multi_country_custom_ceq_variables = [
+    all_income_excluding_transfers,
+    employee_contributions_pensions,
+    employer_contributions_health,
+    employer_contributions_pensions,
+    employer_other_contributions,
+    indirect_taxes,
+    nontaxable_income,
+    pensions,
+    ]

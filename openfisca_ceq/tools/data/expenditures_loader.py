@@ -30,13 +30,22 @@ def load_expenditures(country):
         }
 
     expenditures_variables = ['prod_id', 'hh_id', 'depense', 'quantite', 'prix']
+    if country == "cote_d_ivoire":
+        expenditures_variables.remove('quantite')
+        expenditures_variables.remove('prix')
+
     year = year_by_country[country]
     expenditures_data_path = config_parser.get(country, 'consommation_{}'.format(year))
-    expenditures = pd.read_stata(expenditures_data_path).astype({"prod_id": str})
+    expenditures = pd.read_stata(expenditures_data_path)
+    try:
+        expenditures.prod_id = expenditures.prod_id.astype(int).astype(str)
+    except Exception:
+        expenditures.prod_id = expenditures.prod_id.astype(str)
 
     country_expenditures_variables = set(expenditures_variables).difference(
         set(missing_variables_by_country.get(country, []))
         )
+
     assert country_expenditures_variables <= set(expenditures.columns), "{}: missing variables {}".format(
         country,
         set(expenditures_variables).difference(set(expenditures.columns)),
@@ -44,6 +53,11 @@ def load_expenditures(country):
 
     # Checks
     consumption_items = build_consumption_items_list(country)
+    try:
+        consumption_items.prod_id = consumption_items.prod_id.astype(int).astype(str)
+    except Exception:
+        consumption_items.prod_id = consumption_items.prod_id.astype(str)
+
     missing_products_in_legislation = set(expenditures.prod_id.unique()).difference(
         set(consumption_items.prod_id.unique()))
     if missing_products_in_legislation:
@@ -58,14 +72,15 @@ def load_expenditures(country):
                 .drop_duplicates()
                 )
             ))
+
     missing_products_in_expenditures = set(consumption_items.prod_id.unique()).difference(
         set(expenditures.prod_id.unique()))
     if missing_products_in_expenditures:
-        log.info("Missing product in legislation: \n {}".format(
+        log.info("Missing product in expenditures: \n {}".format(
             (
                 expenditures
                 .reset_index()
-                .query("prod_id in @missing_products_in_legislation")
+                .query("prod_id in @missing_products_in_expenditures")
                 .filter(items = [
                     'label', 'prod_id'
                     ])

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 from openfisca_core.model_api import *
 from openfisca_ceq.entities import *
 
@@ -71,7 +68,7 @@ class final_income(Variable):
 
 class gifts_sales_durables(Variable):
     value_type = float
-    entity = Household
+    entity = Person
     definition_period = YEAR
     label = "Gifts, proceeds from sale of durables"
 
@@ -111,11 +108,11 @@ class market_income(Variable):
 
     def formula(household, period):
         all_income_excluding_transfers = household('all_income_excluding_transfers', period)
-        gifts_sales_durables = household('gifts_sales_durables', period)
+        gifts_sales_durables = household.sum(household.members('gifts_sales_durables', period))
         alimony = household('alimony', period)
         autoconsumption = household('autoconsumption', period)
         imputed_rent = household('imputed_rent', period)
-        other_income = household('other_income', period)
+        other_income = household.sum(household.members('other_income', period))
 
         market_income = (
             all_income_excluding_transfers
@@ -169,7 +166,7 @@ class net_market_income(Variable):
 
 class other_income(Variable):
     value_type = float
-    entity = Household
+    entity = Person
     definition_period = YEAR
     label = "Other sources of income"
 

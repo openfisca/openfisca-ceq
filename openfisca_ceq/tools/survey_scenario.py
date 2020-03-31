@@ -2,12 +2,14 @@ import logging
 import pandas as pd
 
 from openfisca_core import periods
+
 from openfisca_survey_manager.scenarios import AbstractSurveyScenario
 from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
 from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import (
     add_coicop_item_to_tax_benefit_system)
 from openfisca_ceq.tools.data.expenditures_loader import load_expenditures
 from openfisca_ceq.tools.data.income_loader import build_income_dataframes
+from openfisca_ceq.tools.data.income_targets import read_income_target
 from openfisca_ceq.tools.data_ceq_correspondence import (
     ceq_input_by_harmonized_variable,
     ceq_intermediate_by_harmonized_variable,
@@ -78,34 +80,105 @@ class CEQSurveyScenario(AbstractSurveyScenario):
             self.used_as_input_variables = list(
                 set(tax_benefit_system.variables.keys()).intersection(
                     set(input_data_frame.columns)
-                    ))
+                    )
+                )
 
         self.init_from_data(data = data, use_marginal_tax_rate = use_marginal_tax_rate)
+
+    def inflate_variables_sum_to_target(self, income_variables, target, period):
+        for income_variable in income_variables:
+            assert income_variable in self.tax_benefit_system.variables
+
+        aggregate = sum(
+            self.compute_aggregate(income_variable, period = period)
+            for income_variable in income_variables
+            )
+        inflator = target / aggregate
+        inflator_by_variable = dict(
+            (income_variable, inflator)
+            for income_variable in income_variables
+            )
+        self.inflate(inflator_by_variable = inflator_by_variable, period = period)
 
 
 def build_ceq_data(country, year = None):
     household_expenditures = load_expenditures(country)
-    person, household = build_income_dataframes(country)
+    person, household_income = build_income_dataframes(country)
 
     households_missing_in_income = set(household_expenditures.hh_id).difference(
-        set(household.hh_id))
+        set(household_income.hh_id))
     if households_missing_in_income:
-        log.info("Households missing in income: \n {}".format(households_missing_in_income))
-    households_missing_in_expenditures = set(household.hh_id).difference(set(household_expenditures.hh_id))
+        log.debug("Households missing in income: \n {}".format(households_missing_in_income))
+    households_missing_in_expenditures = set(household_income.hh_id).difference(set(household_expenditures.hh_id))
     if households_missing_in_expenditures:
-        log.info("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
+        log.debug("Households missing in expenditures: \n {}".format(households_missing_in_expenditures))
 
-    if country == "senegal":
-        log.info("Sénégal: we keep only household from income")
-        household = household.merge(household_expenditures, on = "hh_id", how = "left")
-
-    if country == "mali":
-        # Mali: manque 165 ménages
-        pass
+    household = household_income.merge(household_expenditures, on = "hh_id", how = "left")
+    log.info(
+        "{}: keeping only {} households from income data but {} are present in expenditures data".format(
+            country, len(household_income.hh_id.unique()), len(household_expenditures.hh_id.unique())
+            )
+        )
 
     person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)
-    person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
-    assert (person.household_role_index == 0).sum()
+    if person.household_role_index.dtype.name == 'category':
+        if country == "mali":
+            log.info("{}: there are {} NaN household_role_index".format(
+                country,
+                person.household_role_index.isnull().sum(),
+                ))
+            person = person.loc[person.household_role_index.notnull()].copy()
+
+        assert person.household_role_index.notnull().all()
+        person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
+
+        if country == "mali":
+            person.loc[
+                (person.hh_id == "098105") & (person.household_role_index == 0),
+                "household_role_index"
+                ] = (0, 1)
+
+        one_personne_de_reference = (person
+            .query("household_role_index == 0")
+            .groupby("hh_id")['household_role_index']
+            .count() == 1)
+
+        problematic_hh_id = one_personne_de_reference.loc[~one_personne_de_reference].index.tolist()
+        assert one_personne_de_reference.all(), "Problem with households: {}".format(
+            person.loc[person.hh_id.isin(problematic_hh_id), ["household_role_index", "hh_id"]]
+            )
+
+        if country == "mali":
+            hh_id_with_missing_personne_de_reference = set(household.hh_id).difference(
+                set(
+                    person.loc[person.household_role_index == 0, 'hh_id'].unique()
+                    )
+                )
+            person = person.loc[~person.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
+            household = household.loc[~household.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
+
+    else:
+        assert person.household_role_index.min() == 1
+        person.household_role_index = (person.household_role_index - 1).clip(0, 3).astype(int)
+
+    assert (person.household_role_index == 0).sum() == len(household), (
+        "Only {} personne de reference for {} households".format(
+            (person.household_role_index == 0).sum(), len(household)),
+        "Household without personne de reference are: {}".format(
+            set(household.hh_id).difference(
+                set(
+                    person.loc[person.household_role_index == 0, 'hh_id'].unique()
+                    )
+                )
+            )
+        )
+
+    assert (person.household_role_index == 0).sum() == len(person.hh_id.unique()), (
+        "Only {} personne de reference for {} unique households IDs".format(
+            (person.household_role_index == 0).sum(), len(person.hh_id.unique())
+            )
+
+        )
 
     model_by_data_weight_variable = {v: k for k, v in data_by_model_weight_variable.items()}
 
@@ -124,11 +197,17 @@ def build_ceq_data(country, year = None):
     household.rename(columns = model_variable_by_person_variable, inplace = True)
     person.rename(columns = model_variable_by_person_variable, inplace = True)
 
-    assert person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
-        categories = ['Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
-        ordered = True)
-    person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
+    if pd.api.types.is_numeric_dtype(person.eleve_enseignement_niveau):
+        person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.fillna(0).astype(int) - 1
 
+    elif person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
+            categories = [
+                'Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
+            ordered = True
+            ):  # senegal and mali
+        person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
+
+    assert set(person.eleve_enseignement_niveau.unique()) == set(range(-1, 4))
     assert 'person_weight' in person
     assert 'household_weight' in household
     person.person_id = (person.person_id.rank() - 1).astype(int)
@@ -140,7 +219,9 @@ def build_ceq_data(country, year = None):
     return data
 
 
-def build_ceq_survey_scenario(legislation_country, year = None, data_country = None):
+def build_ceq_survey_scenario(legislation_country, year = None, data_country = None,
+        income_variables = [], inflate = False):
+
     if data_country is None:
         data_country = legislation_country
 
@@ -150,10 +231,22 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
 
     data = build_ceq_data(data_country, year)
+
     scenario = CEQSurveyScenario(
         tax_benefit_system = tax_benefit_system,
         year = year,
         data = data,
+        )
+
+    if not inflate:
+        return scenario
+
+    assert income_variables
+    target = read_income_target(data_country)
+    scenario.inflate_variables_sum_to_target(
+        target = target,
+        income_variables = income_variables,
+        period = year
         )
 
     return scenario

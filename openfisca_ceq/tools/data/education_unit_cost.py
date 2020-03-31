@@ -54,6 +54,7 @@ def build_unit_cost_by_category_by_country():
             }
 
         for variable_name, harmonized_key in harmonized_key_by_variable_name.items():
+            unit_cost_by_category[variable_name] = 0
             if harmonized_key in unit_cost_by_category:
                 unit_cost_by_category[variable_name] = unit_cost_by_category.pop(harmonized_key)
 
