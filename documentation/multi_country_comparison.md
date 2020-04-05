@@ -4,7 +4,7 @@
 
 L'objectif poursuivi est la comparaison des différents systèmes socio-fiscaux de la Côte d'Ivorie, du Mali et du Sénégal. Il s'agira d'appliquer chaque systèmes à chacun pays et d'en mesurer l'impact selon différentes dimensions.
 
-Afin d'avoir des résultats comparables, l'analyse se fera dans la cadre des concepts du [CEQ](../ceq.md).
+Afin d'avoir des résultats comparables, l'analyse se fera dans la cadre des concepts du [CEQ](../documentation/ceq.md).
 
 Afin de pouvoir réaliser des simulations s'appuyant sur les données d'enquête disponibles pour les différents pays avec tous les systèmes sociaux-fiscaux, il est nécessaire de disposer de données homogénéisées qui respectent autant que possible les traitements différenciés des revenus par l'ensemble des systèmes socio-fiscaux.
 
