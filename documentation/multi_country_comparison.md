@@ -18,7 +18,7 @@ Les données d'enquête brutes sont utilisées pour construire des variables de 
 
 Les variables d'entrée communes retenues pour les modèles des différents pays sont les suivantes:
 
-| Harmonized_variable          | Model variable              |
+| Nom harmonisé dans la table d'entrée | Nom dans le modèle  |
 |:-----------------------------|:----------------------------|
 | cov_i_cadre                  | cadre                       |
 | cov_i_classe_frequente       | eleve_enseignement_niveau   |
