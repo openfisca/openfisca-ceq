@@ -52,6 +52,20 @@ unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
 MALI_PART_INFORMEL_NON_SALARIE = 1.0
 
 
+class cadre(Variable):
+    value_type = bool
+    entity = entities.Person
+    definition_period = YEAR
+    label = "L'individu est un cadre salarié"
+
+
+class public(Variable):
+    value_type = bool
+    entity = entities.Person
+    definition_period = YEAR
+    label = "L'individu est un salarié du secteur public"
+
+
 class revenu_non_salarie_total(Variable):
     value_type = float
     entity = entities.Person
@@ -154,6 +168,11 @@ def add_ceq_framework(country_tax_benefit_system):
         country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
 
     country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
+
+    country_tax_benefit_system.add_variable(cadre)
+    country_tax_benefit_system.add_variable(public)
+
+
 
     return country_tax_benefit_system
 

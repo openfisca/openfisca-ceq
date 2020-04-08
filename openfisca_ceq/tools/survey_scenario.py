@@ -177,7 +177,6 @@ def build_ceq_data(country, year = None):
         "Only {} personne de reference for {} unique households IDs".format(
             (person.household_role_index == 0).sum(), len(person.hh_id.unique())
             )
-
         )
 
     model_by_data_weight_variable = {v: k for k, v in data_by_model_weight_variable.items()}

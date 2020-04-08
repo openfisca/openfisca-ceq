@@ -1,5 +1,6 @@
+import pandas as pd
 from openfisca_core.model_api import Variable, YEAR
-from openfisca_ceq.entities import Household
+from openfisca_ceq.entities import Household, Person
 
 
 # Conversion depuis les variables listées dans openfisca-ceq/documentation/description_donnees_input.md
@@ -71,9 +72,12 @@ assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
         )
 
 other_model_by_harmonized_person_variable = {
+    "cov_i_cadre": "cadre",
     "cov_i_classe_frequente": "eleve_enseignement_niveau",
+    "cov_i_secteur_publique_prive": "secteur_public",
     "cov_i_type_ecole": "eleve_enseignement_public",
     }
+
 
 person_variables = list(
     initial_revenues_source
@@ -119,6 +123,16 @@ class all_income_excluding_transfers(Variable):
             )
 
 
+class customs_duties(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Customs Duties"
+
+    def formula(household, period):
+        return household('droits_douane', period)
+
+
 class employee_contributions_health(Variable):
     def formula(household, period):
         return household.sum(household.members("sante_salarie", period))
@@ -147,16 +161,6 @@ class employer_other_contributions(Variable):
             )
 
 
-class indirect_taxes(Variable):
-    value_type = float
-    entity = Household
-    definition_period = YEAR
-    label = "Indirect taxes"
-
-    def formula(household, period):
-        return household('impots_indirects', period)
-
-
 class nontaxable_income(Variable):
     value_type = float
     entity = Household
@@ -165,7 +169,7 @@ class nontaxable_income(Variable):
 
     def formula(household, period):
         income_variables = [
-            "revenu_informel_agricole",  # A construire
+            # "revenu_informel_agricole",  # A construire remplacé par
             "revenu_informel_non_salarie",
             "revenu_informel_salarie",
             # TODO
@@ -188,13 +192,65 @@ class pensions(Variable):
         return household.sum(household.members("pension_retraite", period))
 
 
+class personal_income_tax(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Personal Income Tax"
+
+    def formula(household, period):
+        return household("impot_revenu", period)
+
+
+class value_added_tax(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = " Value added tax (VAT)"
+
+    def formula(household, period):
+        return household('tva', period)
+
+
 multi_country_custom_ceq_variables = [
     all_income_excluding_transfers,
+    customs_duties,
     employee_contributions_pensions,
     employer_contributions_health,
     employer_contributions_pensions,
     employer_other_contributions,
-    indirect_taxes,
     nontaxable_income,
     pensions,
+    personal_income_tax,
+    value_added_tax,
     ]
+
+
+def build_markdow_correspondance_table():
+    model_by_harmonized_variable = dict()
+    for updates in [
+        model_by_data_id_variable,
+        model_by_data_role_index_variable,
+        ceq_input_by_harmonized_variable,
+        ceq_intermediate_by_harmonized_variable,
+        non_ceq_input_by_harmonized_variable,
+        other_model_by_harmonized_person_variable,
+            ]:
+
+        model_by_harmonized_variable.update(updates)
+
+    df = (
+        pd.DataFrame.from_dict(
+            model_by_harmonized_variable,
+            orient = 'index',
+            columns = ["Model variable"],
+            )
+        .sort_index()
+        )
+    df.index.rename("Harmonized variable", inplace = True)
+
+    print(df.to_markdown())
+
+
+if __name__ == "__main__":
+    build_markdow_correspondance_table()
