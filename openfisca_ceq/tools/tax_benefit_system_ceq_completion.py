@@ -172,8 +172,6 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.add_variable(cadre)
     country_tax_benefit_system.add_variable(public)
 
-
-
     return country_tax_benefit_system
 
 

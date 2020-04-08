@@ -1,6 +1,6 @@
 import pandas as pd
 from openfisca_core.model_api import Variable, YEAR
-from openfisca_ceq.entities import Household, Person
+from openfisca_ceq.entities import Household
 
 
 # Conversion depuis les variables listées dans openfisca-ceq/documentation/description_donnees_input.md
@@ -248,8 +248,7 @@ def build_markdow_correspondance_table():
         .sort_index()
         )
     df.index.rename("Harmonized variable", inplace = True)
-
-    print(df.to_markdown())
+    print(df.to_markdown())  # noqa
 
 
 if __name__ == "__main__":
