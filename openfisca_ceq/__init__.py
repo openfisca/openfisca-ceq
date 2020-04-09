@@ -14,6 +14,9 @@ from . import entities
 log = logging.getLogger(__name__)
 
 
+COUNTRY_DIR = path.dirname(path.abspath(__file__))
+
+
 def add_variables_from_file(self, file_path, ignored_variables = None, replaced_variables = None,
         updated_variables = None):
     """
@@ -63,11 +66,41 @@ def add_variables_from_directory(self, directory, ignored_variables = None, repl
         self.add_variables_from_directory(subdirectory, ignored_variables, replaced_variables, updated_variables)
 
 
+def list_variables_from_file(self, file_path):
+    file_name = path.splitext(path.basename(file_path))[0]
+
+    #  As Python remembers loaded modules by name, in order to prevent collisions, we need to make sure that:
+    #  - Files with the same name, but located in different directories, have a different module names. Hence the file path hash in the module name.
+    #  - The same file, loaded by different tax and benefit systems, has distinct module names. Hence the `id(self)` in the module name.
+    module_name = '{}_{}_{}'.format(id(self), hash(path.abspath(file_path)), file_name)
+
+    module_directory = path.dirname(file_path)
+    try:
+        module = load_module(module_name, *find_module(file_name, [module_directory]))
+    except NameError as e:
+        logging.error(str(e) + ": if this code used to work, this error might be due to a major change in OpenFisca-Core. Checkout the changelog to learn more: <https://github.com/openfisca/openfisca-core/blob/master/CHANGELOG.md>")
+        raise
+    verified_variables = list()
+    potential_variables = [getattr(module, item) for item in dir(module) if not item.startswith('__')]
+    for pot_variable in potential_variables:
+        # We only want to get the module classes defined in this module (not imported)
+        if isclass(pot_variable) and issubclass(pot_variable, Variable) and pot_variable.__module__ == module_name:
+            verified_variables.append(pot_variable.__name__)
+
+    return verified_variables
+
+
+def list_variables_from_directory(self, directory = path.join(COUNTRY_DIR, 'variables')):
+    variables = list()
+    py_files = glob.glob(path.join(directory, "*.py"))
+    for py_file in py_files:
+        variables += list_variables_from_file(self, file_path = py_file)
+
+    return variables
+
+
 TaxBenefitSystem.add_variables_from_directory = add_variables_from_directory
 TaxBenefitSystem.add_variables_from_file = add_variables_from_file
-
-
-COUNTRY_DIR = path.dirname(path.abspath(__file__))
 
 
 class CountryTaxBenefitSystem(TaxBenefitSystem):

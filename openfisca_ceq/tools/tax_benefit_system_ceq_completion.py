@@ -52,6 +52,22 @@ unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
 MALI_PART_INFORMEL_NON_SALARIE = 1.0
 
 
+class cadre(Variable):
+    value_type = bool
+    entity = entities.Person
+    definition_period = YEAR
+    label = "L'individu est un cadre salarié"
+
+
+class categorie_cgu(Variable):
+    # [CGU comm/prod A < CGU comm/prod B < CGU service] -> 0, 1 ,2
+    # NaNs are -1
+    value_type = int
+    entity = entities.Person
+    definition_period = YEAR
+    label = "L'individu est dans la catgeorie CGU"
+
+
 class revenu_non_salarie_total(Variable):
     value_type = float
     entity = entities.Person
@@ -60,6 +76,13 @@ class revenu_non_salarie_total(Variable):
 
     def formula(person, period):
         return person('revenu_informel_non_salarie', period) + person('revenu_non_salarie', period)
+
+
+class secteur_public(Variable):
+    value_type = bool
+    entity = entities.Person
+    definition_period = YEAR
+    label = "L'individu est un salarié du secteur public"
 
 
 # Reform
@@ -154,6 +177,10 @@ def add_ceq_framework(country_tax_benefit_system):
         country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
 
     country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
+
+    country_tax_benefit_system.add_variable(cadre)
+    country_tax_benefit_system.add_variable(categorie_cgu)
+    country_tax_benefit_system.add_variable(secteur_public)
 
     return country_tax_benefit_system
 
