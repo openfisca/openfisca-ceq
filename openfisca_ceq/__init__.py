@@ -103,8 +103,6 @@ TaxBenefitSystem.add_variables_from_directory = add_variables_from_directory
 TaxBenefitSystem.add_variables_from_file = add_variables_from_file
 
 
-
-
 class CountryTaxBenefitSystem(TaxBenefitSystem):
 
     def __init__(self):

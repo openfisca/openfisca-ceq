@@ -209,7 +209,7 @@ def build_ceq_data(country, year = None):
 
     # NaNs from categories are codeed as -1
 
-    # TODO remove me was needed for cote_d_ivoire.
+    # TODO REMOVE ME this was needed for cote_d_ivoire.
     # if pd.api.types.is_numeric_dtype(person.secteur_public.dtype):
     #     person.secteur_public = person.secteur_public.fillna(0).astype(int)
     # else:
