@@ -129,7 +129,6 @@ def build_income_dataframes(country):
         ))
     assert len(dataframe_by_entity["person"]) == dataframe_by_entity["person"].pers_id.nunique()
     assert len(dataframe_by_entity["household"]) == dataframe_by_entity["person"].hh_id.nunique()
-
     return dataframe_by_entity["person"], dataframe_by_entity["household"]
 
 

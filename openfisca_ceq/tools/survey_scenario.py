@@ -198,6 +198,7 @@ def build_ceq_data(country, year = None):
 
     if pd.api.types.is_numeric_dtype(person.eleve_enseignement_niveau):
         person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.fillna(0).astype(int) - 1
+        # cote_d_ivorie
 
     elif person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
             categories = [
@@ -205,6 +206,22 @@ def build_ceq_data(country, year = None):
             ordered = True
             ):  # senegal and mali
         person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
+
+    # NaNs from categories are codeed as -1
+
+    # TODO remove me was needed for cote_d_ivoire.
+    # if pd.api.types.is_numeric_dtype(person.secteur_public.dtype):
+    #     person.secteur_public = person.secteur_public.fillna(0).astype(int)
+    # else:
+    person.secteur_public = person.secteur_public.cat.codes > 0  # bool
+
+    person.categorie_cgu = person.categorie_cgu.cat.codes  # int
+    # [CGU comm/prod A < CGU comm/prod B < CGU service]  -> [0, 1, 2]
+    # NaNs are -1
+    assert person.categorie_cgu.isin(range(-1, 2 + 1)).all(), \
+        "Invalie value for categorie_cgu: {}".format(
+            set(person.categorie_cgu.unique()).difference(set(range(-1, 3 + 1)))
+            )
 
     assert set(person.eleve_enseignement_niveau.unique()) == set(range(-1, 4))
     assert 'person_weight' in person

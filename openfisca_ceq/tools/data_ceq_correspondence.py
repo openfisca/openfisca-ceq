@@ -72,6 +72,7 @@ assert initial_revenues_source == (set(ceq_input_by_harmonized_variable.keys())
         )
 
 other_model_by_harmonized_person_variable = {
+    "cov_i_categorie_CGU": "categorie_cgu",
     "cov_i_cadre": "cadre",
     "cov_i_classe_frequente": "eleve_enseignement_niveau",
     "cov_i_secteur_publique_prive": "secteur_public",
