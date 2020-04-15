@@ -228,7 +228,10 @@ def depenses_ht_hd_postes_function_creator(
             assert imported_share is not None
             tariff_rate = impots_indirects.droits_douane[tariff]
             assert 1 >= tariff_rate >= 0
-            return depenses_ht * (1 - imported_share * tariff_rate)
+            # depenses_ht = depenses_ht_hd * (1 - imported_share) + depenses_ht_hd * imported_share * (1 + tariff_rate)
+            return (
+                depenses_ht / (1 + imported_share * tariff_rate)
+                )
         else:
             return depenses_ht
 
@@ -275,7 +278,8 @@ def depenses_ht_hd_sd_postes_function_creator(
             assert imported_share is not None
             tariff_rate = impots_indirects.droits_douane[tariff]
             assert 1 >= tariff_rate >= 0
-            return depenses_ht * imported_share / (1 + tariff_rate)
+            # depenses_ht_hd_sd = imported_share * depenses_ht_hd = imported_share * depenses_ht / (1 + imported_share * tariff_rate)
+            return depenses_ht * imported_share / (1 + imported_share * tariff_rate)
         else:
             return depenses_ht
 

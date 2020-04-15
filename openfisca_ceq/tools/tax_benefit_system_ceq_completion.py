@@ -60,12 +60,14 @@ class cadre(Variable):
 
 
 class categorie_cgu(Variable):
+    # prod A: revendeurs de ciments et de denrées alimentaires
+    # prod B: autres commerçants ou revendeurs (CGU )
     # [CGU comm/prod A < CGU comm/prod B < CGU service] -> 0, 1 ,2
     # NaNs are -1
     value_type = int
     entity = entities.Person
     definition_period = YEAR
-    label = "L'individu est dans la catgeorie CGU"
+    label = "Index de la catgeorie CGU de l'individu"
 
 
 class revenu_non_salarie_total(Variable):
@@ -179,7 +181,12 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
 
     country_tax_benefit_system.add_variable(cadre)
-    country_tax_benefit_system.add_variable(categorie_cgu)
+
+    if "categorie_cgu" in country_tax_benefit_system.variables:
+        country_tax_benefit_system.replace_variable(categorie_cgu)
+    else:
+        country_tax_benefit_system.add_variable(categorie_cgu)
+
     country_tax_benefit_system.add_variable(secteur_public)
 
     return country_tax_benefit_system
