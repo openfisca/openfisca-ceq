@@ -1,0 +1,3 @@
+git+https://github.com/openfisca/openfisca-senegal.git@ceq#egg=OpenFisca-Senegal
+git+https://github.com/openfisca/openfisca-mali.git@master#egg=OpenFisca-Mali
+git+https://github.com/openfisca/openfisca-cote-d-ivoire.git@master#egg=OpenFisca-COTE-D-IVOIRE
