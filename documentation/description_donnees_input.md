@@ -266,6 +266,12 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Formel 	| 1 	|
 | Informel 	| 0 	|
 
+| cov_i_secteur_calage 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| agriculture 	| 1 	|
+| industrie 	| 2 	|
+| service 	| 3 	|
 
 | cov_i_secteur_publique_prive 	|  	|
 |-------------------------------	|------	|
@@ -602,8 +608,13 @@ la variable consommation est la somme de toutes ces variables :
 | Nom de la variable            | Valeurs possibles                                   | Explications - Sources                                                                                                                                                            |
 |-------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | cov_i_secteur_formel_informel | 1 / 0                                               | Sont considérés comme formels ceux qui déclarent côtiser à la caisse nationale de prévoyance sociale (eb12c) - informels tous les autres individus ayant une acctivité principale |
+
 | cov_i_public_prive            | 1 / 0                                               | Variable définie à partir de l'activité principale (eb3b) - seulement pour le secteur formel                                                                                      |
+
 | cov_i_secteur_activite        | formel / agricoles / independant / autres informels | Variable définie à partir de l'activité principale (eb3b)                                                                                                                         |
+
+| cov_i_secteur_calage        | 1/2/3 - agriculture / industrie / service | Variable définie à partir de l'activité principale (eb3b), le lieu de travail (eb4) et la branche d'activité (eb2a_nombranchactiv)                                                                                                                        |
+
 | cov_i_classe_frequente        | 1/2/3/4 - Maternelle/Primaire/Secondaire/Supérieur  | Classe frequentée lors de l'enquête (dq14)                                                                                                                                        |
 | cov_i_type_ecole              | 1/0 - publique/privée                               | Qualité de l'établissement fréquenté lors de l'enquête  (dq15)                                                                                                                    |
 | cov_i_sexe                    | 1/2 - Masculin/Féminin                              | a1                                                                                                                                                                                |
@@ -797,6 +808,13 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Libelle 	| Code 	|
 | Formel 	| 1 	|
 | Informel 	| 0 	|
+
+| cov_i_secteur_calage 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| agriculture 	| 1 	|
+| industrie 	| 2 	|
+| service 	| 3 	|
 
 | cov_i_sexe 	|  	|
 |-----------------------------------	|------	|
