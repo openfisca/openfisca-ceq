@@ -227,7 +227,7 @@ multi_country_custom_ceq_variables = [
     ]
 
 
-def build_markdow_correspondance_table():
+def build_markdown_correspondance_table():
     model_by_harmonized_variable = dict()
     for updates in [
         model_by_data_id_variable,
@@ -253,4 +253,4 @@ def build_markdow_correspondance_table():
 
 
 if __name__ == "__main__":
-    build_markdow_correspondance_table()
+    build_markdown_correspondance_table()
