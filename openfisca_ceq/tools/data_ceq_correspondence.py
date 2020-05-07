@@ -108,12 +108,12 @@ class all_income_excluding_transfers(Variable):
 
     def formula(household, period):
         income_variables = [
-            "autres_revenus_du_capital",
+            "autres_revenus_du_capital_brut",
             "revenu_agricole",
             "revenu_informel_non_salarie",
             "revenu_informel_salarie",
-            "revenu_locatif",
-            "revenu_non_salarie",
+            "revenu_foncier_brut",
+            "revenu_non_salarie_brut",
             "salaire_super_brut",
             ]
         return household.sum(
@@ -190,7 +190,7 @@ class pensions(Variable):
     label = "Old-age contributory pensions"
 
     def formula(household, period):
-        return household.sum(household.members("pension_retraite", period))
+        return household.sum(household.members("pension_retraite_brut", period))
 
 
 class personal_income_tax(Variable):
