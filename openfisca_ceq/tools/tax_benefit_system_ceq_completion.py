@@ -70,6 +70,16 @@ class categorie_cgu(Variable):
     label = "Index de la catgeorie CGU de l'individu"
 
 
+class number_of_people_per_household(Variable):
+    value_type = int
+    entity = entities.Household
+    definition_period = YEAR
+    label = "Nombre d'individus par ménage"
+
+    def formula(household, period):
+        return household.nb_persons()
+
+
 class revenu_non_salarie_total(Variable):
     value_type = float
     entity = entities.Person
@@ -179,7 +189,6 @@ def add_ceq_framework(country_tax_benefit_system):
         country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
 
     country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
-
     country_tax_benefit_system.add_variable(cadre)
 
     if "categorie_cgu" in country_tax_benefit_system.variables:
@@ -188,6 +197,7 @@ def add_ceq_framework(country_tax_benefit_system):
         country_tax_benefit_system.add_variable(categorie_cgu)
 
     country_tax_benefit_system.add_variable(secteur_public)
+    country_tax_benefit_system.add_variable(number_of_people_per_household)
 
     return country_tax_benefit_system
 

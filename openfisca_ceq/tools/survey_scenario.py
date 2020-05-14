@@ -1,5 +1,6 @@
 import logging
 import pandas as pd
+from scipy.optimize import fsolve
 
 from openfisca_core import periods
 
@@ -9,7 +10,7 @@ from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_
     add_coicop_item_to_tax_benefit_system)
 from openfisca_ceq.tools.data.expenditures_loader import load_expenditures
 from openfisca_ceq.tools.data.income_loader import build_income_dataframes
-from openfisca_ceq.tools.data.income_targets import read_income_target
+from openfisca_ceq.tools.data.income_targets import read_target
 from openfisca_ceq.tools.data_ceq_correspondence import (
     ceq_input_by_harmonized_variable,
     ceq_intermediate_by_harmonized_variable,
@@ -85,20 +86,60 @@ class CEQSurveyScenario(AbstractSurveyScenario):
 
         self.init_from_data(data = data, use_marginal_tax_rate = use_marginal_tax_rate)
 
-    def inflate_variables_sum_to_target(self, income_variables, target, period):
+    def inflate_variables_sum_to_target(self, income_variables, target, period,
+            target_variable_by_input_variable = dict()):
+
         for income_variable in income_variables:
             assert income_variable in self.tax_benefit_system.variables
 
-        aggregate = sum(
-            self.compute_aggregate(income_variable, period = period)
+        aggregate_by_variable = dict(
+            (income_variable, self.compute_aggregate(income_variable, period = period))
             for income_variable in income_variables
             )
-        inflator = target / aggregate
-        inflator_by_variable = dict(
-            (income_variable, inflator)
+        total = sum(aggregate_by_variable.values())
+        share_by_variable = dict(
+            (income_variable, aggregate_by_variable[income_variable] / total)
             for income_variable in income_variables
             )
-        self.inflate(inflator_by_variable = inflator_by_variable, period = period)
+
+        for input_variable, income_variable in target_variable_by_input_variable.items():
+            self.reach_target(
+                income_variable,
+                share_by_variable[income_variable] * target,
+                input_variable,
+                period
+                )
+
+        target_by_variable = dict(
+            (income_variable, share_by_variable[income_variable] * target)
+            for income_variable in income_variables
+            if income_variable not in target_variable_by_input_variable.values()
+            )
+        self.inflate(target_by_variable = target_by_variable, period = period)
+
+        return share_by_variable, target_by_variable
+
+    def reach_target(self, variable, target, input_variable, period, inflator_first_guess = 1.1):
+        initial_input_array = self.simulation.calculate_add(input_variable, period = period)
+
+        def compute_error(inflator):
+            input_array = inflator * initial_input_array
+            self.simulation.delete_arrays(variable, period = period)  # delete existing arrays
+            self.simulation.delete_arrays(input_variable, period = period)  # delete existing arrays
+            self.simulation.set_input(input_variable, period, input_array)  # insert inflated array
+
+            aggregate = self.compute_aggregate(variable, period = period)
+            error = aggregate - target
+            return error
+
+        result = fsolve(compute_error, inflator_first_guess)
+
+        log.info("Inflate {} by {} to have aggregate of {} == {}".format(
+            input_variable, result, variable, target
+            ))
+        self.simulation.delete_arrays(variable, period = period)
+        self.simulation.delete_arrays(input_variable, period = period)
+        self.simulation.set_input(input_variable, period, result * initial_input_array)
 
 
 def build_ceq_data(country, year = None):
@@ -258,10 +299,11 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
         return scenario
 
     assert income_variables
-    target = read_income_target(data_country)
+    value_added_target = read_target(data_country, "value_added")
+    consumption_target = read_target(data_country, "consumption")
     scenario.inflate_variables_sum_to_target(
-        target = target,
-        income_variables = income_variables,
+        value_added_target = value_added_target,
+        consumption_target = consumption_target,
         period = year
         )
 
