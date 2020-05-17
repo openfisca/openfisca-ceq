@@ -18,6 +18,7 @@ setup(
         'matplotlib >=3.2.1,<4.0',
         'pandas >= 0.24.1',
         'python-slugify',
+        'scipy',
         'xlrd >= 1.0.0',
         'xlsxwriter',
         'xlwt >= 1.0.0',
