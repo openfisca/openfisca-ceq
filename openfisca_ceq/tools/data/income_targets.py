@@ -21,7 +21,7 @@ def read_target(country, variable):
     year = year_by_country[country]
     targets_file = config_parser.get("ceq", "targets_file")
 
-    target = (pd.read_excel(targets_file)
+    target = (pd.read_excel(targets_file, sheet_name = "calage")
         .query("iso == @code_country")
         .query("year == @year")
         .query("DESC_3 == @target_variable")
@@ -29,11 +29,11 @@ def read_target(country, variable):
         .copy()
         )
     assert len(target) == 1, target
-    target = target.values[0]
+    target = target.values[0] * 1e9
     del code_country, target_variable, year
     log.info("{} target for {} is {} Billion CFA".format(
-        variable, country, target))
-    return target * 1e9
+        variable, country, target / 1e9))
+    return target
 
 
 if __name__ == "__main__":

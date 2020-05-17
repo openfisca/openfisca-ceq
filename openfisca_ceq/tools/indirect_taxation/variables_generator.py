@@ -192,7 +192,7 @@ def generate_depenses_ht_postes_variables(tax_benefit_system, tax_name, tax_rate
 def depenses_ht_hd_postes_function_creator(
         poste_coicop, tax_rate, tariff = None, imported_share = None, year_start = None, null_rates = []
         ):
-    """Create a function for the pre-tax expense of a particular poste COICOP
+    """Create a function for the pre-tax pre-customs duties expense of a particular poste COICOP
 
     :param poste_coicop: Poste COICOP
     :type poste_coicop: str
@@ -213,6 +213,8 @@ def depenses_ht_hd_postes_function_creator(
     """
     # Almost identical to openfisca-france-indirect-taxation eponymous function
     assert tax_rate is not None
+    assert imported_share is None or isinstance(imported_share, float), \
+        "imported_share = {} should be None or a float".format(imported_share)
 
     def func(entity, period_arg, parameters, tax_rate = tax_rate, tariff = tariff, imported_share = imported_share):
         impots_indirects = parameters(period_arg.start).prelevements_obligatoires.impots_indirects

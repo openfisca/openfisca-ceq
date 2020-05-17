@@ -1,4 +1,5 @@
 import logging
+import numpy as np
 import pandas as pd
 from scipy.optimize import fsolve
 
@@ -40,7 +41,7 @@ class CEQSurveyScenario(AbstractSurveyScenario):
         household = 'household_weight',
         person = 'person_weight',
         )
-    legislation_coutry = None
+    legislation_country = None
     data_country = None
     varying_variable = None
 
@@ -86,35 +87,91 @@ class CEQSurveyScenario(AbstractSurveyScenario):
 
         self.init_from_data(data = data, use_marginal_tax_rate = use_marginal_tax_rate)
 
-    def inflate_variables_sum_to_target(self, income_variables, target, period,
+    def inflate_to_match_gross_valued_added_and_consumption(self):
+        country = self.data_country
+        gross_value_added_target = read_target(country, "gross_value_added")
+        consumption_target = read_target(country, "consumption")
+        income_variables = [
+            'autoconsumption',
+            'other_income',
+            'gifts_sales_durables',
+            'imputed_rent',
+            'revenu_agricole',
+            'autres_revenus_du_capital_brut',
+            'revenu_informel_non_salarie',
+            'revenu_non_salarie_brut',
+            'revenu_foncier_brut',
+            'pension_retraite_brut',
+            'salaire_super_brut',
+            ]
+
+        target_variable_by_input_variable = {
+            "salaire_brut": "salaire_super_brut"
+            }
+        self.inflate_variables_sum_to_target(
+            target_variables = income_variables,
+            target = gross_value_added_target,
+            period = self.year,
+            target_variable_by_input_variable = target_variable_by_input_variable
+            )
+        consumption_variables = [
+            _variable
+            for _variable in self.tax_benefit_system.variables
+            if _variable.startswith("poste_")
+            ]
+        self.inflate_variables_sum_to_target(
+            target_variables = consumption_variables,
+            target = consumption_target,
+            period = self.year,
+            )
+
+    def inflate_variables_sum_to_target(self, target_variables, target, period,
             target_variable_by_input_variable = dict()):
 
-        for income_variable in income_variables:
-            assert income_variable in self.tax_benefit_system.variables
+        for target_variable in target_variables:
+            assert target_variable in self.tax_benefit_system.variables
 
         aggregate_by_variable = dict(
-            (income_variable, self.compute_aggregate(income_variable, period = period))
-            for income_variable in income_variables
+            (
+                target_variable,
+                self.compute_aggregate(
+                    target_variable,
+                    period = period,
+                    missing_variable_default_value = 0,
+                    )
+                )
+            for target_variable in target_variables
             )
-        total = sum(aggregate_by_variable.values())
-        share_by_variable = dict(
-            (income_variable, aggregate_by_variable[income_variable] / total)
-            for income_variable in income_variables
-            )
+        for _variable, _aggregate in aggregate_by_variable.items():
+            if np.isnan(aggregate_by_variable[target_variable]):
+                aggregate_by_variable[target_variable] = 0
 
-        for input_variable, income_variable in target_variable_by_input_variable.items():
+        total = sum(aggregate_by_variable.values())
+        assert total != 0
+        share_by_variable = dict(
+            (target_variable, aggregate_by_variable[target_variable] / total)
+            for target_variable in target_variables
+            )
+        for _variable, share in share_by_variable.items():
+            assert not np.isnan(share), "NaN ({}) share for variable {}".format(share, _variable)
+
+        for input_variable, target_variable in target_variable_by_input_variable.items():
             self.reach_target(
-                income_variable,
-                share_by_variable[income_variable] * target,
+                target_variable,
+                share_by_variable[target_variable] * target,
                 input_variable,
                 period
                 )
 
         target_by_variable = dict(
-            (income_variable, share_by_variable[income_variable] * target)
-            for income_variable in income_variables
-            if income_variable not in target_variable_by_input_variable.values()
+            (target_variable, share_by_variable[target_variable] * target)
+            for target_variable in target_variables
+            if (
+                target_variable not in target_variable_by_input_variable.values()
+                and share_by_variable[target_variable] != 0
+                )
             )
+
         self.inflate(target_by_variable = target_by_variable, period = period)
 
         return share_by_variable, target_by_variable
@@ -295,17 +352,12 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
         data = data,
         )
 
+    scenario.legislation_country = legislation_country
+    scenario.data_country = data_country
     if not inflate:
         return scenario
 
-    assert income_variables
-    value_added_target = read_target(data_country, "value_added")
-    consumption_target = read_target(data_country, "consumption")
-    scenario.inflate_variables_sum_to_target(
-        value_added_target = value_added_target,
-        consumption_target = consumption_target,
-        period = year
-        )
+    scenario.inflate_to_match_gross_valued_added_and_consumption()
 
     return scenario
 

@@ -10,9 +10,9 @@ config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 
 
 year_by_country = {
-    'mali': 2014,
-    'senegal': 2011,
     'cote_d_ivoire': 2014,
+    'mali': 2011,
+    'senegal': 2011,
     }
 
 

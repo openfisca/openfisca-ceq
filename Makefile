@@ -52,6 +52,9 @@ notebook-senegal:
 	rm -f notebooks/senegal.ipynb
 	papermill -p country senegal notebooks/test.ipynb notebooks/senegal.ipynb
 
+notebook-results:
+	jupyter nbconvert --execute --to notebook --inplace notebooks/results.ipynb
+
 test: clean check-syntax-errors check-style
 	@# Launch tests from openfisca_ceq/tests directory (and not .) because TaxBenefitSystem must be initialized
 	@# before parsing source files containing formulas.

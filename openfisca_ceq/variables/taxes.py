@@ -1,3 +1,4 @@
+import numpy as np
 from openfisca_core.model_api import *
 from openfisca_ceq.entities import *
 
@@ -7,6 +8,7 @@ class corporate_income_tax(Variable):
     entity = Household
     definition_period = YEAR
     label = "Corporate Income Tax"
+    default_value = 0
 
 
 class customs_duties(Variable):

@@ -71,7 +71,7 @@ def build_label_by_code_coicop(country, additional_variables = None, new_code_co
     label_by_code_coicop = (label_by_code_coicop
         .set_index('deduplicated_code_coicop')
         )
-    return label_by_code_coicop
+    return label_by_code_coicop.copy()
 
 
 def build_complete_label_coicop_data_frame(country, file_path = None, deduplicate = True):
@@ -140,7 +140,7 @@ def build_tax_rate_by_code_coicop(country, tax_variables = None, fillna = dict()
         .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
         )
     assert "code_coicop" in label_by_code_coicop.columns
-    return label_by_code_coicop
+    return label_by_code_coicop.copy()
 
 
 def build_comparison_spreadsheet(countries, coicop_level = 3):

@@ -36,9 +36,9 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
     log.debug(tax_benefit_system.variables.keys())
     generate_postes_variables(tax_benefit_system, label_by_code_coicop)
     tax_variables = indirect_tax_by_country.get(country)
-    fillna = dict()
-    if 'droits_douane' in tax_variables:
+    if 'droits_douane' in tax_variables and "part_importation" not in tax_variables:
         tax_variables.append("part_importation")
+    if "part_importation" in tax_variables:
         fillna = {'part_importation': 0}
     tax_rate_by_code_coicop = build_tax_rate_by_code_coicop(country, tax_variables, fillna = fillna)
     tax_name = 'tva'
