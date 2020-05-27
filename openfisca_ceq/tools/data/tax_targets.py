@@ -82,7 +82,7 @@ def read_tax_target(country = None, add_country_details = False):
             continue
         survey_scenario = build_ceq_survey_scenario(legislation_country = country_, year = year)
         inflated_survey_scenario = build_ceq_survey_scenario(legislation_country = country_, year = year, inflate = True)
-        result = build_country_result(survey_scenario, inflated_survey_scenario)
+        result = build_country_result(survey_scenario, inflated_survey_scenario, add_country_details)
         results = result if results is None else pd.concat([results, result], axis = 1)
 
     return results.round(1)
