@@ -1,0 +1,66 @@
+# Tâches restant à accomplir pour obtenir les résultats des simulations
+
+## Compléter les systèmes sociaux-fiscaux.
+- Traitement fiscal de tous les revenus autres que salaires et pension (cotisations et barème), ie fonciers, capitaaux, BNC/BIC etc
+  - [x] Sénégal
+  - [ ] Mali: revoir ITS, autres revenus non disponibles
+  - [ ] Côte d'Ivoire:
+      autres_revenus_du_capital_brut
+      Voir avec Léo ITS, autre barème, et contribution nationale
+
+- Accises Dropbox (IRD)/Projet_Micro_Sim/data/sur_le_systeme_socio_fiscal/taux_implicite.xlsx
+
+- Autres impôts indirects
+  - Mali ISCP DONE, TAF (on oublie)
+  - Sénégal: taxe spécifiques DONE.
+  - Cote d'Ivoire: ?
+
+## Calage et donc inversion des revenus nets
+- Il faut les revenus bruts de _toutes_ les catégories de revenus donc il faut tous les inverser
+  - Sénégal:
+    - [x] salaire (abattement pour cotisation sociales ?)
+    - [x] pension
+    - [x] autres_revenus_du_capital
+    - [x] revenu_non_salarie
+  - Mali:
+    - [x] salaire
+    - [ ] revenu_agricole ?
+
+  - Cote d'Ivoire: ?
+    - [x] salaire
+    - [x] revenu_non_salarie
+    - [x] autres_revenus_du_capital
+    - revenu_agricole ?
+
+Calage:
+  - [x] Déterminer leur part dans le total pour les recaler
+  - [x] Spécificité des revenus salariaux dont il faut ajuster le brut pour atteindre une cible de superbrut
+
+Cibalge:
+
+## Dépenses publiques
+- Pour l'instant seulement l'éducation
+
+## Simulations croisées des systèmes sociaux-fiscaux
+- Normalement tous ces éléments devraient nous permettre de passer d'un système à un autre
+  sans trop de problèmes mais je suis sûr qu'on va rencontrer des problèmes qu'on n'a pas
+  anticipés.
+
+## Configuration et réalisation des exports
+- Bases
+- Autres résultats (graphes, tables)
+
+## Comparaison taxes
+
+- SEN:
+  - impot_revenus (= personal_income_tax)
+  - contribution_globale_fonciere
+  - contribution_globale_unique
+
+- MLI
+  - impot_traitement_salaire = impot_revenu (= personal_income_tax)
+
+- CIV
+  - impot_general_revenu = = impot_revenu (= personal_income_tax)
+    impot_revenu_creances
+    impot_revenu_foncier
