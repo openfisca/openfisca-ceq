@@ -91,7 +91,7 @@ class CEQSurveyScenario(AbstractSurveyScenario):
         country = self.data_country
         gross_value_added_target = read_target(country, "gross_value_added")
         consumption_target = read_target(country, "consumption")
-        income_variables = [
+        self.income_variables = income_variables = [
             'autoconsumption',
             'other_income',
             'gifts_sales_durables',
@@ -334,7 +334,7 @@ def build_ceq_data(country, year = None):
 
 
 def build_ceq_survey_scenario(legislation_country, year = None, data_country = None,
-        income_variables = [], inflate = False):
+        inflate = False):
 
     if data_country is None:
         data_country = legislation_country

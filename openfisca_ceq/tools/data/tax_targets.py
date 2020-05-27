@@ -28,26 +28,67 @@ variable_by_index = {
     }
 
 
-def build_simulated_results(survey_scenario, index):
+country_label_by_country = {
+    "mali": "Mali",
+    "senegal": "Senegal",
+    "cote_d_ivoire": "Cote d'Ivoire",
+    }
+
+detailed_taxes_by_country = {
+    "senegal": [
+        "contribution_globale_fonciere",
+        "contribution_globale_unique",
+        "droit_progressif_pension_retraite",
+        "droit_progressif_salaire",
+        "droit_progressif",
+        "droit_proportionnel_autres_revenus",
+        "droit_proportionnel_salaire",
+        "droit_proportionnel",
+        "impot_revenus",
+        ],
+    "mali": ["impot_traitement_salaire"],
+    "cote_d_ivoire": [
+        "impot_general_revenu",
+        "impot_revenu_creances",
+        "impot_revenu_foncier"
+        ],
+    }
+
+
+def build_simulated_results(survey_scenario, index, add_country_details = False):
     simulated_amounts = pd.Series(
         index = index,
+        dtype = float
         )
-    for index, variable in variable_by_index.items():
+    for index_, variable in variable_by_index.items():
         if variable in survey_scenario.tax_benefit_system.variables:
-            simulated_amounts[index] = (
+            simulated_amounts[index_] = (
                 survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9
                 )
+
+    if add_country_details:
+        for variable in detailed_taxes_by_country[survey_scenario.legislation_country]:
+            simulated_amounts[variable] = survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9
+
     return simulated_amounts
 
 
-def read_tax_target():
-    # code_country = country_code_by_country[country]
-    # year = year_by_country[country]
-    country_label_by_country = {
-        "mali": "Mali",
-        "senegal": "Senegal",
-        "cote_d_ivoire": "Cote d'Ivoire",
-        }
+def read_tax_target(country = None, add_country_details = False):
+
+    results = None
+
+    for country_, year in year_by_country.items():
+        if country and country != country_:
+            continue
+        survey_scenario = build_ceq_survey_scenario(legislation_country = country_, year = year)
+        inflated_survey_scenario = build_ceq_survey_scenario(legislation_country = country_, year = year, inflate = True)
+        result = build_country_result(survey_scenario, inflated_survey_scenario)
+        results = result if results is None else pd.concat([results, result], axis = 1)
+
+    return results.round(1)
+
+
+def build_country_result(survey_scenario, inflated_survey_scenario, add_country_details = False):
     targets_file = config_parser.get("ceq", "targets_file")
     target = pd.read_excel(
         targets_file,
@@ -56,26 +97,23 @@ def read_tax_target():
         index_col = 0,
         )
     extraction = target.xs('Millions FCFA', level=1, axis=1)
-    results = None
-    for country, year in year_by_country.items():
-        country_label = country_label_by_country[country]
-        result = pd.DataFrame(columns = pd.MultiIndex(
-            levels = [[country_label], ["actual", "direct", "inflated"]],
-            codes = [[0, 0, 0], [0, 1, 2]],
-            ))
-        result[country_label, "actual"] = extraction[country_label].copy()
+    country = survey_scenario.legislation_country
+    country_label = country_label_by_country[country]
+    result = pd.DataFrame(columns = pd.MultiIndex(
+        levels = [[country_label], ["actual", "direct", "inflated"]],
+        codes = [[0, 0, 0], [0, 1, 2]],
+        ))
+    result[country_label, "actual"] = extraction[country_label].copy()
 
-        survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
-        simulated_amounts = build_simulated_results(survey_scenario, result.index)
-        result[country_label, "direct"] = simulated_amounts
+    simulated_amounts = build_simulated_results(survey_scenario, result.index, add_country_details)
+    result = result.reindex(simulated_amounts.index)
+    result[country_label, "direct"] = simulated_amounts
 
-        survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year, inflate = True)
-        simulated_amounts = build_simulated_results(survey_scenario, result.index)
-        result[country_label, "inflated"] = simulated_amounts
+    simulated_amounts = build_simulated_results(inflated_survey_scenario, result.index, add_country_details)
+    result[country_label, "inflated"] = simulated_amounts
 
-        results = result if results is None else pd.concat([results, result], axis = 1)
+    return result
 
-    return results.round(1)
 
 if __name__ == '__main__':
-    read_tax_target()
+    print(read_tax_target())
