@@ -99,6 +99,7 @@ class CEQSurveyScenario(AbstractSurveyScenario):
             'revenu_agricole',
             'autres_revenus_du_capital_brut',
             'revenu_informel_non_salarie',
+            'revenu_informel_salarie',
             'revenu_non_salarie_brut',
             'revenu_foncier_brut',
             'pension_retraite_brut',
