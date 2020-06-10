@@ -2,9 +2,6 @@ from openfisca_core.model_api import *
 from openfisca_ceq.entities import *
 
 
-# This variable is a pure input: it doesn't have a formula
-
-
 class alimony(Variable):
     value_type = float
     entity = Household

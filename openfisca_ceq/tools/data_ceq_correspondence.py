@@ -75,8 +75,11 @@ other_model_by_harmonized_person_variable = {
     "cov_i_categorie_CGU": "categorie_cgu",
     "cov_i_cadre": "cadre",
     "cov_i_classe_frequente": "eleve_enseignement_niveau",
+    "cov_i_secteur_formel_informel": "secteur_formel",
+    "cov_i_secteur_activite": "secteur_activite",
     "cov_i_secteur_publique_prive": "secteur_public",
     "cov_i_type_ecole": "eleve_enseignement_public",
+    "cov_m_urbain_rural": "urbain",
     }
 
 

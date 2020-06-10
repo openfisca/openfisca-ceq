@@ -26,11 +26,12 @@ if __name__ == '__main__':
         non_ceq_input_by_harmonized_variable,
         )
 
-    country = "cote_d_ivoire"
+    country = "mali"
     year = year_by_country[country]
     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
     assert not survey_scenario.tax_benefit_system.variables['eleve_enseignement_niveau'].is_neutralized
 
+    BIM
     ceq_by_harmonized_variable = dict()
     ceq_by_harmonized_variable.update(ceq_input_by_harmonized_variable)
     ceq_by_harmonized_variable.update(ceq_intermediate_by_harmonized_variable)
