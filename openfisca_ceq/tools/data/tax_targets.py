@@ -6,6 +6,7 @@ from openfisca_ceq.tools.data import config_parser
 # from openfisca_ceq.tools.indirect_taxation.consumption_items_nomenclature import country_code_by_country
 from openfisca_ceq.tools.survey_scenario import build_ceq_survey_scenario
 from openfisca_ceq.tools.data import year_by_country
+from openfisca_ceq.tools.results.imports import compute_total_ht_imports
 
 
 log = logging.getLogger(__name__)
@@ -70,6 +71,8 @@ def build_simulated_results(survey_scenario, index, add_country_details = False)
         for variable in detailed_taxes_by_country[survey_scenario.legislation_country]:
             simulated_amounts[variable] = survey_scenario.compute_aggregate(variable, period = survey_scenario.year) / 1e9
 
+        simulated_amounts["total_ht_imports"] = compute_total_ht_imports(survey_scenario) / 1e9
+
     return simulated_amounts
 
 
@@ -112,7 +115,7 @@ def build_country_result(survey_scenario, inflated_survey_scenario, add_country_
     simulated_amounts = build_simulated_results(inflated_survey_scenario, result.index, add_country_details)
     result[country_label, "inflated"] = simulated_amounts
 
-    return result
+    return result.round(1)
 
 
 if __name__ == '__main__':

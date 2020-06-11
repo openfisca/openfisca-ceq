@@ -76,25 +76,26 @@ class labor_type(Variable):
     definition_period = YEAR
     label = "Activité de la personne de référence du ménage"
     # Formal public wage worker
-	# Formal private wage worker
-	# Informal wage worker
-	# Informal independent worker
-	# Agricultural worker
+    # Formal private wage worker
+    # Informal wage worker
+    # Informal independent worker
+    # Agricultural worker
+
 
     def formula(household, period):
         secteur_activite = household.sum(
-            household.members('secteur_activite', period) 
+            household.members('secteur_activite', period))
         # Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant
         secteur_public = household.head('secteur_public', period)
-        
+
         return select(
             [
                 (secteur_activite == 1) & secteur_public,  # Formal public wage worker
                 (secteur_activite == 1) & not_(secteur_public),  # Formal private wage worker
                 secteur_activite == 2,  # Informal wage worker
-	            secteur_activite == 3,  # Informal independent worker
-	            secteur_activite == 0,  # Agricultural worker
-                secteur_activite == -1,  # Inactif ?    
+                secteur_activite == 3,  # Informal independent worker
+                secteur_activite == 0,  # Agricultural worker
+                secteur_activite == -1,  # Inactif ?
                 ],
             [
                 0,
