@@ -242,8 +242,8 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_cadre 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Cadre 	| 1	|
-| Autre	| 2 	|
+| non-cadre 	| 1	|
+| cadre	| 2 	|
 
 | cov_i_categorie_CGU 	|  	|
 |-------------------------------	|------	|
@@ -264,10 +264,10 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_secteur_activite 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| actif agricole 	| 0 	|
-| salarie/dependant formel 	| 1 	|
-| salarie/dependant informel 	| 2 	|
-| Independants	| 3 	|
+| Actif agricole 	| 0 	|
+| Salarie/dependant formel 	| 1 	|
+| Salarie/dependant informel 	| 2 	|
+| Independant	| 3 	|
 
 | cov_i_secteur_formel_informel 	|  	|
 |-------------------------------	|------	|
@@ -285,32 +285,32 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | cov_i_secteur_publique_prive 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Public 	| 1 	|
-| Prive 	| 0 	|
+| public 	| 1 	|
+| prive 	| 2 	|
 
 
 | cov_i_sexe 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Masculin 	| 1 	|
-| Feminin 	| 2 	|
+| femme 	| 1 	|
+| homme 	| 2 	|
 
 | cov_i_statut_matrimonial 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Marié 	| 1 	|
-| Célibataire 	| 2 	|
-| Veuf/divorcé 	| 3 	|
+| Marie 	| 1 	|
+| Celibataire 	| 2 	|
+| Veuf, Divorcé 	| 3 	|
 | Non concerné 	| 4 	|
 
 
 | cov_i_type_ecole 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Public 	| 1 	|
-| Prive 	| 0 	|
+| public 	| 1 	|
+| prive 	| 2 	|
 
-| lien_cm 	|  	|
+| cov_i_lien_cm 	|  	|
 |-----------------------------------	|------	|
 | Libelle 	| Code 	|
 | Chef du menage 	| 1 	|
@@ -320,6 +320,12 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Autre parent du CM/conjoint du CM 	| 5 	|
 | Autres personnes non apparentees 	| 6 	|
 | Domestique 	| 7 	|
+
+| cov_i_urbain_rural 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| urbain 	| 1	|
+| rural	| 2 	|
 
 # Construction des variables - COTE D IVOIRE - par ordre alphabéthique
 
@@ -790,6 +796,12 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 
 ## Labels code des variables d'intérêt et variables structurelles
 
+| cov_i_cadre 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| non-cadre 	| 1	|
+| cadre	| 2 	|
+
 | cov_i_categorie_CGU 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
@@ -805,16 +817,17 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Secondaire 	| 3 	|
 | Superieur 	| 4 	|
 
+
 | cov_i_secteur_activite 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
-| actif agricole 	| 0 	|
-| salarie/dependant 	| 1 	|
-| salarie/dependant 	| 2 	|
-| Independants	| 3 	|
+| Actif agricole 	| 0 	|
+| Salarie/dependant formel 	| 1 	|
+| Salarie/dependant informel 	| 2 	|
+| Independant	| 3 	|
 
 | cov_i_secteur_formel_informel 	|  	|
-|-----------------------------------	|------	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
 | Formel 	| 1 	|
 | Informel 	| 0 	|
@@ -826,24 +839,28 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | industrie 	| 2 	|
 | service 	| 3 	|
 
-| cov_i_sexe 	|  	|
-|-----------------------------------	|------	|
+| cov_i_secteur_publique_prive 	|  	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Masculin 	| 1 	|
-| Feminin 	| 2 	|
+| public 	| 1 	|
+| prive 	| 2 	|
+
+
+| cov_i_sexe 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| femme 	| 1 	|
+| homme 	| 2 	|
 
 | cov_i_statut_matrimonial 	|  	|
-|-----------------------------------	|------	|
+|-------------------------------	|------	|
 | Libelle 	| Code 	|
-| Marie monogame 	| 1 	|
-| Marie polygame 	| 2 	|
-| Union libre 	| 3 	|
-| Celibataire (jamais marie) 	| 4 	|
-| Divorce/separe 	| 5 	|
-| Veuf(ve) 	| 6 	|
-| Personnes de moins de 15 ans 	| 7 	|
+| Marie 	| 1 	|
+| Celibataire 	| 2 	|
+| Veuf, Divorcé 	| 3 	|
+| Non concerné 	| 4 	|
 
-| lien_cm 	|  	|
+| cov_i_lien_cm 	|  	|
 |-----------------------------------	|------	|
 | Libelle 	| Code 	|
 | Chef du menage 	| 1 	|
@@ -853,3 +870,9 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Autre parent du CM/conjoint du CM 	| 5 	|
 | Autres personnes non apparentees 	| 6 	|
 | Domestique 	| 7 	|
+
+| cov_i_urbain_rural 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| urbain 	| 1	|
+| rural	| 2 	|
