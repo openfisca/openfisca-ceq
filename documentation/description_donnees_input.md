@@ -213,7 +213,7 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 | Nom_variable 	| Définition 	| Question_dans_enquete 	|
 |-------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
 | cov_i_age 	| Age de l'individu 	|  	|
-| cov_i_cadre 	| Dummy prenant la valeur 1 pour les individus ayant comme catégorie socio-professionnelle est cadre supérieur, ingénieur, cadre moyen ou agent de maitrise	|  e12==1 ; e12==2	|
+| cov_i_cadre 	| Dummy prenant la valeur 1 pour les individus ayant comme catégorie socio-professionnelle est cadre supérieur, ingénieur, cadre moyen ou agent de maitrise et 2 pour les autres catégories	|  e12==1 ; e12==2	|
 | cov_i_categorie_CGU| Cette variable est définie uniquement sur les indépendants. Elle permet de faire la distinction entre les indépendants entre les commerçants et revendeurs de ciments et de denrées alimentaires (CGU prod A) des autres commerçants ou revendeurs (CGU prod B) ou des prestataires de service (CGU service). Elle est particulièrement pertinente dans le cas du système socio-fiscal sénégalais. En lien avec les données de l'enquête, les indépendants CGU prod A incluent ceux dont la branche d'activité est les produits des industries alimentaires (Qe20). Ceux dont l'entreprise se trouvent dans la branche des services (hotelerie, transport, immobilier, informatique, education, etc) sont considérés comme indépendants CGU services (Qe20). Tous les autres indépendants qui ne sont pas dans les deux précédentes catégories sont dans CGU prod B (Qe20).| |
 | cov_i_classe_frequente 	| Classe fréquentée au moment de l'enquête. | c9 	|
 | cov_i_enfant_charge 	| Nombre d'enfants à charge des individus vivant dans le ménage. Il s'agit des enfants biologiques de moins de 21 ans ou de ceux entre 21 et 25 ans mais qui sont étudiants 	| age; e7; b11; b12; b11; b9 	|
@@ -239,6 +239,12 @@ La variable cov_m_conso est la somme des postes de consommation ci-dessous. Elle
 
 
 ## Label code des covariables d'intérêt et variables structurels
+| cov_i_cadre 	|  	|
+|-------------------------------	|------	|
+| Libelle 	| Code 	|
+| Cadre 	| 1	|
+| Autre	| 2 	|
+
 | cov_i_categorie_CGU 	|  	|
 |-------------------------------	|------	|
 | Libelle 	| Code 	|
