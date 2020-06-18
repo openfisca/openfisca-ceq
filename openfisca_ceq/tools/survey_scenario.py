@@ -219,23 +219,38 @@ def build_ceq_data(country, year = None):
             )
         )
 
+    assert person.cov_i_lien_cm.dtype == pd.CategoricalDtype(
+        categories = [
+            'Chef du menage',
+            'Conjoint du CM',
+            'Enfant du chef/conjoint du CM',
+            'Pere/mere du CM/conjoint du CM',
+            'Autre parent du CM/conjoint du CM',
+            'Autres personnes non apparentees',
+            'Domestique'
+            ],
+        ordered = True
+        )
+
     person.rename(columns = {"cov_i_lien_cm": "household_role_index"}, inplace = True)
-    if person.household_role_index.dtype.name == 'category':
-        if country == "mali":
-            log.info("{}: there are {} NaN household_role_index".format(
-                country,
-                person.household_role_index.isnull().sum(),
-                ))
-            person = person.loc[person.household_role_index.notnull()].copy()
 
-        assert person.household_role_index.notnull().all()
-        person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
+    # assert (person.household_role_index.cat.codes != -1).all(), \
+    #     "{}: there are {} NaN household_role_index".format(
+    #             country,
+    #             (person.household_role_index.cat.codes == -1).sum(),
+    #             )
 
-        if country == "mali":
-            person.loc[
-                (person.hh_id == "098105") & (person.household_role_index == 0),
-                "household_role_index"
-                ] = (0, 1)
+    if (person.household_role_index.cat.codes == -1).any():
+        person = person.loc[person.household_role_index.cat.codes != -1].copy()
+
+    assert (person.household_role_index.cat.codes != -1).all()
+    person.household_role_index = person.household_role_index.cat.codes.clip(0, 3)
+
+    if country == "mali":
+        person.loc[
+            (person.hh_id == "098105") & (person.household_role_index == 0),
+            "household_role_index"
+            ] = (0, 1)
 
         one_personne_de_reference = (person
             .query("household_role_index == 0")
@@ -256,9 +271,9 @@ def build_ceq_data(country, year = None):
             person = person.loc[~person.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
             household = household.loc[~household.hh_id.isin(hh_id_with_missing_personne_de_reference)].copy()
 
-    else:
-        assert person.household_role_index.min() == 1
-        person.household_role_index = (person.household_role_index - 1).clip(0, 3).astype(int)
+    # else:
+    #     assert person.household_role_index.min() == 1
+    #     person.household_role_index = (person.household_role_index - 1).clip(0, 3).astype(int)
 
     assert (person.household_role_index == 0).sum() == len(household), (
         "Only {} personne de reference for {} households".format(
@@ -296,17 +311,28 @@ def build_ceq_data(country, year = None):
     person.rename(columns = model_variable_by_person_variable, inplace = True)
 
     # for original_variable, openfisca_variable in other_model_by_harmonized_person_variable.items():
-    #     print(original_variable)
-    #     print(person[openfisca_variable].value_counts(dropna = False))
-    #     print(person[openfisca_variable].dtype)
-    #     try:
-    #         person[openfisca_variable].cat
-    #     except Exception:
-    #         pass
+    #     if openfisca_variable in person.columns:
+    #         print(original_variable)
+    #         print(person[openfisca_variable].value_counts(dropna = False))
+    #         print(person[openfisca_variable].dtype)
+    #         try:
+    #             person[openfisca_variable].cat
+    #         except Exception:
+    #             pass
+    #     else:
+    #         print("{} not available for {}".format(original_variable, country))
 
-    # if pd.api.types.is_numeric_dtype(person.eleve_enseignement_niveau):
-    #     person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.fillna(0).astype(int) - 1
-    #     # cote_d_ivorie
+    assert person.cadre.dtype == pd.CategoricalDtype(
+        categories = ['non-cadre', 'cadre'],
+        ordered = True
+        )
+    person.cadre = person.cadre == 'cadre'
+
+    assert person.categorie_cgu.dtype == pd.CategoricalDtype(
+        categories = ['CGU comm/prod A', 'CGU comm/prod B', 'CGU service'],
+        ordered = True
+        )
+    person.categorie_cgu = person.categorie_cgu.cat.codes  # int
 
     assert person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
         categories = [
@@ -324,13 +350,6 @@ def build_ceq_data(country, year = None):
             )
         person.eleve_enseignement_public = person.eleve_enseignement_public == 'public'
 
-    assert person.secteur_formel.dtype == pd.CategoricalDtype(
-        categories = ['formel', 'informel'],
-        ordered = True
-        )
-    person.secteur_formel = person.secteur_formel == 1
-
-    # [Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant]
     assert person.secteur_activite.dtype == pd.CategoricalDtype(
         categories = [
             'Actif agricole',
@@ -341,15 +360,11 @@ def build_ceq_data(country, year = None):
         )
     person.secteur_activite = person.secteur_activite.cat.codes
 
-    assert person.urbain.dtype == pd.CategoricalDtype(
-        categories = ['urbain', 'rural'],
-        ordered = True)
-    person.urbain = person.urbain.cat.codes == 0
-
-    # TODO REMOVE ME this was needed for cote_d_ivoire.
-    # if pd.api.types.is_numeric_dtype(person.secteur_public.dtype):
-    #     person.secteur_public = person.secteur_public.fillna(0).astype(int)
-    # else:
+    assert person.secteur_formel.dtype == pd.CategoricalDtype(
+        categories = ['formel', 'informel'],
+        ordered = True
+        )
+    person.secteur_formel = person.secteur_formel == 1
 
     assert person.secteur_public.dtype == pd.CategoricalDtype(
         categories = ['public', 'prive'],
@@ -357,11 +372,22 @@ def build_ceq_data(country, year = None):
         )
     person.secteur_public = person.secteur_public == 'public'
 
-    assert person.categorie_cgu.dtype == pd.CategoricalDtype(
-        categories = ['CGU comm/prod A', 'CGU comm/prod B', 'CGU service'],
-        ordered = True
+    assert (
+        person.statut_matrimonial.dtype == pd.CategoricalDtype(
+            categories = ['Marie', 'Celibataire', 'Veuf, Divorce', 'Non concerne'],
+            ordered = True
+            )
+        or person.statut_matrimonial.dtype == pd.CategoricalDtype(
+            categories = ['Marie', 'Celibataire', 'Veuf, Divorce'],
+            ordered = True
+            )  # Needed only for CIV
         )
-    person.categorie_cgu = person.categorie_cgu.cat.codes  # int
+    person.statut_matrimonial = person.statut_matrimonial.cat.codes
+
+    assert person.urbain.dtype == pd.CategoricalDtype(
+        categories = ['urbain', 'rural'],
+        ordered = True)
+    person.urbain = person.urbain == 'urbain'
 
     assert 'person_weight' in person
     assert 'household_weight' in household
@@ -401,13 +427,3 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     scenario.inflate_to_match_gross_valued_added_and_consumption()
 
     return scenario
-
-
-if __name__ == "__main__":
-    from openfisca_ceq.tools.data import year_by_country
-    import sys
-    country = "senegal"
-    logging.basicConfig(level = logging.INFO, stream = sys.stdout)
-    log.info(country)
-    year = year_by_country[country]
-    survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)

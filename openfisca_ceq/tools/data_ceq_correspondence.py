@@ -77,10 +77,26 @@ other_model_by_harmonized_person_variable = {
     "cov_i_classe_frequente": "eleve_enseignement_niveau",
     "cov_i_secteur_formel_informel": "secteur_formel",
     "cov_i_secteur_activite": "secteur_activite",
+    "cov_i_secteur_calage": "secteur_calage",
     "cov_i_secteur_publique_prive": "secteur_public",
+    # "cov_i_sexe": "sexe",
+    "cov_i_statut_matrimonial": "statut_matrimonial",
     "cov_i_type_ecole": "eleve_enseignement_public",
     "cov_m_urbain_rural": "urbain",
     }
+
+
+    # label define cov_i_statut_matrimonial 1 "Marie" 2 "Celibataire" 3 "Veuf, Divorce" 4 "Non concerne"
+    # label values cov_i_statut_matrimonial cov_i_statut_matrimonial
+
+    # label define cov_i_sexe 1 "femme" 2 "homme"
+    # label values cov_i_sexe cov_i_sexe
+
+    # label define cov_i_lien_cm  1 "Chef du menage" 2 "Conjoint du CM" 3 "Enfant du chef/conjoint du CM" 4 "Pere/mere du CM/conjoint du CM" 5 "Autre parent du CM/conjoint du CM" 6 "Autres personnes non apparentees" 7 "Domestique"
+    # label values cov_i_lien_cm  cov_i_lien_cm
+
+    # label define cov_i_secteur_calage  1 "agriculture" 2 "industrie" 3 "service"
+    # label values cov_i_secteur_calage  cov_i_secteur_calage
 
 
 person_variables = list(
