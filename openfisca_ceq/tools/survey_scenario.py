@@ -295,46 +295,74 @@ def build_ceq_data(country, year = None):
     household.rename(columns = model_variable_by_person_variable, inplace = True)
     person.rename(columns = model_variable_by_person_variable, inplace = True)
 
-    if pd.api.types.is_numeric_dtype(person.eleve_enseignement_niveau):
-        person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.fillna(0).astype(int) - 1
-        # cote_d_ivorie
+    # for original_variable, openfisca_variable in other_model_by_harmonized_person_variable.items():
+    #     print(original_variable)
+    #     print(person[openfisca_variable].value_counts(dropna = False))
+    #     print(person[openfisca_variable].dtype)
+    #     try:
+    #         person[openfisca_variable].cat
+    #     except Exception:
+    #         pass
 
-    elif person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
-            categories = [
-                'Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
-            ordered = True
-            ):  # senegal and mali
-        person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
+    # if pd.api.types.is_numeric_dtype(person.eleve_enseignement_niveau):
+    #     person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.fillna(0).astype(int) - 1
+    #     # cote_d_ivorie
 
-    # person.secteur_formel = person.secteur_formel
-    # [Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant]
-    person.secteur_activite = person.secteur_activite.cat.codes
-    # [urbain < rural]
-    person.urbain = person.urbain.cat.codes == 0    
-    person.secteur_formel = person.secteur_formel == 1
-    assert person.secteur_activite.isin(range(-1, 4)).all(), \
-        "Invalid value for categorie_cgu: {}".format(
-        set(person.secteur_activite.unique()).difference(set(range(-1, 4)))
+    assert person.eleve_enseignement_niveau.dtype == pd.CategoricalDtype(
+        categories = [
+            'Maternelle', 'Primaire', 'Secondaire', 'Superieur'],
+        ordered = True,
         )
+    person.eleve_enseignement_niveau = person.eleve_enseignement_niveau.cat.codes
 
+    if country == 'mali':  # Variable absente pour le Mali
+        person['eleve_enseignement_public'] = True
+    else:
+        assert person.eleve_enseignement_public.dtype == pd.CategoricalDtype(
+            categories = ['public', 'prive'],
+            ordered = True
+            )
+        person.eleve_enseignement_public = person.eleve_enseignement_public == 'public'
 
-    # NaNs from categories are codeed as -1
+    assert person.secteur_formel.dtype == pd.CategoricalDtype(
+        categories = ['formel', 'informel'],
+        ordered = True
+        )
+    person.secteur_formel = person.secteur_formel == 1
+
+    # [Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant]
+    assert person.secteur_activite.dtype == pd.CategoricalDtype(
+        categories = [
+            'Actif agricole',
+            'Salarie/dependant formel',
+            'Salarie/dependant informel',
+            'Independant'],
+        ordered = True
+        )
+    person.secteur_activite = person.secteur_activite.cat.codes
+
+    assert person.urbain.dtype == pd.CategoricalDtype(
+        categories = ['urbain', 'rural'],
+        ordered = True)
+    person.urbain = person.urbain.cat.codes == 0
 
     # TODO REMOVE ME this was needed for cote_d_ivoire.
     # if pd.api.types.is_numeric_dtype(person.secteur_public.dtype):
     #     person.secteur_public = person.secteur_public.fillna(0).astype(int)
     # else:
-    person.secteur_public = person.secteur_public.cat.codes > 0  # bool
 
+    assert person.secteur_public.dtype == pd.CategoricalDtype(
+        categories = ['public', 'prive'],
+        ordered = True
+        )
+    person.secteur_public = person.secteur_public == 'public'
+
+    assert person.categorie_cgu.dtype == pd.CategoricalDtype(
+        categories = ['CGU comm/prod A', 'CGU comm/prod B', 'CGU service'],
+        ordered = True
+        )
     person.categorie_cgu = person.categorie_cgu.cat.codes  # int
-    # [CGU comm/prod A < CGU comm/prod B < CGU service]  -> [0, 1, 2]
-    # NaNs are -1
-    assert person.categorie_cgu.isin(range(-1, 2 + 1)).all(), \
-        "Invalid value for categorie_cgu: {}".format(
-            set(person.categorie_cgu.unique()).difference(set(range(-1, 2 + 1)))
-            )
 
-    assert set(person.eleve_enseignement_niveau.unique()) == set(range(-1, 4))
     assert 'person_weight' in person
     assert 'household_weight' in household
     person.person_id = (person.person_id.rank() - 1).astype(int)
