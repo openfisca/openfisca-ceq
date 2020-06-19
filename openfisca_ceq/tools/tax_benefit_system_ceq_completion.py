@@ -149,6 +149,39 @@ class secteur_public(Variable):
     label = "L'individu est un salarié du secteur public"
 
 
+
+class survey_income(Variable):
+    value_type = float
+    entity = entities.Household
+    definition_period = YEAR
+    label = "Revenus produits par l'enquête"
+
+    # "autres_revenus_du_capital_brut",
+    # "revenu_agricole",
+    # "revenu_informel_non_salarie",
+    # "revenu_informel_salarie",
+    # "revenu_foncier_brut",
+    # "revenu_non_salarie_brut",
+    # "salaire_super_brut",
+
+    def formula(household, period):
+        return (
+            household("autoconsumption", period)  # "rev_i_autoconsommation"
+            + household.sum(household.members("other_income", period))  # "rev_i_autres"
+            + household.sum(household.members("gifts_sales_durables", period))  # "rev_i_autres_transferts"
+            + household("imputed_rent", period)  # "rev_i_loyers_imputes"
+            + household("direct_transfers", period)  # "rev_i_transferts_publics"
+            + household.sum(household.members("revenu_agricole", period))  # "rev_i_agricoles"
+            + household.sum(household.members("autres_revenus_du_capital", period))  # "rev_i_autres_revenus_capital"
+            + household.sum(household.members("revenu_informel_non_salarie", period))  # "rev_i_independants_Ntaxe"
+            + household.sum(household.members("revenu_non_salarie", period))  # "rev_i_independants_taxe"
+            + household.sum(household.members("revenu_locatif", period))  # "rev_i_locatifs"
+            + household.sum(household.members("pension_retraite", period))  # "rev_i_pensions"
+            + household.sum(household.members("salaire", period))  # "rev_i_salaires_formels"
+            + household.sum(household.members("revenu_informel_salarie", period))  # "rev_i_salaires_informels"
+            )
+
+
 class urbain(Variable):
     value_type = bool
     entity = entities.Person
@@ -259,6 +292,7 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.add_variable(secteur_public)
     country_tax_benefit_system.add_variable(secteur_activite)
     country_tax_benefit_system.add_variable(secteur_formel)
+    country_tax_benefit_system.add_variable(survey_income)
     country_tax_benefit_system.add_variable(urbain)
 
     country_tax_benefit_system.add_variable(number_of_people_per_household)
