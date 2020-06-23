@@ -4,7 +4,7 @@ import os
 import pkg_resources
 
 
-from openfisca_core.model_api import Variable, YEAR
+from openfisca_core.model_api import not_, select, Variable, YEAR
 from openfisca_core.reforms import Reform
 
 from openfisca_ceq import (
@@ -81,21 +81,18 @@ class labor_type(Variable):
     # Informal independent worker
     # Agricultural worker
 
-
     def formula(household, period):
-        secteur_activite = household.sum(
-            household.members('secteur_activite', period))
+        secteur_activite = household.personne_de_reference('secteur_activite', period)
         # Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant
-        secteur_public = household.head('secteur_public', period)
-
+        secteur_public = household.personne_de_reference('secteur_public', period)
         return select(
             [
+                secteur_activite == -1,  # Inactif ?
                 (secteur_activite == 1) & secteur_public,  # Formal public wage worker
                 (secteur_activite == 1) & not_(secteur_public),  # Formal private wage worker
                 secteur_activite == 2,  # Informal wage worker
                 secteur_activite == 3,  # Informal independent worker
                 secteur_activite == 0,  # Agricultural worker
-                secteur_activite == -1,  # Inactif ?
                 ],
             [
                 0,
@@ -156,14 +153,6 @@ class survey_income(Variable):
     definition_period = YEAR
     label = "Revenus produits par l'enquête"
 
-    # "autres_revenus_du_capital_brut",
-    # "revenu_agricole",
-    # "revenu_informel_non_salarie",
-    # "revenu_informel_salarie",
-    # "revenu_foncier_brut",
-    # "revenu_non_salarie_brut",
-    # "salaire_super_brut",
-
     def formula(household, period):
         return (
             household("autoconsumption", period)  # "rev_i_autoconsommation"
@@ -187,6 +176,22 @@ class urbain(Variable):
     entity = entities.Person
     definition_period = YEAR
     label = "L'individu vit en milieu urbain (par opposition à rural)"
+
+
+# For matching with original data
+
+class hh_id(Variable):
+    value_type = int
+    entity = entities.Household
+    definition_period = YEAR
+    label = "hh_id"
+
+
+class pers_id(Variable):
+    value_type = int
+    entity = entities.Person
+    definition_period = YEAR
+    label = "pers_id"
 
 
 # Reform
@@ -296,6 +301,10 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.add_variable(urbain)
 
     country_tax_benefit_system.add_variable(number_of_people_per_household)
+
+    country_tax_benefit_system.add_variable(hh_id)
+    country_tax_benefit_system.add_variable(pers_id)
+
 
     return country_tax_benefit_system
 

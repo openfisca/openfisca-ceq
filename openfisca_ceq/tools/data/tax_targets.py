@@ -46,6 +46,7 @@ detailed_taxes_by_country = {
         "droit_proportionnel_salaire",
         "droit_proportionnel",
         "impot_revenus",
+        # "contribution_forfaitaire_charge_employeur",
         ],
     "mali": ["impot_traitement_salaire"],
     "cote_d_ivoire": [

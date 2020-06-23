@@ -355,7 +355,8 @@ def build_ceq_data(country, year = None):
             'Actif agricole',
             'Salarie/dependant formel',
             'Salarie/dependant informel',
-            'Independant'],
+            'Independant',
+            ],
         ordered = True
         )
     person.secteur_activite = person.secteur_activite.cat.codes
@@ -391,6 +392,8 @@ def build_ceq_data(country, year = None):
 
     assert 'person_weight' in person
     assert 'household_weight' in household
+    person['pers_id'] = person.person_id.astype(int)
+    household['hh_id'] = household.household_id.astype(int)
     person.person_id = (person.person_id.rank() - 1).astype(int)
     person.household_id = (person.household_id.rank() - 1).astype(int)
     household.household_id = (household.household_id.rank() - 1).astype(int)

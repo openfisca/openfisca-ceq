@@ -131,6 +131,43 @@ def concentration_share(
     return (masses / masses.sum()).round(digits)
 
 
+def income_shares(
+        survey_scenario,
+        income_variables = None,
+        by_variable = None,
+        period = None,
+        digits = 2,
+        ):
+
+    if not isinstance(income_variables, str) and len(income_variables) >= 2:
+        df = pd.concat(
+            [
+                concentration_share(survey_scenario, [income_variable], by_variable)
+                for income_variable in income_variables
+                ],
+            axis = 1,
+            )
+        df.name = "income_shares"
+        return df
+
+    income_variable = income_variables[0]
+    if period is None:
+        period = survey_scenario.year
+    assert period is not None
+
+    masses = (
+        survey_scenario.compute_pivot_table(
+            aggfunc = "sum",
+            values = [income_variable],
+            index = by_variable,
+            period = survey_scenario.year,
+            )
+        .round(digits)
+        )
+    return (masses / masses.sum()).round(digits)
+
+
+
 def taxpayers_share(
         survey_scenario,
         tax_variables = None,
