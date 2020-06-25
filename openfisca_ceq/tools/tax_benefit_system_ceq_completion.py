@@ -4,7 +4,7 @@ import os
 import pkg_resources
 
 
-from openfisca_core.model_api import not_, select, Variable, YEAR
+from openfisca_core.model_api import Enum, not_, select, Variable, YEAR
 from openfisca_core.reforms import Reform
 
 from openfisca_ceq import (
@@ -70,16 +70,33 @@ class categorie_cgu(Variable):
     label = "Index de la catgeorie CGU de l'individu"
 
 
+labor_type_by_index = {
+    0: "Inactive",
+    1: "Formal public wage worker",
+    2: "Formal private wage worker",
+    3: "Informal wage worker",
+    4: "Informal independent worker",
+    5: "Agricultural worker",
+    }
+
+
+class TypesLaborType(Enum):
+    __order__ = 'inactive formal_public_wage_worker formal_private_wage_worker informal_wage_worker informal_independent_worker agricultural_worker'
+    inactive = "Inactive",
+    formal_public_wage_worker = "Formal public wage worker",
+    formal_private_wage_worker = "Formal private wage worker",
+    informal_wage_worker = "Informal wage worker",
+    informal_independent_worker = "Informal independent worker",
+    agricultural_worker = "Agricultural worker",
+
+
 class labor_type(Variable):
-    value_type = int
+    value_type = Enum
+    possible_values = TypesLaborType
+    default_value = TypesLaborType.inactive
     entity = entities.Household
     definition_period = YEAR
     label = "Activité de la personne de référence du ménage"
-    # Formal public wage worker
-    # Formal private wage worker
-    # Informal wage worker
-    # Informal independent worker
-    # Agricultural worker
 
     def formula(household, period):
         secteur_activite = household.personne_de_reference('secteur_activite', period)

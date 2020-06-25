@@ -4,6 +4,7 @@ import pandas as pd
 from scipy.optimize import fsolve
 
 from openfisca_core import periods
+from openfisca_core.model_api import Variable, YEAR
 
 from openfisca_survey_manager.scenarios import AbstractSurveyScenario
 from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
@@ -404,7 +405,7 @@ def build_ceq_data(country, year = None):
 
 
 def build_ceq_survey_scenario(legislation_country, year = None, data_country = None,
-        inflate = False):
+        inflate = False, adjust_indirect_taxation = False):
 
     if data_country is None:
         data_country = legislation_country
@@ -413,6 +414,23 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
     CountryTaxBenefitSystem.legislation_country = legislation_country
     tax_benefit_system = ceq(CountryTaxBenefitSystem(coicop = False))
     add_coicop_item_to_tax_benefit_system(tax_benefit_system, legislation_country)
+    if adjust_indirect_taxation:
+        from openfisca_ceq.entities import Household
+
+        class consumable_income(Variable):
+            value_type = float
+            entity = Household
+            definition_period = YEAR
+            label = "Consumable income"
+
+            def formula(household, period):
+                disposable_income = household('disposable_income', period)
+                consumption = household('consumption', period)
+                indirect_subsidies = household('indirect_subsidies', period)
+                indirect_taxes = household('indirect_taxes', period)
+                return disposable_income * (1 - (indirect_taxes - indirect_subsidies) / consumption)
+
+        tax_benefit_system.update_variable(consumable_income)
 
     data = build_ceq_data(data_country, year)
 
