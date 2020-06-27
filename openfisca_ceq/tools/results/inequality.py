@@ -47,8 +47,8 @@ def inequality_table(
                     }
                 )
             for variable in variables
-            ])
-        ).round(digits)
+            ]),
+        ).round(digits).loc[["Gini", "Bottom 40 %", "Top 10 %"]]
 
 
 def incidence_table(
