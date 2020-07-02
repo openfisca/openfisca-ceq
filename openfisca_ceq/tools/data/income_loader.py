@@ -21,19 +21,19 @@ log = logging.getLogger(__name__)
 
 missing_revenus_by_country = {
     'cote_d_ivoire': [
-        'rev_i_independants',
+        # 'rev_i_independants',
         ],
     'mali': [
         'cov_i_type_ecole',
-        'rev_i_independants_taxe',
-        'rev_i_independants_Ntaxe',
+        # 'rev_i_independants_taxe',
+        # 'rev_i_independants_Ntaxe',
         'rev_i_locatifs',
         'rev_i_autres_revenus_capital',
         'rev_i_pensions',
         'rev_i_transferts_publics',
         ],
     'senegal': [
-        'rev_i_independants',
+        # 'rev_i_independants',
         ],
     }
 

@@ -286,21 +286,21 @@ def add_ceq_framework(country_tax_benefit_system):
     for variable in multi_country_custom_ceq_variables:
         country_tax_benefit_system.update_variable(variable)
 
-    if (
-            hasattr(country_tax_benefit_system, 'legislation_country')
-            and country_tax_benefit_system.legislation_country == 'mali'
-            ):
+    # if (
+    #         hasattr(country_tax_benefit_system, 'legislation_country')
+    #         and country_tax_benefit_system.legislation_country == 'mali'
+    #         ):
 
-        class revenu_non_salarie(Variable):
-            def formula(person, period):
-                return (1 - MALI_PART_INFORMEL_NON_SALARIE) * person('revenu_non_salarie_total', period)
+    #     class revenu_non_salarie(Variable):
+    #         def formula(person, period):
+    #             return (1 - MALI_PART_INFORMEL_NON_SALARIE) * person('revenu_non_salarie_total', period)
 
-        class revenu_informel_non_salarie(Variable):
-            def formula(person, period):
-                return MALI_PART_INFORMEL_NON_SALARIE * person('revenu_non_salarie_total', period)
+    #     class revenu_informel_non_salarie(Variable):
+    #         def formula(person, period):
+    #             return MALI_PART_INFORMEL_NON_SALARIE * person('revenu_non_salarie_total', period)
 
-        country_tax_benefit_system.update_variable(revenu_non_salarie)
-        country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
+    #     country_tax_benefit_system.update_variable(revenu_non_salarie)
+    #     country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
 
     country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
     country_tax_benefit_system.add_variable(cadre)
