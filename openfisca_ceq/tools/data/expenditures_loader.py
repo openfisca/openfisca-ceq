@@ -13,8 +13,12 @@ log = logging.getLogger(__name__)
 
 
 def build_consumption_items_list(country):
-    df = build_label_by_code_coicop(country, additional_variables = ['prod_id'])
-    return df.astype({"prod_id": str})
+    consumption_items = build_label_by_code_coicop(country, additional_variables = ['prod_id'])
+    try:
+        consumption_items.prod_id = consumption_items.prod_id.astype(float).astype(int).astype(str)
+    except Exception:
+        consumption_items.prod_id = consumption_items.prod_id.astype(str)
+    return consumption_items
 
 
 def load_expenditures(country):
@@ -53,10 +57,7 @@ def load_expenditures(country):
 
     # Checks
     consumption_items = build_consumption_items_list(country)
-    try:
-        consumption_items.prod_id = consumption_items.prod_id.astype(int).astype(str)
-    except Exception:
-        consumption_items.prod_id = consumption_items.prod_id.astype(str)
+
 
     missing_products_in_legislation = set(expenditures.prod_id.unique()).difference(
         set(consumption_items.prod_id.unique()))
