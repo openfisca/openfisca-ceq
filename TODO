@@ -64,3 +64,35 @@ Cibalge:
   - impot_general_revenu = = impot_revenu (= personal_income_tax)
     impot_revenu_creances
     impot_revenu_foncier
+
+
+
+CR:
+
+MBJ: import total
+MBJ: equipement, droit accises
+MBJ: Revenus dans results DONE
+MBJ: SEN: autres_revenus_du_capital_brut
+
+
+
+CR bis:
+
+revenu_informel_salarie doit être dans les revenus (income_variables) inflatés DONE
+
+
+CR 2020-06-11:
+
+MBJ: calcul moyenne des revenus / consommation par décile
+survey_income_per_capita
+
+CR 2020-06-19
+
+MBJ: voir avec mouksit pour CFCE Sénégal
+statut_matrimonial
+nombre_d_enfant
+Mariage et enfants pour l'IR.
+
+cgu et éligible cgu
+
+Masse
