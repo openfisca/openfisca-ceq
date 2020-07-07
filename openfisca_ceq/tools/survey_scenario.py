@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.optimize import fsolve
 
 from openfisca_core import periods
-from openfisca_core.model_api import Variable, YEAR
+from openfisca_core.model_api import Variable, where, YEAR
 
 from openfisca_survey_manager.scenarios import AbstractSurveyScenario
 from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
@@ -405,7 +405,7 @@ def build_ceq_data(country, year = None):
 
 
 def build_ceq_survey_scenario(legislation_country, year = None, data_country = None,
-        inflate = False, adjust_indirect_taxation = False):
+        inflate = False, adjust_indirect_taxation = True):
 
     if data_country is None:
         data_country = legislation_country
@@ -428,7 +428,11 @@ def build_ceq_survey_scenario(legislation_country, year = None, data_country = N
                 consumption = household('consumption', period)
                 indirect_subsidies = household('indirect_subsidies', period)
                 indirect_taxes = household('indirect_taxes', period)
-                return disposable_income * (1 - (indirect_taxes - indirect_subsidies) / consumption)
+                return where(
+                    consumption > 0,
+                    disposable_income * (1 - (indirect_taxes - indirect_subsidies) / consumption),
+                    disposable_income,
+                    )
 
         tax_benefit_system.update_variable(consumable_income)
 
