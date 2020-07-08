@@ -29,7 +29,7 @@ def build_unit_cost_by_category_by_country():
         country_df = df.query("country == @country")
         unit_cost_by_category = dict(zip(
             country_df.harmonized_category,
-            country_df.unit_cost_thousands_fcfa * 1000
+            country_df.unit_cost_thousands_fcfa * 1000 if country != "mali" else country_df.adjusted_unit_cost_thousands_fcfa * 1000
             ))
 
         deleted_variables = ['total']

@@ -210,3 +210,60 @@ def taxpayers_share(
 
     series.name = tax_variable
     return series
+
+
+def net_payers_beneficiaries(
+        survey_scenario,
+        by_variable = None,
+        period = None,
+        digits = 2,
+        ):
+
+    net_contribution = 'direct_taxes + indirect_taxes - education_net_transfers'
+    tax_benefits_variables = ['direct_taxes', 'indirect_taxes', 'education_net_transfers']
+    entity_key = survey_scenario.tax_benefit_system.variables[tax_benefits_variables[0]].entity.key
+    weight_variable = survey_scenario.weight_variable_by_entity[entity_key]
+    groups = (
+        (
+            survey_scenario.create_data_frame_by_entity(
+                variables = tax_benefits_variables + [by_variable, weight_variable],
+                period = survey_scenario.year,
+                )
+            )[entity_key]
+        .eval("net_payers = ({} > 0)".format(net_contribution))
+        .eval("net_beneficiaries = ({} < 0)".format(net_contribution))
+        .groupby(by_variable)
+        )
+
+    return pd.DataFrame(
+        net_payers = groups.apply(
+            lambda x: np.average(x.net_payer, weights = x[weight_variable])
+            ).round(digits),
+        net_beneficiaries = groups.apply(
+            lambda x: np.average(x.net_beneficiaries, weights = x[weight_variable])
+            )
+        )
+
+
+def net_payers_beneficiaries_decile(
+        survey_scenario,
+        by_variable = None,
+        period = None,
+        digits = 2,
+        ):
+
+    tax_benefits_variables = ['direct_taxes', 'indirect_taxes', 'education_net_transfers']
+    series = (
+        survey_scenario.compute_pivot_table(
+            aggfunc = "sum",
+            values = tax_benefits_variables,
+            index = by_variable,
+            period = survey_scenario.year,
+            concat_axis = 1)
+        .eval("net_contribution = direct_taxes + indirect_taxes - education_net_transfers")
+        .eval("net_payer = direct_taxes + indirect_taxes - education_net_transfers")
+        .round(digits)
+        ["net_contribution"]
+        )
+    series.name = "net_payers_decile"
+    return series

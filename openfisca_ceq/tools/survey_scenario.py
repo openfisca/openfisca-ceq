@@ -405,7 +405,7 @@ def build_ceq_data(country, year = None):
 
 
 def build_ceq_survey_scenario(legislation_country, year = None, data_country = None,
-        inflate = False, adjust_indirect_taxation = True):
+        inflate = False, adjust_indirect_taxation = False):
 
     if data_country is None:
         data_country = legislation_country
