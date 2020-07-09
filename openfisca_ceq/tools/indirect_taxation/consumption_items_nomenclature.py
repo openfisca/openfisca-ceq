@@ -34,13 +34,16 @@ country_code_by_country = {
     }
 
 
-def build_label_by_code_coicop(country, additional_variables = None, new_code_coicop_variable = "nouveau__code", fillna = dict()):
+def build_label_by_code_coicop(country, additional_variables = None, new_code_coicop_variable = "nouveau__code", fillna = dict(), filter_expression = None):
     consumption_items_file_path = os.path.join(
         consumption_items_directory, "Produits_{}.xlsx".format(country_code_by_country[country])
         )
     if additional_variables is None:
         additional_variables = []
     consumption_items = pd.read_excel(consumption_items_file_path)
+    if filter_expression is not None:
+        consumption_items = consumption_items.query(filter_expression).copy()
+
     if new_code_coicop_variable is not None:
         consumption_items = (consumption_items
             .drop(columns = ["code_coicop"])
@@ -134,9 +137,9 @@ def build_comparison_table(countries):
     return merged
 
 
-def build_tax_rate_by_code_coicop(country, tax_variables = None, fillna = dict()):
+def build_tax_rate_by_code_coicop(country, tax_variables = None, fillna = dict(), filter_expression = None):
     assert tax_variables is not None
-    label_by_code_coicop = (build_label_by_code_coicop(country, additional_variables = tax_variables, fillna = fillna)
+    label_by_code_coicop = (build_label_by_code_coicop(country, additional_variables = tax_variables, fillna = fillna, filter_expression = filter_expression)
         .drop(columns = "code_coicop")
         .reset_index()
         .rename(columns = {'deduplicated_code_coicop': "code_coicop"})

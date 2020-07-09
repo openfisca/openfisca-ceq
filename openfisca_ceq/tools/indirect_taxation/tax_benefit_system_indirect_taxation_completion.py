@@ -25,7 +25,8 @@ indirect_tax_by_country = {
 
 
 def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
-    label_by_code_coicop = (build_label_by_code_coicop(country)
+    filter_expression = "bien_durable == 0"
+    label_by_code_coicop = (build_label_by_code_coicop(country, filter_expression = filter_expression)
         .filter(['label_variable'])
         .reset_index()
         .rename(columns = {'deduplicated_code_coicop': "code_coicop"})
@@ -40,7 +41,7 @@ def add_coicop_item_to_tax_benefit_system(tax_benefit_system, country):
         tax_variables.append("part_importation")
     if "part_importation" in tax_variables:
         fillna = {'part_importation': 0}
-    tax_rate_by_code_coicop = build_tax_rate_by_code_coicop(country, tax_variables, fillna = fillna)
+    tax_rate_by_code_coicop = build_tax_rate_by_code_coicop(country, tax_variables, fillna = fillna, filter_expression = filter_expression)
     tax_name = 'tva'
     null_rates = ['exonere']
     generate_depenses_ht_postes_variables(
