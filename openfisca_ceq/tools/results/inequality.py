@@ -235,14 +235,14 @@ def net_payers_beneficiaries(
         .groupby(by_variable)
         )
 
-    return pd.DataFrame(
+    return pd.DataFrame(data = dict(
         net_payers = groups.apply(
-            lambda x: np.average(x.net_payer, weights = x[weight_variable])
+            lambda x: np.average(x.net_payers, weights = x[weight_variable])
             ).round(digits),
         net_beneficiaries = groups.apply(
             lambda x: np.average(x.net_beneficiaries, weights = x[weight_variable])
-            )
-        )
+            ).round(digits)
+        ))
 
 
 def net_payers_beneficiaries_decile(
@@ -261,9 +261,9 @@ def net_payers_beneficiaries_decile(
             period = survey_scenario.year,
             concat_axis = 1)
         .eval("net_contribution = direct_taxes + indirect_taxes - education_net_transfers")
-        .eval("net_payer = direct_taxes + indirect_taxes - education_net_transfers")
+        .eval("net_payer = (net_contribution > 0)")
         .round(digits)
-        ["net_contribution"]
+        [["net_contribution", "net_payer"]]
         )
     series.name = "net_payers_decile"
     return series
