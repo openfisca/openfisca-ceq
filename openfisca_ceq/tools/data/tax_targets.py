@@ -16,7 +16,7 @@ variable_by_index = {
     'Total tax revenue': '',
     'Direct taxes': 'direct_taxes',
     'Personal Income Taxes': 'personal_income_tax',
-    'Payroll Tax and social contributions': 'payroll_tax_and_social_contributions',
+    'Social Security Contributions': 'social_security_contributions',
     'Corporate Income Tax': 'corporate_income_tax',
     'Other Direct Taxes': 'other_direct_taxes',
     'Indirect taxes': 'indirect_taxes',

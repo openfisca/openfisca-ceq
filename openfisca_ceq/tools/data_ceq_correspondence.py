@@ -186,7 +186,7 @@ class nontaxable_income(Variable):
 
     def formula(household, period):
         income_variables = [
-            # "revenu_informel_agricole",  # A construire remplacé par
+            "revenu_agricole",
             "revenu_informel_non_salarie",
             "revenu_informel_salarie",
             # TODO
@@ -219,6 +219,27 @@ class personal_income_tax(Variable):
         return household("impot_revenu", period)
 
 
+class social_security_contributions(Variable):
+    value_type = float
+    entity = Household
+    definition_period = YEAR
+    label = "Social security contributions"
+
+    def formula(household, period):
+        contribution_variables = [
+            "employee_contributions_health",
+            "employee_contributions_pensions",
+            "employer_contributions_health",
+            "employer_contributions_pensions",
+            "employer_other_contributions",
+            # TODO
+            ]
+        return sum(
+            household(variable, period)
+            for variable in contribution_variables
+            )
+
+
 class value_added_tax(Variable):
     value_type = float
     entity = Household
@@ -232,6 +253,7 @@ class value_added_tax(Variable):
 multi_country_custom_ceq_variables = [
     all_income_excluding_transfers,
     customs_duties,
+    employee_contributions_health,
     employee_contributions_pensions,
     employer_contributions_health,
     employer_contributions_pensions,
@@ -239,6 +261,7 @@ multi_country_custom_ceq_variables = [
     nontaxable_income,
     pensions,
     personal_income_tax,
+    social_security_contributions,
     value_added_tax,
     ]
 

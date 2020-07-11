@@ -150,12 +150,14 @@ class net_market_income(Variable):
         market_income_plus_pensions = household('market_income_plus_pensions', period)
         direct_taxes = household('direct_taxes', period)
         contributions_health = household('contributions_health', period)
+        other_contributions = household('other_contributions', period)
 
         net_market_income = (
             market_income_plus_pensions
             - (
                 direct_taxes
                 + contributions_health
+                + other_contributions
                 )
             )
         return net_market_income
