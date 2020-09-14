@@ -40,6 +40,8 @@ if __name__ == '__main__':
         for harmonized_variable, openfisca_variable in ceq_by_harmonized_variable.items()
         ]
     log.info(pd.DataFrame(data, columns = ["harmonized", "openfisca", "aggregate"]))
+    BIM
+
     # for variable in variables:
     #     log.info(
     #         "{variable}: {aggregate} billions FCFA".format(

@@ -366,7 +366,7 @@ def build_ceq_data(country, year = None):
         categories = ['formel', 'informel'],
         ordered = True
         )
-    person.secteur_formel = person.secteur_formel == 1
+    person.secteur_formel = person.secteur_formel == 'formel'
 
     assert person.secteur_public.dtype == pd.CategoricalDtype(
         categories = ['public', 'prive'],
