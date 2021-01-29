@@ -22,8 +22,8 @@ def compute_total_ht_imports(survey_scenario):
         )
 
 
-if __name__ == '__main__':
-    country = "senegal"
-    year = year_by_country[country]
-    survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
-    print(compute_total_ht_imports(survey_scenario))
+# if __name__ == '__main__':
+#     country = "senegal"
+#     year = year_by_country[country]
+#     survey_scenario = build_ceq_survey_scenario(legislation_country = country, year = year)
+#     print(compute_total_ht_imports(survey_scenario))

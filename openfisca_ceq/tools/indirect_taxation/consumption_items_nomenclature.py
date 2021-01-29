@@ -25,8 +25,6 @@ assert os.path.exists(consumption_items_directory), \
     "Consumption items directory {} does not exists, please create it and fill it with countries consumption items files".format(
         consumption_items_directory
        )
-
-
 country_code_by_country = {
     "mali": "MLI",
     "senegal": "SEN",

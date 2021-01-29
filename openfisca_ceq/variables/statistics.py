@@ -82,7 +82,6 @@ class decile_final_income_per_capita(Variable):
             )
 
 
-
 class decile_gross_income_per_capita(Variable):
     value_type = int
     entity = Household
