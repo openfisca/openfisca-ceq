@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1 - [#59](https://github.com/openfisca-ceq/pull/59)
+
+* Technical improvement.
+* Details:
+  - Fix deps
+
 ## 0.4.0 - [#43](https://github.com/openfisca-ceq/pull/43)
 
 * Technical improvement.

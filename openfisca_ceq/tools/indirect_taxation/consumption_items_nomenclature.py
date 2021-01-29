@@ -21,12 +21,11 @@ assets_directory = os.path.join(
 config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, 'raw_data.ini'))
 consumption_items_directory = config_parser.get('ceq', 'consumption_items_directory')
-assert os.path.exists(consumption_items_directory), \
-    "Consumption items directory {} does not exists, please create it and fill it with countries consumption items files".format(
+assert os.path.exists(consumption_items_directory), (
+    "Consumption items directory {} does not exists, please create it and add countries consumption items files".format(
         consumption_items_directory
-       )
-
-
+        )
+    )
 country_code_by_country = {
     "mali": "MLI",
     "senegal": "SEN",

@@ -36,7 +36,7 @@ def read_target(country, variable):
     return target
 
 
-if __name__ == "__main__":
-    country = "senegal"
-    for variable in ["gross_value_added", "consumption"]:
-        print(read_target(country, variable))
+# if __name__ == "__main__":
+#     country = "senegal"
+#     for variable in ["gross_value_added", "consumption"]:
+#         print(read_target(country, variable))

@@ -119,5 +119,5 @@ def build_country_result(survey_scenario, inflated_survey_scenario, add_country_
     return result.round(1)
 
 
-if __name__ == '__main__':
-    print(read_tax_target())
+# if __name__ == '__main__':
+#     print(read_tax_target())

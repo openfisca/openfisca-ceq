@@ -141,6 +141,7 @@ class revenu_non_salarie_total(Variable):
     def formula(person, period):
         return person('revenu_informel_non_salarie', period) + person('revenu_non_salarie', period)
 
+
 class secteur_activite(Variable):
     value_type = int
     entity = entities.Person
@@ -161,7 +162,6 @@ class secteur_public(Variable):
     entity = entities.Person
     definition_period = YEAR
     label = "L'individu est un salarié du secteur public"
-
 
 
 class survey_income(Variable):
@@ -316,12 +316,9 @@ def add_ceq_framework(country_tax_benefit_system):
     country_tax_benefit_system.add_variable(secteur_formel)
     country_tax_benefit_system.add_variable(survey_income)
     country_tax_benefit_system.add_variable(urbain)
-
     country_tax_benefit_system.add_variable(number_of_people_per_household)
-
     country_tax_benefit_system.add_variable(hh_id)
     country_tax_benefit_system.add_variable(pers_id)
-
 
     return country_tax_benefit_system
 

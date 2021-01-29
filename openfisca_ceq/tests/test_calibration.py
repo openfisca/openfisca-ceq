@@ -139,4 +139,3 @@ def test_calibration(country):
     #         ),
     #     gross_value_added_target
     #     )
-

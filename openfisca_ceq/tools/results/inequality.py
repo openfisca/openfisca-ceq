@@ -167,7 +167,6 @@ def income_shares(
     return (masses / masses.sum()).round(digits)
 
 
-
 def taxpayers_share(
         survey_scenario,
         tax_variables = None,
@@ -190,8 +189,6 @@ def taxpayers_share(
     if period is None:
         period = survey_scenario.year
     assert period is not None
-
-
     entity_key = survey_scenario.tax_benefit_system.variables[tax_variable].entity.key
     weight_variable = survey_scenario.weight_variable_by_entity[entity_key]
     series = (
