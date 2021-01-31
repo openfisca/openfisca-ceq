@@ -32,7 +32,7 @@ setup(
             'pdbpp',
             "pytest >= 5.0.0, < 7.0.0",
             "requests >= 2.8",
-            "yamllint >=1.11.1,<1.24",
+            "yamllint >=1.11.1,<1.27",
             ],
         },
     packages=find_packages(),
