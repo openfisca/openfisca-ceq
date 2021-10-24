@@ -25,7 +25,7 @@ setup(
         ],
     extras_require = {
         'dev': [
-            "autopep8 ==1.5.4",
+            "autopep8 ==1.6.0",
             "flake8 >=3.8.0,<3.10.0",
             "flake8-print",
             "papermill",
