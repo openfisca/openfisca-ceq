@@ -117,6 +117,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        uv sync --extra dev
         uv pip install twine
 
     - name: Publish to PyPI
