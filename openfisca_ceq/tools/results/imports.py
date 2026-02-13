@@ -8,14 +8,14 @@ def compute_total_ht_imports(survey_scenario):
     total_ht_imports_variable = [
         variable
         for variable in survey_scenario.tax_benefit_system.variables
-        if 'droits_douane_' in variable
-        ]
+        if "droits_douane_" in variable
+    ]
     log.debug(total_ht_imports_variable)
 
     return sum(
-        survey_scenario.compute_aggregate(variable, period = survey_scenario.year)
+        survey_scenario.compute_aggregate(variable, period=survey_scenario.year)
         for variable in total_ht_imports_variable
-        )
+    )
 
 
 # if __name__ == '__main__':
