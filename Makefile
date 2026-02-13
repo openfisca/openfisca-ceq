@@ -63,5 +63,10 @@ notebook-results:
 test: check-syntax-errors check-style
 	@# Launch tests from openfisca_ceq/tests directory (and not .) because TaxBenefitSystem must be initialized
 	@# before parsing source files containing formulas.
-	@# pytest
+	@# Tests requiring local Stata .dta files are ignored (CI mode)
 	uv run openfisca test --country-package openfisca_ceq openfisca_ceq/tests
+
+test-all: check-syntax-errors check-style
+	@# Run all tests including those requiring local Stata .dta files
+	@# This requires raw_data.ini configuration and local data files
+	uv run pytest openfisca_ceq/tests --showlocals --exitfirst --doctest-modules --disable-pytest-warnings
