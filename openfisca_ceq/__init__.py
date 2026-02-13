@@ -160,7 +160,16 @@ class CountryTaxBenefitSystem(TaxBenefitSystem):
         # We add to our tax and benefit system all the legislation parameters defined in the  parameters files
         # param_path = path.join(COUNTRY_DIR, 'parameters')
         # self.load_parameters(param_path)
-        from openfisca_core.parameters import ParameterNode
+        from openfisca_core.parameters import load_parameter_file
+        import tempfile
+        import os
 
         if self.parameters is None:
-            self.parameters = ParameterNode("", {})
+            # Create empty parameters from empty YAML to avoid NoneType errors
+            temp_file = tempfile.NamedTemporaryFile(
+                mode="w", suffix=".yaml", delete=False
+            )
+            temp_file.write("{}")
+            temp_file.close()
+            self.parameters = load_parameter_file(temp_file.name)
+            os.unlink(temp_file.name)
