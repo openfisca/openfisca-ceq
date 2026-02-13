@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2 - [#76](https://github.com/openfisca/openfisca-ceq/pull/76) - Bugfix release
+
+* **Bugfix**: Documentation and deployment improvements
+  - Add PyPI deployment configuration guide
+  - Add verbose flag to twine upload for better error diagnostics
+  - Improve troubleshooting documentation
+
 ## 1.0.1 - Bugfix release
 
 * **Bugfix**: Fix deploy job in GitHub Actions workflow
