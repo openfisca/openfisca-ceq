@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.0.0 - Migration to modern Python tooling
+
+* **Major change**: Complete migration to modern Python packaging and tooling.
+* **Breaking changes**:
+  - Removed `setup.py` and `setup.cfg` in favor of `pyproject.toml`
+  - Replaced `flake8` and `autopep8` with `ruff` for linting and formatting
+  - Replaced `pip` with `uv` for all package management operations
+  - Removed CircleCI in favor of GitHub Actions
+* **Technical improvements**:
+  - Modern Python packaging with `pyproject.toml` (PEP 517/518)
+  - Faster dependency management with `uv`
+  - Improved code quality checks with `ruff`
+  - Streamlined CI/CD with GitHub Actions
+  - Automatic PyPI deployment on master branch
+  - Automatic git tag creation on releases
+* **Documentation**:
+  - Updated installation instructions to use `uv`
+  - Updated README with new tooling information
+* **Migration guide**:
+  - Users should install `uv` before installing this package
+  - Developers should use `make install` which uses `uv sync`
+  - All CI/CD now runs on GitHub Actions
+
 ## 0.4.1 - [#59](https://github.com/openfisca-ceq/pull/59)
 
 * Technical improvement.
