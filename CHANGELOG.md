@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - Bugfix release
+
+* **Bugfix**: Fix deploy job in GitHub Actions workflow
+  - Create virtual environment before installing twine in deploy job
+  - Fixes error: "No virtual environment found" during PyPI deployment
+
 ## 1.0.0 - Migration to modern Python tooling
 
 * **Major change**: Complete migration to modern Python packaging and tooling.
