@@ -4,6 +4,7 @@
 
 * **Major change**: Complete migration to modern Python packaging and tooling.
 * **Breaking changes**:
+  - **Python 3.11 minimum required** (previously Python 3.7+)
   - Removed `setup.py` and `setup.cfg` in favor of `pyproject.toml`
   - Replaced `flake8` and `autopep8` with `ruff` for linting and formatting
   - Replaced `pip` with `uv` for all package management operations
@@ -19,6 +20,7 @@
   - Updated installation instructions to use `uv`
   - Updated README with new tooling information
 * **Migration guide**:
+  - **Python 3.11 or higher is now required** (upgrade from Python 3.7-3.10 if needed)
   - Users should install `uv` before installing this package
   - Developers should use `make install` which uses `uv sync`
   - All CI/CD now runs on GitHub Actions
