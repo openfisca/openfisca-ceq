@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import glob
 from inspect import isclass
 from os import path
-from imp import find_module, load_module
+import importlib.util
 import logging
 
 from openfisca_core.variables import Variable
@@ -39,9 +37,11 @@ def add_variables_from_file(
 
         module_directory = path.dirname(file_path)
         try:
-            module = load_module(
-                module_name, *find_module(file_name, [module_directory])
-            )
+            # Use importlib instead of deprecated imp module
+            file_path_full = path.join(module_directory, file_name + ".py")
+            spec = importlib.util.spec_from_file_location(module_name, file_path_full)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
         except NameError as e:
             logging.error(
                 str(e)
@@ -112,7 +112,11 @@ def list_variables_from_file(self, file_path):
 
     module_directory = path.dirname(file_path)
     try:
-        module = load_module(module_name, *find_module(file_name, [module_directory]))
+        # Use importlib instead of deprecated imp module
+        file_path_full = path.join(module_directory, file_name + ".py")
+        spec = importlib.util.spec_from_file_location(module_name, file_path_full)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
     except NameError as e:
         logging.error(
             str(e)
