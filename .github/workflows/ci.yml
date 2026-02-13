@@ -31,13 +31,7 @@ jobs:
         uv sync --extra dev
         uv pip install openfisca-core
 
-    - name: Check syntax errors
-      run: uv run make check-syntax-errors
-
-    - name: Check code style
-      run: uv run make check-style
-
-    - name: Run tests
+    - name: Run tests (includes syntax check and style check)
       run: uv run make test
 
   lint:
