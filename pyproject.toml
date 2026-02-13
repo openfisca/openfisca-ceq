@@ -56,9 +56,12 @@ include-package-data = true
 where = ["."]
 
 [tool.pytest.ini_options]
-# Tests requiring local configuration/data files are ignored
-# These tests need raw_data.ini and consumption_items_directory configuration
-# which are not available in CI environments
+# Tests requiring local configuration/data files are ignored in CI
+# These tests need:
+# - raw_data.ini configuration file (with paths to Stata .dta files)
+# - consumption_items_directory configuration
+# - Local Stata data files (.dta) not available in CI environments
+# All tests using read_stata() or build_ceq_survey_scenario() are ignored
 addopts = "--showlocals --exitfirst --doctest-modules --disable-pytest-warnings --ignore openfisca_ceq/tests/test_indirect_tax_variables_generator.py --ignore openfisca_ceq/tests/test_input_data.py --ignore openfisca_ceq/tests/test_survey_scenario.py --ignore openfisca_ceq/tests/test_calibration.py --ignore openfisca_ceq/tests/tests_data_dtypes.py"
 testpaths = ["openfisca_ceq/tests"]
 python_files = "**/*.py"
