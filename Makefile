@@ -8,7 +8,7 @@ clean:
 	find . -name '*.pyc' -exec rm \{\} \;
 
 deps:
-	pip install --upgrade pip twine wheel
+	pip install --upgrade pip twine wheel build
 
 install: deps
 	@# Install OpenFisca-CEQ for development.
@@ -21,7 +21,7 @@ build: clean deps
 	@# Install OpenFisca-CEQ for deployment and publishing.
 	@# `make build` allows us to be be sure tests are run against the packaged version
 	@# of OpenFisca-CEQ, the same we put in the hands of users and reusers.
-	python setup.py bdist_wheel
+	python -m build --wheel
 	find dist -name "*.whl" -exec pip install --upgrade {}[dev] \;
 	pip install openfisca-core[web-api]
 
@@ -31,12 +31,13 @@ check-syntax-errors:
 format-style:
 	@# Do not analyse .gitignored files.
 	@# `make` needs `$$` to output `$`. Ref: http://stackoverflow.com/questions/2382764.
-	autopep8 `git ls-files | grep "\.py$$"`
+	ruff format `git ls-files | grep "\.py$$"`
+	ruff check --fix `git ls-files | grep "\.py$$"`
 
 check-style:
 	@# Do not analyse .gitignored files.
 	@# `make` needs `$$` to output `$`. Ref: http://stackoverflow.com/questions/2382764.
-	flake8 `git ls-files | grep "\.py$$"`
+	ruff check `git ls-files | grep "\.py$$"`
 
 notebook-all: notebook-cote_d_ivoire notebook-mali notebook-senegal
 

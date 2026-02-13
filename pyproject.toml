@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "OpenFisca-CEQ"
+version = "0.4.1"
+description = "OpenFisca tax and benefit system for CEQ"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "AGPL-3.0"}
+authors = [
+    {name = "OpenFisca Team", email = "contact@openfisca.fr"}
+]
+keywords = ["benefit", "microsimulation", "social", "tax"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "OpenFisca-Survey-Manager >=0.40.1,<1.0",
+    "OpenFisca-Core >=34.4.2,<36.0",
+    "matplotlib >=3.2.1,<4.0",
+    "pandas >= 0.24.1",
+    "python-slugify",
+    "scipy",
+    "xlrd >= 1.0.0",
+    "xlsxwriter",
+    "xlwt >= 1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff >=0.1.0",
+    "papermill",
+    "pdbpp",
+    "pytest >= 5.0.0, < 7.0.0",
+    "requests >= 2.8",
+    "yamllint >=1.11.1,<1.27",
+]
+
+[project.urls]
+Homepage = "https://github.com/openfisca/openfisca-ceq"
+Repository = "https://github.com/openfisca/openfisca-ceq"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+addopts = "--showlocals --exitfirst --doctest-modules --disable-pytest-warnings --ignore openfisca_ceq/tests/test_indirect_tax_variables_generator.py --ignore openfisca_ceq/tests/test_input_data.py --ignore openfisca_ceq/tests/test_survey_scenario.py"
+testpaths = ["openfisca_ceq/tests"]
+python_files = "**/*.py"
+
+[tool.ruff]
+# Ruff configuration pour remplacer flake8
+line-length = 88
+target-version = "py37"
+
+[tool.ruff.lint]
+# Ignorer les règles équivalentes à celles ignorées dans flake8
+# E128/133: hang-closing visual indents (géré par le formatter)
+# E251: function(x = 1) vs function(x=1) - on garde la préférence flake8
+# E501: pas de limite de longueur de ligne stricte (on utilise 88 par défaut mais on ignore E501)
+# F403/405: imports avec * (on ignore)
+# W503/504: break lines before binary operators (géré par le formatter)
+ignore = [
+    "E251",  # function(x = 1) vs function(x=1) - préférence flake8
+    "F403",  # star imports
+    "F405",  # star imports
+    "E501",  # line too long (géré par line-length mais on ignore pour compatibilité)
+    "E128",  # continuation line under-indented for visual indent
+    "E133",  # closing bracket is missing indentation
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F403", "F405"]
+
+[tool.ruff.format]
+# Configuration du formatter (équivalent à autopep8)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
