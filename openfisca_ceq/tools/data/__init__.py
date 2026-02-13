@@ -2,7 +2,6 @@ import configparser
 import os
 
 
-import os
 from pathlib import Path
 
 # Get config directory using XDG Base Directory specification

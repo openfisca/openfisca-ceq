@@ -79,6 +79,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F403", "F405"]
+"*.ipynb" = ["E402"]  # Allow imports not at top of cell in notebooks
 
 [tool.ruff.format]
 # Configuration du formatter (équivalent à autopep8)

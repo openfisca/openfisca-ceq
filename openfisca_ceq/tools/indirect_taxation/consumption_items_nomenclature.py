@@ -6,7 +6,6 @@ import pkg_resources
 
 
 from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
-import os
 from pathlib import Path
 
 # Get config directory using XDG Base Directory specification
