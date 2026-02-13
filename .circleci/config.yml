@@ -8,26 +8,27 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          key: v1-py3-deps-{{ .Branch }}-{{ checksum "setup.py" }}
-
       - run:
-          name: Create a virtualenv
+          name: Install uv
           command: |
-            mkdir -p /tmp/venv/ceq
-            python -m venv /tmp/venv/ceq
-            echo "source /tmp/venv/ceq/bin/activate" >> $BASH_ENV
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $BASH_ENV
+
+      - restore_cache:
+          key: v1-py3-deps-{{ .Branch }}-{{ checksum "pyproject.toml" }}
 
       - run:
           name: Install dependencies
           command: |
+            source $HOME/.cargo/env || true
             make build
-            # pip install --editable git+https://github.com/openfisca/openfisca-core.git@BRANCH_NAME#egg=OpenFisca-Core  # use a specific branch of OpenFisca-Core
+            # uv pip install --editable git+https://github.com/openfisca/openfisca-core.git@BRANCH_NAME#egg=OpenFisca-Core  # use a specific branch of OpenFisca-Core
 
       - save_cache:
-          key: v1-py3-deps-{{ .Branch }}-{{ checksum "setup.py" }}
+          key: v1-py3-deps-{{ .Branch }}-{{ checksum "pyproject.toml" }}
           paths:
-            - /tmp/venv/ceq
+            - .venv
+            - ~/.cargo
 
       - save_cache:
           key: v1-py3-build-{{ .Revision }}
@@ -37,10 +38,11 @@ jobs:
       - run:
           name: Run tests
           command: |
+            source $HOME/.cargo/env || true
             # pytest `circleci tests glob "openfisca_ceq/tests/**/[^_]*.py" | circleci tests split`
             # openfisca test `circleci tests glob "openfisca_ceq/tests/**/*.{yaml,yml}" | circleci tests split`
             # pytest
-            openfisca test --country-package openfisca_ceq openfisca_ceq/tests/formulas
+            uv run openfisca test --country-package openfisca_ceq openfisca_ceq/tests/formulas
 
 
   lint_yaml_files:
@@ -50,17 +52,25 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install uv
+          command: |
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $BASH_ENV
+
       - restore_cache:
-          key: v1-py3-deps-{{ .Branch }}-{{ checksum "setup.py" }}
+          key: v1-py3-deps-{{ .Branch }}-{{ checksum "pyproject.toml" }}
 
       - run:
-          name: Activate virtualenv
+          name: Install dependencies
           command: |
-            echo "source /tmp/venv/ceq/bin/activate" >> $BASH_ENV
+            source $HOME/.cargo/env || true
+            make install
 
       - run:
           name: Lint files
           command: |
+            source $HOME/.cargo/env || true
             .circleci/lint-changed-yaml-tests.sh
 
   lint_python_files:
@@ -70,17 +80,25 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install uv
+          command: |
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $BASH_ENV
+
       - restore_cache:
-          key: v1-py3-deps-{{ .Branch }}-{{ checksum "setup.py" }}
+          key: v1-py3-deps-{{ .Branch }}-{{ checksum "pyproject.toml" }}
 
       - run:
-          name: Activate virtualenv
+          name: Install dependencies
           command: |
-            echo "source /tmp/venv/ceq/bin/activate" >> $BASH_ENV
+            source $HOME/.cargo/env || true
+            make install
 
       - run:
           name: Lint files
           command: |
+            source $HOME/.cargo/env || true
             make check-syntax-errors check-style
             .circleci/lint-changed-python-files.sh
 
@@ -107,8 +125,14 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install uv
+          command: |
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $BASH_ENV
+
       - restore_cache:
-          key: v1-py3-deps-{{ .Branch }}-{{ checksum "setup.py" }}
+          key: v1-py3-deps-{{ .Branch }}-{{ checksum "pyproject.toml" }}
 
       - restore_cache:
           key: v1-py3-build-{{ .Revision }}
@@ -120,8 +144,9 @@ jobs:
       - run:
           name: Upload a Python package to Pypi
           command: |
-            source /tmp/venv/ceq/bin/activate
-            twine upload dist/* --username $PYPI_USERNAME --password $PYPI_PASSWORD
+            source $HOME/.cargo/env || true
+            uv pip install twine
+            uv run twine upload dist/* --username $PYPI_USERNAME --password $PYPI_PASSWORD
 
       - run:
           name: Publish a git tag
