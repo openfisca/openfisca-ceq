@@ -69,4 +69,5 @@ test: check-syntax-errors check-style
 test-all: check-syntax-errors check-style
 	@# Run all tests including those requiring local Stata .dta files
 	@# This requires raw_data.ini configuration and local data files
-	uv run pytest openfisca_ceq/tests --showlocals --exitfirst --doctest-modules --disable-pytest-warnings
+	@# Override pytest addopts to remove --ignore options from pyproject.toml
+	uv run pytest openfisca_ceq/tests -o "addopts=--showlocals --exitfirst --doctest-modules --disable-pytest-warnings"
