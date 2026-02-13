@@ -2,14 +2,6 @@
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.uv]
-# Constraint dependencies transitives pour compatibilité Python 3.11+
-# Ces dépendances viennent de OpenFisca-Core/Survey-Manager mais doivent être compatibles
-# numpy < 2.0 car nptyping (dépendance d'openfisca-core) n'est pas compatible avec numpy 2.x
-override-dependencies = [
-    "numpy>=1.24.0,<2.0",
-]
-
 [project]
 name = "OpenFisca-CEQ"
 version = "1.0.0"
@@ -30,15 +22,16 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "OpenFisca-Survey-Manager >=0.40.1,<1.0",
-    "OpenFisca-Core >=34.4.2,<36.0",
+    "OpenFisca-Survey-Manager >=6.2.0,<7.0",
+    "OpenFisca-Core >=44.0.0,<45.0",
     "importlib-metadata",
-    "matplotlib >=3.2.1,<4.0",
+    "matplotlib >=3.8.0",
     "python-slugify",
+    "scipy >=1.10.1,<2.0",
     "setuptools<66",
-    "xlrd >= 2.0.0",
+    "xlrd >=2.0.0",
     "xlsxwriter",
-    "xlwt >= 1.0.0",
+    "xlwt >=1.3.0",
 ]
 
 [project.optional-dependencies]
@@ -46,8 +39,8 @@ dev = [
     "ruff >=0.1.0",
     "papermill",
     "pdbpp",
-    "pytest >= 5.0.0, < 7.0.0",
-    "requests >= 2.8",
+    "pytest >=8.3.3",
+    "requests >=2.32.0",
     "yamllint >=1.11.1,<1.27",
 ]
 
