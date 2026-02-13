@@ -6,7 +6,7 @@ from scipy.optimize import fsolve
 from openfisca_core import periods
 from openfisca_core.model_api import Variable, where, YEAR
 
-from openfisca_survey_manager.scenarios.abstract_scenario import AbstractScenario as AbstractSurveyScenario
+from openfisca_survey_manager.scenarios.abstract_scenario import AbstractSurveyScenario
 from openfisca_ceq.tools.tax_benefit_system_ceq_completion import ceq
 from openfisca_ceq.tools.indirect_taxation.tax_benefit_system_indirect_taxation_completion import (
     add_coicop_item_to_tax_benefit_system)
