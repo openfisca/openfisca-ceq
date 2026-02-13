@@ -8,8 +8,8 @@ For the `master` branch protection, the following checks should be required:
 
 ### Minimum Required Checks (Recommended)
 
-1. **Test (Python 3.7)** - `test (Python 3.7)`
-   - Ensures basic compatibility with Python 3.7
+1. **Test (Python 3.11)** - `test (Python 3.11)`
+   - Ensures compatibility with Python 3.11 (minimum required version)
    - Includes syntax check, style check, and full test suite
 
 2. **Lint** - `lint`
@@ -18,7 +18,7 @@ For the `master` branch protection, the following checks should be required:
 
 ### Optional Checks (Can be required for stricter enforcement)
 
-3. **Test (Python 3.11)** - `test (Python 3.11)`
+3. **Test (Python 3.12)** - `test (Python 3.12)`
    - Ensures compatibility with latest Python version
 
 4. **Build** - `build`
@@ -31,18 +31,15 @@ For the `master` branch protection, the following checks should be required:
 2. Edit or create branch protection rule for `master`
 3. Enable "Require status checks to pass before merging"
 4. Add the following checks:
-   - `test (Python 3.7)`
+   - `test (Python 3.11)`
    - `lint`
-   - Optionally: `test (Python 3.11)` and `build`
+   - Optionally: `test (Python 3.12)` and `build`
 
 ## Check Names
 
 The check names in GitHub Actions are:
-- `test (Python 3.7)` - Test job with Python 3.7
-- `test (Python 3.8)` - Test job with Python 3.8
-- `test (Python 3.9)` - Test job with Python 3.9
-- `test (Python 3.10)` - Test job with Python 3.10
 - `test (Python 3.11)` - Test job with Python 3.11
+- `test (Python 3.12)` - Test job with Python 3.12
 - `lint` - Lint job
 - `build` - Build job
 

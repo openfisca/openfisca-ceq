@@ -7,7 +7,7 @@ name = "OpenFisca-CEQ"
 version = "1.0.0"
 description = "OpenFisca tax and benefit system for CEQ"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 license = {text = "AGPL-3.0"}
 authors = [
     {name = "OpenFisca Team", email = "contact@openfisca.fr"}
@@ -18,11 +18,8 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
     "OpenFisca-Survey-Manager >=0.40.1,<1.0",
@@ -64,7 +61,7 @@ python_files = "**/*.py"
 [tool.ruff]
 # Ruff configuration pour remplacer flake8
 line-length = 88
-target-version = "py37"
+target-version = "py311"
 
 [tool.ruff.lint]
 # Ignorer les règles équivalentes à celles ignorées dans flake8

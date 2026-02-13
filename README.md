@@ -34,7 +34,7 @@ Pour plus d'information sur les fonctionnalités et la manière d'utiliser OpenF
 
 ## Installation
 
-Ce paquet requiert [Python 3.7](https://www.python.org/downloads/release/python-370/) ou plus récent et [uv](https://github.com/astral-sh/uv) (un gestionnaire de paquets Python moderne et rapide).
+Ce paquet requiert [Python 3.11](https://www.python.org/downloads/release/python-3110/) ou plus récent et [uv](https://github.com/astral-sh/uv) (un gestionnaire de paquets Python moderne et rapide).
 
 Plateformes supportées :
 - distributions GNU/Linux (en particulier Debian and Ubuntu) ;
@@ -81,7 +81,7 @@ Pour pouvoir modifier OpenFisca-CEQ, consultez l'[Installation avancée](#b-inst
 Vérifiez les pré-requis :
 
 ```sh
-python --version  # Devrait afficher "Python 3.7.xx" ou plus récent.
+python --version  # Devrait afficher "Python 3.11.xx" ou plus récent.
 ```
 
 Installez OpenFisca-CEQ :
@@ -124,7 +124,7 @@ Assurez-vous que vous êtes dans le répertoire où vous souhaitez cloner OpenFi
 Vérifiez les pré-requis :
 
 ```sh
-python --version  # Devrait afficher "Python 3.7.xx" ou plus récent.
+python --version  # Devrait afficher "Python 3.11.xx" ou plus récent.
 ```
 
 ```sh
