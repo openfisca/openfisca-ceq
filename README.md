@@ -3,7 +3,7 @@
 [![Newsletter](https://img.shields.io/badge/newsletter-subscribe!-informational.svg?style=flat)](mailto:contact%40openfisca.org?subject=Subscribe%20to%20your%20newsletter%20%7C%20S'inscrire%20%C3%A0%20votre%20newsletter&body=%5BEnglish%20version%20below%5D%0A%0ABonjour%2C%0A%0AVotre%C2%A0pr%C3%A9sence%C2%A0ici%C2%A0nous%C2%A0ravit%C2%A0!%20%F0%9F%98%83%0A%0AEnvoyez-nous%20cet%20email%20pour%20que%20l'on%20puisse%20vous%20inscrire%20%C3%A0%20la%20newsletter.%20%0A%0AAh%C2%A0!%20Et%20si%20vous%20pouviez%20remplir%20ce%20petit%20questionnaire%2C%20%C3%A7a%20serait%20encore%20mieux%C2%A0!%0Ahttps%3A%2F%2Fgoo.gl%2Fforms%2F45M0VR1TYKD1RGzX2%0A%0AAmiti%C3%A9%2C%0AL%E2%80%99%C3%A9quipe%20OpenFisca%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%20ENGLISH%20VERSION%20%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A%0AHi%2C%20%0A%0AWe're%20glad%20to%20see%20you%20here!%20%F0%9F%98%83%0A%0APlease%20send%20us%20this%20email%2C%20so%20we%20can%20subscribe%20you%20to%20the%20newsletter.%0A%0AAlso%2C%20if%20you%20can%20fill%20out%20this%20short%20survey%2C%20even%20better!%0Ahttps%3A%2F%2Fgoo.gl%2Fforms%2FsOg8K1abhhm441LG2%0A%0ACheers%2C%0AThe%20OpenFisca%20Team)
 [![Twitter](https://img.shields.io/badge/twitter-follow%20us!-9cf.svg?style=flat)](https://twitter.com/intent/follow?screen_name=openfisca)
 [![Slack](https://img.shields.io/badge/slack-join%20us!-blueviolet.svg?style=flat)](mailto:contact%40openfisca.org?subject=Join%20you%20on%20Slack%20%7C%20Nous%20rejoindre%20sur%20Slack&body=%5BEnglish%20version%20below%5D%0A%0ABonjour%2C%0A%0AVotre%C2%A0pr%C3%A9sence%C2%A0ici%C2%A0nous%C2%A0ravit%C2%A0!%20%F0%9F%98%83%0A%0ARacontez-nous%20un%20peu%20de%20vous%2C%20et%20du%20pourquoi%20de%20votre%20int%C3%A9r%C3%AAt%20de%20rejoindre%20la%20communaut%C3%A9%20OpenFisca%20sur%20Slack.%0A%0AAh%C2%A0!%20Et%20si%20vous%20pouviez%20remplir%20ce%20petit%20questionnaire%2C%20%C3%A7a%20serait%20encore%20mieux%C2%A0!%0Ahttps%3A%2F%2Fgoo.gl%2Fforms%2F45M0VR1TYKD1RGzX2%0A%0AN%E2%80%99oubliez%20pas%20de%20nous%20envoyer%20cet%20email%C2%A0!%20Sinon%2C%20on%20ne%20pourra%20pas%20vous%20contacter%20ni%20vous%20inviter%20sur%20Slack.%0A%0AAmiti%C3%A9%2C%0AL%E2%80%99%C3%A9quipe%20OpenFisca%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%20ENGLISH%20VERSION%20%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A%0AHi%2C%20%0A%0AWe're%20glad%20to%20see%20you%20here!%20%F0%9F%98%83%0A%0APlease%20tell%20us%20a%20bit%20about%20you%20and%20why%20you%20want%20to%20join%20the%20OpenFisca%20community%20on%20Slack.%0A%0AAlso%2C%20if%20you%20can%20fill%20out%20this%20short%20survey%2C%20even%20better!%0Ahttps%3A%2F%2Fgoo.gl%2Fforms%2FsOg8K1abhhm441LG2.%0A%0ADon't%20forget%20to%20send%20us%20this%20email!%20Otherwise%20we%20won't%20be%20able%20to%20contact%20you%20back%2C%20nor%20invite%20you%20on%20Slack.%0A%0ACheers%2C%0AThe%20OpenFisca%20Team)
-[![CircleCI](https://img.shields.io/circleci/project/github/openfisca/openfisca-ceq/master.svg?style=flat)](https://circleci.com/gh/openfisca/openfisca-ceq)
+[![CI](https://github.com/openfisca/openfisca-ceq/workflows/CI/badge.svg)](https://github.com/openfisca/openfisca-ceq/actions)
 [![Python](https://img.shields.io/pypi/pyversions/openfisca-ceq.svg)](https://pypi.python.org/pypi/openfisca-ceq)
 [![PyPi](https://img.shields.io/pypi/v/openfisca-ceq.svg?style=flat)](https://pypi.python.org/pypi/openfisca-ceq)
 
@@ -34,7 +34,7 @@ Pour plus d'information sur les fonctionnalités et la manière d'utiliser OpenF
 
 ## Installation
 
-Ce paquet requiert [Python 3.7](https://www.python.org/downloads/release/python-370/) et [pip](https://pip.pypa.io/en/stable/installing/).
+Ce paquet requiert [Python 3.11](https://www.python.org/downloads/release/python-3110/) ou plus récent et [uv](https://github.com/astral-sh/uv) (un gestionnaire de paquets Python moderne et rapide).
 
 Plateformes supportées :
 - distributions GNU/Linux (en particulier Debian and Ubuntu) ;
@@ -43,46 +43,31 @@ Plateformes supportées :
 
 Pour les autres OS : si vous pouvez exécuter Python et Numpy, l'installation d'OpenFisca devrait fonctionner.
 
-### Installez un environnement virtuel avec Pew
+### Installer uv
 
-Nous recommandons l'utilisation d'un [environnement virtuel](https://virtualenv.pypa.io/en/stable/) (_virtualenv_) avec un gestionnaire de _virtualenv_ tel que [Pew](https://github.com/berdario/pew).
+Nous recommandons l'utilisation de [uv](https://github.com/astral-sh/uv) pour gérer les dépendances et les environnements virtuels. `uv` est beaucoup plus rapide que `pip` et gère automatiquement les environnements virtuels.
 
-- Un _[virtualenv](https://virtualenv.pypa.io/en/stable/)_ crée un environnement pour les besoins spécifiques du projet sur lequel vous travaillez.
-- Un gestionnaire de _virtualenv_, tel que [Pew](https://github.com/berdario/pew), vous permet de facilement créer, supprimer et naviguer entre différents projets.
-
-Pour installer Pew, lancez une fenêtre de terminal et suivez ces instructions :
+Pour installer `uv`, lancez une fenêtre de terminal et exécutez :
 
 ```sh
-python --version # Python 3.7.0 ou plus récent devrait être installé sur votre ordinateur.
-# Si non, téléchargez-le sur http://www.python.org et téléchargez pip.
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
+Ou sur Windows (PowerShell) :
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Vérifiez l'installation :
 ```sh
-pip install --upgrade pip
-pip install pew
+uv --version
 ```
-Créez un nouveau _virtualenv_ nommé **openfisca** et configurez-le avec python 3.7 :
-
-```sh
-pew new openfisca --python=python3.7
-# Si demandé, répondez "Y" à la question sur la modification du fichier de configuration de votre shell
-```
-Le  _virtualenv_  **openfisca** sera alors activé, c'est-à-dire que les commandes suivantes s'exécuteront directement dans l'environnement virtuel. Vous verrez dans votre terminal :
-
-```sh
-Installing setuptools, pip, wheel...done.
-Launching subshell in virtual environment. Type 'exit' or 'Ctrl+D' to return.
-```
-
-Informations complémentaires :
-- sortez du _virtualenv_ en tapant `exit` (or Ctrl-D) ;
-- re-rentrez en tapant `pew workon openfisca` dans votre terminal.
 
 Bravo :tada: Vous êtes prêt·e à installer OpenFisca-CEQ !
 
 Nous proposons deux procédures d'installation. Choisissez l'installation A ou B ci-dessous en fonction de l'usage que vous souhaitez faire d'OpenFisca-CEQ.
 
-### A. Installation minimale (pip install)
+### A. Installation minimale (uv install)
 
 Suivez cette installation si vous souhaitez :
 - procéder à des calculs sur une large population ;
@@ -91,23 +76,26 @@ Suivez cette installation si vous souhaitez :
 
 Pour pouvoir modifier OpenFisca-CEQ, consultez l'[Installation avancée](#b-installation-avancée-git-clone).
 
-#### Installer OpenFisca-CEQ avec pip install
+#### Installer OpenFisca-CEQ avec uv
 
-Dans votre _virtualenv_, vérifiez les pré-requis :
-
-```sh
-python --version  # Devrait afficher "Python 3.7.xx".
-#Si non, vérifiez que vous passez --python=python3.7 lors de la création de votre environnement virtuel.
-```
+Vérifiez les pré-requis :
 
 ```sh
-pip --version  # Devrait afficher au moins 9.0.x
-#Si non, exécutez "pip install --upgrade pip".
+python --version  # Devrait afficher "Python 3.11.xx" ou plus récent.
 ```
+
 Installez OpenFisca-CEQ :
 
 ```sh
-pip install openfisca-ceq
+uv pip install openfisca-ceq
+```
+
+Ou si vous préférez utiliser `uv` avec un environnement virtuel :
+
+```sh
+uv venv
+source .venv/bin/activate  # Sur Windows: .venv\Scripts\activate
+uv pip install openfisca-ceq
 ```
 
 Félicitations :tada: OpenFisca-CEQ est prêt à être utilisé !
@@ -116,7 +104,7 @@ Félicitations :tada: OpenFisca-CEQ est prêt à être utilisé !
 
 - Apprenez à utiliser OpenFisca avec nos [tutoriels](https://openfisca.org/doc/) (en anglais).
 
-En fonction de vos projets, vous pourriez bénéficier de l'installation des paquets suivants dans votre _virtualenv_ :
+En fonction de vos projets, vous pourriez bénéficier de l'installation des paquets suivants :
 - pour installer une extension ou écrire une législation au-dessus d'OpenFisca-CEQ, consultez la [documentation sur les extensions](https://openfisca.org/doc/contribute/extensions.html) (en anglais) ;
 - pour représenter graphiquement vos résultats, essayez la bibliothèque [matplotlib](http://matplotlib.org/) ;
 - pour gérer vos données, découvrez la bibliothèque [pandas](http://pandas.pydata.org/).
@@ -131,18 +119,16 @@ Suivez cette installation si vous souhaitez :
 
 Premièrement, assurez-vous que [Git](https://www.git-scm.com/) est bien installé sur votre machine.
 
-Dans votre _virtualenv_, assurez-vous que vous êtes dans le répertoire où vous souhaitez cloner OpenFisca-CEQ.
+Assurez-vous que vous êtes dans le répertoire où vous souhaitez cloner OpenFisca-CEQ.
 
 Vérifiez les pré-requis :
 
 ```sh
-python --version  # Devrait afficher "Python 3.7.xx".
-#Si non, vérifiez que vous passez --python=python3.7 lors de la création de votre environnement virtuel.
+python --version  # Devrait afficher "Python 3.11.xx" ou plus récent.
 ```
 
 ```sh
-pip --version  # Devrait afficher au moins 9.0.
-#Si non, exécutez "pip install --upgrade pip".
+uv --version  # Vérifiez que uv est installé.
 ```
 
 Clonez OpenFisca-CEQ sur votre machine :
@@ -150,14 +136,20 @@ Clonez OpenFisca-CEQ sur votre machine :
 ```sh
 git clone https://github.com/openfisca/openfisca-ceq.git
 cd openfisca-ceq
-pip install --editable .[dev] && pip install openfisca-core[web-api]
+make install
 ```
+
+La commande `make install` utilise `uv sync` qui :
+- Crée automatiquement un environnement virtuel (`.venv`)
+- Installe toutes les dépendances depuis `pyproject.toml`
+- Installe les dépendances de développement (ruff, pytest, etc.)
 
 Vous pouvez vous assurer que votre installation s'est bien passée en exécutant :
 
 ```sh
-pytest tests/test_basics.py # Ces test peuvent prendre jusqu'à 60 secondes.
+make test
 ```
+
 :tada: OpenFisca-CEQ est prêt à être utilisé !
 
 #### Prochaines étapes
@@ -177,7 +169,9 @@ make test
 
 Ce dépôt adhère à un style de code précis, et on vous invite à le suivre pour que vos contributions soient intégrées au plus vite.
 
-L'analyse de style est déjà exécutée avec `make test`. Pour le faire tourner de façon indépendante :
+Le projet utilise [ruff](https://github.com/astral-sh/ruff) pour le linting et le formatage du code (remplaçant flake8 et autopep8).
+
+L'analyse de style est déjà exécutée avec `make test`. Pour le faire tourner de façon indépendante :
 
 ```sh
 make check-style

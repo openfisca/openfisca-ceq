@@ -24,11 +24,11 @@ class direct_taxes(Variable):
     label = "Direct Taxes"
 
     def formula(household, period):
-        personal_income_tax = household('personal_income_tax', period)
-        corporate_income_tax = household('corporate_income_tax', period)
-        payroll_tax = household('payroll_tax', period)
-        property_tax = household('property_tax', period)
-        other_taxes = household('other_taxes', period)
+        personal_income_tax = household("personal_income_tax", period)
+        corporate_income_tax = household("corporate_income_tax", period)
+        payroll_tax = household("payroll_tax", period)
+        property_tax = household("property_tax", period)
+        other_taxes = household("other_taxes", period)
 
         direct_taxes = (
             personal_income_tax
@@ -36,7 +36,7 @@ class direct_taxes(Variable):
             + payroll_tax
             + property_tax
             + other_taxes
-            )
+        )
         return direct_taxes
 
 
@@ -54,17 +54,12 @@ class indirect_taxes(Variable):
     label = "Indirect taxes"
 
     def formula(household, period):
-        value_added_tax = household('value_added_tax', period)
-        sales_tax = household('sales_tax', period)
-        excise_taxes = household('excise_taxes', period)
-        customs_duties = household('customs_duties', period)
+        value_added_tax = household("value_added_tax", period)
+        sales_tax = household("sales_tax", period)
+        excise_taxes = household("excise_taxes", period)
+        customs_duties = household("customs_duties", period)
 
-        indirect_taxes = (
-            value_added_tax
-            + sales_tax
-            + excise_taxes
-            + customs_duties
-            )
+        indirect_taxes = value_added_tax + sales_tax + excise_taxes + customs_duties
         return indirect_taxes
 
 

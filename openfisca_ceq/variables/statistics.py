@@ -13,20 +13,21 @@ class decile_disposable_income_per_capita(Variable):
     label = "Decile of disposable income per capita"
 
     def formula(household, period):
-        disposable_income = household('disposable_income', period)
-        number_of_people_per_household = household('number_of_people_per_household', period)
-        weights = (
-            household("household_weight", period)
-            * household("number_of_people_per_household", period)
-            )
+        disposable_income = household("disposable_income", period)
+        number_of_people_per_household = household(
+            "number_of_people_per_household", period
+        )
+        weights = household("household_weight", period) * household(
+            "number_of_people_per_household", period
+        )
         labels = np.arange(1, 11)
         decile, _ = mark_weighted_percentiles(
             disposable_income / number_of_people_per_household,
             labels,
             weights,
-            method = 2,
-            return_quantiles = True,
-            )
+            method=2,
+            return_quantiles=True,
+        )
         return decile
 
 
@@ -37,20 +38,21 @@ class decile_market_income_per_capita(Variable):
     label = "Decile of market income per capita"
 
     def formula(household, period):
-        market_income = household('market_income', period)
-        number_of_people_per_household = household('number_of_people_per_household', period)
-        weights = (
-            household("household_weight", period)
-            * household("number_of_people_per_household", period)
-            )
+        market_income = household("market_income", period)
+        number_of_people_per_household = household(
+            "number_of_people_per_household", period
+        )
+        weights = household("household_weight", period) * household(
+            "number_of_people_per_household", period
+        )
         labels = np.arange(1, 11)
         decile, _ = mark_weighted_percentiles(
             market_income / number_of_people_per_household,
             labels,
             weights,
-            method = 2,
-            return_quantiles = True,
-            )
+            method=2,
+            return_quantiles=True,
+        )
         return decile
 
 
@@ -62,10 +64,8 @@ class decile_consumable_income_per_capita(Variable):
 
     def formula(household, period):
         return compute_decile_income_per_capita(
-            income = 'consumable_income',
-            household = household,
-            period = period
-            )
+            income="consumable_income", household=household, period=period
+        )
 
 
 class decile_final_income_per_capita(Variable):
@@ -76,10 +76,10 @@ class decile_final_income_per_capita(Variable):
 
     def formula(household, period):
         return compute_decile_income_per_capita(
-            income = 'final_income',
-            household = household,
-            period = period,
-            )
+            income="final_income",
+            household=household,
+            period=period,
+        )
 
 
 class decile_gross_income_per_capita(Variable):
@@ -90,10 +90,10 @@ class decile_gross_income_per_capita(Variable):
 
     def formula(household, period):
         return compute_decile_income_per_capita(
-            income = 'gross_income',
-            household = household,
-            period = period,
-            )
+            income="gross_income",
+            household=household,
+            period=period,
+        )
 
 
 class decile_market_income_plus_pensions_per_capita(Variable):
@@ -104,10 +104,10 @@ class decile_market_income_plus_pensions_per_capita(Variable):
 
     def formula(household, period):
         return compute_decile_income_per_capita(
-            income = 'market_income_plus_pensions',
-            household = household,
-            period = period,
-            )
+            income="market_income_plus_pensions",
+            household=household,
+            period=period,
+        )
 
 
 class decile_survey_income_per_capita(Variable):
@@ -118,27 +118,27 @@ class decile_survey_income_per_capita(Variable):
 
     def formula(household, period):
         return compute_decile_income_per_capita(
-            income = 'market_income_plus_pensions',
-            household = household,
-            period = period,
-            )
+            income="market_income_plus_pensions",
+            household=household,
+            period=period,
+        )
 
 
 # Helper
 
+
 def compute_decile_income_per_capita(income, household, period):
     income = household(income, period)
-    number_of_people_per_household = household('number_of_people_per_household', period)
-    weights = (
-        household("household_weight", period)
-        * household("number_of_people_per_household", period)
-        )
+    number_of_people_per_household = household("number_of_people_per_household", period)
+    weights = household("household_weight", period) * household(
+        "number_of_people_per_household", period
+    )
     labels = np.arange(1, 11)
     decile, _ = mark_weighted_percentiles(
         income / number_of_people_per_household,
         labels,
         weights,
-        method = 2,
-        return_quantiles = True,
-        )
+        method=2,
+        return_quantiles=True,
+    )
     return decile

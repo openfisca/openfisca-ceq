@@ -1,0 +1,96 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "OpenFisca-CEQ"
+version = "1.0.0"
+description = "OpenFisca tax and benefit system for CEQ"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "AGPL-3.0"}
+authors = [
+    {name = "OpenFisca Team", email = "contact@openfisca.fr"}
+]
+keywords = ["benefit", "microsimulation", "social", "tax"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "OpenFisca-Survey-Manager >=6.2.0,<7.0",
+    "OpenFisca-Core >=44.0.0,<45.0",
+    "importlib-metadata",
+    "matplotlib >=3.8.0",
+    "python-slugify",
+    "scipy >=1.10.1,<2.0",
+    "setuptools<66",
+    "xlrd >=2.0.0",
+    "xlsxwriter",
+    "xlwt >=1.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit >=3.0.0",
+    "ruff >=0.1.0",
+    "papermill",
+    "pdbpp",
+    "pytest >=8.3.3",
+    "requests >=2.32.0",
+    "yamllint >=1.11.1,<1.27",
+]
+
+[project.urls]
+Homepage = "https://github.com/openfisca/openfisca-ceq"
+Repository = "https://github.com/openfisca/openfisca-ceq"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+# Tests requiring local configuration/data files are ignored in CI
+# These tests need:
+# - raw_data.ini configuration file (with paths to Stata .dta files)
+# - consumption_items_directory configuration
+# - Local Stata data files (.dta) not available in CI environments
+# All tests using read_stata() or build_ceq_survey_scenario() are ignored
+addopts = "--showlocals --exitfirst --doctest-modules --disable-pytest-warnings --ignore openfisca_ceq/tests/test_indirect_tax_variables_generator.py --ignore openfisca_ceq/tests/test_input_data.py --ignore openfisca_ceq/tests/test_survey_scenario.py --ignore openfisca_ceq/tests/test_calibration.py --ignore openfisca_ceq/tests/tests_data_dtypes.py"
+testpaths = ["openfisca_ceq/tests"]
+python_files = "**/*.py"
+
+[tool.ruff]
+# Ruff configuration pour remplacer flake8
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+# Ignorer les règles équivalentes à celles ignorées dans flake8
+# E251: function(x = 1) vs function(x=1) - on garde la préférence flake8
+# E501: pas de limite de longueur de ligne stricte (on utilise 88 par défaut mais on ignore E501)
+# F403/405: imports avec * (on ignore)
+# W503/504: break lines before binary operators (géré par le formatter)
+ignore = [
+    "E251",  # function(x = 1) vs function(x=1) - préférence flake8
+    "F403",  # star imports
+    "F405",  # star imports
+    "E501",  # line too long (géré par line-length mais on ignore pour compatibilité)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F403", "F405"]
+"*.ipynb" = ["E402"]  # Allow imports not at top of cell in notebooks
+
+[tool.ruff.format]
+# Configuration du formatter (équivalent à autopep8)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

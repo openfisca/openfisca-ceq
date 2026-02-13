@@ -30,9 +30,9 @@ class consumable_income(Variable):
     label = "Consumable income"
 
     def formula(household, period):
-        disposable_income = household('disposable_income', period)
-        indirect_subsidies = household('indirect_subsidies', period)
-        indirect_taxes = household('indirect_taxes', period)
+        disposable_income = household("disposable_income", period)
+        indirect_subsidies = household("indirect_subsidies", period)
+        indirect_taxes = household("indirect_taxes", period)
         consumable_income = disposable_income + indirect_subsidies - indirect_taxes
         return consumable_income
 
@@ -44,8 +44,8 @@ class disposable_income(Variable):
     label = "Disposable income"
 
     def formula(household, period):
-        net_market_income = household('net_market_income', period)
-        direct_transfers = household('direct_transfers', period)
+        net_market_income = household("net_market_income", period)
+        direct_transfers = household("direct_transfers", period)
         disposable_income = net_market_income + direct_transfers
         return disposable_income
 
@@ -57,8 +57,8 @@ class final_income(Variable):
     label = "Final income"
 
     def formula(household, period):
-        consumable_income = household('consumable_income', period)
-        in_kind_transfers = household('in_kind_transfers', period)
+        consumable_income = household("consumable_income", period)
+        in_kind_transfers = household("in_kind_transfers", period)
         final_income = consumable_income + in_kind_transfers
         return final_income
 
@@ -77,8 +77,8 @@ class gross_income(Variable):
     label = "Gross income"
 
     def formula(household, period):
-        market_income_plus_pensions = household('market_income_plus_pensions', period)
-        direct_transfers = household('direct_transfers', period)
+        market_income_plus_pensions = household("market_income_plus_pensions", period)
+        direct_transfers = household("direct_transfers", period)
         gross_income = market_income_plus_pensions + direct_transfers
         return gross_income
 
@@ -104,12 +104,16 @@ class market_income(Variable):
     label = "Market income"
 
     def formula(household, period):
-        all_income_excluding_transfers = household('all_income_excluding_transfers', period)
-        gifts_sales_durables = household.sum(household.members('gifts_sales_durables', period))
-        alimony = household('alimony', period)
-        autoconsumption = household('autoconsumption', period)
-        imputed_rent = household('imputed_rent', period)
-        other_income = household.sum(household.members('other_income', period))
+        all_income_excluding_transfers = household(
+            "all_income_excluding_transfers", period
+        )
+        gifts_sales_durables = household.sum(
+            household.members("gifts_sales_durables", period)
+        )
+        alimony = household("alimony", period)
+        autoconsumption = household("autoconsumption", period)
+        imputed_rent = household("imputed_rent", period)
+        other_income = household.sum(household.members("other_income", period))
 
         market_income = (
             all_income_excluding_transfers
@@ -118,7 +122,7 @@ class market_income(Variable):
             + autoconsumption
             + imputed_rent
             + other_income
-            )
+        )
         return market_income
 
 
@@ -129,14 +133,10 @@ class market_income_plus_pensions(Variable):
     label = "Market income plus net pensions"
 
     def formula(household, period):
-        market_income = household('market_income', period)
-        pensions = household('pensions', period)
-        contributions_pensions = household('contributions_pensions', period)
-        market_income_plus_pensions = (
-            market_income
-            + pensions
-            - contributions_pensions
-            )
+        market_income = household("market_income", period)
+        pensions = household("pensions", period)
+        contributions_pensions = household("contributions_pensions", period)
+        market_income_plus_pensions = market_income + pensions - contributions_pensions
         return market_income_plus_pensions
 
 
@@ -147,19 +147,14 @@ class net_market_income(Variable):
     label = "Net market income"
 
     def formula(household, period):
-        market_income_plus_pensions = household('market_income_plus_pensions', period)
-        direct_taxes = household('direct_taxes', period)
-        contributions_health = household('contributions_health', period)
-        other_contributions = household('other_contributions', period)
+        market_income_plus_pensions = household("market_income_plus_pensions", period)
+        direct_taxes = household("direct_taxes", period)
+        contributions_health = household("contributions_health", period)
+        other_contributions = household("other_contributions", period)
 
-        net_market_income = (
-            market_income_plus_pensions
-            - (
-                direct_taxes
-                + contributions_health
-                + other_contributions
-                )
-            )
+        net_market_income = market_income_plus_pensions - (
+            direct_taxes + contributions_health + other_contributions
+        )
         return net_market_income
 
 
@@ -184,7 +179,7 @@ class taxable_income(Variable):
     label = "Taxable income"
 
     def formula(household, period):
-        gross_income = household('gross_income', period)
-        nontaxable_income = household('nontaxable_income', period)
+        gross_income = household("gross_income", period)
+        nontaxable_income = household("nontaxable_income", period)
         taxable_income = gross_income - nontaxable_income
         return taxable_income

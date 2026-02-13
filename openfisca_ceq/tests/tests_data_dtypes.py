@@ -14,6 +14,8 @@ import pandas as pd
 # print(df.cov_i_secteur_formel_informel)
 
 # [senegal]
-revenus_harmonises_2011 = "/home/benjello/Dropbox/Projet_Micro_Sim/resultats/TaxeIneq_inc_harm_SEN.dta"
+revenus_harmonises_2011 = (
+    "/home/benjello/Dropbox/Projet_Micro_Sim/resultats/TaxeIneq_inc_harm_SEN.dta"
+)
 df = pd.read_stata(revenus_harmonises_2011)
 # print(df.cov_i_secteur_formel_informel)
