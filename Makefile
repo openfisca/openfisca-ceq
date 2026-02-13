@@ -4,7 +4,7 @@ uninstall:
 	uv pip freeze | grep -v "^-e" | xargs uv pip uninstall -y
 
 clean:
-	rm -rf build dist .venv
+	rm -rf build dist
 	find . -name '*.pyc' -exec rm \{\} \;
 
 deps:
@@ -60,7 +60,7 @@ notebook-senegal:
 notebook-results:
 	uv run jupyter nbconvert --execute --to notebook --inplace notebooks/results.ipynb
 
-test: clean check-syntax-errors check-style
+test: check-syntax-errors check-style
 	@# Launch tests from openfisca_ceq/tests directory (and not .) because TaxBenefitSystem must be initialized
 	@# before parsing source files containing formulas.
 	@# pytest
