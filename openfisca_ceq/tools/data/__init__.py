@@ -2,7 +2,9 @@ import configparser
 import os
 
 
-from openfisca_survey_manager import default_config_files_directory as config_files_directory
+from pyxdg import XDG_CONFIG_HOME
+import os
+config_files_directory = os.path.join(XDG_CONFIG_HOME, 'openfisca-survey-manager')
 
 
 config_parser = configparser.ConfigParser()

@@ -6,7 +6,9 @@ import pkg_resources
 
 
 from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
-from openfisca_survey_manager import default_config_files_directory as config_files_directory
+from pyxdg import XDG_CONFIG_HOME
+import os
+config_files_directory = os.path.join(XDG_CONFIG_HOME, 'openfisca-survey-manager')
 
 
 log = logging.getLogger(__name__)
