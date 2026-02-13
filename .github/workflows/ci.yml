@@ -33,6 +33,9 @@ jobs:
 
     - name: Run tests (includes syntax check and style check)
       run: uv run make test
+      env:
+        # Skip tests requiring local configuration files
+        SKIP_CONFIG_TESTS: "1"
 
   lint:
     runs-on: ubuntu-latest
