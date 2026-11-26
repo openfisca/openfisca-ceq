@@ -1,0 +1,25 @@
+# Verrouille le signe de health_net_transfers (manuel CEQ, Lustig 2022) :
+# les prestations de sante recues (contributif, non contributif, hospitalier,
+# ambulatoire) s'ADDITIONNENT au cout moyen de l'Etat ; seuls les co-paiements /
+# frais d'usager se retranchent. Avec des valeurs in/out-patient non nulles, ce
+# cas distingue la bonne formule (175) de l'ancien bug de signe (75).
+
+- name: Health in-kind transfers add in/out-patient benefits, net only of copay
+  period: 2017
+  input:
+    health_contributory: 100
+    health_noncontributory: 40
+    health_in_patient: 30
+    health_out_patient: 20
+    health_copay_fees: 15
+  output:
+    health_net_transfers: 100 + 40 + 30 + 20 - 15  # = 175
+    in_kind_transfers: 175
+
+- name: Copay only reduces health transfers
+  period: 2017
+  input:
+    health_in_patient: 50
+    health_copay_fees: 50
+  output:
+    health_net_transfers: 0

@@ -31,6 +31,15 @@ Séparation du cœur réutilisable et des études pays Afrique de l'Ouest. Les �
   `papermill` (dev), devenus inutiles après le départ des études (graphiques, calibration,
   lecture `.xls`, exécution de notebooks). Conservés : `OpenFisca-Survey-Manager`,
   `OpenFisca-Core`, `python-slugify`, `xlsxwriter`, `xlwt` (écriture `merged.xls`).
+* **Bugfix (signe)** : `health_net_transfers` retranchait à tort `health_in_patient` et
+  `health_out_patient`. Le manuel CEQ (Lustig, Handbook 2022) définit le revenu final comme
+  ajoutant la valeur monétisée des transferts en nature de santé (au coût moyen de l'État) et
+  ne retranchant que les co-paiements / frais d'usager : les prestations hospitalières et
+  ambulatoires s'**additionnent** désormais ; seul `health_copay_fees` se retranche. Impact :
+  `final_income` plus élevé quand il y a des soins in/out-patient.
+* **Tests** : nouveaux tests YAML du cœur, sans données pays — échelle complète des concepts
+  de revenu (identités yc/yf), agrégateurs de composantes, signe de `health_net_transfers`,
+  agrégation personne→ménage, cas nul.
 * **Non impacté** : `ceq-tunisie`, qui ne consomme que `CountryTaxBenefitSystem`.
 
 ## 1.0.4 - [#81](https://github.com/openfisca/openfisca-ceq/pull/81) - Finalize packaging migration to pyproject.toml
