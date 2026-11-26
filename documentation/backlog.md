@@ -11,9 +11,9 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
       Phase 0 (décisions de périmètre) à trancher par le mainteneur. Restent les phases 1 (dépôt
       `openfisca-ceq-afrique-ouest` extrait avec historique via `git filter-repo`), 3 (adapter les
       études aux imports 2.0) et 4 (relock ceq-tunisie sur le cœur 2.0, hygiène).
-- [ ] **Tests unitaires purs du cœur** (PRIORITÉ) : il ne reste que 4 tests YAML (`tests/formulas/`).
-      Écrire des cas-types et identités yc/yf sur les 72 variables de concepts — le risque
-      « les tests fondent » du plan s'est matérialisé ; sécurise le 2.0.
+- [ ] **Compléter les tests du cœur** : les deciles `decile_*_per_capita` (statistiques
+      multi-ménages) et la valorisation des coûts unitaires d'éducation (`add_ceq_education_unit_cost`)
+      ne sont pas encore couverts par des tests unitaires.
 - [ ] **Doc `gross_income`** : divergence handbook CEQ vs implémentation Banque mondiale Tunisie
       (scénario PDI dégénéré, pens=0) — issue #80.
 - [ ] **Workflow deploy** (suites de la PR #81, token agent sans scope workflow) :
@@ -34,6 +34,11 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
       pilotée par la config `[ceq] country_codes` ; bump 2.0.0 + CHANGELOG de migration.
 - [x] **Dépendances élaguées** (branche `scission-core`) : retrait de `matplotlib`, `scipy`, `xlrd`
       (runtime) et `papermill` (dev), inutiles après le départ des études ; `uv.lock` régénéré.
+- [x] **Tests unitaires purs du cœur** (branche `scission-core`) : 5 fichiers YAML sans données —
+      échelle complète des concepts de revenu (identités yc/yf), agrégateurs de composantes,
+      agrégation personne→ménage, cas nul. Au passage, **bug de signe corrigé** dans
+      `health_net_transfers` (in/out-patient additionnés, non retranchés — conforme au manuel
+      CEQ, Lustig 2022) ; test dédié qui le verrouille.
 
 - [x] Python ≥ 3.12 : pkg_resources → importlib (#78, PR #79, v1.0.3).
 - [x] Packaging finalisé : MANIFEST.in supprimé, package-data explicite, twine verrouillé
