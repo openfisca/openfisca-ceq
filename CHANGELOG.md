@@ -6,6 +6,8 @@
   - Remove `MANIFEST.in` (catch-all `recursive-include * *`); package data is now declared explicitly in `pyproject.toml` via `[tool.setuptools.package-data]` (`assets/`, `variables/`, `tests/formulas/`)
   - Restrict package discovery to `openfisca_ceq*` (`[tool.setuptools.packages.find]`), aligning with OpenFisca-Tunisia conventions
   - Add `Issues` and `Changelog` project URLs
+* **Bugfix**: Fix the PyPI deploy job failure that prevented 1.0.3 from being published
+  - Add `twine >=6.0.0` to the `dev` extra and lock it in `uv.lock`, so the deploy job's `uv pip install twine` no longer upgrades `packaging` on the fly in the synced environment (which broke `twine upload` with `ImportError: cannot import name 'errors' from 'packaging'`)
 
 ## 1.0.3 - [#79](https://github.com/openfisca/openfisca-ceq/pull/79) - Python 3.12 compatibility
 
