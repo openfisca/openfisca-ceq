@@ -26,8 +26,7 @@ dependencies = [
     "OpenFisca-Core >=44.0.0,<45.0",
     "importlib-metadata",
     "python-slugify",
-    "xlsxwriter",
-    "xlwt >=1.3.0",
+    "openpyxl >=3.1.0",
 ]
 
 [project.optional-dependencies]
@@ -53,11 +52,9 @@ include = ["openfisca_ceq*"]
 [tool.setuptools.package-data]
 # Non-Python files (and the non-package `variables/` directory) shipped inside the
 # `openfisca_ceq` package. Replaces the former catch-all MANIFEST.in.
-# - assets/: data files read at runtime via importlib.resources
 # - variables/: CEQ variable modules loaded dynamically by tax_benefit_system_ceq_completion
 # - tests/formulas/: YAML tests run by `openfisca test`
 openfisca_ceq = [
-    "assets/*",
     "variables/*.py",
     "tests/formulas/*.yaml",
 ]

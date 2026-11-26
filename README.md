@@ -13,7 +13,9 @@ OpenFisca is a versatile microsimulation free software. This repository contains
 
 A [brief introduction to CEQ concepts](./documentation/ceq.md) entering our model is available.
 
-This package is currently developped to work with the [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire), [Mali](https://github.com/openfisca/openfisca-mali) and [Sénégal](https://github.com/openfisca/openfisca-senegal) country packages. A [detailed (but still WIP) description of the implementation of the multi-country comparison](./documentation/multi_country_comparison.md) is provided, the working language being French. 
+Since version 2.0, this package is the **reusable CEQ core** only: the CEQ entities, the CEQ income-concept variables, a country-agnostic framework (`add_ceq_framework`) to graft those concepts onto any country tax-benefit system, and a generic indirect-tax nomenclature generator. It no longer bundles any country study.
+
+The West-African studies (Côte d'Ivoire, Mali, Sénégal) that used to live here now have their own repository, [openfisca-ceq-afrique-ouest](https://github.com/openfisca/openfisca-ceq-afrique-ouest), which depends on this core. Tunisia is modelled separately in [ceq-tunisie](https://github.com/openfisca/ceq-tunisie).
 
 You can however check the [general OpenFisca documentation](https://openfisca.org/doc/) in English!
 
@@ -22,12 +24,9 @@ You can however check the [general OpenFisca documentation](https://openfisca.or
 
 Une [brève introduction aux concepts de revenus mobilisés par le cadre d'analyse CEQ](./documentation/ceq.md) utilisée par notre modèle est fournie.
 
-Ce module est en cours de développment pour fonctionner avec les modèles des pays suivants:
- - [Côte d'Ivoire](https://github.com/openfisca/openfisca-cote-d-ivoire)
- - [Mali](https://github.com/openfisca/openfisca-mali)
- - [Sénégal](https://github.com/openfisca/openfisca-senegal)
+Depuis la version 2.0, ce paquet ne contient plus que le **cœur réutilisable CEQ** : les entités CEQ, les variables de concepts de revenu CEQ, un framework agnostique du pays (`add_ceq_framework`) pour greffer ces concepts sur le système socio-fiscal d'un pays, et un générateur générique de nomenclature de taxes indirectes. Il n'embarque plus aucune étude pays.
 
-La mise en oeuvre de la comparaison des systèmes sociaux-fiscaux des différents pays est décrite en détail dans la [section idoine](./documentation/multi_country_comparison.md).
+Les études d'Afrique de l'Ouest (Côte d'Ivoire, Mali, Sénégal) qui vivaient ici ont désormais leur propre dépôt, [openfisca-ceq-afrique-ouest](https://github.com/openfisca/openfisca-ceq-afrique-ouest), qui dépend de ce cœur. La Tunisie est modélisée à part dans [ceq-tunisie](https://github.com/openfisca/ceq-tunisie).
 
 Pour plus d'information sur les fonctionnalités et la manière d'utiliser OpenFisca, vous pouvez consulter la [documentation générale (en anglais)](https://openfisca.org/doc/).
 

@@ -1,5 +1,4 @@
 import configparser
-import importlib.resources
 import logging
 import os
 import pandas as pd
@@ -21,8 +20,6 @@ else:
 
 log = logging.getLogger(__name__)
 
-
-assets_directory = str(importlib.resources.files("openfisca_ceq") / "assets")
 
 config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, "raw_data.ini"))
@@ -154,36 +151,6 @@ def build_complete_label_coicop_data_frame(country, file_path=None, deduplicate=
     return completed_label_coicop
 
 
-def build_comparison_table(countries):
-    dfs = [
-        build_complete_label_coicop_data_frame(country, deduplicate=False)
-        for country in countries
-    ]
-
-    index = [
-        "label_division",
-        "label_groupe",
-        "label_classe",
-        "label_sous_classe",
-        "label_poste",
-        "code_coicop",
-    ]
-
-    dfs = [df.groupby(index)["label_variable"].unique() for df in dfs]
-
-    merged = pd.concat(
-        dfs, axis=1, keys=country_code_by_country.values(), join="outer", copy=False
-    ).reset_index()
-    merged["division_index"] = merged.code_coicop.str.split(".", 1).str[0].astype(int)
-    merged = merged.sort_values(["division_index", "code_coicop"]).drop(
-        "division_index", axis=1
-    )
-    merged.to_csv(os.path.join(assets_directory, "merged.csv"))
-    merged.to_excel(os.path.join(assets_directory, "merged.xls"))
-
-    return merged
-
-
 def build_tax_rate_by_code_coicop(
     country, tax_variables=None, fillna=dict(), filter_expression=None
 ):
@@ -201,142 +168,3 @@ def build_tax_rate_by_code_coicop(
     )
     assert "code_coicop" in label_by_code_coicop.columns
     return label_by_code_coicop.copy()
-
-
-def build_comparison_spreadsheet(countries, coicop_level=3):
-    dfs = [
-        build_complete_label_coicop_data_frame(country, deduplicate=False)
-        for country in countries
-    ]
-    coicops = [set(df.code_coicop.unique()) for df in dfs]
-    unique_coicops = sorted(list(set().union(*coicops)))
-    summary = pd.concat(
-        [
-            (
-                coicop_df[["label_variable", "deduplicated_code_coicop", "code_coicop"]]
-                .groupby("code_coicop")
-                .count()
-            )
-            for coicop_df in dfs
-        ],
-        axis=1,
-        keys=country_code_by_country.values(),
-        join="outer",
-        copy=False,
-        sort=True,
-    ).fillna(0)
-    writer = pd.ExcelWriter(
-        os.path.join(assets_directory, "merged_by_coicop_{}.xlsx".format(coicop_level)),
-        engine="xlsxwriter",
-    )
-    summary.to_excel(
-        writer,
-        sheet_name=str("summary"),
-    )
-
-    # Build index
-    index_variables = [
-        "label_division",
-        "label_groupe",
-        "label_classe",
-        "label_sous_classe",
-        "label_poste",
-        "code_coicop",
-    ]
-
-    def build_levels_list(coicop_list, level):
-        complete_coicop_digits = [
-            complete_coicop.split(".") for complete_coicop in coicop_list
-        ]
-        levels_set = set(
-            [
-                ".".join(["{}"] * coicop_level).format(*coicop_digits[0:coicop_level])
-                for coicop_digits in complete_coicop_digits
-                if len(coicop_digits) >= level
-            ]
-        )
-        return sorted(list(levels_set))
-
-    index = pd.concat([df[index_variables].copy() for df in dfs]).drop_duplicates()
-
-    levelled_index = build_levels_list(index.code_coicop.to_list(), coicop_level)
-    levelled_unique_coicops = build_levels_list(unique_coicops, coicop_level)
-    for coicop_base in levelled_unique_coicops:
-        # coicop = "1.1.2.3.1"
-        coicop_dfs = [
-            df.loc[
-                df.code_coicop.str.startswith(coicop_base),
-                ["label_variable", "deduplicated_code_coicop", "code_coicop"],
-            ].set_index(["code_coicop", "deduplicated_code_coicop"])
-            for df in dfs
-        ]
-        merged = pd.concat(
-            coicop_dfs,
-            axis=1,
-            keys=country_code_by_country.values(),
-            join="outer",
-            copy=False,
-            sort=True,
-        )
-        merged.columns = merged.columns.droplevel(1)
-        merged = merged.assign(coicop_base=coicop_base)
-
-        if coicop_base not in levelled_index:
-            log.info("{} not in admisisble coicops".format(coicop_base))
-            log.info(merged)
-            log.info("----")
-            continue
-        merged = (
-            merged.reset_index()
-            .merge(
-                index,
-                how="inner",
-                on="code_coicop",
-            )
-            .set_index(
-                [
-                    "coicop_base",
-                    "code_coicop",
-                    "label_division",
-                    "label_groupe",
-                    "label_classe",
-                    "label_sous_classe",
-                    "label_poste",
-                    "deduplicated_code_coicop",
-                ]
-            )
-        )
-        try:
-            if merged.empty:
-                continue
-            merged.to_excel(
-                writer,
-                sheet_name=str(coicop_base),
-            )
-        except Exception as e:
-            log.info(e)
-            pass
-    writer.save()
-    writer.close()
-
-
-def test():
-    country = "mali"
-    tax_variables = ["tva", "droits_douane", "part_importation"]
-    df = build_tax_rate_by_code_coicop(country, tax_variables)
-    for tax_variable in tax_variables:
-        log.info(tax_variable + "\n" + str(df[tax_variable].value_counts()))
-
-    # countries = ['cote_d_ivoire', 'senegal', 'mali']
-    # merged = build_comparison_table(countries)
-    # log.info(merged)
-
-
-if __name__ == "__main__":
-    import sys
-
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    test()
-    # countries = ['cote_d_ivoire', 'senegal', 'mali']
-    # for coicop_level in range(3, 6):
-    #     build_comparison_spreadsheet(countries, coicop_level = coicop_level)

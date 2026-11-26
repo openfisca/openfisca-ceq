@@ -288,6 +288,15 @@ wheels = [
 ]
 
 [[package]]
+name = "et-xmlfile"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/38/af70d7ab1ae9d4da450eeec1fa3918940a5fafb9055e934af8d6eb0c2313/et_xmlfile-2.0.0.tar.gz", hash = "sha256:dab3f4764309081ce75662649be815c4c9081e88f0837825f90fd28317d4da54", size = 17234, upload-time = "2024-10-25T17:25:40.039Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl", hash = "sha256:7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa", size = 18059, upload-time = "2024-10-25T17:25:39.051Z" },
+]
+
+[[package]]
 name = "fancycompleter"
 version = "0.11.1"
 source = { registry = "https://pypi.org/simple" }
@@ -785,9 +794,8 @@ dependencies = [
     { name = "importlib-metadata" },
     { name = "openfisca-core" },
     { name = "openfisca-survey-manager" },
+    { name = "openpyxl" },
     { name = "python-slugify" },
-    { name = "xlsxwriter" },
-    { name = "xlwt" },
 ]
 
 [package.optional-dependencies]
@@ -806,6 +814,7 @@ requires-dist = [
     { name = "importlib-metadata" },
     { name = "openfisca-core", specifier = ">=44.0.0,<45.0" },
     { name = "openfisca-survey-manager", specifier = ">=6.2.0,<7.0" },
+    { name = "openpyxl", specifier = ">=3.1.0" },
     { name = "pdbpp", marker = "extra == 'dev'" },
     { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=3.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.3" },
@@ -813,8 +822,6 @@ requires-dist = [
     { name = "requests", marker = "extra == 'dev'", specifier = ">=2.32.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
     { name = "twine", marker = "extra == 'dev'", specifier = ">=6.0.0" },
-    { name = "xlsxwriter" },
-    { name = "xlwt", specifier = ">=1.3.0" },
     { name = "yamllint", marker = "extra == 'dev'", specifier = ">=1.11.1,<2" },
 ]
 provides-extras = ["dev"]
@@ -862,6 +869,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/03/dd/b3ac4cbaaf98cd8364055fc9a4f6406a7a808cec46f12eb31c02e7fa9eb7/openfisca_survey_manager-6.2.0.tar.gz", hash = "sha256:c783496042bdbc2b0f43c5d26a301c7a204d14911efd72f28f48999407257063", size = 319638, upload-time = "2026-02-13T09:20:27.477Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3a/a0/2ac2ff76df584d7dec1e1f97462683f4ea8d33040ca168cd6aea5e6b307b/openfisca_survey_manager-6.2.0-py3-none-any.whl", hash = "sha256:196db6ef9b357b6858b1458ec7b44b872335d6069dea2883e5795adbfb2e1af2", size = 202879, upload-time = "2026-02-13T09:20:25.735Z" },
+]
+
+[[package]]
+name = "openpyxl"
+version = "3.1.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "et-xmlfile" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3d/f9/88d94a75de065ea32619465d2f77b29a0469500e99012523b91cc4141cd1/openpyxl-3.1.5.tar.gz", hash = "sha256:cf0e3cf56142039133628b5acffe8ef0c12bc902d2aadd3e0fe5878dc08d1050", size = 186464, upload-time = "2024-06-28T14:03:44.161Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl", hash = "sha256:5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2", size = 250910, upload-time = "2024-06-28T14:03:41.161Z" },
 ]
 
 [[package]]
@@ -1519,24 +1538,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/eb/24/ae0216512052aee6cf68cba89f83ce011e06feff7a4cae5b03d78d078b24/wquantiles-0.6.tar.gz", hash = "sha256:a9e5b61277c8bf414394131bba4af0fc565de379ca73d6f7a336ba60184fa5c4", size = 2948, upload-time = "2021-05-26T10:38:08.815Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f7/75/3cce30508bf46121b7cabce57b9cacbf8d935fa555cb3c5fca43f8dd0414/wquantiles-0.6-py3-none-any.whl", hash = "sha256:1b90d68fa05251bb96f8806a346e8d7dec9a9bb99f381ad5094707b46ab85218", size = 3291, upload-time = "2021-05-26T10:38:07.38Z" },
-]
-
-[[package]]
-name = "xlsxwriter"
-version = "3.2.9"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/46/2c/c06ef49dc36e7954e55b802a8b231770d286a9758b3d936bd1e04ce5ba88/xlsxwriter-3.2.9.tar.gz", hash = "sha256:254b1c37a368c444eac6e2f867405cc9e461b0ed97a3233b2ac1e574efb4140c", size = 215940, upload-time = "2025-09-16T00:16:21.63Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/0c/3662f4a66880196a590b202f0db82d919dd2f89e99a27fadef91c4a33d41/xlsxwriter-3.2.9-py3-none-any.whl", hash = "sha256:9a5db42bc5dff014806c58a20b9eae7322a134abb6fce3c92c181bfb275ec5b3", size = 175315, upload-time = "2025-09-16T00:16:20.108Z" },
-]
-
-[[package]]
-name = "xlwt"
-version = "1.3.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/06/97/56a6f56ce44578a69343449aa5a0d98eefe04085d69da539f3034e2cd5c1/xlwt-1.3.0.tar.gz", hash = "sha256:c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88", size = 153929, upload-time = "2017-08-22T06:47:16.498Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/44/48/def306413b25c3d01753603b1a222a011b8621aed27cd7f89cbc27e6b0f4/xlwt-1.3.0-py2.py3-none-any.whl", hash = "sha256:a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e", size = 99981, upload-time = "2017-08-22T06:47:15.281Z" },
 ]
 
 [[package]]
