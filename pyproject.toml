@@ -39,6 +39,11 @@ dev = [
     "twine >=6.0.0",
     "yamllint >=1.11.1,<2",
 ]
+docs = [
+    "mkdocs >=1.5",
+    "mkdocs-material >=9.5",
+    "mkdocstrings[python] >=0.24",
+]
 
 [project.urls]
 Homepage = "https://github.com/openfisca/openfisca-ceq"

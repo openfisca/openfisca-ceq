@@ -19,3 +19,6 @@ dist
 .DS_Store
 *~
 notebooks/.ipynb_checkpoints/*-checkpoint.ipynb
+
+# MkDocs build output
+site
