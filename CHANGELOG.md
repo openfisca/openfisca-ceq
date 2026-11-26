@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.0.0 - Scission cœur / études (BREAKING)
+
+Séparation du cœur réutilisable et des études pays Afrique de l'Ouest. Les études
+(Sénégal, Mali, Côte d'Ivoire) migrent vers le paquet `openfisca-ceq-afrique-ouest`.
+`openfisca-ceq` ne contient plus que le cœur réutilisable.
+
+* **Breaking** : `add_ceq_framework` est désormais **agnostique du pays**. Signature
+  keyword-only : `add_ceq_framework(tbs, *, harmonized_income_mapping=None,
+  custom_variables=None, extra_variables=None, education_unit_cost=None)`. Les données
+  propres à une étude (mapping harmonisé, variables custom, variables d'enquête, coûts
+  unitaires) sont **injectées** par l'appelant, plus importées au chargement du module.
+* **Breaking** : `add_ceq_education_unit_cost(tbs, unit_cost_by_category)` prend un dict
+  `{catégorie: coût}` au lieu d'un `legislation_country`.
+* **Breaking** : suppression du cœur de la réforme `ceq`, des variables d'enquête
+  concrètes (`cadre`, `categorie_cgu`, `labor_type`, `secteur_*`, `survey_income`,
+  `hh_id`, …), de `labor_type_by_index`, et des modules études `tools/survey_scenario.py`,
+  `tools/data/`, `tools/data_ceq_correspondence.py`, `tools/results/`, des notebooks,
+  des tests dépendants des données pays, et des assets `unit_cost_*`. Tout cela vit
+  désormais dans `openfisca-ceq-afrique-ouest`.
+* **Conservé** : entités, les 72 variables de concepts CEQ (`variables/`), le framework
+  de complétion générique, le générateur de taxes indirectes, `tests/formulas`.
+* **Bugfix** (porté de 819eae5) : `add_ceq_education_unit_cost` liait mal les variables
+  lues à l'expression numexpr (KeyError) ; corrigé via un `local_dict` explicite.
+* **Non impacté** : `ceq-tunisie`, qui ne consomme que `CountryTaxBenefitSystem`.
+
 ## 1.0.4 - [#81](https://github.com/openfisca/openfisca-ceq/pull/81) - Finalize packaging migration to pyproject.toml
 
 * **Technical improvement**: Complete the packaging migration started in 1.0.0 (follow-up to [#79](https://github.com/openfisca/openfisca-ceq/pull/79))
