@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.4 - [#80](https://github.com/openfisca/openfisca-ceq/pull/80) - Finalize packaging migration to pyproject.toml
+## 1.0.4 - [#81](https://github.com/openfisca/openfisca-ceq/pull/81) - Finalize packaging migration to pyproject.toml
 
 * **Technical improvement**: Complete the packaging migration started in 1.0.0 (follow-up to [#79](https://github.com/openfisca/openfisca-ceq/pull/79))
   - Remove `MANIFEST.in` (catch-all `recursive-include * *`); package data is now declared explicitly in `pyproject.toml` via `[tool.setuptools.package-data]` (`assets/`, `variables/`, `tests/formulas/`)
