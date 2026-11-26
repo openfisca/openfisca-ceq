@@ -12,7 +12,14 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
       - **merger `scission-core` → `master`** → publie 2.0.0 sur PyPI (le patch `ci.yml` est prêt) ;
       - **pousser** `scission-core` et ouvrir la PR ;
       - **créer le dépôt distant** `openfisca-ceq-afrique-ouest` (`gh repo create`) et le pousser ;
-      - **relock ceq-tunisie** sur le cœur 2.0 (`>=1.0.4,<2` → `>=2,<3`) une fois 2.0 publié ;
+      - **relock ceq-tunisie** sur le cœur 2.0 (`>=1.0.4,<2` → `>=2,<3`) une fois 2.0 publié.
+        **Analysé** : le code source de ceq-tunisie ne consomme que `CountryTaxBenefitSystem`
+        (compat vérifiée : la réforme `CEQTunisiaReform` se construit sur le core 2.0 source).
+        **Seul impact** : le test `tests/unit/test_openfisca_ceq_import.py::`
+        `test_import_data_ceq_correspondence_natif` casse (le module `data_ceq_correspondence`
+        a quitté le cœur → afrique-ouest) ; ce test (vestige de la migration Python 3.12) est
+        à retirer/mettre à jour lors du relock. NB : `main` de ceq-tunisie a du WIP non commité
+        — ne rien committer là-bas sans coordination ;
       - **transférer les issues** pays vers le dépôt études.
 - [ ] **Dépôt études — finitions** (dans `../openfisca-ceq-afrique-ouest`) : imports des **notebooks**
       non réadaptés (data-gated) ; `survey_scenario.py:470` `CountryTaxBenefitSystem(coicop=False)`
