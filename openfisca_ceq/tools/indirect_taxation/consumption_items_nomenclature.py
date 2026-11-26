@@ -32,11 +32,39 @@ assert os.path.exists(
 ), "Consumption items directory {} does not exists, please create it and add countries consumption items files".format(
     consumption_items_directory
 )
-country_code_by_country = {
-    "mali": "MLI",
-    "senegal": "SEN",
-    "cote_d_ivoire": "CIV",
-}
+
+
+def _load_country_code_by_country():
+    """Table pays -> code pays, pilotée par la config (cœur agnostique du pays).
+
+    Lue depuis l'option ``country_codes`` de la section ``[ceq]`` de ``raw_data.ini``,
+    au format ``senegal:SEN,mali:MLI,cote_d_ivoire:CIV``. Absente, la table est vide :
+    les codes sont alors exigés par l'appelant (cf. :func:`country_code`).
+    """
+    raw = config_parser.get("ceq", "country_codes", fallback=None)
+    if not raw:
+        return {}
+    mapping = {}
+    for pair in raw.split(","):
+        country, _, code = pair.partition(":")
+        if country.strip():
+            mapping[country.strip()] = code.strip()
+    return mapping
+
+
+country_code_by_country = _load_country_code_by_country()
+
+
+def country_code(country):
+    """Code pays, avec message clair si la config ne le fournit pas."""
+    try:
+        return country_code_by_country[country]
+    except KeyError:
+        raise KeyError(
+            "Code pays absent pour {!r}. Renseignez l'option 'country_codes' de la "
+            "section [ceq] de raw_data.ini (ex. 'senegal:SEN,mali:MLI,"
+            "cote_d_ivoire:CIV').".format(country)
+        )
 
 
 def build_label_by_code_coicop(
@@ -48,7 +76,7 @@ def build_label_by_code_coicop(
 ):
     consumption_items_file_path = os.path.join(
         consumption_items_directory,
-        "Produits_{}.xlsx".format(country_code_by_country[country]),
+        "Produits_{}.xlsx".format(country_code(country)),
     )
     if additional_variables is None:
         additional_variables = []
