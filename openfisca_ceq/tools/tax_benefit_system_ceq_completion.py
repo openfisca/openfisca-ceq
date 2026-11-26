@@ -1,25 +1,28 @@
+"""Framework générique de complétion CEQ.
+
+Greffe les variables de concepts CEQ (répertoire ``variables/``) sur le système
+socio-fiscal d'un pays. Ce module est **agnostique du pays** : toute donnée propre à une
+étude (mapping de revenus harmonisés, variables ``custom``, variables d'enquête
+spécifiques, coûts unitaires d'éducation) est **injectée par l'appelant**.
+
+Le câblage de l'étude CEQ-Afrique de l'Ouest (variables d'enquête concrètes, réforme
+``ceq`` historique, coûts unitaires) vit désormais dans le paquet
+``openfisca-ceq-afrique-ouest`` et n'est plus connu du cœur.
+"""
+
 import importlib.resources
 import logging
-import numexpr as ne
 import os
 
+import numexpr as ne
 
-from openfisca_core.model_api import Enum, not_, select, Variable, YEAR
-from openfisca_core.reforms import Reform
+from openfisca_core.model_api import Variable, YEAR
 
 from openfisca_ceq import (
     CountryTaxBenefitSystem as CEQTaxBenefitSystem,
     entities,
 )
 
-from openfisca_ceq.tools.data_ceq_correspondence import (
-    multi_country_custom_ceq_variables,
-    non_ceq_input_by_harmonized_variable,
-)
-
-from openfisca_ceq.tools.data.education_unit_cost import (
-    build_unit_cost_by_category_by_country,
-)
 
 log = logging.getLogger(__name__)
 
@@ -39,216 +42,29 @@ ceq_computed_variables = {
 }
 
 
-unit_cost_by_category_by_country = build_unit_cost_by_category_by_country()
+def add_ceq_framework(
+    country_tax_benefit_system,
+    *,
+    harmonized_income_mapping=None,
+    custom_variables=None,
+    extra_variables=None,
+    education_unit_cost=None,
+):
+    """Greffe les variables de concepts CEQ sur le système socio-fiscal d'un pays.
 
-MALI_PART_INFORMEL_NON_SALARIE = 1.0
-
-
-class cadre(Variable):
-    value_type = bool
-    entity = entities.Person
-    definition_period = YEAR
-    label = "L'individu est un cadre salarié"
-
-
-class categorie_cgu(Variable):
-    # prod A: revendeurs de ciments et de denrées alimentaires
-    # prod B: autres commerçants ou revendeurs (CGU )
-    # [CGU comm/prod A < CGU comm/prod B < CGU service] -> 0, 1 ,2
-    # NaNs are -1
-    value_type = int
-    entity = entities.Person
-    definition_period = YEAR
-    label = "Index de la catgeorie CGU de l'individu"
-
-
-labor_type_by_index = {
-    0: "Inactive",
-    1: "Formal public wage worker",
-    2: "Formal private wage worker",
-    3: "Informal wage worker",
-    4: "Informal independent worker",
-    5: "Agricultural worker",
-}
-
-
-class TypesLaborType(Enum):
-    __order__ = "inactive formal_public_wage_worker formal_private_wage_worker informal_wage_worker informal_independent_worker agricultural_worker"
-    inactive = ("Inactive",)
-    formal_public_wage_worker = ("Formal public wage worker",)
-    formal_private_wage_worker = ("Formal private wage worker",)
-    informal_wage_worker = ("Informal wage worker",)
-    informal_independent_worker = ("Informal independent worker",)
-    agricultural_worker = ("Agricultural worker",)
-
-
-class labor_type(Variable):
-    value_type = Enum
-    possible_values = TypesLaborType
-    default_value = TypesLaborType.inactive
-    entity = entities.Household
-    definition_period = YEAR
-    label = "Activité de la personne de référence du ménage"
-
-    def formula(household, period):
-        secteur_activite = household.personne_de_reference("secteur_activite", period)
-        # Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant
-        secteur_public = household.personne_de_reference("secteur_public", period)
-        return select(
-            [
-                secteur_activite == -1,  # Inactif ?
-                (secteur_activite == 1) & secteur_public,  # Formal public wage worker
-                (secteur_activite == 1)
-                & not_(secteur_public),  # Formal private wage worker
-                secteur_activite == 2,  # Informal wage worker
-                secteur_activite == 3,  # Informal independent worker
-                secteur_activite == 0,  # Agricultural worker
-            ],
-            [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-            ],
-        )
-
-
-class number_of_people_per_household(Variable):
-    value_type = int
-    entity = entities.Household
-    definition_period = YEAR
-    label = "Nombre d'individus par ménage"
-
-    def formula(household, period):
-        return household.nb_persons()
-
-
-class revenu_non_salarie_total(Variable):
-    value_type = float
-    entity = entities.Person
-    definition_period = YEAR
-    label = "Revenu non salarié total"
-
-    def formula(person, period):
-        return person("revenu_informel_non_salarie", period) + person(
-            "revenu_non_salarie", period
-        )
-
-
-class secteur_activite(Variable):
-    value_type = int
-    entity = entities.Person
-    definition_period = YEAR
-    label = "Secteur d'activité de l'individu"
-    # [Actif agricole < Salarie/dependant formel < Salarie/dependant informel <Independant]
-
-
-class secteur_formel(Variable):
-    value_type = bool
-    entity = entities.Person
-    definition_period = YEAR
-    label = "Secteur formel"
-
-
-class secteur_public(Variable):
-    value_type = bool
-    entity = entities.Person
-    definition_period = YEAR
-    label = "L'individu est un salarié du secteur public"
-
-
-class survey_income(Variable):
-    value_type = float
-    entity = entities.Household
-    definition_period = YEAR
-    label = "Revenus produits par l'enquête"
-
-    def formula(household, period):
-        return (
-            household("autoconsumption", period)  # "rev_i_autoconsommation"
-            + household.sum(household.members("other_income", period))  # "rev_i_autres"
-            + household.sum(
-                household.members("gifts_sales_durables", period)
-            )  # "rev_i_autres_transferts"
-            + household("imputed_rent", period)  # "rev_i_loyers_imputes"
-            + household("direct_transfers", period)  # "rev_i_transferts_publics"
-            + household.sum(
-                household.members("revenu_agricole", period)
-            )  # "rev_i_agricoles"
-            + household.sum(
-                household.members("autres_revenus_du_capital", period)
-            )  # "rev_i_autres_revenus_capital"
-            + household.sum(
-                household.members("revenu_informel_non_salarie", period)
-            )  # "rev_i_independants_Ntaxe"
-            + household.sum(
-                household.members("revenu_non_salarie", period)
-            )  # "rev_i_independants_taxe"
-            + household.sum(
-                household.members("revenu_locatif", period)
-            )  # "rev_i_locatifs"
-            + household.sum(
-                household.members("pension_retraite", period)
-            )  # "rev_i_pensions"
-            + household.sum(
-                household.members("salaire", period)
-            )  # "rev_i_salaires_formels"
-            + household.sum(
-                household.members("revenu_informel_salarie", period)
-            )  # "rev_i_salaires_informels"
-        )
-
-
-class urbain(Variable):
-    value_type = bool
-    entity = entities.Person
-    definition_period = YEAR
-    label = "L'individu vit en milieu urbain (par opposition à rural)"
-
-
-# For matching with original data
-
-
-class hh_id(Variable):
-    value_type = int
-    entity = entities.Household
-    definition_period = YEAR
-    label = "hh_id"
-
-
-class pers_id(Variable):
-    value_type = int
-    entity = entities.Person
-    definition_period = YEAR
-    label = "pers_id"
-
-
-# Reform
-
-
-class ceq(Reform):
-    name = "CEQ enhanced tax and benefit system"
-
-    def apply(self):
-        add_ceq_framework(self)
-        assert self.legislation_country is not None
-        add_ceq_education_unit_cost(self, self.legislation_country)
-
-
-# Helpers
-
-
-def add_ceq_framework(country_tax_benefit_system):
-    """Add CEQ framework to a specific country's tax benefit system
-
-    :param country_tax_benefit_system: The country tax-benefit-system
-    :type country_tax_benefit_system: TaxBenefitSystem
-    :return: The completed tax benefit system
-    :rtype: TaxBenefitSystem
+    :param country_tax_benefit_system: le TBS du pays à compléter.
+    :param harmonized_income_mapping: dict ``{nom_harmonisé: variable_pays}`` optionnel ;
+        toute valeur absente du TBS est créée comme variable d'entrée ``float`` au niveau
+        de la personne.
+    :param custom_variables: itérable de classes ``Variable`` optionnel, appliqué via
+        ``update_variable`` (p. ex. variables harmonisées multi-pays).
+    :param extra_variables: itérable de classes ``Variable`` optionnel, ajouté (ou remplacé
+        si déjà présent) — variables d'enquête propres à l'étude.
+    :param education_unit_cost: dict ``{catégorie: coût}`` optionnel ; déclenche la
+        génération des variables de coût unitaire d'éducation (cf.
+        :func:`add_ceq_education_unit_cost`).
+    :return: le TBS complété.
     """
-
     country_entities = country_tax_benefit_system.entities
     entities_by_name = dict((entity.key, entity) for entity in country_entities)
     entities.Person = entities_by_name["person"]
@@ -290,61 +106,46 @@ def add_ceq_framework(country_tax_benefit_system):
         ceq_variables_directory, ignored_variables=ignored_variables
     )
 
-    missing_income_variables = set(
-        non_ceq_input_by_harmonized_variable.values()
-    ).difference(set(country_tax_benefit_system.variables.keys()))
-    for missing_income_variable in missing_income_variables:
-        definitions_by_name = dict(
-            definition_period=YEAR,
-            entity=entities_by_name["person"],
-            label=missing_income_variable,
-            value_type=float,
+    if harmonized_income_mapping is not None:
+        missing_income_variables = set(harmonized_income_mapping.values()).difference(
+            set(country_tax_benefit_system.variables.keys())
         )
-        country_tax_benefit_system.add_variable(
-            type(missing_income_variable, (Variable,), definitions_by_name)
-        )
+        for missing_income_variable in missing_income_variables:
+            definitions_by_name = dict(
+                definition_period=YEAR,
+                entity=entities_by_name["person"],
+                label=missing_income_variable,
+                value_type=float,
+            )
+            country_tax_benefit_system.add_variable(
+                type(missing_income_variable, (Variable,), definitions_by_name)
+            )
 
-    for variable in multi_country_custom_ceq_variables:
-        country_tax_benefit_system.update_variable(variable)
+    if custom_variables is not None:
+        for variable in custom_variables:
+            country_tax_benefit_system.update_variable(variable)
 
-    # if (
-    #         hasattr(country_tax_benefit_system, 'legislation_country')
-    #         and country_tax_benefit_system.legislation_country == 'mali'
-    #         ):
+    if extra_variables is not None:
+        for variable in extra_variables:
+            if variable.__name__ in country_tax_benefit_system.variables:
+                country_tax_benefit_system.replace_variable(variable)
+            else:
+                country_tax_benefit_system.add_variable(variable)
 
-    #     class revenu_non_salarie(Variable):
-    #         def formula(person, period):
-    #             return (1 - MALI_PART_INFORMEL_NON_SALARIE) * person('revenu_non_salarie_total', period)
-
-    #     class revenu_informel_non_salarie(Variable):
-    #         def formula(person, period):
-    #             return MALI_PART_INFORMEL_NON_SALARIE * person('revenu_non_salarie_total', period)
-
-    #     country_tax_benefit_system.update_variable(revenu_non_salarie)
-    #     country_tax_benefit_system.update_variable(revenu_informel_non_salarie)
-
-    country_tax_benefit_system.replace_variable(revenu_non_salarie_total)
-    country_tax_benefit_system.add_variable(cadre)
-
-    if "categorie_cgu" in country_tax_benefit_system.variables:
-        country_tax_benefit_system.replace_variable(categorie_cgu)
-    else:
-        country_tax_benefit_system.add_variable(categorie_cgu)
-
-    country_tax_benefit_system.add_variable(labor_type)
-    country_tax_benefit_system.add_variable(secteur_public)
-    country_tax_benefit_system.add_variable(secteur_activite)
-    country_tax_benefit_system.add_variable(secteur_formel)
-    country_tax_benefit_system.add_variable(survey_income)
-    country_tax_benefit_system.add_variable(urbain)
-    country_tax_benefit_system.add_variable(number_of_people_per_household)
-    country_tax_benefit_system.add_variable(hh_id)
-    country_tax_benefit_system.add_variable(pers_id)
+    if education_unit_cost is not None:
+        add_ceq_education_unit_cost(country_tax_benefit_system, education_unit_cost)
 
     return country_tax_benefit_system
 
 
-def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country):
+def add_ceq_education_unit_cost(country_tax_benefit_system, unit_cost_by_category):
+    """Génère les variables de coût unitaire d'éducation à partir d'un mapping.
+
+    :param country_tax_benefit_system: le TBS du pays.
+    :param unit_cost_by_category: dict ``{catégorie: coût}`` où ``catégorie`` ∈
+        {``pre_school``, ``primary_education``, ``secondary_education``,
+        ``tertiary_education``} — agnostique du pays (l'étude fournit ses coûts).
+    """
     entities_by_name = dict(
         (entity.key, entity) for entity in country_tax_benefit_system.entities
     )
@@ -385,9 +186,7 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
         def unit_cost_function_creator(cost, enseignement_niveau):
             def func(entity, period_arg):
                 # On passe un local_dict explicite à numexpr : les valeurs lues doivent
-                # être liées aux noms de l'expression. (L'ancien code s'appuyait sur
-                # l'introspection du frame appelant mais jetait les résultats, d'où un
-                # KeyError numexpr.)
+                # être liées aux noms de l'expression.
                 niveau = entity("eleve_enseignement_niveau", period_arg)
                 public = entity("eleve_enseignement_public", period_arg)
                 expression = (
@@ -404,7 +203,7 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
             func.__name__ = "formula"
             return func
 
-        cost = unit_cost_by_category_by_country[legislation_country]
+        cost = unit_cost_by_category
         definitions_by_name = dict(
             definition_period=YEAR,
             entity=entities_by_name["person"],
