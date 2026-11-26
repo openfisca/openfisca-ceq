@@ -27,6 +27,27 @@ Séparation du cœur réutilisable et des études pays Afrique de l'Ouest. Les �
   de complétion générique, le générateur de taxes indirectes, `tests/formulas`.
 * **Bugfix** (porté de 819eae5) : `add_ceq_education_unit_cost` liait mal les variables
   lues à l'expression numexpr (KeyError) ; corrigé via un `local_dict` explicite.
+* **Breaking** : retrait du générateur de *comparaison multi-pays* (`build_comparison_table`,
+  `build_comparison_spreadsheet`) et des assets `assets/merged*` + `documentation/`
+  `multi_country_comparison.md` — ils vivent dans `openfisca-ceq-afrique-ouest`. Le cœur
+  conserve le générateur **générique mono-pays** de nomenclature (`build_label_by_code_coicop`,
+  `build_complete_label_coicop_data_frame`, `build_tax_rate_by_code_coicop`).
+* **Dépendances élaguées** : retrait de `matplotlib`, `scipy`, `xlrd` (runtime) et
+  `papermill` (dev) après le départ des études, puis de `xlwt`/`xlsxwriter` après le retrait
+  du générateur de comparaison (écriture `.xls`/`.xlsx`). Ajout d'`openpyxl` (lecture des
+  fichiers `Produits_*.xlsx` par le générateur générique). Conservés :
+  `OpenFisca-Survey-Manager`, `OpenFisca-Core`, `python-slugify`.
+* **README** réécrit : cœur générique 2.0, renvoi vers `openfisca-ceq-afrique-ouest` et
+  `ceq-tunisie`.
+* **Bugfix (signe)** : `health_net_transfers` retranchait à tort `health_in_patient` et
+  `health_out_patient`. Le manuel CEQ (Lustig, Handbook 2022) définit le revenu final comme
+  ajoutant la valeur monétisée des transferts en nature de santé (au coût moyen de l'État) et
+  ne retranchant que les co-paiements / frais d'usager : les prestations hospitalières et
+  ambulatoires s'**additionnent** désormais ; seul `health_copay_fees` se retranche. Impact :
+  `final_income` plus élevé quand il y a des soins in/out-patient.
+* **Tests** : nouveaux tests YAML du cœur, sans données pays — échelle complète des concepts
+  de revenu (identités yc/yf), agrégateurs de composantes, signe de `health_net_transfers`,
+  agrégation personne→ménage, cas nul.
 * **Non impacté** : `ceq-tunisie`, qui ne consomme que `CountryTaxBenefitSystem`.
 
 ## 1.0.4 - [#81](https://github.com/openfisca/openfisca-ceq/pull/81) - Finalize packaging migration to pyproject.toml

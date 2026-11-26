@@ -1,0 +1,22 @@
+# market_income agrege au niveau menage des revenus definis au niveau personne
+# (other_income et gifts_sales_durables). Un menage a deux membres verifie la somme.
+
+- name: Person-level incomes are summed over household members in market income
+  period: 2017
+  input:
+    persons:
+      p1:
+        other_income: 50
+        gifts_sales_durables: 10
+      p2:
+        other_income: 70
+        gifts_sales_durables: 5
+    households:
+      h1:
+        personnes_de_reference: [p1]
+        conjoints: [p2]
+        all_income_excluding_transfers: 100
+  output:
+    households:
+      h1:
+        market_income: 235  # 100 + (50 + 70) + (10 + 5)

@@ -1,0 +1,101 @@
+# Echelle complete des concepts de revenu CEQ (identites yc/yf).
+# Toutes les variables feuilles sont fixees a des valeurs distinctes et chaque
+# palier intermediaire ainsi que les agregateurs de composantes sont verifies,
+# de market income a final income.
+
+- name: Full CEQ income ladder with every leaf input set
+  period: 2017
+  input:
+    # market_income (menage + composantes personne)
+    all_income_excluding_transfers: 1000
+    alimony: 20
+    autoconsumption: 30
+    imputed_rent: 40
+    gifts_sales_durables: 10   # personne
+    other_income: 50           # personne
+    # pensions et cotisations retraite
+    pensions: 200
+    employee_contributions_pensions: 10
+    employer_contributions_pensions: 20
+    self_employed_contributions_pensions: 30
+    # impots directs
+    personal_income_tax: 100
+    corporate_income_tax: 50
+    payroll_tax: 30
+    property_tax: 20
+    other_taxes: 10
+    # cotisations sante et autres
+    employee_contributions_health: 5
+    employer_contributions_health: 15
+    self_employed_contributions_health: 10
+    employee_other_contributions: 2
+    employer_other_contributions: 4
+    self_employed_other_contributions: 6
+    # transferts directs
+    cash_transfers: 100
+    noncontributory_pensions: 50
+    near_cash_transfers: 25
+    social_insurance: 80
+    # revenu imposable
+    nontaxable_income: 45
+    # subventions indirectes
+    electricity_subsidies: 10
+    fuel_subsidies: 20
+    food_subsidies: 30
+    agricultural_inputs_subsidies: 40
+    # taxes indirectes
+    value_added_tax: 50
+    sales_tax: 25
+    excise_taxes: 15
+    customs_duties: 10
+    # transferts en nature (education)
+    pre_school: 10
+    primary_education: 20
+    secondary_education: 30
+    tertiary_education: 40
+    school_fees: 15
+    # transferts en nature (sante)
+    health_contributory: 100
+    health_noncontributory: 40
+    health_in_patient: 30
+    health_out_patient: 20
+    health_copay_fees: 15
+    # transferts en nature (logement)
+    housing_transfers: 60
+  output:
+    # agregateurs de composantes
+    market_income: 1150                 # 1000 + 20 + 30 + 40 + 10 + 50
+    contributions_pensions: 60          # 10 + 20 + 30
+    contributions_health: 30            # 5 + 15 + 10
+    other_contributions: 12             # 2 + 4 + 6
+    direct_taxes: 210                   # 100 + 50 + 30 + 20 + 10
+    direct_transfers: 255               # social_assistance 175 + social_insurance 80
+    social_assistance: 175              # 100 + 50 + 25
+    indirect_subsidies: 100             # 10 + 20 + 30 + 40
+    indirect_taxes: 100                 # 50 + 25 + 15 + 10
+    education_net_transfers: 85         # 10 + 20 + 30 + 40 - 15
+    health_net_transfers: 175           # 100 + 40 + 30 + 20 - 15
+    in_kind_transfers: 320              # 85 + 175 + 60
+    # echelle des concepts de revenu
+    market_income_plus_pensions: 1290   # 1150 + 200 - 60
+    net_market_income: 1038             # 1290 - (210 + 30 + 12)
+    gross_income: 1545                  # 1290 + 255
+    taxable_income: 1500                # 1545 - 45
+    disposable_income: 1293             # 1038 + 255
+    consumable_income: 1293             # 1293 + 100 - 100
+    final_income: 1613                  # 1293 + 320
+
+- name: All-zero inputs give all-zero income concepts
+  period: 2017
+  input:
+    all_income_excluding_transfers: 0
+  output:
+    market_income: 0
+    market_income_plus_pensions: 0
+    net_market_income: 0
+    gross_income: 0
+    taxable_income: 0
+    disposable_income: 0
+    consumable_income: 0
+    in_kind_transfers: 0
+    final_income: 0

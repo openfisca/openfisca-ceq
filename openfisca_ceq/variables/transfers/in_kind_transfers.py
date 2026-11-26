@@ -54,14 +54,19 @@ class health_net_transfers(Variable):
         health_out_patient = household("health_out_patient", period)
         health_copay_fees = household("health_copay_fees", period)
 
-        health_net_copay_fees = (
+        # Manuel CEQ (Lustig, Handbook 2022) : le revenu final ajoute la valeur
+        # monetisee des transferts en nature de sante (au cout moyen de l'Etat) et
+        # retranche les seuls co-paiements / frais d'usager. Les prestations recues
+        # (contributif, non contributif, hospitalier, ambulatoire) s'additionnent donc ;
+        # seul health_copay_fees se retranche.
+        health_net_transfers = (
             health_contributory
             + health_noncontributory
-            - health_in_patient
-            - health_out_patient
+            + health_in_patient
+            + health_out_patient
             - health_copay_fees
         )
-        return health_net_copay_fees
+        return health_net_transfers
 
 
 class housing_transfers(Variable):
