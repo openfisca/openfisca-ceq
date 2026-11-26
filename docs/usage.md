@@ -38,11 +38,5 @@ Tous les paramètres propres à une étude sont **keyword-only** et optionnels :
 - **[ceq-tunisie](https://github.com/openfisca/ceq-tunisie)** : premier consommateur
   moderne du cœur ; n'utilise que `CountryTaxBenefitSystem` + le framework.
 - **[openfisca-ceq-afrique-ouest](https://github.com/openfisca/openfisca-ceq-afrique-ouest)** :
-  câble les études Sénégal / Mali / Côte d'Ivoire via un module `ceq_completion` qui
+  câble les études Sénégal / Mali / Côte d'Ivoire via un module `ceq_framework` qui
   délègue à `add_ceq_framework` (mapping harmonisé, variables d'enquête, coûts d'éducation).
-
-## Vérification de référence
-
-La greffe a été validée sur le vrai package **Sénégal** : `add_ceq_framework` ajoute 97
-variables et les concepts de revenu se calculent correctement
-(`health_net_transfers`, `education_net_transfers`, `final_income`…).
