@@ -7,18 +7,22 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
 
 ## Chantiers
 
-- [ ] **Scission core / études pays** — plan complet : `documentation/plan-scission-core-etudes.md`.
-      Phase 0 (décisions de périmètre) à trancher par le mainteneur. Restent les phases 1 (dépôt
-      `openfisca-ceq-afrique-ouest` extrait avec historique via `git filter-repo`), 3 (adapter les
-      études aux imports 2.0) et 4 (relock ceq-tunisie sur le cœur 2.0, hygiène).
+- [ ] **Scission core / études pays** — phases 1 à 3 **faites en local** (dépôt études créé et
+      adapté, cœur élagué). Reste, **gated** (actions irréversibles / réseau / scopes token) :
+      - **merger `scission-core` → `master`** → publie 2.0.0 sur PyPI (le patch `ci.yml` est prêt) ;
+      - **pousser** `scission-core` et ouvrir la PR ;
+      - **créer le dépôt distant** `openfisca-ceq-afrique-ouest` (`gh repo create`) et le pousser ;
+      - **relock ceq-tunisie** sur le cœur 2.0 (`>=1.0.4,<2` → `>=2,<3`) une fois 2.0 publié ;
+      - **transférer les issues** pays vers le dépôt études.
+- [ ] **Dépôt études — finitions** (dans `../openfisca-ceq-afrique-ouest`) : imports des **notebooks**
+      non réadaptés (data-gated) ; `survey_scenario.py:470` `CountryTaxBenefitSystem(coicop=False)`
+      (argument `coicop` inexistant — legacy à corriger) ; pipeline complet non exécuté (enquêtes
+      `.dta` + packages pays SN/ML/CI non disponibles).
 - [ ] **Compléter les tests du cœur** : les deciles `decile_*_per_capita` (statistiques
       multi-ménages) et la valorisation des coûts unitaires d'éducation (`add_ceq_education_unit_cost`)
       ne sont pas encore couverts par des tests unitaires.
 - [ ] **Doc `gross_income`** : divergence handbook CEQ vs implémentation Banque mondiale Tunisie
       (scénario PDI dégénéré, pens=0) — issue #80.
-- [ ] **Workflow deploy** (suites de la PR #81, token agent sans scope workflow) :
-      passer `uv build --wheel` → `uv build` pour publier aussi le sdist ;
-      supprimer l'étape `uv pip install twine` devenue redondante (twine est dans le lock).
 
 - [ ] **`.github/dependabot.yml` à dépoussiérer** (hors de portée du token agent → à faire à la main) :
       retirer le bloc `ignore: autopep8 1.5.5` (autopep8 abandonné au profit de ruff, PR #81) ;
@@ -27,6 +31,15 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
 
 ## Fait récemment
 
+- [x] **Scission phases 1–3 (local)** : dépôt `../openfisca-ceq-afrique-ouest` créé avec historique
+      (`git filter-repo`, package renommé `openfisca_ceq_afrique_ouest`), scaffolding (pyproject,
+      CI, README, AGPL), et code études **réadapté à l'API 2.0** (nouveau `tools/ceq_completion.py`
+      délégant à `add_ceq_framework` ; imports intra-études renommés ; `country_code_by_country`
+      local ; `education_unit_cost` découplé des assets du cœur). Import vérifié contre le vrai core 2.0.
+- [x] **Cœur élagué (fin phase 2)** : retrait du générateur de comparaison multi-pays + assets
+      `merged*` + doc `multi_country_comparison`, deps `xlwt`/`xlsxwriter` → `openpyxl`, README réécrit.
+- [x] **Patch `ci.yml`** : deploy PyPI idempotent (`uv build`, retrait `uv pip install twine`,
+      `twine upload --skip-existing`) — commité sur `scission-core`, **à pousser**.
 - [x] **Scission phase 2 (branche `scission-core`)** : `add_ceq_framework` rendu agnostique du pays
       (données d'étude injectées en keyword-only) ; code études élagué (−21 972 lignes : notebooks,
       `tools/survey_scenario.py`, `tools/data/`, `tools/data_ceq_correspondence.py`, `tools/results/`,
