@@ -27,6 +27,10 @@ Séparation du cœur réutilisable et des études pays Afrique de l'Ouest. Les �
   de complétion générique, le générateur de taxes indirectes, `tests/formulas`.
 * **Bugfix** (porté de 819eae5) : `add_ceq_education_unit_cost` liait mal les variables
   lues à l'expression numexpr (KeyError) ; corrigé via un `local_dict` explicite.
+* **Dépendances élaguées** : retrait de `matplotlib`, `scipy`, `xlrd` (runtime) et
+  `papermill` (dev), devenus inutiles après le départ des études (graphiques, calibration,
+  lecture `.xls`, exécution de notebooks). Conservés : `OpenFisca-Survey-Manager`,
+  `OpenFisca-Core`, `python-slugify`, `xlsxwriter`, `xlwt` (écriture `merged.xls`).
 * **Non impacté** : `ceq-tunisie`, qui ne consomme que `CountryTaxBenefitSystem`.
 
 ## 1.0.4 - [#81](https://github.com/openfisca/openfisca-ceq/pull/81) - Finalize packaging migration to pyproject.toml
