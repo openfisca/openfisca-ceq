@@ -1,7 +1,7 @@
+import importlib.resources
 import logging
 import numexpr as ne
 import os
-import pkg_resources
 
 
 from openfisca_core.model_api import Enum, not_, select, Variable, YEAR
@@ -24,10 +24,8 @@ from openfisca_ceq.tools.data.education_unit_cost import (
 log = logging.getLogger(__name__)
 
 
-ceq_variables_directory = os.path.join(
-    pkg_resources.get_distribution("openfisca-ceq").location,
-    "openfisca_ceq",
-    "variables",
+ceq_variables_directory = str(
+    importlib.resources.files("openfisca_ceq") / "variables"
 )
 
 assert os.path.exists(ceq_variables_directory)

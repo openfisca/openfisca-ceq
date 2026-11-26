@@ -1,8 +1,8 @@
 import configparser
+import importlib.resources
 import logging
 import os
 import pandas as pd
-import pkg_resources
 
 
 from openfisca_survey_manager.coicop import build_raw_coicop_nomenclature
@@ -22,9 +22,7 @@ else:
 log = logging.getLogger(__name__)
 
 
-assets_directory = os.path.join(
-    pkg_resources.get_distribution("openfisca-ceq").location, "openfisca_ceq", "assets"
-)
+assets_directory = str(importlib.resources.files("openfisca_ceq") / "assets")
 
 config_parser = configparser.ConfigParser()
 config_parser.read(os.path.join(config_files_directory, "raw_data.ini"))
