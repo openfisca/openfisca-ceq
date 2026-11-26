@@ -24,9 +24,7 @@ from openfisca_ceq.tools.data.education_unit_cost import (
 log = logging.getLogger(__name__)
 
 
-ceq_variables_directory = str(
-    importlib.resources.files("openfisca_ceq") / "variables"
-)
+ceq_variables_directory = str(importlib.resources.files("openfisca_ceq") / "variables")
 
 assert os.path.exists(ceq_variables_directory)
 
@@ -386,13 +384,22 @@ def add_ceq_education_unit_cost(country_tax_benefit_system, legislation_country)
 
         def unit_cost_function_creator(cost, enseignement_niveau):
             def func(entity, period_arg):
-                entity("eleve_enseignement_niveau", period_arg)  # noqa: F841
-                entity("eleve_enseignement_public", period_arg)  # noqa: F841
-                expression = "(eleve_enseignement_niveau == {enseignement_niveau}) * eleve_enseignement_public * {cost}".format(
-                    enseignement_niveau=enseignement_niveau,
-                    cost=cost,
+                # On passe un local_dict explicite à numexpr : les valeurs lues doivent
+                # être liées aux noms de l'expression. (L'ancien code s'appuyait sur
+                # l'introspection du frame appelant mais jetait les résultats, d'où un
+                # KeyError numexpr.)
+                niveau = entity("eleve_enseignement_niveau", period_arg)
+                public = entity("eleve_enseignement_public", period_arg)
+                expression = (
+                    "(niveau == {enseignement_niveau}) * public * {cost}".format(
+                        enseignement_niveau=enseignement_niveau,
+                        cost=cost,
+                    )
                 )
-                return ne.evaluate(str(expression))
+                return ne.evaluate(
+                    str(expression),
+                    local_dict={"niveau": niveau, "public": public},
+                )
 
             func.__name__ = "formula"
             return func
