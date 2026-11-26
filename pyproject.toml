@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "OpenFisca-CEQ"
-version = "1.0.3"
+version = "1.0.4"
 description = "OpenFisca tax and benefit system for CEQ"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -41,18 +41,30 @@ dev = [
     "pdbpp",
     "pytest >=8.3.3",
     "requests >=2.32.0",
+    "twine >=6.0.0",
     "yamllint >=1.11.1,<2",
 ]
 
 [project.urls]
 Homepage = "https://github.com/openfisca/openfisca-ceq"
 Repository = "https://github.com/openfisca/openfisca-ceq"
-
-[tool.setuptools]
-include-package-data = true
+Issues = "https://github.com/openfisca/openfisca-ceq/issues"
+Changelog = "https://github.com/openfisca/openfisca-ceq/blob/master/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
-where = ["."]
+include = ["openfisca_ceq*"]
+
+[tool.setuptools.package-data]
+# Non-Python files (and the non-package `variables/` directory) shipped inside the
+# `openfisca_ceq` package. Replaces the former catch-all MANIFEST.in.
+# - assets/: data files read at runtime via importlib.resources
+# - variables/: CEQ variable modules loaded dynamically by tax_benefit_system_ceq_completion
+# - tests/formulas/: YAML tests run by `openfisca test`
+openfisca_ceq = [
+    "assets/*",
+    "variables/*.py",
+    "tests/formulas/*.yaml",
+]
 
 [tool.pytest.ini_options]
 # Tests requiring local configuration/data files are ignored in CI
