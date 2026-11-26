@@ -96,9 +96,8 @@ in_kind_transfers = education_net_transfers + health_net_transfers + housing_tra
 final_income = consumable_income + in_kind_transfers
 ```
 
-!!! warning "Signe des transferts de santé (corrigé en 2.0)"
-    Conformément au manuel CEQ, `health_net_transfers` **additionne** toutes les
+!!! note "Signe des transferts de santé"
+    Conformément au manuel CEQ, `health_net_transfers` additionne toutes les
     prestations de santé reçues (contributif, non contributif, hospitalier,
-    ambulatoire) et ne **retranche que** les co-paiements / frais d'usager
-    (`health_copay_fees`). Avant la 2.0, `health_in_patient` et `health_out_patient`
-    étaient retranchés à tort.
+    ambulatoire) et ne retranche que les co-paiements / frais d'usager
+    (`health_copay_fees`).
