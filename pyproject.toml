@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "OpenFisca-CEQ"
-version = "1.0.2"
+version = "1.0.3"
 description = "OpenFisca tax and benefit system for CEQ"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -28,7 +28,6 @@ dependencies = [
     "matplotlib >=3.8.0",
     "python-slugify",
     "scipy >=1.10.1,<2.0",
-    "setuptools<66",
     "xlrd >=2.0.0",
     "xlsxwriter",
     "xlwt >=1.3.0",
@@ -42,7 +41,7 @@ dev = [
     "pdbpp",
     "pytest >=8.3.3",
     "requests >=2.32.0",
-    "yamllint >=1.11.1,<1.27",
+    "yamllint >=1.11.1,<2",
 ]
 
 [project.urls]

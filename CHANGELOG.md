@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 - [#79](https://github.com/openfisca/openfisca-ceq/pull/79) - Python 3.12 compatibility
+
+* **Bugfix**: Fix `AttributeError: module 'pkgutil' has no attribute 'ImpImporter'` at import time on Python >= 3.12 (fixes [#78](https://github.com/openfisca/openfisca-ceq/issues/78))
+  - Replace `pkg_resources` with `importlib.resources` in `openfisca_ceq/tools/tax_benefit_system_ceq_completion.py` and `openfisca_ceq/tools/indirect_taxation/consumption_items_nomenclature.py`
+  - Remove the `setuptools<66` runtime dependency (no longer needed)
+  - Relax the `yamllint` dev dependency pin (`<1.27` -> `<2`) so dev environments no longer pull `setuptools 65.7.0`, whose `pkg_resources` breaks on Python 3.12
+  - Regenerate `uv.lock` (`setuptools` is no longer locked)
+
 ## 1.0.2 - [#76](https://github.com/openfisca/openfisca-ceq/pull/76) - Bugfix release
 
 * **Bugfix**: Documentation and deployment improvements
