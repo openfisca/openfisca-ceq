@@ -12,7 +12,14 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
       - **merger `scission-core` → `master`** → publie 2.0.0 sur PyPI (le patch `ci.yml` est prêt) ;
       - **pousser** `scission-core` et ouvrir la PR ;
       - **créer le dépôt distant** `openfisca-ceq-afrique-ouest` (`gh repo create`) et le pousser ;
-      - **relock ceq-tunisie** sur le cœur 2.0 (`>=1.0.4,<2` → `>=2,<3`) une fois 2.0 publié ;
+      - **relock ceq-tunisie** sur le cœur 2.0 (`>=1.0.4,<2` → `>=2,<3`) une fois 2.0 publié.
+        **Analysé** : le code source de ceq-tunisie ne consomme que `CountryTaxBenefitSystem`
+        (compat vérifiée : la réforme `CEQTunisiaReform` se construit sur le core 2.0 source).
+        **Seul impact** : le test `tests/unit/test_openfisca_ceq_import.py::`
+        `test_import_data_ceq_correspondence_natif` casse (le module `data_ceq_correspondence`
+        a quitté le cœur → afrique-ouest) ; ce test (vestige de la migration Python 3.12) est
+        à retirer/mettre à jour lors du relock. NB : `main` de ceq-tunisie a du WIP non commité
+        — ne rien committer là-bas sans coordination ;
       - **transférer les issues** pays vers le dépôt études.
 - [ ] **Dépôt études — finitions** (dans `../openfisca-ceq-afrique-ouest`) : imports des **notebooks**
       non réadaptés (data-gated) ; `survey_scenario.py:470` `CountryTaxBenefitSystem(coicop=False)`
@@ -28,6 +35,28 @@ Discipline : toute tâche reportée vit ici, pas dans les conversations ni les s
       retirer le bloc `ignore: autopep8 1.5.5` (autopep8 abandonné au profit de ruff, PR #81) ;
       passer `package-ecosystem: pip` → `uv` (le dépôt n'a plus que `pyproject.toml` + `uv.lock`) ;
       envisager `interval: weekly` au lieu de `daily`.
+
+## Chantiers de doc (MkDocs) et PRs en cours
+
+- PR **#95** openfisca-ceq : scission cœur 2.0 (→ master). Déclenche la publication PyPI au merge.
+- PR **#96** openfisca-ceq : site MkDocs du cœur (hub), basé sur `scission-core`.
+- openfisca-ceq-afrique-ouest : le dépôt **existait déjà** (créé par un effort parallèle, plus
+  avancé : restructure à plat + fix survey-manager 6.x). Ma session avait dupliqué le travail ;
+  réconcilié en repartant de leur `master`. PR **#1** (site MkDocs), PR **#2** (imports pays
+  paresseux + retrait `coicop`, qui débloquent la construction du scénario).
+- PR **#108** openfisca-senegal : README enrichi (rôle dans l'écosystème CEQ).
+- [ ] **ceq-tunisie — finir MkDocs** (deps docs, job CI + Pages, sortir les notes d'analyse du
+      nav public) : **différé**, `main` a du WIP non commité → coordonner avant de committer.
+- [ ] **Retirer les wikis** (`has_wiki=false`) : contenu du wiki cœur déjà migré (≈ `concepts.md`).
+      À faire **après** déploiement des Pages (merge des PRs docs + activation Pages).
+
+## Validation pipeline Sénégal (openfisca-ceq-afrique-ouest)
+
+- [x] Scénario `build_ceq_survey_scenario('senegal', 2011)` **construit de bout en bout** sur les
+      vraies données `.dta` (fix survey-manager du remote + imports paresseux de la PR #2).
+- [ ] **Trou du modèle harmonisé Sénégal** : le calcul d'un agrégat (`compute_aggregate`) bute sur
+      `autres_revenus_du_capital_brut` (variable référencée par une formule mais absente du TBS /
+      non créée par le mapping harmonisé). À traiter côté étude (connaissance du modèle Sénégal).
 
 ## Fait récemment
 

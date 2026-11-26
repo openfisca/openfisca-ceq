@@ -11,7 +11,7 @@
 ## [EN] Introduction
 OpenFisca is a versatile microsimulation free software. This repository contains the OpenFisca implementation of [Commitment to Equity (CEQ)](http://commitmentoequity.org) analysis framework.
 
-A [brief introduction to CEQ concepts](./documentation/ceq.md) entering our model is available.
+A [brief introduction to CEQ concepts](https://openfisca.github.io/openfisca-ceq/concepts/) entering our model is available in the [documentation site](https://openfisca.github.io/openfisca-ceq/).
 
 Since version 2.0, this package is the **reusable CEQ core** only: the CEQ entities, the CEQ income-concept variables, a country-agnostic framework (`add_ceq_framework`) to graft those concepts onto any country tax-benefit system, and a generic indirect-tax nomenclature generator. It no longer bundles any country study.
 
@@ -22,7 +22,7 @@ You can however check the [general OpenFisca documentation](https://openfisca.or
 ## [FR] Introduction
 [OpenFisca](https://www.openfisca.fr/) est un logiciel libre de micro-simulation. Ce dépôt contient la modélisation du cadre d'analyse développé dans le cadre du projet [Commitemnt to Equity (CEQ)](http://commitmentoequity.org).
 
-Une [brève introduction aux concepts de revenus mobilisés par le cadre d'analyse CEQ](./documentation/ceq.md) utilisée par notre modèle est fournie.
+Une [brève introduction aux concepts de revenus mobilisés par le cadre d'analyse CEQ](https://openfisca.github.io/openfisca-ceq/concepts/) est fournie dans le [site de documentation](https://openfisca.github.io/openfisca-ceq/).
 
 Depuis la version 2.0, ce paquet ne contient plus que le **cœur réutilisable CEQ** : les entités CEQ, les variables de concepts de revenu CEQ, un framework agnostique du pays (`add_ceq_framework`) pour greffer ces concepts sur le système socio-fiscal d'un pays, et un générateur générique de nomenclature de taxes indirectes. Il n'embarque plus aucune étude pays.
 
