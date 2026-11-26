@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4 - [#80](https://github.com/openfisca/openfisca-ceq/pull/80) - Finalize packaging migration to pyproject.toml
+
+* **Technical improvement**: Complete the packaging migration started in 1.0.0 (follow-up to [#79](https://github.com/openfisca/openfisca-ceq/pull/79))
+  - Remove `MANIFEST.in` (catch-all `recursive-include * *`); package data is now declared explicitly in `pyproject.toml` via `[tool.setuptools.package-data]` (`assets/`, `variables/`, `tests/formulas/`)
+  - Restrict package discovery to `openfisca_ceq*` (`[tool.setuptools.packages.find]`), aligning with OpenFisca-Tunisia conventions
+  - Add `Issues` and `Changelog` project URLs
+
 ## 1.0.3 - [#79](https://github.com/openfisca/openfisca-ceq/pull/79) - Python 3.12 compatibility
 
 * **Bugfix**: Fix `AttributeError: module 'pkgutil' has no attribute 'ImpImporter'` at import time on Python >= 3.12 (fixes [#78](https://github.com/openfisca/openfisca-ceq/issues/78))
