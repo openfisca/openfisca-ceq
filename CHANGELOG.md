@@ -19,6 +19,10 @@ Séparation du cœur réutilisable et des études pays Afrique de l'Ouest. Les �
   `tools/data/`, `tools/data_ceq_correspondence.py`, `tools/results/`, des notebooks,
   des tests dépendants des données pays, et des assets `unit_cost_*`. Tout cela vit
   désormais dans `openfisca-ceq-afrique-ouest`.
+* **Breaking** : le générateur de taxes indirectes n'a plus de table pays codée en dur.
+  La correspondance pays -> code est lue depuis l'option `country_codes` de la section
+  `[ceq]` de `raw_data.ini` (format `senegal:SEN,mali:MLI,cote_d_ivoire:CIV`) ; un code
+  manquant lève une erreur explicite.
 * **Conservé** : entités, les 72 variables de concepts CEQ (`variables/`), le framework
   de complétion générique, le générateur de taxes indirectes, `tests/formulas`.
 * **Bugfix** (porté de 819eae5) : `add_ceq_education_unit_cost` liait mal les variables
