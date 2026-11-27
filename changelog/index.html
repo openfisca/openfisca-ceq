@@ -1,0 +1,786 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Cœur réutilisable CEQ pour OpenFisca (concepts de revenu, framework de complétion générique)">
+      
+      
+      
+      
+        <link rel="prev" href="../reference/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Changelog - OpenFisca CEQ — Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenFisca CEQ — Documentation" class="md-header__button md-logo" aria-label="OpenFisca CEQ — Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenFisca CEQ — Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/openfisca/openfisca-ceq" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    openfisca/openfisca-ceq
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../concepts/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Concepts de revenu CEQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../usage/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Brancher le cœur sur un pays
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../indirect-taxation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Taxes indirectes
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reference/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Référence d'API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenFisca CEQ — Documentation" class="md-nav__button md-logo" aria-label="OpenFisca CEQ — Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OpenFisca CEQ — Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/openfisca/openfisca-ceq" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    openfisca/openfisca-ceq
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts de revenu CEQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brancher le cœur sur un pays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indirect-taxation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taxes indirectes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence d'API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h1 id="changelog_1">Changelog<a class="headerlink" href="#changelog_1" title="Permanent link">&para;</a></h1>
+<h2 id="200-scission-cur-etudes-breaking">2.0.0 - Scission cœur / études (BREAKING)<a class="headerlink" href="#200-scission-cur-etudes-breaking" title="Permanent link">&para;</a></h2>
+<p>Séparation du cœur réutilisable et des études pays Afrique de l'Ouest. Les études
+(Sénégal, Mali, Côte d'Ivoire) migrent vers le paquet <code>openfisca-ceq-afrique-ouest</code>.
+<code>openfisca-ceq</code> ne contient plus que le cœur réutilisable.</p>
+<ul>
+<li><strong>Breaking</strong> : <code>add_ceq_framework</code> est désormais <strong>agnostique du pays</strong>. Signature
+  keyword-only : <code>add_ceq_framework(tbs, *, harmonized_income_mapping=None,
+  custom_variables=None, extra_variables=None, education_unit_cost=None)</code>. Les données
+  propres à une étude (mapping harmonisé, variables custom, variables d'enquête, coûts
+  unitaires) sont <strong>injectées</strong> par l'appelant, plus importées au chargement du module.</li>
+<li><strong>Breaking</strong> : <code>add_ceq_education_unit_cost(tbs, unit_cost_by_category)</code> prend un dict
+  <code>{catégorie: coût}</code> au lieu d'un <code>legislation_country</code>.</li>
+<li><strong>Breaking</strong> : suppression du cœur de la réforme <code>ceq</code>, des variables d'enquête
+  concrètes (<code>cadre</code>, <code>categorie_cgu</code>, <code>labor_type</code>, <code>secteur_*</code>, <code>survey_income</code>,
+  <code>hh_id</code>, …), de <code>labor_type_by_index</code>, et des modules études <code>tools/survey_scenario.py</code>,
+  <code>tools/data/</code>, <code>tools/data_ceq_correspondence.py</code>, <code>tools/results/</code>, des notebooks,
+  des tests dépendants des données pays, et des assets <code>unit_cost_*</code>. Tout cela vit
+  désormais dans <code>openfisca-ceq-afrique-ouest</code>.</li>
+<li><strong>Breaking</strong> : le générateur de taxes indirectes n'a plus de table pays codée en dur.
+  La correspondance pays -&gt; code est lue depuis l'option <code>country_codes</code> de la section
+  <code>[ceq]</code> de <code>raw_data.ini</code> (format <code>senegal:SEN,mali:MLI,cote_d_ivoire:CIV</code>) ; un code
+  manquant lève une erreur explicite.</li>
+<li><strong>Conservé</strong> : entités, les 72 variables de concepts CEQ (<code>variables/</code>), le framework
+  de complétion générique, le générateur de taxes indirectes, <code>tests/formulas</code>.</li>
+<li><strong>Bugfix</strong> (porté de 819eae5) : <code>add_ceq_education_unit_cost</code> liait mal les variables
+  lues à l'expression numexpr (KeyError) ; corrigé via un <code>local_dict</code> explicite.</li>
+<li><strong>Breaking</strong> : retrait du générateur de <em>comparaison multi-pays</em> (<code>build_comparison_table</code>,
+  <code>build_comparison_spreadsheet</code>) et des assets <code>assets/merged*</code> + <code>documentation/</code>
+  <code>multi_country_comparison.md</code> — ils vivent dans <code>openfisca-ceq-afrique-ouest</code>. Le cœur
+  conserve le générateur <strong>générique mono-pays</strong> de nomenclature (<code>build_label_by_code_coicop</code>,
+  <code>build_complete_label_coicop_data_frame</code>, <code>build_tax_rate_by_code_coicop</code>).</li>
+<li><strong>Dépendances élaguées</strong> : retrait de <code>matplotlib</code>, <code>scipy</code>, <code>xlrd</code> (runtime) et
+  <code>papermill</code> (dev) après le départ des études, puis de <code>xlwt</code>/<code>xlsxwriter</code> après le retrait
+  du générateur de comparaison (écriture <code>.xls</code>/<code>.xlsx</code>). Ajout d'<code>openpyxl</code> (lecture des
+  fichiers <code>Produits_*.xlsx</code> par le générateur générique). Conservés :
+  <code>OpenFisca-Survey-Manager</code>, <code>OpenFisca-Core</code>, <code>python-slugify</code>.</li>
+<li><strong>README</strong> réécrit : cœur générique 2.0, renvoi vers <code>openfisca-ceq-afrique-ouest</code> et
+  <code>ceq-tunisie</code>.</li>
+<li><strong>Bugfix (signe)</strong> : <code>health_net_transfers</code> retranchait à tort <code>health_in_patient</code> et
+  <code>health_out_patient</code>. Le manuel CEQ (Lustig, Handbook 2022) définit le revenu final comme
+  ajoutant la valeur monétisée des transferts en nature de santé (au coût moyen de l'État) et
+  ne retranchant que les co-paiements / frais d'usager : les prestations hospitalières et
+  ambulatoires s'<strong>additionnent</strong> désormais ; seul <code>health_copay_fees</code> se retranche. Impact :
+  <code>final_income</code> plus élevé quand il y a des soins in/out-patient.</li>
+<li><strong>Tests</strong> : nouveaux tests YAML du cœur, sans données pays — échelle complète des concepts
+  de revenu (identités yc/yf), agrégateurs de composantes, signe de <code>health_net_transfers</code>,
+  agrégation personne→ménage, cas nul.</li>
+<li><strong>Non impacté</strong> : <code>ceq-tunisie</code>, qui ne consomme que <code>CountryTaxBenefitSystem</code>.</li>
+</ul>
+<h2 id="104-81-finalize-packaging-migration-to-pyprojecttoml">1.0.4 - <a href="https://github.com/openfisca/openfisca-ceq/pull/81">#81</a> - Finalize packaging migration to pyproject.toml<a class="headerlink" href="#104-81-finalize-packaging-migration-to-pyprojecttoml" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Technical improvement</strong>: Complete the packaging migration started in 1.0.0 (follow-up to <a href="https://github.com/openfisca/openfisca-ceq/pull/79">#79</a>)</li>
+<li>Remove <code>MANIFEST.in</code> (catch-all <code>recursive-include * *</code>); package data is now declared explicitly in <code>pyproject.toml</code> via <code>[tool.setuptools.package-data]</code> (<code>assets/</code>, <code>variables/</code>, <code>tests/formulas/</code>)</li>
+<li>Restrict package discovery to <code>openfisca_ceq*</code> (<code>[tool.setuptools.packages.find]</code>), aligning with OpenFisca-Tunisia conventions</li>
+<li>Add <code>Issues</code> and <code>Changelog</code> project URLs</li>
+<li><strong>Bugfix</strong>: Fix the PyPI deploy job failure that prevented 1.0.3 from being published</li>
+<li>Add <code>twine &gt;=6.0.0</code> to the <code>dev</code> extra and lock it in <code>uv.lock</code>, so the deploy job's <code>uv pip install twine</code> no longer upgrades <code>packaging</code> on the fly in the synced environment (which broke <code>twine upload</code> with <code>ImportError: cannot import name 'errors' from 'packaging'</code>)</li>
+</ul>
+<h2 id="103-79-python-312-compatibility">1.0.3 - <a href="https://github.com/openfisca/openfisca-ceq/pull/79">#79</a> - Python 3.12 compatibility<a class="headerlink" href="#103-79-python-312-compatibility" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Bugfix</strong>: Fix <code>AttributeError: module 'pkgutil' has no attribute 'ImpImporter'</code> at import time on Python &gt;= 3.12 (fixes <a href="https://github.com/openfisca/openfisca-ceq/issues/78">#78</a>)</li>
+<li>Replace <code>pkg_resources</code> with <code>importlib.resources</code> in <code>openfisca_ceq/tools/tax_benefit_system_ceq_completion.py</code> and <code>openfisca_ceq/tools/indirect_taxation/consumption_items_nomenclature.py</code></li>
+<li>Remove the <code>setuptools&lt;66</code> runtime dependency (no longer needed)</li>
+<li>Relax the <code>yamllint</code> dev dependency pin (<code>&lt;1.27</code> -&gt; <code>&lt;2</code>) so dev environments no longer pull <code>setuptools 65.7.0</code>, whose <code>pkg_resources</code> breaks on Python 3.12</li>
+<li>Regenerate <code>uv.lock</code> (<code>setuptools</code> is no longer locked)</li>
+</ul>
+<h2 id="102-76-bugfix-release">1.0.2 - <a href="https://github.com/openfisca/openfisca-ceq/pull/76">#76</a> - Bugfix release<a class="headerlink" href="#102-76-bugfix-release" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Bugfix</strong>: Documentation and deployment improvements</li>
+<li>Add PyPI deployment configuration guide</li>
+<li>Add verbose flag to twine upload for better error diagnostics</li>
+<li>Improve troubleshooting documentation</li>
+</ul>
+<h2 id="101-bugfix-release">1.0.1 - Bugfix release<a class="headerlink" href="#101-bugfix-release" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Bugfix</strong>: Fix deploy job in GitHub Actions workflow</li>
+<li>Create virtual environment before installing twine in deploy job</li>
+<li>Fixes error: "No virtual environment found" during PyPI deployment</li>
+</ul>
+<h2 id="100-migration-to-modern-python-tooling">1.0.0 - Migration to modern Python tooling<a class="headerlink" href="#100-migration-to-modern-python-tooling" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Major change</strong>: Complete migration to modern Python packaging and tooling.</li>
+<li><strong>Breaking changes</strong>:</li>
+<li><strong>Python 3.11 minimum required</strong> (previously Python 3.7+)</li>
+<li>Removed <code>setup.py</code> and <code>setup.cfg</code> in favor of <code>pyproject.toml</code></li>
+<li>Replaced <code>flake8</code> and <code>autopep8</code> with <code>ruff</code> for linting and formatting</li>
+<li>Replaced <code>pip</code> with <code>uv</code> for all package management operations</li>
+<li>Removed CircleCI in favor of GitHub Actions</li>
+<li><strong>Technical improvements</strong>:</li>
+<li>Modern Python packaging with <code>pyproject.toml</code> (PEP 517/518)</li>
+<li>Faster dependency management with <code>uv</code></li>
+<li>Improved code quality checks with <code>ruff</code></li>
+<li>Streamlined CI/CD with GitHub Actions</li>
+<li>Automatic PyPI deployment on master branch</li>
+<li>Automatic git tag creation on releases</li>
+<li><strong>Documentation</strong>:</li>
+<li>Updated installation instructions to use <code>uv</code></li>
+<li>Updated README with new tooling information</li>
+<li><strong>Migration guide</strong>:</li>
+<li><strong>Python 3.11 or higher is now required</strong> (upgrade from Python 3.7-3.10 if needed)</li>
+<li>Users should install <code>uv</code> before installing this package</li>
+<li>Developers should use <code>make install</code> which uses <code>uv sync</code></li>
+<li>All CI/CD now runs on GitHub Actions</li>
+</ul>
+<h2 id="041-59">0.4.1 - <a href="https://github.com/openfisca-ceq/pull/59">#59</a><a class="headerlink" href="#041-59" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Technical improvement.</li>
+<li>Details:</li>
+<li>Fix deps</li>
+</ul>
+<h2 id="040-43">0.4.0 - <a href="https://github.com/openfisca-ceq/pull/43">#43</a><a class="headerlink" href="#040-43" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Technical improvement.</li>
+<li>Impacted periods: all.</li>
+<li>Details:</li>
+<li>Add education unit cost by country</li>
+</ul>
+<h2 id="031-41">0.3.1 - <a href="https://github.com/openfisca-ceq/pull/41">#41</a><a class="headerlink" href="#031-41" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Many changes</li>
+</ul>
+<h2 id="025-30">0.2.5 - <a href="https://github.com/openfisca-ceq/pull/30">#30</a><a class="headerlink" href="#025-30" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Remove CEQ framework test with openfisca-cote-d-ivoire</li>
+</ul>
+<h2 id="024-16">0.2.4 - <a href="https://github.com/openfisca-ceq/pull/16">#16</a><a class="headerlink" href="#024-16" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Remove CEQ framework test with openfisca-cote-d-ivoire</li>
+</ul>
+<h2 id="023-12">0.2.3 - <a href="https://github.com/openfisca-ceq/pull/12">#12</a><a class="headerlink" href="#023-12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Fix test</li>
+</ul>
+<h2 id="022-11">0.2.2 - <a href="https://github.com/openfisca-ceq/pull/11">#11</a><a class="headerlink" href="#022-11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Fix module discovery</li>
+</ul>
+<h2 id="021-10">0.2.1 - <a href="https://github.com/openfisca-ceq/pull/10">#10</a><a class="headerlink" href="#021-10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Fix dependency</li>
+</ul>
+<h2 id="020-x">0.2.0 - <a href="https://github.com/openfisca-ceq/pull/X">#X</a><a class="headerlink" href="#020-x" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Clean obsolete boiler-plate</li>
+<li>Create <code>add_ceq_framework</code></li>
+</ul>
+<h2 id="012-3">0.1.2 - <a href="https://github.com/openfisca-ceq/pull/3">#3</a><a class="headerlink" href="#012-3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minor change.</li>
+<li>Clean unnecessary comments</li>
+<li>Reoganize test folders</li>
+</ul>
+<h2 id="011-2">0.1.1 - <a href="https://github.com/openfisca-ceq/pull/2">#2</a><a class="headerlink" href="#011-2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Adapt test syntax to openfisca-core 25.2.2</li>
+<li>Improve Makefile</li>
+</ul>
+<h2 id="010-">0.1.0 - <a href="https://github.com/openfisca-ceq">#</a><a class="headerlink" href="#010-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fisrt implementation of CEQ</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
