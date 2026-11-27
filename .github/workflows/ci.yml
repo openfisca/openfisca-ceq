@@ -134,6 +134,12 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         VERSION=$(uv run python -c "import tomllib; f = open('pyproject.toml', 'rb'); print(tomllib.load(f)['project']['version'])")
-        git tag -a "v${VERSION}" -m "Release version ${VERSION}"
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
-        git push origin "v${VERSION}"
+        # Idempotent : les push master sans bump de version ne doivent pas échouer
+        # si le tag existe déjà (le tag n'est créé qu'une fois par version).
+        if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
+          echo "Tag v${VERSION} already exists, skipping tag creation."
+        else
+          git tag -a "v${VERSION}" -m "Release version ${VERSION}"
+          git push origin "v${VERSION}"
+        fi
